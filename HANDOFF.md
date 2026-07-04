@@ -48,6 +48,14 @@ Claude Design（claude.ai/design）からエクスポートされた TRPG UI デ
 - デバイス3切替: フレーム寸法変更、スマホでレール→タブバー切替
 - JS エラーなし
 
+## 公開（2026-07-05〜）
+
+- **公開URL**: https://andorole.github.io/trpg/ （GitHub Pages。スマホからも遊べる）
+- リポジトリ: https://github.com/andorole/trpg （公開・アカウント andorole・gh CLI 認証済み）
+- ルートの `index.html` は `implementation/` への転送ページ
+- **更新手順**: ファイルを直したら `node tools/build.js` → `git add -A && git commit && git push`。
+  push から1分ほどで自動的に公開へ反映される（Pages は main ブランチのルートを配信）
+
 ## この環境（Windows / OneDrive）での検証手順
 
 旧メモの Playwright 手順は前の一時コンテナ（Linux）のもので、この環境では使わない。
