@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#0b0e13;}
+  @keyframes scfade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+  @keyframes stampin{0%{transform:rotate(-12deg) scale(1.7);opacity:0}60%{transform:rotate(-6deg) scale(.96);opacity:1}100%{transform:rotate(-6deg) scale(1)}}
+  @keyframes lampflicker{0%,100%{opacity:1}92%{opacity:1}93%{opacity:.55}94%{opacity:1}97%{opacity:.8}98%{opacity:1}}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-thumb{background:rgba(217,164,65,.28);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:34px 20px 96px;box-sizing:border-box;font-family:'Shippori Mincho',serif;background:radial-gradient(120% 95% at 50% 0%,#141a24 0%,#0b0e13 58%,#06080c 100%);color:#e8e0cc;">
+
+  <div style="position:relative;width:{{ frameW }}px;height:{{ frameH }}px;max-width:100%;background:linear-gradient(178deg,#171d28,#12161f 55%,#0e1118);border:1px solid rgba(217,164,65,.32);border-radius:7px;box-shadow:0 34px 90px -22px rgba(0,0,0,.85),0 0 0 8px rgba(4,6,9,.6),inset 0 0 130px rgba(10,14,22,.6);overflow:hidden;display:flex;flex-direction:column;">
+
+    <div style="position:absolute;inset:0;pointer-events:none;animation:lampflicker 9s linear infinite;background-image:radial-gradient(90% 50% at 50% 0%,rgba(217,164,65,.09),transparent 55%),repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0 1px,transparent 1px 3px);"></div>
+
+    <header style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 22px;border-bottom:1px solid rgba(217,164,65,.26);background:linear-gradient(180deg,rgba(24,31,43,.9),rgba(16,20,29,.5));">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #d9a441;color:#d9a441;font-family:'Shippori Mincho',serif;font-weight:800;font-size:13px;">門</span>
+        <div>
+          <div style="font-size:9px;letter-spacing:2px;color:#8d93a0;font-family:'IBM Plex Mono',monospace;">夢境出入国管理局 ・ 第0号検問所</div>
+          <div style="display:flex;align-items:baseline;gap:10px;">
+            <span style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:19px;letter-spacing:2px;color:#e8e0cc;">存在しない国の入国審査</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#d9a441;">TERRA NULLIUS</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:12px;letter-spacing:1px;color:#8d93a0;">{{ playLabel }}</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 10px;border:1px solid rgba(217,164,65,.5);border-radius:3px;color:#d9a441;background:rgba(217,164,65,.07);">今夜 03:14 ・ 開門中</span>
+      </div>
+    </header>
+
+    <div style="position:relative;z-index:2;flex:1;display:flex;min-height:0;">
+
+      <sc-if value="{{ showRail }}" hint-placeholder-val="{{ true }}">
+        <nav style="width:{{ railW }}px;flex:none;border-right:1px solid rgba(217,164,65,.16);background:linear-gradient(180deg,rgba(217,164,65,.04),transparent);padding:15px 10px;display:flex;flex-direction:column;gap:3px;overflow-y:auto;">
+          <sc-for list="{{ nav }}" as="item" hint-placeholder-count="8">
+            <button onClick="{{ item.go }}" style="display:flex;align-items:center;gap:11px;width:100%;padding:9px 11px;border:0;border-radius:5px;cursor:pointer;text-align:left;background:{{ item.bg }};color:{{ item.color }};font-family:'Shippori Mincho',serif;font-size:14px;font-weight:{{ item.weight }};">
+              <span style="width:22px;height:22px;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'Shippori Mincho',serif;font-weight:700;border-radius:3px;transform:rotate(-5deg);background:{{ item.badgeBg }};color:{{ item.badgeColor }};border:{{ item.badgeBorder }};">{{ item.badge }}</span>
+              <span style="{{ item.labelStyle }}">{{ item.label }}</span>
+            </button>
+          </sc-for>
+        </nav>
+      </sc-if>
+
+      <main style="flex:1;min-width:0;overflow-y:auto;padding:{{ mainPad }};">
+
+        <sc-if value="{{ isTop }}" hint-placeholder-val="{{ true }}">
+          <div data-screen-label="検問所" style="animation:scfade .4s ease;max-width:760px;margin:0 auto;">
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#8d93a0;margin:0 0 7px;">勤務記録 ・ 第几夜かは不明</p>
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:36px;line-height:1.2;margin:0 0 14px;color:#e8e0cc;">今夜も、国境は開く</h1>
+            <p style="font-size:15px;line-height:2.0;color:#b9b2a0;margin:0 0 10px;max-width:60ch;">この検問所は、どの地図にも載っていない。それでも日が沈むと、霧の向こうから列ができる。行き先は「アルカディア」——<b style="color:#d9a441;">存在しない国</b>。あなたの仕事は、存在しない国への入国を、正しく審査することだ。</p>
+            <p style="font-family:'DotGothic16',monospace;font-size:12px;color:#6fd3d8;margin:0 0 24px;">※存在しないことと、入国できないことは、別の問題です。</p>
+
+            <div style="border:1px solid rgba(217,164,65,.3);border-radius:5px;padding:14px 16px;margin:0 0 28px;background:rgba(217,164,65,.04);">
+              <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 9px;">■ 本日の通達（管理局）</p>
+              <div style="font-size:14px;line-height:2.0;color:#c9c2ad;">
+                一、外交旅券の所持者は、顔の有無を問わず丁重に。<br>
+                二、犬が吠えた場合、犬の判断を優先すること。<br>
+                三、<span style="text-decoration:line-through;text-decoration-color:rgba(192,74,58,.8);">本日の合言葉は「帰らない」</span> <span style="font-family:'DotGothic16',monospace;font-size:12px;color:#6fd3d8;">←この項は誰かが消した。筆跡はあなたのもの。</span>
+              </div>
+              <p style="font-size:10px;color:#7d8492;margin:9px 0 0;">※通達のうち一項は虚偽です。どの項かは通達されません。</p>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 12px;">■ 勤務形態を選択</p>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 30px;">
+              <sc-for list="{{ playModes }}" as="m" hint-placeholder-count="3">
+                <button onClick="{{ m.go }}" style="text-align:left;padding:14px 15px;border-radius:5px;cursor:pointer;border:{{ m.border }};background:{{ m.bg }};">
+                  <div style="font-family:'Shippori Mincho',serif;font-size:14px;font-weight:700;color:{{ m.titleColor }};margin-bottom:5px;">{{ m.t }}</div>
+                  <div style="font-size:12px;line-height:1.7;color:#8d93a0;">{{ m.d }}</div>
+                </button>
+              </sc-for>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 14px;">■ 本日の勤務員</p>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:28px;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:96px;"><div style="width:62px;height:62px;border-radius:50%;border:2px solid #d9a441;background:repeating-linear-gradient(45deg,rgba(217,164,65,.14) 0 5px,transparent 5px 10px),rgba(23,29,40,.7);"></div><div style="font-size:13px;color:#e8e0cc;">ノクト</div><div style="font-size:11px;color:#8d93a0;">三等審査官・あなた</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:96px;"><div style="width:62px;height:62px;border-radius:50%;border:2px solid #d9a441;background:repeating-linear-gradient(45deg,rgba(217,164,65,.14) 0 5px,transparent 5px 10px),rgba(23,29,40,.7);"></div><div style="font-size:13px;color:#e8e0cc;">ヴェスパー</div><div style="font-size:11px;color:#8d93a0;">管理官</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:96px;"><div style="width:62px;height:62px;border-radius:50%;border:2px solid #d9a441;background:repeating-linear-gradient(45deg,rgba(217,164,65,.14) 0 5px,transparent 5px 10px),rgba(23,29,40,.7);"></div><div style="font-size:13px;color:#e8e0cc;">セロ</div><div style="font-size:11px;color:#8d93a0;">国境警備犬</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:96px;"><div style="width:62px;height:62px;border-radius:50%;border:2px dashed rgba(217,164,65,.5);background:rgba(23,29,40,.4);"></div><div style="font-size:13px;color:#8d93a0;">窓口の老人</div><div style="font-size:11px;color:#7d8492;">在職年数不明</div></div>
+            </div>
+
+            <button style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:2px solid #d9a441;border-radius:5px;cursor:pointer;background:linear-gradient(180deg,#e2b355,#b8862f);color:#191104;font-family:'Shippori Mincho',serif;font-weight:800;font-size:15px;letter-spacing:3px;box-shadow:0 10px 24px -8px rgba(217,164,65,.4);">開門する　➜</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isSheet }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="審査官手帳" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <div style="display:flex;gap:20px;align-items:flex-start;margin-bottom:20px;">
+              <div style="width:88px;height:110px;flex:none;border:1px solid rgba(217,164,65,.4);background:repeating-linear-gradient(45deg,rgba(217,164,65,.09) 0 6px,transparent 6px 12px),rgba(23,29,40,.6);display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:1px;color:#8d93a0;text-align:center;">官職写真<br>（現像中）</div>
+              <div style="flex:1;min-width:0;">
+                <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#8d93a0;margin:0 0 4px;">官職番号 IMG-0000-N ・ 審査官手帳</p>
+                <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;margin:0 0 4px;color:#e8e0cc;">ノクト・レイヴェル</h1>
+                <p style="font-size:13px;color:#8d93a0;margin:0 0 10px;">三等審査官 ・ 夜勤専従 ・ 勤続年数：記録なし</p>
+                <div style="display:flex;gap:7px;flex-wrap:wrap;">
+                  <span style="font-size:11px;padding:3px 9px;border-radius:2px;border:1px solid rgba(217,164,65,.4);color:#c9c2ad;">不眠体質</span>
+                  <span style="font-size:11px;padding:3px 9px;border-radius:2px;border:1px solid rgba(217,164,65,.4);color:#c9c2ad;">印影を見分ける目</span>
+                  <span style="font-size:11px;padding:3px 9px;border-radius:2px;border:1px solid rgba(111,211,216,.5);color:#6fd3d8;">夢を見ない（重要）</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:22px;">
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#8d93a0;margin-bottom:4px;"><span>体力</span><span style="font-family:'IBM Plex Mono',monospace;">12 / 16</span></div><div style="height:9px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:75%;height:100%;background:#b0603f;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#8d93a0;margin-bottom:4px;"><span>覚醒度</span><span style="font-family:'IBM Plex Mono',monospace;">7 / 10</span></div><div style="height:9px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:70%;height:100%;background:#d9a441;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#8d93a0;margin-bottom:4px;"><span>実在感</span><span style="font-family:'IBM Plex Mono',monospace;color:#6fd3d8;">63%</span></div><div style="height:9px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:63%;height:100%;background:#4f8f94;"></div></div><div style="font-size:9px;color:#7d8492;margin-top:3px;">※勤務を続けると減少します</div></div>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 12px;">■ 能力</p>
+            <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:0;border:1px solid rgba(217,164,65,.3);border-radius:5px;overflow:hidden;margin-bottom:24px;background:rgba(255,255,255,.02);">
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(217,164,65,.14);"><div style="font-size:10px;color:#8d93a0;">観察</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#e8e0cc;line-height:1.25;">17</div><div style="font-size:10px;color:#d9a441;">＋3</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(217,164,65,.14);"><div style="font-size:10px;color:#8d93a0;">直感</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#e8e0cc;line-height:1.25;">14</div><div style="font-size:10px;color:#d9a441;">＋2</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(217,164,65,.14);"><div style="font-size:10px;color:#8d93a0;">威厳</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#e8e0cc;line-height:1.25;">12</div><div style="font-size:10px;color:#d9a441;">＋1</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(217,164,65,.14);"><div style="font-size:10px;color:#8d93a0;">事務</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#e8e0cc;line-height:1.25;">15</div><div style="font-size:10px;color:#d9a441;">＋2</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(217,164,65,.14);"><div style="font-size:10px;color:#8d93a0;">胆力</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#e8e0cc;line-height:1.25;">13</div><div style="font-size:10px;color:#d9a441;">＋1</div></div>
+              <div style="padding:10px 4px;text-align:center;"><div style="font-size:10px;color:#6fd3d8;">実在</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#6fd3d8;line-height:1.25;">8</div><div style="font-size:10px;color:#c04a3a;">−1</div></div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 10px;">■ 技能</p>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#c9c2ad;padding:6px 0;border-bottom:1px dotted rgba(217,164,65,.22);"><span>印影鑑定</span><span style="font-family:'IBM Plex Mono',monospace;color:#d9a441;">+7</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#c9c2ad;padding:6px 0;border-bottom:1px dotted rgba(217,164,65,.22);"><span>虚偽看破</span><span style="font-family:'IBM Plex Mono',monospace;color:#d9a441;">+6</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#c9c2ad;padding:6px 0;border-bottom:1px dotted rgba(217,164,65,.22);"><span>書類整理</span><span style="font-family:'IBM Plex Mono',monospace;color:#d9a441;">+4</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#c9c2ad;padding:6px 0;"><span>夢語り</span><span style="font-family:'IBM Plex Mono',monospace;color:#c04a3a;">−2</span></div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 10px;">■ 特性</p>
+                <div style="border:1px solid rgba(217,164,65,.3);border-radius:5px;padding:11px 13px;margin-bottom:9px;background:rgba(255,255,255,.02);"><div style="font-size:13px;font-weight:700;color:#e8e0cc;margin-bottom:3px;">二度見</div><div style="font-size:12px;line-height:1.7;color:#8d93a0;">一晩に一度だけ、書類を「本当の姿」で見ることができる。見たものを信じるかは別の話。</div></div>
+                <div style="border:1px solid rgba(111,211,216,.4);border-radius:5px;padding:11px 13px;background:rgba(111,211,216,.04);"><div style="font-size:13px;font-weight:700;color:#6fd3d8;margin-bottom:3px;">越境者の記憶</div><div style="font-size:12px;line-height:1.7;color:#8d93a0;">自分がこの検問所の「どちら側」から来たのか、思い出せない。管理官だけが知っている。</div></div>
+              </div>
+            </div>
+            <p style="margin-top:22px;font-size:13px;line-height:1.9;color:#8d93a0;border-left:3px solid rgba(217,164,65,.4);padding-left:14px;">手帳の余白より：「審査官の心得。書類を疑え、旅人を疑うな。逆にすると、この仕事は続かない」</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isDice }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="照合判定" style="animation:scfade .4s ease;max-width:560px;margin:0 auto;text-align:center;">
+            <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 4px;">■ 旅券の照合判定 ・ 難度 15</p>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 24px;">
+              <div style="width:118px;height:118px;border:4px solid #3f9268;border-radius:6px;transform:rotate(-6deg);animation:stampin .5s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#4fae7d;background:rgba(63,146,104,.05);">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:44px;font-weight:600;line-height:1;">18</span>
+                <span style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:15px;letter-spacing:6px;border-top:2px solid #3f9268;padding-top:3px;margin-top:4px;">許　可</span>
+              </div>
+              <div style="font-size:14px;color:#8d93a0;margin-top:6px;">d20 ＝ 13 ＋ 印影鑑定 5</div>
+              <div style="font-size:14px;letter-spacing:2px;color:#4fae7d;font-weight:700;">＝ 18 ・ 照合成立 ・ 通過を認める</div>
+              <p style="font-family:'DotGothic16',monospace;font-size:12px;color:#6fd3d8;margin:4px 0 0;">……いま、一瞬「拒否」と読めなかったか？</p>
+            </div>
+            <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;">
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(217,164,65,.3);color:#8d93a0;">d4</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(217,164,65,.3);color:#8d93a0;">d6</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(217,164,65,.3);color:#8d93a0;">d8</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(217,164,65,.3);color:#8d93a0;">d10</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(217,164,65,.3);color:#8d93a0;">d12</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:2px solid #d9a441;color:#e8e0cc;background:rgba(217,164,65,.1);font-weight:600;">d20</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(217,164,65,.3);color:#8d93a0;">d100</span>
+            </div>
+            <button style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:2px solid #d9a441;border-radius:5px;cursor:pointer;background:linear-gradient(180deg,#e2b355,#b8862f);color:#191104;font-family:'Shippori Mincho',serif;font-weight:800;font-size:15px;letter-spacing:3px;box-shadow:0 10px 24px -8px rgba(217,164,65,.4);">審査印を押す</button>
+            <div style="margin-top:26px;text-align:left;">
+              <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 9px;">■ 今夜の審査記録</p>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#c9c2ad;padding:7px 0;border-bottom:1px dotted rgba(217,164,65,.22);"><span>一人目 ・ 商人フェン ・ 印影鑑定</span><span style="font-family:'IBM Plex Mono',monospace;color:#4fae7d;">18 ／ 許可</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#c9c2ad;padding:7px 0;border-bottom:1px dotted rgba(217,164,65,.22);"><span>二人目 ・ 名を思い出せない男 ・ 虚偽看破</span><span style="font-family:'IBM Plex Mono',monospace;color:#c04a3a;">6 ／ 失敗——通してしまった</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#c9c2ad;padding:7px 0;"><span>犬のセロ ・ 吠えるべきか ・ 直感</span><span style="font-family:'IBM Plex Mono',monospace;color:#4fae7d;">20 ／ 大成功（吠えなかった）</span></div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isCombat }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="検問の列" style="animation:scfade .4s ease;max-width:780px;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0;color:#e8e0cc;">検問の列 ・ 三人目を審査中</h1>
+              <div style="display:flex;gap:8px;"><button style="padding:8px 15px;border:1px solid rgba(217,164,65,.4);border-radius:3px;background:transparent;color:#c9c2ad;cursor:pointer;font-family:'Shippori Mincho',serif;font-size:13px;">保留室へ送る</button><button style="padding:8px 15px;border:2px solid #d9a441;border-radius:3px;background:linear-gradient(180deg,#e2b355,#b8862f);color:#191104;cursor:pointer;font-weight:800;font-size:13px;font-family:'Shippori Mincho',serif;">次の窓口へ</button></div>
+            </div>
+            <p style="font-size:12px;color:#7d8492;margin:0 0 16px;">列の長さ：目視不能 ・ 霧の濃度：中 ・ 犬の機嫌：普通</p>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:5px;border:2px solid #d9a441;background:rgba(217,164,65,.06);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#d9a441;color:#191104;border-radius:3px;">3</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #d9a441;background:repeating-linear-gradient(45deg,rgba(217,164,65,.16) 0 4px,transparent 4px 8px),rgba(23,29,40,.7);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#e8e0cc;">「アンナ・ヴェイル」 <span style="font-size:11px;color:#d9a441;">審査中</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(217,164,65,.12);color:#d9a441;">旅券が温かい</span><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(111,211,216,.12);color:#6fd3d8;">帰郷と主張</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#8d93a0;margin-bottom:3px;"><span>発見した矛盾</span><span style="font-family:'IBM Plex Mono',monospace;">2 / 3</span></div><div style="height:8px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:66%;height:100%;background:linear-gradient(90deg,#4f8f94,#d9a441);"></div></div><div style="font-size:9px;color:#7d8492;margin-top:2px;">※3つ揃えば審問へ移行できる</div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:5px;border:1px solid rgba(192,74,58,.5);background:rgba(192,74,58,.04);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(255,255,255,.08);color:#8d93a0;border-radius:3px;">4</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #c04a3a;background:rgba(23,29,40,.9);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#c96a52;">顔のない外交官 <span style="font-size:11px;color:#8d93a0;">待機中 ・ 外交旅券</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(192,74,58,.12);color:#c96a52;">通達第一項の対象</span><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(255,255,255,.06);color:#8d93a0;">周囲の気温−3℃</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#8d93a0;margin-bottom:3px;"><span>発見した矛盾</span><span style="font-family:'IBM Plex Mono',monospace;color:#c96a52;">？ / ？</span></div><div style="height:8px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:100%;height:100%;background:repeating-linear-gradient(90deg,rgba(192,74,58,.35) 0 6px,transparent 6px 12px);"></div></div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:5px;border:1px solid rgba(217,164,65,.2);background:rgba(255,255,255,.02);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(255,255,255,.08);color:#8d93a0;border-radius:3px;">5</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid rgba(217,164,65,.5);background:repeating-linear-gradient(45deg,rgba(217,164,65,.1) 0 4px,transparent 4px 8px),rgba(23,29,40,.7);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#e8e0cc;">少女（名乗らない）</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(111,211,216,.12);color:#6fd3d8;">旅券が白紙</span><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(255,255,255,.06);color:#8d93a0;">「おじいちゃんに会いに行くの」</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#8d93a0;margin-bottom:3px;"><span>発見した矛盾</span><span style="font-family:'IBM Plex Mono',monospace;">0 / 1</span></div><div style="height:8px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:4%;height:100%;background:#4f8f94;"></div></div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:5px;border:1px dashed rgba(217,164,65,.3);background:transparent;opacity:.7;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7d8492;border:1px dashed rgba(217,164,65,.4);border-radius:3px;">6+</span><div style="flex:1;"><div style="font-size:14px;color:#8d93a0;">以降の列は霧の中 <span style="font-family:'DotGothic16',monospace;font-size:11px;color:#6fd3d8;">——数えるたびに一人増えている</span></div></div></div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isInv }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="押収品保管庫" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+              <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0;color:#e8e0cc;">押収品保管庫</h1>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8d93a0;">保管番号 083〜097 ・ 施錠：二重</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:22px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 11px;">■ 官給品（あなたの装備）</p>
+                <div style="padding:11px 13px;border:1px solid rgba(217,164,65,.3);border-radius:5px;margin-bottom:8px;background:rgba(255,255,255,.02);"><div style="font-size:14px;font-weight:700;color:#e8e0cc;">審査印〔許可／拒否〕</div><div style="font-size:12px;color:#8d93a0;margin-top:3px;">両面式。どちらの面を押したか、稀に記憶と食い違う。</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(217,164,65,.3);border-radius:5px;margin-bottom:8px;background:rgba(255,255,255,.02);"><div style="font-size:14px;font-weight:700;color:#e8e0cc;">ランプ（燈油式）</div><div style="font-size:12px;color:#8d93a0;margin-top:3px;">瞬いた回数は記録すること。今夜はすでに3回。</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(217,164,65,.3);border-radius:5px;background:rgba(255,255,255,.02);"><div style="font-size:14px;font-weight:700;color:#e8e0cc;">審査官手帳</div><div style="font-size:12px;color:#8d93a0;margin-top:3px;">最後の頁に、書いた覚えのない住所。</div></div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 11px;">■ 押収品台帳</p>
+                <div style="border:1px solid rgba(217,164,65,.22);border-radius:4px;padding:10px 13px;margin-bottom:8px;background:rgba(255,255,255,.02);"><div style="display:flex;justify-content:space-between;font-size:13px;color:#e8e0cc;"><span style="font-weight:700;">偽造印章</span><span style="font-family:'IBM Plex Mono',monospace;color:#8d93a0;">No.083</span></div><div style="font-size:11px;color:#8d93a0;margin-top:2px;">精巧。握ると体温がある。本物より本物らしい、が問題。</div></div>
+                <div style="border:1px solid rgba(217,164,65,.22);border-radius:4px;padding:10px 13px;margin-bottom:8px;background:rgba(255,255,255,.02);"><div style="display:flex;justify-content:space-between;font-size:13px;color:#e8e0cc;"><span style="font-weight:700;">存在しない都市の絵葉書 ×12</span><span style="font-family:'IBM Plex Mono',monospace;color:#8d93a0;">No.084</span></div><div style="font-size:11px;color:#8d93a0;margin-top:2px;">消印はすべて未来の日付。風景は毎朝すこし変わる。</div></div>
+                <div style="border:1px solid rgba(217,164,65,.22);border-radius:4px;padding:10px 13px;margin-bottom:8px;background:rgba(255,255,255,.02);"><div style="display:flex;justify-content:space-between;font-size:13px;color:#e8e0cc;"><span style="font-weight:700;">誰も吹けない口笛</span><span style="font-family:'IBM Plex Mono',monospace;color:#8d93a0;">No.091</span></div><div style="font-size:11px;color:#8d93a0;margin-top:2px;">金属製。吹くと音の代わりに静寂が出る。犬が嫌う。</div></div>
+                <div style="border:1px solid rgba(192,74,58,.5);border-radius:4px;padding:10px 13px;background:rgba(192,74,58,.04);"><div style="display:flex;justify-content:space-between;font-size:13px;color:#e8e0cc;"><span style="font-weight:700;">手紙（宛先：あなた）</span><span style="font-family:'IBM Plex Mono',monospace;color:#c96a52;">No.097</span></div><div style="font-size:11px;color:#c96a52;margin-top:2px;">未開封。差出人欄の筆跡は、あなた自身のもの。開封は推奨されない。</div></div>
+                <div style="margin-top:14px;border:1px solid rgba(217,164,65,.3);border-radius:5px;padding:13px 15px;background:rgba(255,255,255,.02);"><div style="font-size:13px;font-weight:700;color:#e8e0cc;margin-bottom:5px;">保管庫規則 第4条</div><div style="font-size:12px;line-height:1.8;color:#8d93a0;">押収品が夜間に増えていた場合、増えた分も台帳に記載すること。<span style="font-family:'DotGothic16',monospace;color:#6fd3d8;">誰が持ち込んだかは、調べないこと。</span></div></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStory }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="審査記録" style="animation:scfade .4s ease;max-width:640px;margin:0 auto;">
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#8d93a0;text-align:center;margin:0 0 6px;">審査記録 ・ 今夜の三人目</p>
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;text-align:center;margin:0 0 4px;color:#e8e0cc;">「アンナ・ヴェイル」</h1>
+            <div style="display:flex;align-items:center;gap:12px;margin:16px 0 22px;color:#d9a441;"><span style="flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(217,164,65,.5));"></span><span style="font-size:12px;">✧</span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(217,164,65,.5),transparent);"></span></div>
+            <p style="font-size:16px;line-height:2.05;color:#c9c2ad;margin:0 0 18px;">窓口に置かれた旅券は、革ではなく、何かもっと柔らかいものでできていた。持ち上げると、かすかに温かい。「帰るんです」と彼女は言った。「アルカディアへ。生まれた町へ」。その目は嘘をついていない。<b style="color:#d9a441;">目は。</b></p>
+            <p style="font-size:16px;line-height:2.05;color:#c9c2ad;margin:0 0 22px;">セロは吠えなかった。ただ、彼女の影を——彼女より少し遅れて動く影を、じっと見ていた。</p>
+
+            <div style="border:1px solid rgba(217,164,65,.4);border-radius:6px;overflow:hidden;margin:0 0 10px;background:#efe9d8;color:#2a3140;box-shadow:0 14px 30px -12px rgba(0,0,0,.6);">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 16px;background:#e3dbc2;border-bottom:1px solid rgba(42,49,64,.25);">
+                <span style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:13px;letter-spacing:2px;">旅券 ・ アルカディア発行</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6b6350;">PASSPORT No. {{ doc.passNo }}</span>
+              </div>
+              <div style="display:flex;gap:16px;padding:14px 16px;">
+                <div style="width:74px;height:92px;flex:none;border:1px solid rgba(42,49,64,.35);background:repeating-linear-gradient(45deg,rgba(42,49,64,.08) 0 5px,transparent 5px 10px),#f7f2e3;display:flex;align-items:flex-end;justify-content:center;padding-bottom:5px;font-size:9px;color:#6b6350;">{{ doc.photo }}</div>
+                <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:7px;">
+                  <div style="display:flex;justify-content:space-between;border-bottom:1px dotted rgba(42,49,64,.3);padding-bottom:5px;"><span style="font-size:11px;color:#6b6350;">氏名</span><span style="font-family:'Shippori Mincho',serif;font-size:14px;{{ doc.nameStyle }}">{{ doc.name }}</span></div>
+                  <div style="display:flex;justify-content:space-between;border-bottom:1px dotted rgba(42,49,64,.3);padding-bottom:5px;"><span style="font-size:11px;color:#6b6350;">国籍</span><span style="font-family:'Shippori Mincho',serif;font-size:14px;{{ doc.nationStyle }}">{{ doc.nation }}</span></div>
+                  <div style="display:flex;justify-content:space-between;border-bottom:1px dotted rgba(42,49,64,.3);padding-bottom:5px;"><span style="font-size:11px;color:#6b6350;">出生地</span><span style="font-family:'Shippori Mincho',serif;font-size:14px;{{ doc.birthStyle }}">{{ doc.birth }}</span></div>
+                  <div style="display:flex;justify-content:space-between;"><span style="font-size:11px;color:#6b6350;">渡航目的</span><span style="font-family:'Shippori Mincho',serif;font-size:14px;color:#2a3140;">帰郷</span></div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 22px;">
+              <button onClick="{{ recheck }}" style="padding:10px 18px;border:2px solid #d9a441;border-radius:5px;cursor:pointer;background:transparent;color:#d9a441;font-family:'Shippori Mincho',serif;font-weight:700;font-size:13px;letter-spacing:1px;">{{ recheckLabel }}</button>
+              <sc-if value="{{ rechecked }}" hint-placeholder-val="{{ false }}">
+                <span style="font-family:'DotGothic16',monospace;font-size:12px;color:#6fd3d8;text-align:right;">記載が、さっきと違う。書類はあなたを試している。</span>
+              </sc-if>
+              <sc-if value="{{ notRechecked }}" hint-placeholder-val="{{ true }}">
+                <span style="font-size:11px;color:#7d8492;text-align:right;">※再確認するたび、記載は変わることがある。</span>
+              </sc-if>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 12px;">■ 審査官の行動</p>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(217,164,65,.35);border-radius:5px;background:rgba(255,255,255,.02);cursor:pointer;font-family:'Shippori Mincho',serif;font-size:14px;color:#e8e0cc;">①　矛盾を指摘する <span style="color:#d9a441;">虚偽看破 ・ 難度15</span></button>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(217,164,65,.35);border-radius:5px;background:rgba(255,255,255,.02);cursor:pointer;font-family:'Shippori Mincho',serif;font-size:14px;color:#e8e0cc;">②　見なかったことにして、許可印を押す</button>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;border:1px solid rgba(217,164,65,.35);border-radius:5px;background:rgba(255,255,255,.02);cursor:pointer;font-family:'Shippori Mincho',serif;font-size:14px;color:#e8e0cc;">③　「アルカディアは、どんな国ですか」と尋ねる</button>
+            <div style="margin-top:24px;height:5px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:33%;height:100%;background:linear-gradient(90deg,#b8862f,#d9a441);"></div></div>
+            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#7d8492;margin:7px 0 0;">今夜の審査 3/9件 ・ 夜明けまで あと3時間（推定）</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="国境図" style="animation:scfade .4s ease;max-width:840px;margin:0 auto;">
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0 0 4px;color:#e8e0cc;">国境図 ・ 本日 03:00 現在</h1>
+            <p style="font-size:12px;color:#7d8492;margin:0 0 16px;">国境は毎晩すこしずつ移動する。就寝前の地図が正とされる。誰も寝ていない場合の規定はない。</p>
+            <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:20px;">
+              <div style="position:relative;height:340px;border:1px solid rgba(217,164,65,.35);border-radius:6px;background-image:radial-gradient(circle at 70% 30%,rgba(111,211,216,.06),transparent 45%),repeating-linear-gradient(0deg,rgba(217,164,65,.05) 0 1px,transparent 1px 26px),repeating-linear-gradient(90deg,rgba(217,164,65,.05) 0 1px,transparent 1px 26px),rgba(255,255,255,.015);overflow:hidden;">
+                <div style="position:absolute;left:-8%;top:38%;width:120%;height:2px;background:#d9a441;transform:rotate(-7deg);box-shadow:0 0 8px rgba(217,164,65,.5);"></div>
+                <div style="position:absolute;left:-8%;top:56%;width:120%;height:0;border-top:2px dashed rgba(217,164,65,.4);transform:rotate(-3deg);"></div>
+                <div style="position:absolute;left:12%;top:30%;font-size:10px;color:#d9a441;letter-spacing:1px;">今夜の国境 ——</div>
+                <div style="position:absolute;left:12%;top:60%;font-size:10px;color:#8d93a0;letter-spacing:1px;">昨夜の国境 - - -</div>
+                <div style="position:absolute;left:44%;top:42%;display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="width:14px;height:14px;transform:rotate(45deg);background:#d9a441;border:1px solid #191104;box-shadow:0 0 0 4px rgba(217,164,65,.18);"></span><span style="font-size:10px;color:#e8e0cc;font-weight:700;">第0号検問所 ・ 現在地</span></div>
+                <div style="position:absolute;left:70%;top:16%;display:flex;flex-direction:column;align-items:center;gap:3px;opacity:.85;"><span style="width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#8fe6e0,#274b52 75%);box-shadow:0 0 10px rgba(111,211,216,.5);"></span><span style="font-family:'DotGothic16',monospace;font-size:10px;color:#6fd3d8;">アルカディア（自称・首都）</span></div>
+                <div style="position:absolute;left:18%;top:74%;display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="width:11px;height:11px;transform:rotate(45deg);background:#4f8f94;"></span><span style="font-size:10px;color:#8d93a0;">忘却の川（深さ未計測）</span></div>
+                <div style="position:absolute;right:10px;bottom:9px;font-size:10px;letter-spacing:1px;color:#7d8492;font-style:italic;">縮尺：信用しないこと</div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 11px;">■ 地点</p>
+                <div style="padding:11px 13px;border:2px solid #d9a441;border-radius:5px;margin-bottom:8px;background:rgba(217,164,65,.06);"><div style="font-size:14px;font-weight:700;color:#e8e0cc;">第0号検問所 <span style="font-size:10px;color:#d9a441;">現在地</span></div><div style="font-size:12px;color:#8d93a0;margin-top:3px;">霧の中に窓口がひとつ。ランプと犬と、あなた。</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(217,164,65,.25);border-radius:5px;margin-bottom:8px;background:rgba(255,255,255,.02);"><div style="font-size:14px;font-weight:700;color:#e8e0cc;">保留室</div><div style="font-size:12px;color:#8d93a0;margin-top:3px;">審査保留者の待合室。中では時間が流れない。お茶は出る。</div></div>
+                <div style="padding:11px 13px;border:1px dashed rgba(111,211,216,.5);border-radius:5px;background:rgba(111,211,216,.03);"><div style="font-size:14px;font-weight:700;color:#6fd3d8;">アルカディア</div><div style="font-size:12px;color:#8d93a0;margin-top:3px;">未確認。存在の証拠は、毎晩差し出される旅券だけ。</div></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isGM }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="上級審問室" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:23px;margin:0 0 4px;color:#e8e0cc;">{{ gmTitle }}</h1>
+            <p style="font-size:13px;color:#8d93a0;margin:0 0 20px;">管理官だけが読める頁。窓口のランプが瞬くのは、この頁がめくられた時だ。</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 11px;">■ 今夜の場面</p>
+                <div style="padding:11px 13px;border:2px solid #d9a441;border-radius:5px;margin-bottom:8px;background:rgba(217,164,65,.06);"><div style="font-size:14px;font-weight:700;color:#e8e0cc;">三人目の審査 <span style="font-size:10px;color:#d9a441;">進行中</span></div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(217,164,65,.25);border-radius:5px;margin-bottom:8px;background:rgba(255,255,255,.02);"><div style="font-size:14px;color:#8d93a0;">顔のない外交官の順番</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(217,164,65,.25);border-radius:5px;background:rgba(255,255,255,.02);"><div style="font-size:14px;color:#8d93a0;">夜明け（来るとは限らない）</div></div>
+                <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:20px 0 10px;">■ 国境の揺らぎ</p>
+                <div style="height:9px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:44%;height:100%;background:linear-gradient(90deg,#4f8f94,#c04a3a);"></div></div>
+                <p style="font-size:11px;color:#7d8492;margin:6px 0 0;">満ちると国境が検問所を「向こう側」へ置いて移動する。</p>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 11px;">■ 人物 ・ 秘匿情報</p>
+                <div style="border:1px solid rgba(217,164,65,.25);border-radius:5px;padding:11px 13px;margin-bottom:8px;background:rgba(255,255,255,.02);"><div style="font-size:14px;font-weight:700;color:#e8e0cc;">「アンナ・ヴェイル」</div><div style="font-size:12px;color:#8d93a0;margin-top:2px;">望み：帰郷。それは本心で、噓はどこにもない。</div><div style="font-size:12px;color:#c96a52;margin-top:4px;background:rgba(192,74,58,.08);border-radius:3px;padding:4px 8px;">秘密：アルカディアは、彼女が眠るたびに作り直される国。旅券が温かいのは、国が生きているから。</div></div>
+                <div style="border:1px solid rgba(217,164,65,.25);border-radius:5px;padding:11px 13px;background:rgba(255,255,255,.02);"><div style="font-size:14px;font-weight:700;color:#e8e0cc;">窓口の老人</div><div style="font-size:12px;color:#8d93a0;margin-top:2px;">初代審査官。実在感が薄れすぎて、もう誰にも解雇できない。</div></div>
+                <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:20px 0 10px;">■ 夜の異変表（d6）</p>
+                <div style="font-size:13px;color:#c9c2ad;line-height:1.9;">1–2 列が一人増えている ・ 3 ランプが瞬く<br>4 印章の位置が変わっている ・ 5 犬が誰もいない方を見る ・ 6 夜が明けない</div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+      </main>
+    </div>
+
+    <sc-if value="{{ showTabbar }}" hint-placeholder-val="{{ false }}">
+      <nav style="position:relative;z-index:2;display:flex;border-top:1px solid rgba(217,164,65,.3);background:rgba(14,17,24,.96);">
+        <sc-for list="{{ nav }}" as="item" hint-placeholder-count="7">
+          <button onClick="{{ item.go }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px;border:0;background:{{ item.tbBg }};color:{{ item.color }};cursor:pointer;">
+            <span style="width:19px;height:19px;flex:none;display:flex;align-items:center;justify-content:center;font-size:10px;font-family:'Shippori Mincho',serif;font-weight:700;border-radius:3px;transform:rotate(-5deg);background:{{ item.badgeBg }};color:{{ item.badgeColor }};border:{{ item.badgeBorder }};">{{ item.badge }}</span>
+            <span style="font-size:9px;letter-spacing:.5px;">{{ item.label }}</span>
+          </button>
+        </sc-for>
+      </nav>
+    </sc-if>
+
+    <div style="position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:50;display:flex;gap:3px;padding:5px;border-radius:999px;background:rgba(6,8,12,.88);backdrop-filter:blur(8px);box-shadow:0 8px 26px rgba(0,0,0,.55);border:1px solid rgba(217,164,65,.35);">
+      <sc-for list="{{ devs }}" as="d" hint-placeholder-count="3">
+        <button onClick="{{ d.go }}" style="padding:7px 16px;border:0;border-radius:999px;cursor:pointer;font-family:'Shippori Mincho',serif;font-weight:700;font-size:11px;letter-spacing:1.5px;background:{{ d.bg }};color:{{ d.color }};">{{ d.label }}</button>
+      </sc-for>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { device: 'desktop', play: 'gmpl', screen: 'top', rechecked: false };
+
+  renderVals() {
+    const { device, play, screen, rechecked } = this.state;
+    const frames = { phone: { w: 392, h: 828 }, tablet: { w: 900, h: 660 }, desktop: { w: 1240, h: 772 } };
+    const f = frames[device] || frames.desktop;
+    const isPhone = device === 'phone';
+    const compact = device === 'tablet';
+
+    const setScreen = (s) => this.setState({ screen: s });
+    const setPlay = (p) => this.setState((st) => ({ play: p, screen: (p === 'solo' && st.screen === 'gm') ? 'top' : st.screen }));
+    const setDevice = (d) => this.setState({ device: d });
+
+    const playLabel = { solo: '単独夜勤', gmpl: '管理局と審査官', gmless: '合議審査' }[play] || '';
+
+    const navDefs = [
+      ['top', '検問所', '門'],
+      ['sheet', '審査官手帳', '官'],
+      ['dice', '照合判定', '照'],
+      ['combat', '検問の列', '列'],
+      ['inventory', '押収品庫', '収'],
+      ['story', '審査記録', '録'],
+      ['map', '国境図', '図'],
+      ['gm', play === 'gmless' ? '合議室' : '審問室', '審'],
+    ];
+    const nav = navDefs
+      .filter((d) => d[0] !== 'gm' || play !== 'solo')
+      .map(([id, label, badge]) => {
+        const active = id === screen;
+        return {
+          id, label, badge, active,
+          go: () => setScreen(id),
+          color: active ? '#e8c876' : '#8d93a0',
+          bg: active ? 'rgba(217,164,65,0.1)' : 'transparent',
+          tbBg: active ? 'rgba(217,164,65,0.12)' : 'transparent',
+          weight: active ? '700' : '500',
+          badgeBg: active ? '#d9a441' : 'transparent',
+          badgeColor: active ? '#191104' : '#d9a441',
+          badgeBorder: active ? 'none' : '1.5px solid rgba(217,164,65,.55)',
+          labelStyle: compact ? 'display:none' : 'display:inline',
+        };
+      });
+
+    const playModes = [
+      ['solo', '単独夜勤', '手引書と犬だけを頼りに、独りで夜明けまで窓口を守る一人用。'],
+      ['gmpl', '管理局と審査官', '管理官（GM)が旅人と国境を、審査官たちが窓口を担う卓。'],
+      ['gmless', '合議審査', '審査印を回しながら、全員の合議で許可と拒否を決める卓。'],
+    ].map(([id, t, d]) => {
+      const active = id === play;
+      return {
+        id, t, d, active,
+        go: () => setPlay(id),
+        border: active ? '2px solid #d9a441' : '1px solid rgba(217,164,65,.25)',
+        bg: active ? 'rgba(217,164,65,.07)' : 'rgba(255,255,255,.02)',
+        titleColor: active ? '#e8c876' : '#c9c2ad',
+      };
+    });
+
+    const devs = [
+      ['phone', 'スマホ'], ['tablet', 'タブ'], ['desktop', 'PC'],
+    ].map(([id, label]) => {
+      const active = id === device;
+      return {
+        id, label, active,
+        go: () => setDevice(id),
+        bg: active ? '#d9a441' : 'transparent',
+        color: active ? '#191104' : '#c9c2ad',
+      };
+    });
+
+    const ink = 'color:#2a3140';
+    const lie = 'color:#b0392e;font-weight:700';
+    const doc = rechecked ? {
+      passNo: 'AR-3013-Δ',
+      photo: '（目を閉じている）',
+      name: 'アナ・ヴェイル ⚠', nameStyle: lie,
+      nation: 'アルカディア王国 ⚠', nationStyle: lie,
+      birth: '――――（空欄） ⚠', birthStyle: lie,
+    } : {
+      passNo: 'AR-3013-A',
+      photo: '（微笑んでいる）',
+      name: 'アンナ・ヴェイル', nameStyle: ink,
+      nation: 'アルカディア共和国', nationStyle: ink,
+      birth: '港町ミレー', birthStyle: ink,
+    };
+
+    return {
+      frameW: f.w, frameH: f.h, railW: compact ? 66 : 214,
+      mainPad: isPhone ? '22px 18px 26px' : '30px 34px 38px',
+      showRail: !isPhone, showTabbar: isPhone,
+      playLabel, nav, playModes, devs,
+      isTop: screen === 'top', isSheet: screen === 'sheet', isDice: screen === 'dice',
+      isCombat: screen === 'combat', isInv: screen === 'inventory', isStory: screen === 'story',
+      isMap: screen === 'map', isGM: screen === 'gm',
+      gmTitle: play === 'gmless' ? '合議室 — 回される審査印' : '上級審問室 — 管理官の帳',
+      doc, rechecked, notRechecked: !rechecked,
+      recheck: () => this.setState((s) => ({ rechecked: !s.rechecked })),
+      recheckLabel: rechecked ? '最初の記載に戻す' : '書類を再確認する',
+    };
+  }
+}
+</script>
+</body>
+</html>

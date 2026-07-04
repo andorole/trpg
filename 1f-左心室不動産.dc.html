@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#101216;}
+  @keyframes scfade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+  @keyframes heartbeat{0%,100%{transform:scale(1)}12%{transform:scale(1.18)}24%{transform:scale(1)}36%{transform:scale(1.12)}48%{transform:scale(1)}}
+  @keyframes stampin{0%{transform:rotate(-10deg) scale(1.6);opacity:0}60%{transform:rotate(-5deg) scale(.97);opacity:1}100%{transform:rotate(-5deg) scale(1)}}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-thumb{background:rgba(207,63,79,.3);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:34px 20px 96px;box-sizing:border-box;font-family:'Zen Maru Gothic',sans-serif;background:radial-gradient(120% 95% at 50% 0%,#1a1d24 0%,#101216 58%,#0a0b0e 100%);color:#3a352e;">
+
+  <div style="position:relative;width:{{ frameW }}px;height:{{ frameH }}px;max-width:100%;background:#fdfaf4;border:1px solid #e2d7c5;border-radius:14px;box-shadow:0 34px 90px -22px rgba(0,0,0,.75),0 0 0 8px rgba(8,9,12,.55);overflow:hidden;display:flex;flex-direction:column;">
+
+    <div style="position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle at 88% 6%,rgba(207,63,79,.05),transparent 34%),radial-gradient(circle at 8% 92%,rgba(63,95,168,.04),transparent 38%);"></div>
+
+    <header style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 22px;border-bottom:1px solid rgba(207,63,79,.18);background:linear-gradient(180deg,#fffdf9,#fbf5ec);">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;flex:none;border-radius:50%;background:radial-gradient(circle at 35% 30%,#e8697a,#b32e3f 75%);color:#fff;font-size:15px;animation:heartbeat 1.6s ease-in-out infinite;box-shadow:0 3px 8px rgba(179,46,63,.35);">♥</span>
+        <div>
+          <div style="font-size:9px;letter-spacing:2px;color:#a89a86;">体内賃貸専門 ・ 宅体建物取引業 王国知事（生）第1号</div>
+          <div style="display:flex;align-items:baseline;gap:10px;">
+            <span style="font-weight:900;font-size:20px;letter-spacing:1px;color:#b32e3f;">左心室不動産</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:#a89a86;">SASHINSHITSU HOUSING</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:12px;letter-spacing:1px;color:#7a7264;">{{ playLabel }}</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 10px;border:1px solid rgba(207,63,79,.4);border-radius:999px;color:#b32e3f;background:rgba(207,63,79,.06);">♥ 心拍 72bpm ・ 平常</span>
+      </div>
+    </header>
+
+    <div style="position:relative;z-index:2;flex:1;display:flex;min-height:0;">
+
+      <sc-if value="{{ showRail }}" hint-placeholder-val="{{ true }}">
+        <nav style="width:{{ railW }}px;flex:none;border-right:1px solid rgba(207,63,79,.14);background:linear-gradient(180deg,rgba(207,63,79,.03),transparent);padding:15px 10px;display:flex;flex-direction:column;gap:3px;overflow-y:auto;">
+          <sc-for list="{{ nav }}" as="item" hint-placeholder-count="8">
+            <button onClick="{{ item.go }}" style="display:flex;align-items:center;gap:11px;width:100%;padding:9px 11px;border:0;border-radius:999px;cursor:pointer;text-align:left;background:{{ item.bg }};color:{{ item.color }};font-family:'Zen Maru Gothic',sans-serif;font-size:14px;font-weight:{{ item.weight }};">
+              <span style="width:22px;height:22px;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border-radius:50%;background:{{ item.badgeBg }};color:{{ item.badgeColor }};border:{{ item.badgeBorder }};">{{ item.badge }}</span>
+              <span style="{{ item.labelStyle }}">{{ item.label }}</span>
+            </button>
+          </sc-for>
+        </nav>
+      </sc-if>
+
+      <main style="flex:1;min-width:0;overflow-y:auto;padding:{{ mainPad }};">
+
+        <sc-if value="{{ isTop }}" hint-placeholder-val="{{ true }}">
+          <div data-screen-label="物件一覧" style="animation:scfade .4s ease;max-width:760px;margin:0 auto;">
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#a89a86;margin:0 0 7px;">本日の新着 2件 ・ 宿主のご機嫌：おおむね良好</p>
+            <h1 style="font-weight:900;font-size:34px;line-height:1.25;margin:0 0 12px;color:#3a352e;">あなたの終の棲家は、<br>誰かの身体の中に。</h1>
+            <p style="font-size:15px;line-height:2.0;color:#6b6353;margin:0 0 18px;max-width:58ch;">大森林を三日歩いても端に着かない——それもそのはず、あれは<b style="color:#b32e3f;">巨大生物〈オオヌシ様〉</b>の背中です。当社は体内物件のパイオニアとして、心臓から盲腸まで、あたたかい（36.8℃）お部屋をご紹介しています。</p>
+
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin:0 0 24px;">
+              <span style="font-size:12px;padding:6px 14px;border-radius:999px;border:1px solid rgba(207,63,79,.35);color:#b32e3f;background:#fff;">家賃上限 1,000cc/月</span>
+              <span style="font-size:12px;padding:6px 14px;border-radius:999px;border:1px solid rgba(58,53,46,.2);color:#6b6353;background:#fff;">間取り 1R〜3LDK</span>
+              <span style="font-size:12px;padding:6px 14px;border-radius:999px;border:1px solid rgba(58,53,46,.2);color:#6b6353;background:#fff;">室温 36℃〜38℃</span>
+              <span style="font-size:12px;padding:6px 14px;border-radius:999px;border:1px solid rgba(58,53,46,.2);color:#6b6353;background:#fff;">ペット可（寄生虫に限る）</span>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 12px;">● ご契約形態をお選びください</p>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 28px;">
+              <sc-for list="{{ playModes }}" as="m" hint-placeholder-count="3">
+                <button onClick="{{ m.go }}" style="text-align:left;padding:14px 15px;border-radius:12px;cursor:pointer;border:{{ m.border }};background:{{ m.bg }};box-shadow:0 3px 10px rgba(58,53,46,.05);">
+                  <div style="font-size:14px;font-weight:700;color:{{ m.titleColor }};margin-bottom:5px;">{{ m.t }}</div>
+                  <div style="font-size:12px;line-height:1.7;color:#7a7264;">{{ m.d }}</div>
+                </button>
+              </sc-for>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 12px;">● 本日のおすすめ物件</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:26px;">
+              <div style="border:2px solid #cf3f4f;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 6px 16px rgba(207,63,79,.12);">
+                <div style="height:110px;background:radial-gradient(circle at 50% 45%,rgba(207,63,79,.28),rgba(207,63,79,.08)),repeating-linear-gradient(45deg,rgba(207,63,79,.06) 0 8px,transparent 8px 16px),#fbeaea;display:flex;align-items:center;justify-content:center;position:relative;">
+                  <span style="font-size:11px;color:#b32e3f;letter-spacing:1px;">物件写真（拍動のためブレています）</span>
+                  <span style="position:absolute;top:8px;left:8px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;background:#cf3f4f;color:#fff;">本日内見可</span>
+                </div>
+                <div style="padding:12px 14px;">
+                  <div style="font-size:15px;font-weight:900;color:#3a352e;">左心室 2LDK 〈角部屋・拍動あり〉</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;color:#b32e3f;font-weight:600;margin:4px 0 6px;">800cc<span style="font-size:11px;">/月（血液）</span></div>
+                  <div style="font-size:11px;color:#7a7264;line-height:1.8;">大動脈駅 徒歩3分 ・ 床暖房（体温）完備<br>敷金：血液2L ・ 礼金：なし（キャンペーン中）</div>
+                  <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(61,138,95,.12);color:#3d8a5f;">駅近</span><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(61,138,95,.12);color:#3d8a5f;">24時間警備※白血球</span><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(201,138,42,.14);color:#c98a2a;">音あり（ドクン）</span></div>
+                </div>
+              </div>
+              <div style="border:1px solid rgba(58,53,46,.18);border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 3px 10px rgba(58,53,46,.06);">
+                <div style="height:110px;background:radial-gradient(circle at 50% 45%,rgba(63,95,168,.2),rgba(63,95,168,.06)),#eef0f6;display:flex;align-items:center;justify-content:center;position:relative;">
+                  <span style="font-size:11px;color:#3f5fa8;letter-spacing:1px;">物件写真（なぜか毎回ピンボケ）</span>
+                  <span style="position:absolute;top:8px;left:8px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;background:#5b6472;color:#fff;">訳あり</span>
+                </div>
+                <div style="padding:12px 14px;">
+                  <div style="font-size:15px;font-weight:900;color:#3a352e;">盲腸 1R 〈静かな袋小路〉</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;color:#3f5fa8;font-weight:600;margin:4px 0 6px;">120cc<span style="font-size:11px;">/月（血液）</span></div>
+                  <div style="font-size:11px;color:#7a7264;line-height:1.8;">大腸本線 盲腸支線 終点 ・ 行き止まり静穏<br>敷金：なし ・ 礼金：なし ・ 仲介手数料：応相談</div>
+                  <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(63,95,168,.12);color:#3f5fa8;">格安</span><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(201,138,42,.14);color:#c98a2a;">静かすぎる</span><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(207,63,79,.1);color:#b32e3f;">前入居者：連絡不能</span></div>
+                </div>
+              </div>
+            </div>
+
+            <button style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:0;border-radius:999px;cursor:pointer;background:linear-gradient(180deg,#e0566a,#b32e3f);color:#fff;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:15px;letter-spacing:2px;box-shadow:0 10px 24px -8px rgba(179,46,63,.5);">内見ツアーへ出発　➜</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isSheet }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="入居者カード" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <div style="display:flex;gap:20px;align-items:flex-start;margin-bottom:20px;">
+              <div style="width:88px;height:88px;flex:none;border-radius:50%;border:3px solid #cf3f4f;background:repeating-linear-gradient(45deg,rgba(207,63,79,.1) 0 6px,transparent 6px 12px),#fff;display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:1px;color:#a89a86;text-align:center;">笑顔の<br>写真</div>
+              <div style="flex:1;min-width:0;">
+                <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#a89a86;margin:0 0 4px;">入居審査書類 ・ 受付 No.0088</p>
+                <h1 style="font-weight:900;font-size:28px;margin:0 0 4px;color:#3a352e;">ツグミ・ハコベラ</h1>
+                <p style="font-size:13px;color:#7a7264;margin:0 0 10px;">元・地上住まい ・ 引っ越し理由：家が竜に燃やされた ・ 26歳</p>
+                <div style="display:flex;gap:7px;flex-wrap:wrap;">
+                  <span style="font-size:11px;padding:3px 10px;border-radius:999px;border:1px solid rgba(61,138,95,.4);color:#3d8a5f;background:#fff;">保証人あり（幽霊）</span>
+                  <span style="font-size:11px;padding:3px 10px;border-radius:999px;border:1px solid rgba(58,53,46,.25);color:#6b6353;background:#fff;">きれい好き</span>
+                  <span style="font-size:11px;padding:3px 10px;border-radius:999px;border:1px solid rgba(207,63,79,.4);color:#b32e3f;background:#fff;">くすぐりに弱い（致命的）</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:22px;">
+              <div style="background:#fff;border:1px solid rgba(58,53,46,.14);border-radius:12px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7264;margin-bottom:5px;"><span>体力</span><span style="font-family:'IBM Plex Mono',monospace;">14 / 17</span></div><div style="height:9px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:82%;height:100%;background:linear-gradient(90deg,#e0566a,#b32e3f);"></div></div></div>
+              <div style="background:#fff;border:1px solid rgba(58,53,46,.14);border-radius:12px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7264;margin-bottom:5px;"><span>血液残量（家賃原資）</span><span style="font-family:'IBM Plex Mono',monospace;">3.4L</span></div><div style="height:9px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:68%;height:100%;background:linear-gradient(90deg,#cf3f4f,#8f1f2e);"></div></div><div style="font-size:9px;color:#a89a86;margin-top:4px;">※4.2ヶ月分。滞納時は直接徴収されます</div></div>
+              <div style="background:#fff;border:1px solid rgba(58,53,46,.14);border-radius:12px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7264;margin-bottom:5px;"><span>宿主適合率</span><span style="font-family:'IBM Plex Mono',monospace;color:#3d8a5f;">76%</span></div><div style="height:9px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:76%;height:100%;background:linear-gradient(90deg,#57a87c,#3d8a5f);"></div></div><div style="font-size:9px;color:#a89a86;margin-top:4px;">※下がると「異物」と認定されます</div></div>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 12px;">● 能力（入居適性）</p>
+            <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin-bottom:24px;">
+              <div style="background:#fff;border:1px solid rgba(58,53,46,.14);border-radius:12px;padding:9px 4px;text-align:center;"><div style="font-size:10px;color:#7a7264;">交渉</div><div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:#3a352e;line-height:1.3;">15</div><div style="font-size:10px;color:#3d8a5f;">+2</div></div>
+              <div style="background:#fff;border:2px solid #cf3f4f;border-radius:12px;padding:9px 4px;text-align:center;"><div style="font-size:10px;color:#b32e3f;">探索</div><div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:#b32e3f;line-height:1.3;">17</div><div style="font-size:10px;color:#3d8a5f;">+3</div></div>
+              <div style="background:#fff;border:1px solid rgba(58,53,46,.14);border-radius:12px;padding:9px 4px;text-align:center;"><div style="font-size:10px;color:#7a7264;">衛生</div><div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:#3a352e;line-height:1.3;">14</div><div style="font-size:10px;color:#3d8a5f;">+2</div></div>
+              <div style="background:#fff;border:1px solid rgba(58,53,46,.14);border-radius:12px;padding:9px 4px;text-align:center;"><div style="font-size:10px;color:#7a7264;">膂力</div><div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:#3a352e;line-height:1.3;">11</div><div style="font-size:10px;color:#7a7264;">+0</div></div>
+              <div style="background:#fff;border:1px solid rgba(58,53,46,.14);border-radius:12px;padding:9px 4px;text-align:center;"><div style="font-size:10px;color:#7a7264;">感覚</div><div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:#3a352e;line-height:1.3;">13</div><div style="font-size:10px;color:#3d8a5f;">+1</div></div>
+              <div style="background:#fff;border:1px solid rgba(58,53,46,.14);border-radius:12px;padding:9px 4px;text-align:center;"><div style="font-size:10px;color:#7a7264;">免疫</div><div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:#c98a2a;line-height:1.3;">9</div><div style="font-size:10px;color:#c98a2a;">−1</div></div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 10px;">● 技能</p>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#4a4436;padding:6px 0;border-bottom:1px dotted rgba(58,53,46,.25);"><span>内見（見抜く目）</span><span style="font-family:'IBM Plex Mono',monospace;color:#3d8a5f;">+7</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#4a4436;padding:6px 0;border-bottom:1px dotted rgba(58,53,46,.25);"><span>値下げ交渉</span><span style="font-family:'IBM Plex Mono',monospace;color:#3d8a5f;">+5</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#4a4436;padding:6px 0;border-bottom:1px dotted rgba(58,53,46,.25);"><span>応急処置</span><span style="font-family:'IBM Plex Mono',monospace;color:#3d8a5f;">+4</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#4a4436;padding:6px 0;"><span>逃げ足</span><span style="font-family:'IBM Plex Mono',monospace;color:#3d8a5f;">+3</span></div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 10px;">● 特性</p>
+                <div style="border:1px solid rgba(58,53,46,.14);border-radius:12px;padding:11px 13px;margin-bottom:9px;background:#fff;"><div style="font-size:13px;font-weight:700;color:#3a352e;margin-bottom:3px;">抗体持ち</div><div style="font-size:12px;line-height:1.7;color:#7a7264;">一度かかった「異物認定」には二度目から抵抗できる。引っ越し歴の賜物。</div></div>
+                <div style="border:1px solid rgba(201,138,42,.4);border-radius:12px;padding:11px 13px;background:rgba(201,138,42,.05);"><div style="font-size:13px;font-weight:700;color:#c98a2a;margin-bottom:3px;">フローリング派</div><div style="font-size:12px;line-height:1.7;color:#7a7264;">粘膜床の物件では毎朝、正気判定が必要。「慣れって怖いですね」</div></div>
+              </div>
+            </div>
+            <p style="margin-top:22px;font-size:13px;line-height:1.9;color:#7a7264;border-left:3px solid rgba(207,63,79,.4);padding-left:14px;">入居希望動機（自筆）：「日当たりは諦めています。せめて、雨風と竜をしのげれば。あとできれば、大家さんがくしゃみをしない物件で」</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isDice }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="入居審査" style="animation:scfade .4s ease;max-width:560px;margin:0 auto;text-align:center;">
+            <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 4px;">● 値下げ交渉の判定 ・ 難度 14（大家：心臓）</p>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 24px;">
+              <div style="width:118px;height:118px;border:4px solid #3d8a5f;border-radius:16px;transform:rotate(-5deg);animation:stampin .5s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#3d8a5f;background:rgba(61,138,95,.05);">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:44px;font-weight:600;line-height:1;">17</span>
+                <span style="font-weight:900;font-size:14px;letter-spacing:4px;border-top:2px solid #3d8a5f;padding-top:3px;margin-top:4px;">審査通過</span>
+              </div>
+              <div style="font-size:14px;color:#7a7264;margin-top:6px;">d20 ＝ 12 ＋ 値下げ交渉 5</div>
+              <div style="font-size:14px;letter-spacing:1px;color:#3d8a5f;font-weight:700;">＝ 17 ・ 家賃 800→650cc/月に成功！</div>
+              <p style="font-size:10px;color:#a89a86;margin:2px 0 0;">※大家の機嫌により、成功しても心拍が+8bpmされる場合があります。</p>
+            </div>
+            <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;">
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(58,53,46,.25);color:#7a7264;background:#fff;">d4</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(58,53,46,.25);color:#7a7264;background:#fff;">d6</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(58,53,46,.25);color:#7a7264;background:#fff;">d8</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(58,53,46,.25);color:#7a7264;background:#fff;">d10</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(58,53,46,.25);color:#7a7264;background:#fff;">d12</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:2px solid #cf3f4f;color:#b32e3f;background:rgba(207,63,79,.06);font-weight:600;">d20</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(58,53,46,.25);color:#7a7264;background:#fff;">d100</span>
+            </div>
+            <button style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:0;border-radius:999px;cursor:pointer;background:linear-gradient(180deg,#e0566a,#b32e3f);color:#fff;font-weight:900;font-size:15px;letter-spacing:2px;font-family:'Zen Maru Gothic',sans-serif;box-shadow:0 10px 24px -8px rgba(179,46,63,.5);">サイコロを振る</button>
+            <div style="margin-top:26px;text-align:left;">
+              <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 9px;">● 審査履歴</p>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a4436;padding:7px 0;border-bottom:1px dotted rgba(58,53,46,.25);"><span>ツグミ ・ 値下げ交渉</span><span style="font-family:'IBM Plex Mono',monospace;color:#3d8a5f;">17 ／ 通過（-150cc）</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a4436;padding:7px 0;border-bottom:1px dotted rgba(58,53,46,.25);"><span>ドズル ・ 壁ドン耐久チェック</span><span style="font-family:'IBM Plex Mono',monospace;color:#b32e3f;">4 ／ 却下（心室痙攣）</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a4436;padding:7px 0;"><span>ピリカ ・ 「前の住人」を聞き出す</span><span style="font-family:'IBM Plex Mono',monospace;color:#3d8a5f;">22 ／ 大成功（聞かなきゃよかった）</span></div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isCombat }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="免疫対応" style="animation:scfade .4s ease;max-width:780px;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <h1 style="font-weight:900;font-size:24px;margin:0;color:#3a352e;">退去勧告 ・ 第2波</h1>
+              <div style="display:flex;gap:8px;"><button style="padding:8px 15px;border:1px solid rgba(58,53,46,.3);border-radius:999px;background:#fff;color:#6b6353;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-size:13px;">物陰に隠れる</button><button style="padding:8px 15px;border:0;border-radius:999px;background:linear-gradient(180deg,#e0566a,#b32e3f);color:#fff;cursor:pointer;font-weight:700;font-size:13px;font-family:'Zen Maru Gothic',sans-serif;">次の手番</button></div>
+            </div>
+            <p style="font-size:12px;color:#a89a86;margin:0 0 14px;">※免疫システムはあなたを「敵」ではなく「汚れ」として処理します。悪意はありません。それが一番怖い。</p>
+
+            <div style="border:1px solid rgba(201,138,42,.5);border-radius:12px;padding:10px 14px;margin-bottom:14px;background:rgba(201,138,42,.06);display:flex;align-items:center;gap:12px;">
+              <span style="font-size:20px;">⚠</span>
+              <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:#c98a2a;">パーティ共有ゲージ：抗原認識度</div><div style="font-size:11px;color:#7a7264;">満タンで全館一斉退去（くしゃみ）が発動します</div></div>
+              <div style="width:170px;"><div style="height:10px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:58%;height:100%;background:linear-gradient(90deg,#c98a2a,#cf3f4f);"></div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#c98a2a;text-align:right;margin-top:2px;">58 / 100</div></div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;border:2px solid #cf3f4f;background:#fff;margin-bottom:8px;box-shadow:0 4px 12px rgba(207,63,79,.1);"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#cf3f4f;color:#fff;border-radius:50%;">19</span><span style="width:30px;height:30px;flex:none;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#dfe4ee 70%);border:2px solid #8d93a0;"></span><div style="flex:1;"><div style="font-size:15px;font-weight:900;color:#3a352e;">マクロファージ〈お掃除の大きい人〉 <span style="font-size:11px;color:#b32e3f;">行動中</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(207,63,79,.1);color:#b32e3f;">包み込み体勢</span><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(58,53,46,.08);color:#6b6353;">悪意なし</span></div></div><div style="width:150px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7264;margin-bottom:3px;"><span>お掃除意欲</span><span style="font-family:'IBM Plex Mono',monospace;">28/30</span></div><div style="height:8px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:93%;height:100%;background:#8d93a0;"></div></div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:1px solid rgba(58,53,46,.16);background:#fff;margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(58,53,46,.1);color:#6b6353;border-radius:50%;">15</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:3px solid #cf3f4f;background:repeating-linear-gradient(45deg,rgba(207,63,79,.12) 0 4px,transparent 4px 8px),#fff;"></span><div style="flex:1;"><div style="font-size:15px;font-weight:900;color:#3a352e;">ツグミ</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(61,138,95,.12);color:#3d8a5f;">消臭済み（認識度+0）</span></div></div><div style="width:150px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7264;margin-bottom:3px;"><span>体力</span><span style="font-family:'IBM Plex Mono',monospace;">14/17</span></div><div style="height:8px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:82%;height:100%;background:linear-gradient(90deg,#e0566a,#b32e3f);"></div></div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:1px solid rgba(58,53,46,.16);background:#fff;margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(58,53,46,.1);color:#6b6353;border-radius:50%;">12</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:3px solid #cf3f4f;background:repeating-linear-gradient(45deg,rgba(207,63,79,.12) 0 4px,transparent 4px 8px),#fff;"></span><div style="flex:1;"><div style="font-size:15px;font-weight:900;color:#3a352e;">ドズル</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(207,63,79,.1);color:#b32e3f;">異物認定（毎ターン認識度+6）</span></div></div><div style="width:150px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7264;margin-bottom:3px;"><span>体力</span><span style="font-family:'IBM Plex Mono',monospace;">21/28</span></div><div style="height:8px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:75%;height:100%;background:linear-gradient(90deg,#e0566a,#b32e3f);"></div></div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:1px solid rgba(58,53,46,.16);background:#fff;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(58,53,46,.1);color:#6b6353;border-radius:50%;">8</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:3px solid #cf3f4f;background:repeating-linear-gradient(45deg,rgba(207,63,79,.12) 0 4px,transparent 4px 8px),#fff;"></span><div style="flex:1;"><div style="font-size:15px;font-weight:900;color:#3a352e;">ピリカ</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(63,95,168,.12);color:#3f5fa8;">白血球と交渉中（前例なし）</span></div></div><div style="width:150px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7264;margin-bottom:3px;"><span>体力</span><span style="font-family:'IBM Plex Mono',monospace;">16/19</span></div><div style="height:8px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:84%;height:100%;background:linear-gradient(90deg,#e0566a,#b32e3f);"></div></div></div></div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isInv }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="契約書類" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+              <h1 style="font-weight:900;font-size:24px;margin:0;color:#3a352e;">契約書類・お荷物</h1>
+              <div style="display:flex;align-items:center;gap:18px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#b32e3f;">血液残高 3.4L</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7a7264;">段ボール 7箱</span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:22px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 11px;">● 重要書類</p>
+                <div style="padding:12px 14px;border:2px solid #cf3f4f;border-radius:12px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;font-weight:900;color:#3a352e;">賃貸借契約書（血判済）</div><div style="font-size:12px;color:#7a7264;margin-top:3px;line-height:1.7;">第13条：宿主のくしゃみは天災とみなし、貸主は責を負わない。</div></div>
+                <div style="padding:12px 14px;border:1px solid rgba(58,53,46,.16);border-radius:12px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;font-weight:900;color:#3a352e;">重要事項説明書</div><div style="font-size:12px;color:#7a7264;margin-top:3px;line-height:1.7;">「本物件は生きています。稀に引っ越します（宿主が）。」</div></div>
+                <div style="padding:12px 14px;border:1px solid rgba(58,53,46,.16);border-radius:12px;background:#fff;"><div style="font-size:14px;font-weight:900;color:#3a352e;">鍵〈音叉〉</div><div style="font-size:12px;color:#7a7264;margin-top:3px;line-height:1.7;">正しい音程で鳴らすと弁が開く。ラの音。絶対にシではない。</div></div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 11px;">● お荷物リスト</p>
+                <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#4a4436;padding:9px 4px;border-bottom:1px dotted rgba(58,53,46,.25);background:transparent;"><span style="width:8px;height:8px;border-radius:50%;background:#3d8a5f;"></span><span style="flex:1;">内見用スリッパ（粘膜対応）</span><span style="color:#7a7264;">×2足</span></div>
+                <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#4a4436;padding:9px 4px;border-bottom:1px dotted rgba(58,53,46,.25);"><span style="width:8px;height:8px;border-radius:50%;background:#3d8a5f;"></span><span style="flex:1;">消臭剤〈自分のニオイを宿主に寄せる〉</span><span style="color:#7a7264;">×3本</span></div>
+                <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#4a4436;padding:9px 4px;border-bottom:1px dotted rgba(58,53,46,.25);"><span style="width:8px;height:8px;border-radius:50%;background:#cf3f4f;"></span><span style="flex:1;">血液パック（家賃3ヶ月分）</span><span style="color:#7a7264;">×3</span></div>
+                <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#4a4436;padding:9px 4px;border-bottom:1px dotted rgba(58,53,46,.25);"><span style="width:8px;height:8px;border-radius:50%;background:#3f5fa8;"></span><span style="flex:1;">メジャー（天井高そして脈拍を測る）</span><span style="color:#7a7264;">×1</span></div>
+                <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#4a4436;padding:9px 4px;"><span style="width:8px;height:8px;border-radius:50%;background:#c98a2a;"></span><span style="flex:1;">前の住人の日記（39日目で終わっている）</span><span style="color:#7a7264;">×1</span></div>
+                <div style="margin-top:14px;border:1px solid rgba(201,138,42,.45);border-radius:12px;padding:13px 15px;background:rgba(201,138,42,.05);"><div style="font-size:13px;font-weight:900;color:#c98a2a;margin-bottom:5px;">鑑定メモ：前の住人の日記</div><div style="font-size:12px;line-height:1.8;color:#7a7264;">最終ページ：「39日目。ついに気づいた。この部屋、心室じゃない。ここは——」以降、白紙。ページの端に胃液の染み。</div></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStory }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="内見記録" style="animation:scfade .4s ease;max-width:640px;margin:0 auto;">
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#a89a86;text-align:center;margin:0 0 6px;">内見記録 ・ 物件No.001 左心室2LDK</p>
+            <h1 style="font-weight:900;font-size:28px;text-align:center;margin:0 0 4px;color:#3a352e;">内見、はじまる（ドクン）</h1>
+            <div style="display:flex;align-items:center;gap:12px;margin:16px 0 22px;color:#cf3f4f;"><span style="flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(207,63,79,.4));"></span><span style="font-size:13px;">♥</span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(207,63,79,.4),transparent);"></span></div>
+            <p style="font-size:16px;line-height:2.05;color:#4a4436;margin:0 0 18px;">担当のカナメさん（営業スマイル・年中無休）は、弁の前で音叉を鳴らした。ラの音。ぬめる扉がゆっくり開き、体温36.8℃の風が吹き出す。「こちらが玄関です。脱ぎ履きしやすい広さ、そして——お気づきですか？　この<b style="color:#b32e3f;">床暖房</b>」</p>
+            <p style="font-size:16px;line-height:2.05;color:#4a4436;margin:0 0 18px;">たしかに暖かい。暖かいというか、脈打っている。ドクン、ドクン。二拍ごとに照明（発光器官）がまたたく。ピリカが壁を撫でて言った。「この壁紙、呼吸してません？」カナメさんのスマイルは揺るがない。「<b>換気機能</b>です」</p>
+            <blockquote style="margin:22px 0;padding:14px 20px;border-left:4px solid #cf3f4f;border-radius:0 12px 12px 0;background:#fff;font-size:15px;line-height:1.9;color:#6b6353;">敷金は戻りません。血液も戻りません。それでも人は、住む場所を選べるだけ幸せなのです。<br><span style="font-size:12px;color:#a89a86;">——『体内賃貸のしおり』第一章</span></blockquote>
+            <p style="font-size:16px;line-height:2.05;color:#4a4436;margin:0 0 26px;">奥の部屋——右心房側の壁に、前の住人が残した爪痕がある。数えると、ちょうど39本。カナメさんはそこにカレンダーを掛けた。「収納も豊富です」</p>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 12px;">● どうする？</p>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(58,53,46,.2);border-radius:12px;background:#fff;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-size:14px;color:#4a4436;box-shadow:0 2px 8px rgba(58,53,46,.05);">①　爪痕を調べる <span style="color:#b32e3f;font-weight:700;">内見判定 ・ 難度14</span></button>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(58,53,46,.2);border-radius:12px;background:#fff;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-size:14px;color:#4a4436;box-shadow:0 2px 8px rgba(58,53,46,.05);">②　「前の入居者さんは、どちらへ？」と聞く（カナメさんの笑顔が試される）</button>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;border:1px solid rgba(58,53,46,.2);border-radius:12px;background:#fff;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-size:14px;color:#4a4436;box-shadow:0 2px 8px rgba(58,53,46,.05);">③　何も見なかった。日当たり（発光器官）の話をしよう</button>
+            <div style="margin-top:24px;height:6px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:42%;height:100%;background:linear-gradient(90deg,#e0566a,#b32e3f);"></div></div>
+            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#a89a86;margin:7px 0 0;">内見ツアー進捗 42% ・ 心拍 76bpm（少し上がっている）</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="体内図" style="animation:scfade .4s ease;max-width:840px;margin:0 auto;">
+            <h1 style="font-weight:900;font-size:24px;margin:0 0 4px;color:#3a352e;">オオヌシ様 体内路線図</h1>
+            <p style="font-size:12px;color:#a89a86;margin:0 0 16px;">血流に乗れば各駅停車。リンパ線は各停よりさらに遅い。胃エリアは酸性雨にご注意。</p>
+            <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:20px;">
+              <div style="position:relative;height:340px;border:1px solid rgba(58,53,46,.2);border-radius:14px;background:#fff;overflow:hidden;box-shadow:0 4px 14px rgba(58,53,46,.06);">
+                <div style="position:absolute;left:8%;top:20%;width:84%;height:3px;border-radius:999px;background:#cf3f4f;"></div>
+                <div style="position:absolute;left:8%;top:52%;width:84%;height:3px;border-radius:999px;background:#3f5fa8;"></div>
+                <div style="position:absolute;left:8%;top:78%;width:60%;height:3px;border-radius:999px;background:#c98a2a;"></div>
+                <div style="position:absolute;left:6%;top:11%;font-size:10px;font-weight:700;color:#cf3f4f;">動脈本線（急行あり）</div>
+                <div style="position:absolute;left:6%;top:43%;font-size:10px;font-weight:700;color:#3f5fa8;">静脈線（各駅停車）</div>
+                <div style="position:absolute;left:6%;top:69%;font-size:10px;font-weight:700;color:#c98a2a;">消化器線（遅延常習）</div>
+                <div style="position:absolute;left:22%;top:20%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="width:16px;height:16px;border-radius:50%;background:#fff;border:4px solid #cf3f4f;box-shadow:0 0 0 4px rgba(207,63,79,.15);"></span><span style="font-size:10px;font-weight:900;color:#b32e3f;margin-top:4px;">大動脈駅 ◉現在地</span></div>
+                <div style="position:absolute;left:46%;top:20%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="width:13px;height:13px;border-radius:50%;background:#fff;border:3px solid #cf3f4f;"></span><span style="font-size:10px;font-weight:700;color:#4a4436;margin-top:4px;">左心室〈内見中〉</span></div>
+                <div style="position:absolute;left:72%;top:20%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="width:13px;height:13px;border-radius:50%;background:#fff;border:3px solid #cf3f4f;"></span><span style="font-size:10px;color:#7a7264;margin-top:4px;">肺リゾート（換気良好）</span></div>
+                <div style="position:absolute;left:60%;top:52%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="width:13px;height:13px;border-radius:50%;background:#fff;border:3px solid #3f5fa8;"></span><span style="font-size:10px;color:#7a7264;margin-top:4px;">肝臓ニュータウン</span></div>
+                <div style="position:absolute;left:38%;top:78%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="width:13px;height:13px;border-radius:50%;background:#fff;border:3px solid #c98a2a;"></span><span style="font-size:10px;color:#c98a2a;margin-top:4px;">胃前駅（酸性雨警報）</span></div>
+                <div style="position:absolute;left:68%;top:78%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;opacity:.6;"><span style="width:13px;height:13px;border-radius:50%;background:#fff;border:3px dashed #8d93a0;"></span><span style="font-size:10px;color:#8d93a0;margin-top:4px;">盲腸（終点・秘境）</span></div>
+                <div style="position:absolute;right:10px;bottom:9px;font-size:10px;letter-spacing:1px;color:#a89a86;">※路線は宿主の姿勢により傾きます</div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 11px;">● エリア情報</p>
+                <div style="padding:11px 13px;border:2px solid #cf3f4f;border-radius:12px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;font-weight:900;color:#3a352e;">大動脈駅周辺 <span style="font-size:10px;color:#b32e3f;">現在地</span></div><div style="font-size:12px;color:#7a7264;margin-top:3px;">交通至便。ただし通勤ラッシュ（赤血球）が激しい。</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(58,53,46,.18);border-radius:12px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;font-weight:900;color:#3a352e;">肺リゾート</div><div style="font-size:12px;color:#7a7264;margin-top:3px;">風通し抜群の高原地帯。宿主が煙草を覚えないことを祈る。</div></div>
+                <div style="padding:11px 13px;border:1px dashed rgba(141,147,160,.6);border-radius:12px;background:rgba(141,147,160,.05);"><div style="font-size:14px;font-weight:900;color:#7a7264;">盲腸〈秘境〉</div><div style="font-size:12px;color:#a89a86;margin-top:3px;">未開拓。不動産屋も「あそこはちょっと」と言葉を濁す。</div></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isGM }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="管理会社" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <h1 style="font-weight:900;font-size:23px;margin:0 0 4px;color:#3a352e;">{{ gmTitle }}</h1>
+            <p style="font-size:13px;color:#7a7264;margin:0 0 20px;">バックヤードの帳簿。入居者様には決してお見せしないページです。</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 11px;">● 進行中の案件</p>
+                <div style="padding:11px 13px;border:2px solid #cf3f4f;border-radius:12px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;font-weight:900;color:#3a352e;">左心室2LDKの内見 <span style="font-size:10px;color:#b32e3f;">進行中</span></div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(58,53,46,.18);border-radius:12px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;color:#7a7264;">39本目の爪痕の真相</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(58,53,46,.18);border-radius:12px;background:#fff;"><div style="font-size:14px;color:#7a7264;">オオヌシ様、健康診断の日</div></div>
+                <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:20px 0 10px;">● 宿主の体調（＝世界の天気）</p>
+                <div style="height:9px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:71%;height:100%;background:linear-gradient(90deg,#3d8a5f,#c98a2a);"></div></div>
+                <p style="font-size:11px;color:#a89a86;margin:6px 0 0;">微熱気味。38.5℃を超えると全物件が「サウナ付き」になります。</p>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 11px;">● 秘匿情報</p>
+                <div style="border:1px solid rgba(58,53,46,.18);border-radius:12px;padding:11px 13px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;font-weight:900;color:#3a352e;">営業担当 カナメ</div><div style="font-size:12px;color:#7a7264;margin-top:2px;">望み：今期の成約ノルマ達成（あと1件）。</div><div style="font-size:12px;color:#b32e3f;margin-top:4px;background:rgba(207,63,79,.06);border-radius:8px;padding:4px 8px;">秘密：彼自身が「前の住人」。39日目に免疫と和解し、以来営業側に転職した。</div></div>
+                <div style="border:1px solid rgba(58,53,46,.18);border-radius:12px;padding:11px 13px;background:#fff;"><div style="font-size:14px;font-weight:900;color:#3a352e;">オオヌシ様（宿主）</div><div style="font-size:12px;color:#7a7264;margin-top:2px;">自分の体に賃貸物件があることを、まだ知らない。</div><div style="font-size:12px;color:#c98a2a;margin-top:4px;background:rgba(201,138,42,.08);border-radius:8px;padding:4px 8px;">最近「お腹のあたりで生活音がする」と友達に相談し始めた。</div></div>
+                <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:20px 0 10px;">● 体内の異変表（d6）</p>
+                <div style="font-size:13px;color:#4a4436;line-height:1.9;">1–2 心拍上昇（宿主が階段） ・ 3 胃酸逆流警報<br>4 新しい入居希望者（ウイルス） ・ 5 くしゃみ予報 ・ 6 宿主が恋をする（全館暖房・家賃高騰）</div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+      </main>
+    </div>
+
+    <sc-if value="{{ showTabbar }}" hint-placeholder-val="{{ false }}">
+      <nav style="position:relative;z-index:2;display:flex;border-top:1px solid rgba(207,63,79,.2);background:#fffdf9;">
+        <sc-for list="{{ nav }}" as="item" hint-placeholder-count="7">
+          <button onClick="{{ item.go }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px;border:0;background:{{ item.tbBg }};color:{{ item.color }};cursor:pointer;">
+            <span style="width:19px;height:19px;flex:none;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border-radius:50%;background:{{ item.badgeBg }};color:{{ item.badgeColor }};border:{{ item.badgeBorder }};">{{ item.badge }}</span>
+            <span style="font-size:9px;letter-spacing:.5px;">{{ item.label }}</span>
+          </button>
+        </sc-for>
+      </nav>
+    </sc-if>
+
+    <div style="position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:50;display:flex;gap:3px;padding:5px;border-radius:999px;background:rgba(10,11,14,.86);backdrop-filter:blur(8px);box-shadow:0 8px 26px rgba(0,0,0,.5);border:1px solid rgba(207,63,79,.4);">
+      <sc-for list="{{ devs }}" as="d" hint-placeholder-count="3">
+        <button onClick="{{ d.go }}" style="padding:7px 16px;border:0;border-radius:999px;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-weight:700;font-size:11px;letter-spacing:1.5px;background:{{ d.bg }};color:{{ d.color }};">{{ d.label }}</button>
+      </sc-for>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { device: 'desktop', play: 'gmpl', screen: 'top' };
+
+  renderVals() {
+    const { device, play, screen } = this.state;
+    const frames = { phone: { w: 392, h: 828 }, tablet: { w: 900, h: 660 }, desktop: { w: 1240, h: 772 } };
+    const f = frames[device] || frames.desktop;
+    const isPhone = device === 'phone';
+    const compact = device === 'tablet';
+
+    const setScreen = (s) => this.setState({ screen: s });
+    const setPlay = (p) => this.setState((st) => ({ play: p, screen: (p === 'solo' && st.screen === 'gm') ? 'top' : st.screen }));
+    const setDevice = (d) => this.setState({ device: d });
+
+    const playLabel = { solo: '単身入居', gmpl: '仲介つき内見', gmless: 'ルームシェア合議' }[play] || '';
+
+    const navDefs = [
+      ['top', '物件一覧', '家'],
+      ['sheet', '入居者票', '入'],
+      ['dice', '入居審査', '審'],
+      ['combat', '免疫対応', '免'],
+      ['inventory', '契約書類', '契'],
+      ['story', '内見記録', '録'],
+      ['map', '体内図', '図'],
+      ['gm', play === 'gmless' ? '管理組合' : '管理会社', '管'],
+    ];
+    const nav = navDefs
+      .filter((d) => d[0] !== 'gm' || play !== 'solo')
+      .map(([id, label, badge]) => {
+        const active = id === screen;
+        return {
+          id, label, badge, active,
+          go: () => setScreen(id),
+          color: active ? '#b32e3f' : '#7a7264',
+          bg: active ? 'rgba(207,63,79,0.08)' : 'transparent',
+          tbBg: active ? 'rgba(207,63,79,0.08)' : 'transparent',
+          weight: active ? '700' : '500',
+          badgeBg: active ? '#cf3f4f' : 'transparent',
+          badgeColor: active ? '#fff' : '#cf3f4f',
+          badgeBorder: active ? 'none' : '1.5px solid rgba(207,63,79,.5)',
+          labelStyle: compact ? 'display:none' : 'display:inline',
+        };
+      });
+
+    const playModes = [
+      ['solo', '単身入居', '営業担当なし。しおり片手に独りで内見・契約・生活を切り抜ける。'],
+      ['gmpl', '仲介つき内見', '営業担当（GM）が物件と大家を、入居希望者たちが内見と交渉を担う卓。'],
+      ['gmless', 'ルームシェア合議', '担当を持ち回り、皆で物件を査定し合って住処を決める卓。'],
+    ].map(([id, t, d]) => {
+      const active = id === play;
+      return {
+        id, t, d, active,
+        go: () => setPlay(id),
+        border: active ? '2px solid #cf3f4f' : '1px solid rgba(58,53,46,.18)',
+        bg: active ? 'rgba(207,63,79,.05)' : '#fff',
+        titleColor: active ? '#b32e3f' : '#4a4436',
+      };
+    });
+
+    const devs = [
+      ['phone', 'スマホ'], ['tablet', 'タブ'], ['desktop', 'PC'],
+    ].map(([id, label]) => {
+      const active = id === device;
+      return {
+        id, label, active,
+        go: () => setDevice(id),
+        bg: active ? '#cf3f4f' : 'transparent',
+        color: active ? '#fff' : '#c9c2ad',
+      };
+    });
+
+    return {
+      frameW: f.w, frameH: f.h, railW: compact ? 66 : 214,
+      mainPad: isPhone ? '22px 18px 26px' : '30px 34px 38px',
+      showRail: !isPhone, showTabbar: isPhone,
+      playLabel, nav, playModes, devs,
+      isTop: screen === 'top', isSheet: screen === 'sheet', isDice: screen === 'dice',
+      isCombat: screen === 'combat', isInv: screen === 'inventory', isStory: screen === 'story',
+      isMap: screen === 'map', isGM: screen === 'gm',
+      gmTitle: play === 'gmless' ? '管理組合 — 持ち回りの理事会' : '管理会社 — 大家さまの帳簿',
+    };
+  }
+}
+</script>
+</body>
+</html>

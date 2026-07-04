@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>宛先不明郵便局</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Shippori+Mincho:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#10141d;}
+  @keyframes scfade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+  @keyframes stampin{0%{transform:rotate(8deg) scale(1.7);opacity:0}60%{transform:rotate(-3deg) scale(.96);opacity:1}100%{transform:rotate(-3deg) scale(1)}}
+  @keyframes ticker{0%,100%{opacity:.6}50%{opacity:1}}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-thumb{background:rgba(201,56,46,.3);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<template id="dc-template">
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:34px 20px 96px;box-sizing:border-box;font-family:'Zen Maru Gothic',sans-serif;background:radial-gradient(120% 95% at 50% 0%,#1c2536 0%,#10141d 58%,#0a0d14 100%);color:#3a3630;">
+
+  <div style="position:relative;width:{{ frameW }}px;height:{{ frameH }}px;max-width:100%;background:#f6f1e6;border:1px solid #d8d0bd;border-radius:6px;box-shadow:0 34px 90px -22px rgba(0,0,0,.75),0 0 0 8px rgba(8,10,16,.55);overflow:hidden;display:flex;flex-direction:column;">
+
+    <div style="position:absolute;inset:0;pointer-events:none;background-image:repeating-linear-gradient(0deg,rgba(58,54,48,.02) 0 1px,transparent 1px 28px),radial-gradient(circle at 88% 6%,rgba(201,56,46,.05),transparent 30%);"></div>
+
+    <div style="height:8px;flex:none;background:repeating-linear-gradient(135deg,#c9382e 0 14px,#f6f1e6 14px 28px,#2c4a72 28px 42px,#f6f1e6 42px 56px);"></div>
+
+    <header style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 22px;border-bottom:2px solid #3a3630;background:linear-gradient(180deg,#fbf7ee,#f2ecdd);">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;flex:none;border-radius:5px;background:#c9382e;color:#f6f1e6;font-weight:900;font-size:16px;">〒</span>
+        <div>
+          <div style="font-size:9px;letter-spacing:2px;color:#8a8272;">夜間専用 ・ 宛先不明郵便 取扱局 ・ 第七夜勤区</div>
+          <div style="display:flex;align-items:baseline;gap:10px;">
+            <span style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:20px;letter-spacing:3px;color:#3a3630;">宛先不明郵便局</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:#c9382e;">DEAD LETTER OFFICE</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:12px;letter-spacing:1px;color:#8a8272;">{{ playLabel }}</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 10px;border:1px solid rgba(44,74,114,.45);border-radius:3px;color:#2c4a72;background:rgba(44,74,114,.06);">夜明けまで 4:12</span>
+      </div>
+    </header>
+
+    <div style="position:relative;z-index:2;flex:1;display:flex;min-height:0;">
+
+      <sc-if value="{{ showRail }}" hint-placeholder-val="{{ true }}">
+        <nav style="width:{{ railW }}px;flex:none;border-right:1px solid rgba(58,54,48,.18);background:linear-gradient(180deg,rgba(201,56,46,.03),transparent);padding:15px 10px;display:flex;flex-direction:column;gap:3px;overflow-y:auto;">
+          <sc-for list="{{ nav }}" as="item" hint-placeholder-count="8">
+            <button onClick="{{ item.go }}" style="display:flex;align-items:center;gap:11px;width:100%;padding:9px 11px;border:0;border-radius:5px;cursor:pointer;text-align:left;background:{{ item.bg }};color:{{ item.color }};font-family:'Zen Maru Gothic',sans-serif;font-size:14px;font-weight:{{ item.weight }};">
+              <span style="width:22px;height:22px;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border-radius:50%;background:{{ item.badgeBg }};color:{{ item.badgeColor }};border:{{ item.badgeBorder }};">{{ item.badge }}</span>
+              <span style="{{ item.labelStyle }}">{{ item.label }}</span>
+            </button>
+          </sc-for>
+        </nav>
+      </sc-if>
+
+      <main style="flex:1;min-width:0;overflow-y:auto;padding:{{ mainPad }};">
+
+        <sc-if value="{{ isTop }}" hint-placeholder-val="{{ true }}">
+          <div data-screen-label="夜間窓口" style="animation:scfade .4s ease;max-width:760px;margin:0 auto;">
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#8a8272;margin:0 0 7px;">当直日誌 ・ 第七夜 ・ 晴れのち霧</p>
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:33px;line-height:1.4;margin:0 0 14px;color:#3a3630;">今夜も、届かなかった手紙が<br>窓口に並んでいる。</h1>
+            <p style="font-size:15px;line-height:2.0;color:#5c564c;margin:0 0 10px;max-width:58ch;">宛先不明。受取人死亡。住所が未来。差出人が実在しない——普通の郵便局が匙を投げた手紙は、真夜中、この局に回送されてくる。私たち夜勤局員の仕事はひとつ。<b style="color:#c9382e;">それでも、届けること。</b></p>
+            <p style="font-size:12px;color:#a39a86;margin:0 0 24px;">※局則第一条「開封厳禁」。第二条「ただし、宛先推理に必要な最小限の透かし読みは黙認」。</p>
+
+            <div style="border:1px solid rgba(58,54,48,.25);border-radius:6px;overflow:hidden;margin:0 0 26px;background:#fdfaf2;">
+              <div style="padding:9px 14px;background:rgba(201,56,46,.06);border-bottom:1px solid rgba(58,54,48,.18);font-size:11px;font-weight:700;letter-spacing:2px;color:#c9382e;">■ 本日の未達郵便（回送分）</div>
+              <div style="display:grid;grid-template-columns:1.1fr 1.6fr .8fr;font-size:11px;color:#8a8272;border-bottom:1px solid rgba(58,54,48,.12);background:rgba(58,54,48,.03);"><span style="padding:7px 14px;font-weight:700;">追跡番号</span><span style="padding:7px 14px;border-left:1px solid rgba(58,54,48,.08);font-weight:700;">宛先</span><span style="padding:7px 14px;border-left:1px solid rgba(58,54,48,.08);font-weight:700;">回送理由</span></div>
+              <div style="display:grid;grid-template-columns:1.1fr 1.6fr .8fr;font-size:13px;color:#3a3630;border-bottom:1px dashed rgba(58,54,48,.18);"><span style="padding:9px 14px;font-family:'IBM Plex Mono',monospace;color:#2c4a72;">YM-0470-77</span><span style="padding:9px 14px;border-left:1px solid rgba(58,54,48,.06);font-weight:700;">天国のおばあちゃんへ</span><span style="padding:9px 14px;border-left:1px solid rgba(58,54,48,.06);color:#c9382e;">宛先が黄泉</span></div>
+              <div style="display:grid;grid-template-columns:1.1fr 1.6fr .8fr;font-size:13px;color:#3a3630;border-bottom:1px dashed rgba(58,54,48,.18);"><span style="padding:9px 14px;font-family:'IBM Plex Mono',monospace;color:#2c4a72;">FT-2056-04</span><span style="padding:9px 14px;border-left:1px solid rgba(58,54,48,.06);font-weight:700;">三十年後の私へ</span><span style="padding:9px 14px;border-left:1px solid rgba(58,54,48,.06);color:#2c4a72;">宛先が未来</span></div>
+              <div style="display:grid;grid-template-columns:1.1fr 1.6fr .8fr;font-size:13px;color:#3a3630;border-bottom:1px dashed rgba(58,54,48,.18);"><span style="padding:9px 14px;font-family:'IBM Plex Mono',monospace;color:#2c4a72;">PW-0002-13</span><span style="padding:9px 14px;border-left:1px solid rgba(58,54,48,.06);font-weight:700;">結婚していた方の私へ</span><span style="padding:9px 14px;border-left:1px solid rgba(58,54,48,.06);color:#7a5a9e;">宛先が平行</span></div>
+              <div style="display:grid;grid-template-columns:1.1fr 1.6fr .8fr;font-size:13px;color:#3a3630;"><span style="padding:9px 14px;font-family:'IBM Plex Mono',monospace;color:#c9382e;">XX-0000-00</span><span style="padding:9px 14px;border-left:1px solid rgba(58,54,48,.06);font-weight:700;">（宛名欄が、読むたび変わる）</span><span style="padding:9px 14px;border-left:1px solid rgba(58,54,48,.06);color:#c9382e;font-weight:700;">局長預かり</span></div>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#c9382e;font-weight:700;margin:0 0 12px;">■ 当直の形態を選択</p>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 28px;">
+              <sc-for list="{{ playModes }}" as="m" hint-placeholder-count="3">
+                <button onClick="{{ m.go }}" style="text-align:left;padding:14px 15px;border-radius:6px;cursor:pointer;border:{{ m.border }};background:{{ m.bg }};">
+                  <div style="font-size:14px;font-weight:700;color:{{ m.titleColor }};margin-bottom:5px;">{{ m.t }}</div>
+                  <div style="font-size:12px;line-height:1.7;color:#8a8272;">{{ m.d }}</div>
+                </button>
+              </sc-for>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#c9382e;font-weight:700;margin:0 0 14px;">■ 本日の当直</p>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:26px;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:96px;"><div style="width:62px;height:62px;border-radius:50%;border:2px solid #c9382e;background:repeating-linear-gradient(45deg,rgba(201,56,46,.1) 0 5px,transparent 5px 10px),#fff;"></div><div style="font-size:13px;font-weight:700;color:#3a3630;">早瀬ツグミ</div><div style="font-size:11px;color:#8a8272;">夜間配達課</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:96px;"><div style="width:62px;height:62px;border-radius:50%;border:2px solid #2c4a72;background:repeating-linear-gradient(45deg,rgba(44,74,114,.1) 0 5px,transparent 5px 10px),#fff;"></div><div style="font-size:13px;font-weight:700;color:#3a3630;">戸川</div><div style="font-size:11px;color:#8a8272;">仕分け係</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:96px;"><div style="width:62px;height:62px;border-radius:50%;border:2px solid #7a5a9e;background:repeating-linear-gradient(45deg,rgba(122,90,158,.1) 0 5px,transparent 5px 10px),#fff;"></div><div style="font-size:13px;font-weight:700;color:#3a3630;">ユキ</div><div style="font-size:11px;color:#8a8272;">窓口（元・受取人）</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:96px;"><div style="width:62px;height:62px;border-radius:50%;border:2px solid #8a8272;background:radial-gradient(circle at 40% 35%,rgba(58,54,48,.25),rgba(58,54,48,.08)),#fff;"></div><div style="font-size:13px;font-weight:700;color:#3a3630;">局長</div><div style="font-size:11px;color:#8a8272;">姿を見た者なし</div></div>
+            </div>
+
+            <button style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:2px solid #c9382e;border-radius:6px;cursor:pointer;background:#c9382e;color:#f6f1e6;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:15px;letter-spacing:3px;box-shadow:3px 3px 0 rgba(201,56,46,.2);">夜間配達に出る　➜</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isSheet }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="局員手帳" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <div style="display:flex;gap:20px;align-items:flex-start;margin-bottom:20px;">
+              <div style="width:88px;height:110px;flex:none;border:1px solid rgba(58,54,48,.35);background:repeating-linear-gradient(45deg,rgba(201,56,46,.07) 0 6px,transparent 6px 12px),#fff;display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:1px;color:#a39a86;text-align:center;">局員証写真<br>（制帽着用）</div>
+              <div style="flex:1;min-width:0;">
+                <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#8a8272;margin:0 0 4px;">局員番号 N-077 ・ 夜間配達課 局員手帳</p>
+                <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;margin:0 0 4px;color:#3a3630;">早瀬 ツグミ</h1>
+                <p style="font-size:13px;color:#8a8272;margin:0 0 10px;">夜間配達課 ・ 勤続2年目 ・ 二十四歳 ・ 自転車派</p>
+                <div style="display:flex;gap:7px;flex-wrap:wrap;">
+                  <span style="font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid rgba(58,54,48,.3);color:#5c564c;">方向音痴（生者の街のみ）</span>
+                  <span style="font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid rgba(58,54,48,.3);color:#5c564c;">字がきれい</span>
+                  <span style="font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid rgba(201,56,46,.5);color:#c9382e;">死者の道に迷わない（特異体質）</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:22px;">
+              <div style="background:#fdfaf2;border:1px solid rgba(58,54,48,.15);border-radius:6px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#8a8272;margin-bottom:5px;"><span>体力</span><span style="font-family:'IBM Plex Mono',monospace;">14 / 18</span></div><div style="height:9px;border-radius:5px;background:rgba(58,54,48,.08);overflow:hidden;"><div style="width:78%;height:100%;background:#c9382e;"></div></div></div>
+              <div style="background:#fdfaf2;border:1px solid rgba(58,54,48,.15);border-radius:6px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#8a8272;margin-bottom:5px;"><span>想い容量</span><span style="font-family:'IBM Plex Mono',monospace;">7 / 10</span></div><div style="height:9px;border-radius:5px;background:rgba(58,54,48,.08);overflow:hidden;"><div style="width:70%;height:100%;background:#2c4a72;"></div></div><div style="font-size:9px;color:#a39a86;margin-top:4px;">※手紙の想いを預かれる量。溢れると涙が止まらなくなる</div></div>
+              <div style="background:#fdfaf2;border:1px solid rgba(58,54,48,.15);border-radius:6px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#8a8272;margin-bottom:5px;"><span>現世との縁</span><span style="font-family:'IBM Plex Mono',monospace;color:#c9382e;">61 / 100</span></div><div style="height:9px;border-radius:5px;background:rgba(58,54,48,.08);overflow:hidden;"><div style="width:61%;height:100%;background:linear-gradient(90deg,#c9382e,#7a5a9e);"></div></div><div style="font-size:9px;color:#a39a86;margin-top:4px;">※黄泉へ渡るたび減る。0になった局員は、帰ってこない</div></div>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#c9382e;font-weight:700;margin:0 0 12px;">■ 能力</p>
+            <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:0;border:1px solid rgba(58,54,48,.3);border-radius:6px;overflow:hidden;margin-bottom:24px;background:#fff;">
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(58,54,48,.12);"><div style="font-size:10px;color:#8a8272;">健脚</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#3a3630;line-height:1.25;">15</div><div style="font-size:10px;color:#2f7a4f;">＋2</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(58,54,48,.12);background:rgba(201,56,46,.04);"><div style="font-size:10px;color:#c9382e;">道探し</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#c9382e;line-height:1.25;">17</div><div style="font-size:10px;color:#2f7a4f;">＋3</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(58,54,48,.12);"><div style="font-size:10px;color:#8a8272;">読心</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#3a3630;line-height:1.25;">13</div><div style="font-size:10px;color:#2f7a4f;">＋1</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(58,54,48,.12);"><div style="font-size:10px;color:#8a8272;">口才</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#3a3630;line-height:1.25;">9</div><div style="font-size:10px;color:#c9382e;">−1</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(58,54,48,.12);"><div style="font-size:10px;color:#8a8272;">胆力</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#3a3630;line-height:1.25;">12</div><div style="font-size:10px;color:#8a8272;">±0</div></div>
+              <div style="padding:10px 4px;text-align:center;"><div style="font-size:10px;color:#8a8272;">縁結び</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#3a3630;line-height:1.25;">14</div><div style="font-size:10px;color:#2f7a4f;">＋2</div></div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#c9382e;font-weight:700;margin:0 0 10px;">■ 技能</p>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#5c564c;padding:6px 0;border-bottom:1px dashed rgba(58,54,48,.22);"><span>宛先を推理する（透かし読み）</span><span style="font-family:'IBM Plex Mono',monospace;color:#2f7a4f;">+5</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#5c564c;padding:6px 0;border-bottom:1px dashed rgba(58,54,48,.22);"><span>雨に濡らさない</span><span style="font-family:'IBM Plex Mono',monospace;color:#2f7a4f;">+6</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#5c564c;padding:6px 0;border-bottom:1px dashed rgba(58,54,48,.22);"><span>死者と世間話</span><span style="font-family:'IBM Plex Mono',monospace;color:#2f7a4f;">+4</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#5c564c;padding:6px 0;"><span>断る（配達不能の宣告）</span><span style="font-family:'IBM Plex Mono',monospace;color:#c9382e;">−3（できれば言いたくない）</span></div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#c9382e;font-weight:700;margin:0 0 10px;">■ 特性</p>
+                <div style="border:1px solid rgba(58,54,48,.2);border-radius:6px;padding:11px 13px;margin-bottom:9px;background:#fdfaf2;"><div style="font-size:13px;font-weight:700;color:#3a3630;margin-bottom:3px;">手紙の重さがわかる</div><div style="font-size:12px;line-height:1.7;color:#8a8272;">持っただけで、込められた想いの重さ（グラム表記）がわかる。最高記録は3.2kg（便箋一枚）。</div></div>
+                <div style="border:1px solid rgba(44,74,114,.4);border-radius:6px;padding:11px 13px;background:rgba(44,74,114,.04);"><div style="font-size:13px;font-weight:700;color:#2c4a72;margin-bottom:3px;">住所より人を見る</div><div style="font-size:12px;line-height:1.7;color:#8a8272;">宛先が消えていても、受取人の顔さえ浮かべば道は開ける。ただしその夜は、自分の家の場所を忘れる。</div></div>
+              </div>
+            </div>
+            <p style="margin-top:22px;font-size:13px;line-height:1.9;color:#8a8272;border-left:3px solid rgba(201,56,46,.4);padding-left:14px;">手帳の余白より：「配達員志望動機——昔、届くはずのない手紙を受け取ったことがある。差出人の欄には、まだ会ったことのない人の名前があった。」</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isDice }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="消印判定" style="animation:scfade .4s ease;max-width:560px;margin:0 auto;text-align:center;">
+            <p style="font-size:11px;letter-spacing:3px;color:#c9382e;font-weight:700;margin:0 0 4px;">■ 消印判定 ・ 配達基準 15 ・ 検印：道探し</p>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 24px;">
+              <div style="width:126px;height:126px;border:3px solid #c9382e;border-radius:50%;animation:stampin .5s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#c9382e;background:rgba(201,56,46,.03);gap:2px;">
+                <span style="font-size:10px;letter-spacing:2px;border-bottom:1.5px solid #c9382e;padding-bottom:2px;">第七夜勤区</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:40px;font-weight:600;line-height:1;">18</span>
+                <span style="font-size:11px;letter-spacing:3px;border-top:1.5px solid #c9382e;padding-top:2px;font-weight:700;">配達可</span>
+              </div>
+              <div style="font-size:14px;color:#8a8272;margin-top:6px;">追跡番号の末尾 <span style="font-family:'IBM Plex Mono',monospace;color:#2c4a72;">YM-0470-<b>77</b></span> → d20 ＝ 15 ＋ 道探し 3</div>
+              <div style="font-size:14px;letter-spacing:1px;color:#2f7a4f;font-weight:700;">＝ 18 ・ 配達経路 発見。「渡し場の霧が、今夜だけ薄い」</div>
+              <p style="font-size:10px;color:#a39a86;margin:2px 0 0;">※この局では、サイコロの代わりに追跡番号が運命を決めます。番号は嘘をつきません。</p>
+            </div>
+            <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;">
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(58,54,48,.25);color:#8a8272;background:#fff;">d4</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(58,54,48,.25);color:#8a8272;background:#fff;">d6</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(58,54,48,.25);color:#8a8272;background:#fff;">d8</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(58,54,48,.25);color:#8a8272;background:#fff;">d10</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(58,54,48,.25);color:#8a8272;background:#fff;">d12</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:2px solid #c9382e;color:#c9382e;background:rgba(201,56,46,.05);font-weight:600;">d20</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(58,54,48,.25);color:#8a8272;background:#fff;">d100</span>
+            </div>
+            <button style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:2px solid #c9382e;border-radius:6px;cursor:pointer;background:#c9382e;color:#f6f1e6;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:15px;letter-spacing:3px;box-shadow:3px 3px 0 rgba(201,56,46,.2);">消印を押す</button>
+            <div style="margin-top:26px;text-align:left;">
+              <p style="font-size:11px;letter-spacing:3px;color:#c9382e;font-weight:700;margin:0 0 9px;">■ 本日の消印簿</p>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#5c564c;padding:7px 0;border-bottom:1px dashed rgba(58,54,48,.22);"><span>ツグミ ・ 道探し（渡し場）</span><span style="font-family:'IBM Plex Mono',monospace;color:#2f7a4f;">18 ／ 配達可</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#5c564c;padding:7px 0;border-bottom:1px dashed rgba(58,54,48,.22);"><span>ユキ ・ 読心（宛名の滲み）</span><span style="font-family:'IBM Plex Mono',monospace;color:#b58a1f;">13 ／ 保留（もう一晩預かる）</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#5c564c;padding:7px 0;"><span>戸川 ・ 口才（受取拒否の説得）</span><span style="font-family:'IBM Plex Mono',monospace;color:#c9382e;">4 ／ 返送（涙の跡つき）</span></div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isCombat }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="配達行路" style="animation:scfade .4s ease;max-width:780px;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0;color:#3a3630;">配達行路 ・ 黄泉の渡し場 経由</h1>
+              <div style="display:flex;gap:8px;"><button style="padding:8px 15px;border:1px solid rgba(58,54,48,.3);border-radius:5px;background:#fff;color:#8a8272;cursor:pointer;font-size:13px;font-family:'Zen Maru Gothic',sans-serif;">小休止</button><button style="padding:8px 15px;border:2px solid #c9382e;border-radius:5px;background:#c9382e;color:#f6f1e6;cursor:pointer;font-weight:700;font-size:13px;font-family:'Zen Maru Gothic',sans-serif;">先へ進む</button></div>
+            </div>
+            <p style="font-size:12px;color:#a39a86;margin:0 0 14px;">※夜明けまでに帰局できないと「現世との縁」が10減ります。急ぎつつ、丁寧に。</p>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:6px;border:2px solid #c9382e;background:rgba(201,56,46,.04);margin-bottom:14px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;background:#c9382e;color:#fff;border-radius:50%;">〒</span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#3a3630;">ツグミ（配達中） <span style="font-size:11px;color:#c9382e;">郵袋：手紙4通＋想い6.8kg</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(44,74,114,.1);color:#2c4a72;">自転車（前カゴ結界付）</span><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(201,56,46,.08);color:#c9382e;">通行手形あり</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#8a8272;margin-bottom:3px;"><span>夜明けまで</span><span style="font-family:'IBM Plex Mono',monospace;">4:12</span></div><div style="height:8px;border-radius:5px;background:rgba(58,54,48,.08);overflow:hidden;"><div style="width:65%;height:100%;background:linear-gradient(90deg,#2c4a72,#c9382e);"></div></div></div></div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#c9382e;font-weight:700;margin:0 0 10px;">■ 行路上の障り</p>
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:6px;border:1px solid rgba(122,90,158,.5);background:rgba(122,90,158,.04);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#7a5a9e;color:#fff;border-radius:50%;">1</span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#7a5a9e;">迷い霧 <span style="font-size:11px;color:#8a8272;">濃度：中</span></div><div style="font-size:12px;color:#8a8272;margin-top:2px;">入った者の「帰りたい場所」を上書きしてくる霧。鼻歌で防げる。</div></div><div style="width:150px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#8a8272;margin-bottom:3px;"><span>晴れるまで</span><span style="font-family:'IBM Plex Mono',monospace;">3巡</span></div><div style="height:8px;border-radius:5px;background:rgba(58,54,48,.08);overflow:hidden;"><div style="width:60%;height:100%;background:#7a5a9e;"></div></div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:6px;border:1px solid rgba(181,138,31,.55);background:rgba(181,138,31,.05);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#b58a1f;color:#fff;border-radius:50%;">2</span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#8a6a1f;">未練の犬 <span style="font-size:11px;color:#8a8272;">しっぽ：振っている</span></div><div style="font-size:12px;color:#8a8272;margin-top:2px;">誰かが手紙に書き忘れた「追伸」が犬の形になったもの。手紙のあとを付いてくる。</div></div><div style="width:150px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#8a8272;margin-bottom:3px;"><span>なつき度</span><span style="font-family:'IBM Plex Mono',monospace;">72/100</span></div><div style="height:8px;border-radius:5px;background:rgba(58,54,48,.08);overflow:hidden;"><div style="width:72%;height:100%;background:#b58a1f;"></div></div><div style="font-size:9px;color:#a39a86;margin-top:2px;">※100で正式に局の犬になる</div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:6px;border:1px solid rgba(44,74,114,.5);background:rgba(44,74,114,.04);"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#2c4a72;color:#fff;border-radius:50%;">3</span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#2c4a72;">時空の踏切 <span style="font-size:11px;color:#c9382e;animation:ticker 1.2s ease-in-out infinite;">警報：鳴動中</span></div><div style="font-size:12px;color:#8a8272;margin-top:2px;">「昨日」と「明日」が交互に通過する踏切。渡るタイミングで配達先の時代が決まる。</div></div><div style="width:150px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#8a8272;margin-bottom:3px;"><span>次の「明日」まで</span><span style="font-family:'IBM Plex Mono',monospace;">2巡</span></div><div style="height:8px;border-radius:5px;background:rgba(58,54,48,.08);overflow:hidden;"><div style="width:34%;height:100%;background:#2c4a72;"></div></div></div></div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isInv }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="郵袋" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+              <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0;color:#3a3630;">郵袋 ・ 配達鞄の中</h1>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8a8272;">総重量 6.8kg（うち想い 6.2kg） ・ 手紙4通</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:22px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#c9382e;font-weight:700;margin:0 0 11px;">■ 配達道具</p>
+                <div style="padding:12px 14px;border:1px solid rgba(58,54,48,.22);border-radius:6px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;font-weight:700;color:#3a3630;">黄泉の通行手形</div><div style="font-size:12px;color:#8a8272;margin-top:3px;line-height:1.7;">渡し場の検問で提示。裏面に「日没後有効・夜明け無効」と朱書き。</div></div>
+                <div style="padding:12px 14px;border:1px solid rgba(58,54,48,.22);border-radius:6px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;font-weight:700;color:#3a3630;">雨避けの油紙</div><div style="font-size:12px;color:#8a8272;margin-top:3px;line-height:1.7;">手紙を包むと、涙でも滲まなくなる。残り3枚。</div></div>
+                <div style="padding:12px 14px;border:1px solid rgba(181,138,31,.5);border-radius:6px;background:rgba(181,138,31,.04);"><div style="font-size:14px;font-weight:700;color:#8a6a1f;">犬用ビスケット</div><div style="font-size:12px;color:#8a8272;margin-top:3px;line-height:1.7;">未練の犬用。あげると尻尾の振りが1.4倍になる。局の経費で購入可。</div></div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#c9382e;font-weight:700;margin:0 0 11px;">■ 預かり郵便（開封厳禁）</p>
+                <div style="border:1px solid rgba(58,54,48,.22);border-radius:6px;padding:10px 13px;margin-bottom:8px;background:#fff;"><div style="display:flex;justify-content:space-between;font-size:13px;color:#3a3630;"><span style="font-weight:700;">天国のおばあちゃんへ</span><span style="font-family:'IBM Plex Mono',monospace;color:#2c4a72;">YM-0470-77</span></div><div style="font-size:11px;color:#8a8272;margin-top:2px;">差出人：小学三年生 ・ 想い重量 3.2kg ・ クレヨンの宛名</div></div>
+                <div style="border:1px solid rgba(58,54,48,.22);border-radius:6px;padding:10px 13px;margin-bottom:8px;background:#fff;"><div style="display:flex;justify-content:space-between;font-size:13px;color:#3a3630;"><span style="font-weight:700;">三十年後の私へ</span><span style="font-family:'IBM Plex Mono',monospace;color:#2c4a72;">FT-2056-04</span></div><div style="font-size:11px;color:#8a8272;margin-top:2px;">差出人：高校の卒業式で書かれた ・ 想い重量 0.9kg ・ 封が二重</div></div>
+                <div style="border:1px solid rgba(58,54,48,.22);border-radius:6px;padding:10px 13px;margin-bottom:8px;background:#fff;"><div style="display:flex;justify-content:space-between;font-size:13px;color:#3a3630;"><span style="font-weight:700;">結婚していた方の私へ</span><span style="font-family:'IBM Plex Mono',monospace;color:#7a5a9e;">PW-0002-13</span></div><div style="font-size:11px;color:#8a8272;margin-top:2px;">差出人：独身の方の本人 ・ 想い重量 1.8kg ・ 便箋は家計簿の裏紙</div></div>
+                <div style="border:2px solid rgba(201,56,46,.55);border-radius:6px;padding:10px 13px;background:rgba(201,56,46,.03);"><div style="display:flex;justify-content:space-between;font-size:13px;color:#3a3630;"><span style="font-weight:700;">（宛名が読むたび変わる手紙）</span><span style="font-family:'IBM Plex Mono',monospace;color:#c9382e;">XX-0000-00</span></div><div style="font-size:11px;color:#c9382e;margin-top:2px;">局長預かりのはずが、なぜか郵袋に入っている。重量計は「計測不能」を示す。</div></div>
+                <div style="margin-top:14px;border:1px solid rgba(58,54,48,.25);border-radius:6px;padding:13px 15px;background:#fdfaf2;"><div style="font-size:13px;font-weight:700;color:#3a3630;margin-bottom:5px;">仕分け係メモ</div><div style="font-size:12px;line-height:1.8;color:#8a8272;">想いは重いほど配達が難しく、届いたときの効果も大きい。3kg超は「二人がかり案件」が局の推奨です。</div></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStory }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="配達記録" style="animation:scfade .4s ease;max-width:640px;margin:0 auto;">
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#8a8272;text-align:center;margin:0 0 6px;">配達記録 ・ 第七夜 ・ 追跡番号 YM-0470-77</p>
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;text-align:center;margin:0 0 4px;color:#3a3630;">渡し場、最終便</h1>
+            <div style="display:flex;align-items:center;gap:12px;margin:16px 0 22px;color:#c9382e;"><span style="flex:1;height:1px;background:rgba(58,54,48,.25);"></span><span style="font-size:12px;">〒</span><span style="flex:1;height:1px;background:rgba(58,54,48,.25);"></span></div>
+            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.1;color:#403b33;margin:0 0 18px;">渡し場の桟橋は、夜霧の中で灯籠だけが順番に灯っていた。船頭が手を出す。「手形と、それから——重いのを持ってるね」。ツグミは頷いて、クレヨンの宛名の手紙を胸ポケットから出した。3.2kg。持っているだけで、肩ではなく胸が重くなる種類の重さだ。</p>
+            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.1;color:#403b33;margin:0 0 18px;">「黄泉の住所は生前の思い出でできてる」と船頭は言った。「おばあちゃんの家、知ってるかい。縁側の匂いとか、時計の音とか」。ツグミは手紙の重さの中から、それを探す。夕方の味噌汁。テレビの相撲。仏壇の鈴の音——あった。<b style="color:#c9382e;">道が、灯った。</b></p>
+            <blockquote style="margin:22px 0;padding:14px 20px;border-left:3px solid #c9382e;background:rgba(201,56,46,.03);font-family:'Shippori Mincho',serif;font-size:16px;line-height:1.9;color:#5c564c;">配達員は手紙を読んではならない。<br>だが手紙の重さを預かることは、読むことより深く読むことだ。<br><span style="font-size:12px;color:#a39a86;">——局員手帳 三頁 欄外の書き込み（筆跡は先代のもの）</span></blockquote>
+            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.1;color:#403b33;margin:0 0 26px;">船が岸を離れる。振り返ると、桟橋に犬が一匹、座ってこちらを見ていた。ついて来ない。渡し場から先は、未練は入れないのだ。犬は一度だけ吠えて——それは「追伸」の続きのような、短い声だった。</p>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#c9382e;font-weight:700;margin:0 0 12px;">■ どうする</p>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(58,54,48,.3);border-radius:6px;background:#fff;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-size:14px;color:#403b33;">①　このまま黄泉へ渡る（現世との縁 −5）</button>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(58,54,48,.3);border-radius:6px;background:#fff;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-size:14px;color:#403b33;">②　犬の「追伸」を聞き取ってから渡る <span style="color:#c9382e;font-weight:700;">読心判定 ・ 難度14</span></button>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;border:1px solid rgba(58,54,48,.3);border-radius:6px;background:#fff;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-size:14px;color:#403b33;">③　船頭に「例の変わる宛名の手紙」を見せてみる（何かが起きる）</button>
+            <div style="margin-top:24px;height:5px;border-radius:3px;background:rgba(58,54,48,.08);overflow:hidden;"><div style="width:64%;height:100%;background:#c9382e;"></div></div>
+            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#a39a86;margin:7px 0 0;">配達進捗 64% ・ 夜明けまで 4:12 ・ 想い残量 6.8kg</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="区域図" style="animation:scfade .4s ease;max-width:840px;margin:0 auto;">
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0 0 4px;color:#3a3630;">配達区域図 ・ 第七夜勤区</h1>
+            <p style="font-size:12px;color:#a39a86;margin:0 0 16px;">実線＝毎夜通れる道。破線＝条件つき。この地図は毎晩、少しだけ描き変わります。</p>
+            <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:20px;">
+              <div style="position:relative;height:340px;border:1px solid rgba(58,54,48,.3);border-radius:6px;background:repeating-linear-gradient(0deg,rgba(58,54,48,.03) 0 1px,transparent 1px 24px),repeating-linear-gradient(90deg,rgba(58,54,48,.03) 0 1px,transparent 1px 24px),#fdfaf2;overflow:hidden;">
+                <div style="position:absolute;left:6%;top:8%;width:40%;height:34%;border:2px solid #c9382e;border-radius:8px;background:rgba(201,56,46,.04);padding:8px 11px;box-sizing:border-box;"><div style="font-size:12px;font-weight:700;color:#c9382e;">生者の街 ◉ 局はここ</div><div style="font-size:10px;color:#8a8272;margin-top:3px;">受付・仕分け・回送の起点。<br>ツグミはここでだけ道に迷う。</div></div>
+                <div style="position:absolute;right:6%;top:14%;width:36%;height:30%;border:2px dashed #2c4a72;border-radius:8px;background:rgba(44,74,114,.04);padding:8px 11px;box-sizing:border-box;"><div style="font-size:12px;font-weight:700;color:#2c4a72;">未来南三丁目</div><div style="font-size:10px;color:#8a8272;margin-top:3px;">時空の踏切の先。<br>「明日」通過時のみ進入可。</div></div>
+                <div style="position:absolute;left:10%;bottom:8%;width:38%;height:32%;border:2px dashed #6b6458;border-radius:8px;background:rgba(58,54,48,.04);padding:8px 11px;box-sizing:border-box;"><div style="font-size:12px;font-weight:700;color:#5c564c;">黄泉の渡し場</div><div style="font-size:10px;color:#8a8272;margin-top:3px;">通行手形が要る。<br>最終便は夜明けの一時間前。</div></div>
+                <div style="position:absolute;right:8%;bottom:10%;width:34%;height:28%;border:2px dashed #7a5a9e;border-radius:8px;background:rgba(122,90,158,.05);padding:8px 11px;box-sizing:border-box;"><div style="font-size:12px;font-weight:700;color:#7a5a9e;">平行町</div><div style="font-size:10px;color:#8a8272;margin-top:3px;">合わせ鏡の路地から入る。<br>自分と会わないこと。</div></div>
+                <div style="position:absolute;left:46%;top:26%;width:10%;height:0;border-top:2px solid rgba(58,54,48,.4);transform:rotate(12deg);"></div>
+                <div style="position:absolute;left:30%;top:44%;width:0;height:16%;border-left:2px dashed rgba(58,54,48,.35);"></div>
+                <div style="position:absolute;right:24%;top:46%;width:0;height:14%;border-left:2px dashed rgba(122,90,158,.5);"></div>
+                <div style="position:absolute;right:10px;bottom:9px;font-size:10px;letter-spacing:1px;color:#a39a86;">縮尺：想いの重さに比例して伸縮</div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#c9382e;font-weight:700;margin:0 0 11px;">■ 区域メモ</p>
+                <div style="padding:11px 13px;border:2px solid #c9382e;border-radius:6px;margin-bottom:8px;background:rgba(201,56,46,.03);"><div style="font-size:14px;font-weight:700;color:#3a3630;">生者の街 <span style="font-size:10px;color:#c9382e;">現在地</span></div><div style="font-size:12px;color:#8a8272;margin-top:3px;">局の裏口から出ると、なぜか毎回違う通りに出る。</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(58,54,48,.25);border-radius:6px;margin-bottom:8px;background:#fdfaf2;"><div style="font-size:14px;font-weight:700;color:#3a3630;">黄泉の渡し場</div><div style="font-size:12px;color:#8a8272;margin-top:3px;">船賃は硬貨ではなく「一番古い思い出をひとつ話す」こと。</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(58,54,48,.25);border-radius:6px;background:#fdfaf2;opacity:.85;"><div style="font-size:14px;font-weight:700;color:#5c564c;">未踏区域「差出人の国」</div><div style="font-size:12px;color:#a39a86;margin-top:3px;">XX-0000-00の消印がある場所。地図には毎晩、少しずつ近づいて描かれる。</div></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isGM }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="局長室" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:23px;margin:0 0 4px;color:#3a3630;">{{ gmTitle }}</h1>
+            <p style="font-size:13px;color:#8a8272;margin:0 0 20px;">局長室の扉は常に施錠。だが差し入れ口から、毎晩指示書きだけが出てくる。</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#c9382e;font-weight:700;margin:0 0 11px;">■ 進行中の配達</p>
+                <div style="padding:11px 13px;border:2px solid #c9382e;border-radius:6px;margin-bottom:8px;background:rgba(201,56,46,.03);"><div style="font-size:14px;font-weight:700;color:#3a3630;">YM-0470-77 黄泉行き <span style="font-size:10px;color:#c9382e;">渡し場通過中</span></div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(58,54,48,.25);border-radius:6px;margin-bottom:8px;background:#fdfaf2;"><div style="font-size:14px;color:#8a8272;">FT-2056-04 未来行き（踏切待ち）</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(58,54,48,.25);border-radius:6px;background:#fdfaf2;"><div style="font-size:14px;color:#8a8272;">PW-0002-13 平行町行き（未着手）</div></div>
+                <p style="font-size:11px;letter-spacing:3px;color:#c9382e;font-weight:700;margin:20px 0 10px;">■ 局全体の「未達」圧</p>
+                <div style="height:9px;border-radius:5px;background:rgba(58,54,48,.08);overflow:hidden;"><div style="width:47%;height:100%;background:linear-gradient(90deg,#2c4a72,#c9382e);"></div></div>
+                <p style="font-size:11px;color:#a39a86;margin:6px 0 0;">未達が溜まりすぎると、局舎が「配達に出たがって」動き出す。</p>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#c9382e;font-weight:700;margin:0 0 11px;">■ 秘匿事項（局長預かり）</p>
+                <div style="border:1px solid rgba(58,54,48,.25);border-radius:6px;padding:11px 13px;margin-bottom:8px;background:#fdfaf2;"><div style="font-size:14px;font-weight:700;color:#3a3630;">XX-0000-00 の正体</div><div style="font-size:12px;color:#8a8272;margin-top:2px;">宛名が変わるのではない。<b>読む者ごとに「その人が一番受け取るべき手紙」に見えている。</b></div><div style="font-size:12px;color:#c9382e;margin-top:4px;background:rgba(201,56,46,.05);border-radius:4px;padding:4px 8px;">秘密：差出人は先代の配達員。まだ配達の途中で、帰り道を忘れているだけ。</div></div>
+                <div style="border:1px solid rgba(58,54,48,.25);border-radius:6px;padding:11px 13px;background:#fdfaf2;"><div style="font-size:14px;font-weight:700;color:#3a3630;">ユキ（窓口係）</div><div style="font-size:12px;color:#8a8272;margin-top:2px;">昔、届くはずのない手紙の「受取人」だった。受け取った日から年を取っていない。</div></div>
+                <p style="font-size:11px;letter-spacing:3px;color:#c9382e;font-weight:700;margin:20px 0 10px;">■ 夜のハプニング表（d6）</p>
+                <div style="font-size:13px;color:#5c564c;line-height:1.9;">1–2 にわか雨（油紙の出番） ・ 3 追跡番号が二通で入れ替わる<br>4 受取人がすでに引っ越し（転居先：黄泉） ・ 5 未練の犬が増える ・ 6 局長の点呼（全員、声だけで返事）</div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+      </main>
+    </div>
+
+    <sc-if value="{{ showTabbar }}" hint-placeholder-val="{{ false }}">
+      <nav style="position:relative;z-index:2;display:flex;border-top:2px solid rgba(58,54,48,.3);background:#fbf7ee;">
+        <sc-for list="{{ nav }}" as="item" hint-placeholder-count="7">
+          <button onClick="{{ item.go }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px;border:0;background:{{ item.tbBg }};color:{{ item.color }};cursor:pointer;">
+            <span style="width:19px;height:19px;flex:none;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border-radius:50%;background:{{ item.badgeBg }};color:{{ item.badgeColor }};border:{{ item.badgeBorder }};">{{ item.badge }}</span>
+            <span style="font-size:9px;letter-spacing:.5px;font-family:'Zen Maru Gothic',sans-serif;">{{ item.label }}</span>
+          </button>
+        </sc-for>
+      </nav>
+    </sc-if>
+
+    <div style="position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:50;display:flex;gap:3px;padding:5px;border-radius:999px;background:rgba(10,13,20,.86);backdrop-filter:blur(8px);box-shadow:0 8px 26px rgba(0,0,0,.5);border:1px solid rgba(201,56,46,.45);">
+      <sc-for list="{{ devs }}" as="d" hint-placeholder-count="3">
+        <button onClick="{{ d.go }}" style="padding:7px 16px;border:0;border-radius:999px;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-weight:700;font-size:11px;letter-spacing:1.5px;background:{{ d.bg }};color:{{ d.color }};">{{ d.label }}</button>
+      </sc-for>
+    </div>
+
+  </div>
+</div>
+</template>
+<script>
+/*
+ * Claude Design の x-dc テンプレート（sc-if / sc-for / {{ 変数 }} / onClick）を
+ * そのまま解釈して描画するミニランタイム。support.js（React ベースのプレビュー用）の代替。
+ * 状態変更のたびにテンプレート全体を再構築する（プロトタイプの再レンダーと同等）。
+ */
+(function () {
+  var cache = new Map();
+  function compile(expr) {
+    var fn = cache.get(expr);
+    if (!fn) {
+      fn = new Function('__s', 'with(__s){return(' + expr + ');}');
+      cache.set(expr, fn);
+    }
+    return fn;
+  }
+  function evalExpr(expr, scope) {
+    return compile(expr)(scope);
+  }
+  // "{{ expr }}" 単体の属性値から式を取り出す
+  function single(text) {
+    var m = /^\s*\{\{\s*([\s\S]+?)\s*\}\}\s*$/.exec(text || '');
+    return m ? m[1] : null;
+  }
+  function interpolate(text, scope) {
+    if (text.indexOf('{{') === -1) return text;
+    return text.replace(/\{\{\s*([\s\S]+?)\s*\}\}/g, function (_, expr) {
+      var v = evalExpr(expr, scope);
+      return v == null ? '' : String(v);
+    });
+  }
+  function build(nodes, scope, parent) {
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+      if (node.nodeType === Node.TEXT_NODE) {
+        parent.appendChild(document.createTextNode(interpolate(node.nodeValue, scope)));
+        continue;
+      }
+      if (node.nodeType !== Node.ELEMENT_NODE) continue;
+      var tag = node.localName;
+      if (tag === 'sc-if') {
+        var cond = single(node.getAttribute('value'));
+        if (cond && evalExpr(cond, scope)) build(node.childNodes, scope, parent);
+        continue;
+      }
+      if (tag === 'sc-for') {
+        var listExpr = single(node.getAttribute('list'));
+        var as = node.getAttribute('as') || 'item';
+        var list = (listExpr && evalExpr(listExpr, scope)) || [];
+        for (var j = 0; j < list.length; j++) {
+          var child = Object.assign({}, scope);
+          child[as] = list[j];
+          build(node.childNodes, child, parent);
+        }
+        continue;
+      }
+      var el = document.createElementNS(node.namespaceURI, tag);
+      for (var k = 0; k < node.attributes.length; k++) {
+        var attr = node.attributes[k];
+        if (attr.name.indexOf('hint-placeholder') === 0) continue;
+        if (attr.name === 'onclick') {
+          var handlerExpr = single(attr.value);
+          var fn = handlerExpr ? evalExpr(handlerExpr, scope) : null;
+          if (typeof fn === 'function') el.addEventListener('click', fn);
+          continue;
+        }
+        el.setAttribute(attr.name, interpolate(attr.value, scope));
+      }
+      build(node.childNodes, scope, el);
+      parent.appendChild(el);
+    }
+  }
+  window.DCLogic = class DCLogic {
+    mount(rootEl, templateEl) {
+      this._root = rootEl;
+      this._tpl = templateEl.content;
+      this.render();
+    }
+    setState(update) {
+      var patch = typeof update === 'function' ? update(this.state) : update;
+      Object.assign(this.state, patch);
+      this.render();
+    }
+    render() {
+      var scope = this.renderVals();
+      var frag = document.createDocumentFragment();
+      build(this._tpl.childNodes, scope, frag);
+      this._root.replaceChildren(frag);
+    }
+  };
+})();
+
+class Component extends DCLogic {
+  state = { device: 'desktop', play: 'gmpl', screen: 'top' };
+
+  renderVals() {
+    const { device, play, screen } = this.state;
+    const frames = { phone: { w: 392, h: 828 }, tablet: { w: 900, h: 660 }, desktop: { w: 1240, h: 772 } };
+    const f = frames[device] || frames.desktop;
+    const isPhone = device === 'phone';
+    const compact = device === 'tablet';
+
+    const setScreen = (s) => this.setState({ screen: s });
+    const setPlay = (p) => this.setState((st) => ({ play: p, screen: (p === 'solo' && st.screen === 'gm') ? 'top' : st.screen }));
+    const setDevice = (d) => this.setState({ device: d });
+
+    const playLabel = { solo: '単独夜勤', gmpl: '局長と局員', gmless: '合同仕分け' }[play] || '';
+
+    const navDefs = [
+      ['top', '夜間窓口', '窓'],
+      ['sheet', '局員手帳', '手'],
+      ['dice', '消印判定', '印'],
+      ['combat', '配達行路', '路'],
+      ['inventory', '郵袋', '袋'],
+      ['story', '配達記録', '記'],
+      ['map', '区域図', '図'],
+      ['gm', play === 'gmless' ? '合同局務' : '局長室', '局'],
+    ];
+    const nav = navDefs
+      .filter((d) => d[0] !== 'gm' || play !== 'solo')
+      .map(([id, label, badge]) => {
+        const active = id === screen;
+        return {
+          id, label, badge, active,
+          go: () => setScreen(id),
+          color: active ? '#c9382e' : '#8a8272',
+          bg: active ? 'rgba(201,56,46,0.07)' : 'transparent',
+          tbBg: active ? 'rgba(201,56,46,0.07)' : 'transparent',
+          weight: active ? '700' : '500',
+          badgeBg: active ? '#c9382e' : 'transparent',
+          badgeColor: active ? '#f6f1e6' : '#c9382e',
+          badgeBorder: active ? 'none' : '1.5px solid rgba(201,56,46,.5)',
+          labelStyle: compact ? 'display:none' : 'display:inline',
+        };
+      });
+
+    const playModes = [
+      ['solo', '単独夜勤', '局員はあなた一人。指示書きと手引書を頼りに、夜明けまでに配り切る。'],
+      ['gmpl', '局長と局員', '局長役（GM)が街と受取人を、局員たちが配達を担う通常の卓。'],
+      ['gmless', '合同仕分け', '局長不在の夜。手紙の束を囲み、全員で宛先を推理しながら回す卓。'],
+    ].map(([id, t, d]) => {
+      const active = id === play;
+      return {
+        id, t, d, active,
+        go: () => setPlay(id),
+        border: active ? '2px solid #c9382e' : '1px solid rgba(58,54,48,.25)',
+        bg: active ? 'rgba(201,56,46,.04)' : '#fff',
+        titleColor: active ? '#c9382e' : '#403b33',
+      };
+    });
+
+    const devs = [
+      ['phone', 'スマホ'], ['tablet', 'タブ'], ['desktop', 'PC'],
+    ].map(([id, label]) => {
+      const active = id === device;
+      return {
+        id, label, active,
+        go: () => setDevice(id),
+        bg: active ? '#c9382e' : 'transparent',
+        color: active ? '#f6f1e6' : '#cfc5ae',
+      };
+    });
+
+    return {
+      frameW: f.w, frameH: f.h, railW: compact ? 66 : 214,
+      mainPad: isPhone ? '22px 18px 26px' : '30px 34px 38px',
+      showRail: !isPhone, showTabbar: isPhone,
+      playLabel, nav, playModes, devs,
+      isTop: screen === 'top', isSheet: screen === 'sheet', isDice: screen === 'dice',
+      isCombat: screen === 'combat', isInv: screen === 'inventory', isStory: screen === 'story',
+      isMap: screen === 'map', isGM: screen === 'gm',
+      gmTitle: play === 'gmless' ? '合同局務 — 施錠された局長室の前で' : '局長室 — 差し入れ口の指示書き',
+    };
+  }
+}
+
+window.__dcApp = new Component();
+if (typeof GameEngine !== 'undefined' && window.__GAME__) GameEngine.attach(window.__dcApp, window.__GAME__);
+window.__dcApp.mount(document.getElementById('app'), document.getElementById('dc-template'));
+</script>
+</body>
+</html>

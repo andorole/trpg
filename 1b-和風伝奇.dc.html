@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700;800&family=Yuji+Syuku&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#14110d;}
+  @keyframes scfade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+  @keyframes diceflip{0%{transform:rotate(-7deg) scale(.86);opacity:.4}55%{transform:rotate(5deg) scale(1.05)}100%{transform:none;opacity:1}}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-thumb{background:rgba(120,90,40,.3);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:34px 20px 96px;box-sizing:border-box;font-family:'Shippori Mincho',serif;background:radial-gradient(120% 95% at 50% 0%,#241c14 0%,#14110d 58%,#0d0a06 100%);color:#211c16;">
+
+  <div style="position:relative;width:{{ frameW }}px;height:{{ frameH }}px;max-width:100%;background:#e6d9bf;border:1px solid #c3ad84;border-radius:6px;box-shadow:0 34px 90px -22px rgba(0,0,0,.72),0 0 0 8px rgba(18,14,9,.55),inset 0 0 130px rgba(150,110,60,.1);overflow:hidden;display:flex;flex-direction:column;">
+
+    <div style="position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle at 84% 12%,rgba(177,58,42,.06),transparent 30%),radial-gradient(circle at 14% 82%,rgba(120,90,40,.07),transparent 40%),repeating-linear-gradient(90deg,rgba(90,70,30,.022) 0 1px,transparent 1px 3px);mix-blend-mode:multiply;"></div>
+
+    <header style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 22px;border-bottom:1px solid rgba(90,79,63,.32);background:linear-gradient(180deg,rgba(239,230,207,.92),rgba(226,214,185,.5));">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;background:#b13a2a;color:#f3ead3;font-family:'Yuji Syuku',serif;font-size:16px;border-radius:3px;box-shadow:0 2px 5px rgba(0,0,0,.2);">祓</span>
+        <span style="font-family:'Yuji Syuku',serif;font-size:23px;color:#211c16;letter-spacing:3px;">怪異録</span>
+        <span style="font-size:10px;letter-spacing:3px;color:#8f2c1f;">KAII ・ CASE LEDGER</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:9px;">
+        <span style="font-size:12px;letter-spacing:1.5px;color:#5a4f3f;">{{ playLabel }}</span>
+        <span style="width:6px;height:6px;border-radius:50%;background:#b13a2a;box-shadow:0 0 0 3px rgba(177,58,42,.16);"></span>
+      </div>
+    </header>
+
+    <div style="position:relative;z-index:2;flex:1;display:flex;min-height:0;">
+
+      <sc-if value="{{ showRail }}" hint-placeholder-val="{{ true }}">
+        <nav style="width:{{ railW }}px;flex:none;border-right:1px solid rgba(90,79,63,.26);background:linear-gradient(180deg,rgba(177,58,42,.04),transparent);padding:15px 10px;display:flex;flex-direction:column;gap:3px;overflow-y:auto;">
+          <sc-for list="{{ nav }}" as="item" hint-placeholder-count="8">
+            <button onClick="{{ item.go }}" style="display:flex;align-items:center;gap:11px;width:100%;padding:10px 12px;border:0;border-radius:5px;cursor:pointer;text-align:left;background:{{ item.bg }};color:{{ item.color }};font-family:'Shippori Mincho',serif;font-size:15px;font-weight:{{ item.weight }};">
+              <span style="width:8px;height:8px;flex:none;border-radius:1px;background:{{ item.markerBg }};box-shadow:inset 0 0 0 1px {{ item.markerBorder }};"></span>
+              <span>{{ item.railLabel }}</span>
+            </button>
+          </sc-for>
+        </nav>
+      </sc-if>
+
+      <main style="flex:1;min-width:0;overflow-y:auto;padding:{{ mainPad }};">
+
+        <sc-if value="{{ isTop }}" hint-placeholder-val="{{ true }}">
+          <div style="animation:scfade .4s ease;max-width:760px;margin:0 auto;">
+            <p style="font-size:11px;letter-spacing:4px;color:#8f2c1f;margin:0 0 7px;">怪異 第七號 ・ 鏡沼村</p>
+            <h1 style="font-family:'Yuji Syuku',serif;font-weight:400;font-size:40px;line-height:1.12;margin:0 0 14px;color:#211c16;">鏡沼の影攫い</h1>
+            <p style="font-size:17px;line-height:1.85;color:#3f372b;margin:0 0 28px;max-width:58ch;">沼のほとりの村で、人の影がひとつ、またひとつと失われている。鏡を割れば助かると古老は言うが——調べは、まだ何ひとつ裏が取れていない。帳面を開こう。</p>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#8f2c1f;margin:0 0 12px;">祓い方を択ぶ</p>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 30px;">
+              <sc-for list="{{ playModes }}" as="m" hint-placeholder-count="3">
+                <button onClick="{{ m.go }}" style="text-align:left;padding:14px 15px;border-radius:6px;cursor:pointer;border:{{ m.border }};background:{{ m.bg }};">
+                  <div style="font-family:'Shippori Mincho',serif;font-size:14px;font-weight:700;color:{{ m.titleColor }};margin-bottom:5px;">{{ m.t }}</div>
+                  <div style="font-size:13px;line-height:1.55;color:#5a4f3f;">{{ m.d }}</div>
+                </button>
+              </sc-for>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#8f2c1f;margin:0 0 14px;">調べの一行</p>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:92px;"><div style="width:62px;height:62px;border-radius:50%;border:2px solid #b13a2a;background:repeating-linear-gradient(45deg,rgba(120,90,40,.12) 0 5px,transparent 5px 10px),rgba(239,230,207,.7);box-shadow:0 4px 10px rgba(0,0,0,.12);"></div><div style="font-size:13px;color:#211c16;">久遠寺 紗那</div><div style="font-size:11px;color:#5a4f3f;">民俗学者</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:92px;"><div style="width:62px;height:62px;border-radius:50%;border:2px solid #b13a2a;background:repeating-linear-gradient(45deg,rgba(120,90,40,.12) 0 5px,transparent 5px 10px),rgba(239,230,207,.7);box-shadow:0 4px 10px rgba(0,0,0,.12);"></div><div style="font-size:13px;color:#211c16;">柊 十三</div><div style="font-size:11px;color:#5a4f3f;">退魔師</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:92px;"><div style="width:62px;height:62px;border-radius:50%;border:2px solid #b13a2a;background:repeating-linear-gradient(45deg,rgba(120,90,40,.12) 0 5px,transparent 5px 10px),rgba(239,230,207,.7);box-shadow:0 4px 10px rgba(0,0,0,.12);"></div><div style="font-size:13px;color:#211c16;">あやめ</div><div style="font-size:11px;color:#5a4f3f;">巫女</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:92px;"><div style="width:62px;height:62px;border-radius:50%;border:2px solid #b13a2a;background:repeating-linear-gradient(45deg,rgba(120,90,40,.12) 0 5px,transparent 5px 10px),rgba(239,230,207,.7);box-shadow:0 4px 10px rgba(0,0,0,.12);"></div><div style="font-size:13px;color:#211c16;">犬飼 剛</div><div style="font-size:11px;color:#5a4f3f;">巡査</div></div>
+            </div>
+
+            <button style="margin-top:30px;display:inline-flex;align-items:center;gap:10px;padding:13px 28px;border:0;border-radius:6px;cursor:pointer;background:linear-gradient(180deg,#b13a2a,#8f2c1f);color:#f3ead3;font-family:'Shippori Mincho',serif;font-weight:700;font-size:15px;letter-spacing:2px;box-shadow:0 10px 24px -8px rgba(143,44,31,.55);">調べを進める　➜</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isSheet }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <div style="display:flex;gap:20px;align-items:flex-start;margin-bottom:22px;">
+              <div style="width:96px;height:120px;flex:none;border-radius:4px;border:1px solid rgba(90,79,63,.4);background:repeating-linear-gradient(45deg,rgba(120,90,40,.10) 0 6px,transparent 6px 12px),rgba(239,230,207,.6);display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:1px;color:#9c8657;">人 相 書</div>
+              <div style="flex:1;min-width:0;">
+                <p style="font-size:11px;letter-spacing:3px;color:#8f2c1f;margin:0 0 4px;">調書 ・ 第参號</p>
+                <h1 style="font-family:'Yuji Syuku',serif;font-weight:400;font-size:30px;margin:0 0 4px;color:#211c16;">久遠寺 紗那</h1>
+                <p style="font-size:14px;color:#5a4f3f;margin:0 0 10px;">民俗学者 ・ 調査二年 ・ 二十四</p>
+                <div style="display:flex;gap:7px;flex-wrap:wrap;">
+                  <span style="font-size:11px;padding:3px 9px;border-radius:3px;border:1px solid rgba(90,79,63,.4);color:#5a4f3f;">古文書</span>
+                  <span style="font-size:11px;padding:3px 9px;border-radius:3px;border:1px solid rgba(90,79,63,.4);color:#5a4f3f;">見鬼の才</span>
+                  <span style="font-size:11px;padding:3px 9px;border-radius:3px;border:1px solid rgba(90,79,63,.4);color:#5a4f3f;">怖がり</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:22px;">
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#5a4f3f;margin-bottom:4px;"><span>気力</span><span>9 / 14</span></div><div style="height:9px;border-radius:5px;background:rgba(90,79,63,.16);overflow:hidden;"><div style="width:64%;height:100%;background:linear-gradient(90deg,#b13a2a,#cc5a44);"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#5a4f3f;margin-bottom:4px;"><span>霊力</span><span>6 / 10</span></div><div style="height:9px;border-radius:5px;background:rgba(90,79,63,.16);overflow:hidden;"><div style="width:60%;height:100%;background:linear-gradient(90deg,#2c3c54,#46618a);"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#5a4f3f;margin-bottom:4px;"><span>正気</span><span>71</span></div><div style="height:9px;border-radius:5px;background:rgba(90,79,63,.16);overflow:hidden;"><div style="width:71%;height:100%;background:linear-gradient(90deg,#5a7a4a,#7a9a64);"></div></div></div>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#8f2c1f;margin:0 0 12px;">能力</p>
+            <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin-bottom:24px;">
+              <div style="border:1px solid rgba(90,79,63,.28);border-radius:4px;padding:9px 4px;text-align:center;background:rgba(239,230,207,.5);"><div style="font-size:11px;color:#8f2c1f;">体</div><div style="font-family:'Yuji Syuku',serif;font-size:24px;color:#211c16;line-height:1.2;">11</div><div style="font-size:11px;color:#5a4f3f;">＋1</div></div>
+              <div style="border:1px solid rgba(90,79,63,.28);border-radius:4px;padding:9px 4px;text-align:center;background:rgba(239,230,207,.5);"><div style="font-size:11px;color:#8f2c1f;">業</div><div style="font-family:'Yuji Syuku',serif;font-size:24px;color:#211c16;line-height:1.2;">13</div><div style="font-size:11px;color:#5a4f3f;">＋1</div></div>
+              <div style="border:1px solid rgba(90,79,63,.28);border-radius:4px;padding:9px 4px;text-align:center;background:rgba(239,230,207,.5);"><div style="font-size:11px;color:#8f2c1f;">知</div><div style="font-family:'Yuji Syuku',serif;font-size:24px;color:#211c16;line-height:1.2;">17</div><div style="font-size:11px;color:#5a4f3f;">＋3</div></div>
+              <div style="border:1px solid rgba(90,79,63,.28);border-radius:4px;padding:9px 4px;text-align:center;background:rgba(239,230,207,.5);"><div style="font-size:11px;color:#8f2c1f;">胆</div><div style="font-family:'Yuji Syuku',serif;font-size:24px;color:#211c16;line-height:1.2;">9</div><div style="font-size:11px;color:#5a4f3f;">±0</div></div>
+              <div style="border:1px solid rgba(90,79,63,.28);border-radius:4px;padding:9px 4px;text-align:center;background:rgba(239,230,207,.5);"><div style="font-size:11px;color:#8f2c1f;">縁</div><div style="font-family:'Yuji Syuku',serif;font-size:24px;color:#211c16;line-height:1.2;">15</div><div style="font-size:11px;color:#5a4f3f;">＋2</div></div>
+              <div style="border:1px solid rgba(90,79,63,.28);border-radius:4px;padding:9px 4px;text-align:center;background:rgba(239,230,207,.5);"><div style="font-size:11px;color:#8f2c1f;">呪</div><div style="font-family:'Yuji Syuku',serif;font-size:24px;color:#211c16;line-height:1.2;">14</div><div style="font-size:11px;color:#5a4f3f;">＋2</div></div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#8f2c1f;margin:0 0 10px;">技能</p>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#3f372b;padding:6px 0;border-bottom:1px dotted rgba(90,79,63,.3);"><span>民俗学</span><span style="color:#8f2c1f;">＋8</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#3f372b;padding:6px 0;border-bottom:1px dotted rgba(90,79,63,.3);"><span>目星</span><span style="color:#8f2c1f;">＋6</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#3f372b;padding:6px 0;border-bottom:1px dotted rgba(90,79,63,.3);"><span>聞き込み</span><span style="color:#8f2c1f;">＋5</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#3f372b;padding:6px 0;"><span>呪術</span><span style="color:#8f2c1f;">＋4</span></div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#8f2c1f;margin:0 0 10px;">特性</p>
+                <div style="border:1px solid rgba(90,79,63,.28);border-radius:4px;padding:11px 13px;margin-bottom:9px;background:rgba(239,230,207,.5);"><div style="font-size:13px;font-weight:700;color:#211c16;margin-bottom:3px;">見鬼</div><div style="font-size:12px;line-height:1.5;color:#5a4f3f;">常人に見えぬ怪異の気配を察する。</div></div>
+                <div style="border:1px solid rgba(90,79,63,.28);border-radius:4px;padding:11px 13px;background:rgba(239,230,207,.5);"><div style="font-size:13px;font-weight:700;color:#211c16;margin-bottom:3px;">博識</div><div style="font-size:12px;line-height:1.5;color:#5a4f3f;">怪異の正体に関する判定で優位を得る。</div></div>
+              </div>
+            </div>
+            <p style="margin-top:22px;font-size:14px;line-height:1.85;color:#5a4f3f;border-right:2px solid rgba(177,58,42,.5);padding-right:14px;text-align:right;">幼い頃、祖母の村で「視て」しまった。以来、怪異は彼女にとって学問であり、贖いでもある。</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isDice }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:scfade .4s ease;max-width:560px;margin:0 auto;text-align:center;">
+            <p style="font-size:11px;letter-spacing:4px;color:#8f2c1f;margin:0 0 4px;">目星判定 ・ 難度 13</p>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:7px;margin:18px 0 24px;">
+              <div style="width:122px;height:122px;border-radius:8px;animation:diceflip .55s ease;background:linear-gradient(145deg,#c0432f,#8f2c1f);border:2px solid #6f2014;box-shadow:0 16px 34px -12px rgba(0,0,0,.5),inset 0 0 26px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;color:#f3ead3;font-family:'Yuji Syuku',serif;font-size:56px;">16</div>
+              <div style="font-size:14px;color:#5a4f3f;">骰 16 ＋ 修正 3</div>
+              <div style="font-family:'Yuji Syuku',serif;font-size:17px;letter-spacing:6px;color:#5a7a4a;">成 ・ 吉</div>
+            </div>
+            <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;">
+              <span style="font-size:13px;padding:7px 13px;border-radius:4px;border:1px solid rgba(90,79,63,.3);color:#5a4f3f;">d6</span>
+              <span style="font-size:13px;padding:7px 13px;border-radius:4px;border:1px solid rgba(90,79,63,.3);color:#5a4f3f;">d10</span>
+              <span style="font-size:13px;padding:7px 13px;border-radius:4px;border:1px solid #b13a2a;color:#211c16;background:rgba(177,58,42,.12);">d20</span>
+              <span style="font-size:13px;padding:7px 13px;border-radius:4px;border:1px solid rgba(90,79,63,.3);color:#5a4f3f;">d100</span>
+              <span style="font-size:13px;padding:7px 13px;border-radius:4px;border:1px solid rgba(90,79,63,.3);color:#5a4f3f;">六道</span>
+            </div>
+            <button style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:0;border-radius:6px;cursor:pointer;background:linear-gradient(180deg,#b13a2a,#8f2c1f);color:#f3ead3;font-family:'Shippori Mincho',serif;font-weight:700;font-size:15px;letter-spacing:2px;box-shadow:0 10px 24px -8px rgba(143,44,31,.5);">卜を立てる</button>
+            <div style="margin-top:26px;text-align:left;">
+              <p style="font-size:11px;letter-spacing:3px;color:#8f2c1f;margin:0 0 9px;">帳面の記録</p>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#3f372b;padding:7px 0;border-bottom:1px dotted rgba(90,79,63,.3);"><span>紗那 ・ 目星</span><span style="color:#5a7a4a;">19 ／ 成</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#3f372b;padding:7px 0;border-bottom:1px dotted rgba(90,79,63,.3);"><span>十三 ・ 退魔</span><span style="color:#5a7a4a;">22 ／ 大成</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#3f372b;padding:7px 0;"><span>剛 ・ 胆力</span><span style="color:#8f2c1f;">7 ／ 凶</span></div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isCombat }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:scfade .4s ease;max-width:780px;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+              <h1 style="font-family:'Yuji Syuku',serif;font-weight:400;font-size:26px;margin:0;color:#211c16;">対峙 ・ 第二刻</h1>
+              <div style="display:flex;gap:8px;"><button style="padding:8px 15px;border:1px solid rgba(90,79,63,.4);border-radius:5px;background:transparent;color:#5a4f3f;cursor:pointer;font-family:'Shippori Mincho',serif;font-size:13px;">刻を送る</button><button style="padding:8px 15px;border:0;border-radius:5px;background:linear-gradient(180deg,#b13a2a,#8f2c1f);color:#f3ead3;cursor:pointer;font-family:'Shippori Mincho',serif;font-weight:700;font-size:13px;">次の手番</button></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:6px;border:1px solid #b13a2a;background:linear-gradient(90deg,rgba(177,58,42,.13),transparent);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;border-radius:50%;background:#8f2c1f;color:#f3ead3;display:flex;align-items:center;justify-content:center;font-family:'Yuji Syuku',serif;font-size:14px;">19</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #b13a2a;background:repeating-linear-gradient(45deg,rgba(120,90,40,.14) 0 4px,transparent 4px 8px);"></span><div style="flex:1;"><div style="font-size:15px;color:#211c16;">紗那 <span style="font-size:11px;color:#8f2c1f;">行動中</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:3px;background:rgba(44,60,84,.14);color:#2c3c54;">守護</span></div></div><div style="width:130px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#5a4f3f;margin-bottom:3px;"><span>気力</span><span>9/14</span></div><div style="height:7px;border-radius:4px;background:rgba(90,79,63,.16);overflow:hidden;"><div style="width:64%;height:100%;background:linear-gradient(90deg,#b13a2a,#cc5a44);"></div></div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:6px;border:1px solid rgba(90,79,63,.26);background:rgba(239,230,207,.4);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;border-radius:50%;background:rgba(90,79,63,.16);color:#5a4f3f;display:flex;align-items:center;justify-content:center;font-family:'Yuji Syuku',serif;font-size:14px;">16</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #211c16;background:repeating-linear-gradient(45deg,rgba(33,28,22,.18) 0 4px,transparent 4px 8px);"></span><div style="flex:1;"><div style="font-size:15px;color:#211c16;">影喰い <span style="font-size:11px;color:#8f2c1f;">怪異</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:3px;background:rgba(33,28,22,.12);color:#3f372b;">半実体</span></div></div><div style="width:130px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#5a4f3f;margin-bottom:3px;"><span>瘴気</span><span>20/34</span></div><div style="height:7px;border-radius:4px;background:rgba(90,79,63,.16);overflow:hidden;"><div style="width:58%;height:100%;background:linear-gradient(90deg,#3f372b,#211c16);"></div></div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:6px;border:1px solid rgba(90,79,63,.26);background:rgba(239,230,207,.4);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;border-radius:50%;background:rgba(90,79,63,.16);color:#5a4f3f;display:flex;align-items:center;justify-content:center;font-family:'Yuji Syuku',serif;font-size:14px;">12</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #b13a2a;background:repeating-linear-gradient(45deg,rgba(120,90,40,.14) 0 4px,transparent 4px 8px);"></span><div style="flex:1;"><div style="font-size:15px;color:#211c16;">柊 十三</div></div><div style="width:130px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#5a4f3f;margin-bottom:3px;"><span>気力</span><span>18/20</span></div><div style="height:7px;border-radius:4px;background:rgba(90,79,63,.16);overflow:hidden;"><div style="width:90%;height:100%;background:linear-gradient(90deg,#b13a2a,#cc5a44);"></div></div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:6px;border:1px solid rgba(90,79,63,.26);background:rgba(239,230,207,.4);"><span style="width:30px;height:30px;flex:none;border-radius:50%;background:rgba(90,79,63,.16);color:#5a4f3f;display:flex;align-items:center;justify-content:center;font-family:'Yuji Syuku',serif;font-size:14px;">8</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #b13a2a;background:repeating-linear-gradient(45deg,rgba(120,90,40,.14) 0 4px,transparent 4px 8px);"></span><div style="flex:1;"><div style="font-size:15px;color:#211c16;">犬飼 剛</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:3px;background:rgba(177,58,42,.14);color:#8f2c1f;">恐怖</span></div></div><div style="width:130px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#5a4f3f;margin-bottom:3px;"><span>気力</span><span>11/16</span></div><div style="height:7px;border-radius:4px;background:rgba(90,79,63,.16);overflow:hidden;"><div style="width:68%;height:100%;background:linear-gradient(90deg,#b13a2a,#cc5a44);"></div></div></div></div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isInv }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+              <h1 style="font-family:'Yuji Syuku',serif;font-weight:400;font-size:26px;margin:0;color:#211c16;">道具</h1>
+              <div style="display:flex;align-items:center;gap:18px;"><span style="font-size:15px;color:#8f2c1f;">四貫 二百文</span><div style="width:150px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#5a4f3f;margin-bottom:3px;"><span>荷</span><span>軽い</span></div><div style="height:7px;border-radius:4px;background:rgba(90,79,63,.16);overflow:hidden;"><div style="width:48%;height:100%;background:linear-gradient(90deg,#2c3c54,#46618a);"></div></div></div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:22px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#8f2c1f;margin:0 0 11px;">携える</p>
+                <div style="display:flex;align-items:center;gap:11px;padding:10px;border:1px solid rgba(90,79,63,.3);border-radius:4px;margin-bottom:8px;background:rgba(239,230,207,.5);"><div style="width:38px;height:38px;border-radius:3px;background:repeating-linear-gradient(45deg,rgba(120,90,40,.12) 0 5px,transparent 5px 10px);border:1px solid rgba(90,79,63,.3);"></div><div><div style="font-size:10px;color:#8f2c1f;">得物</div><div style="font-size:14px;color:#211c16;">桃木の短刀</div></div></div>
+                <div style="display:flex;align-items:center;gap:11px;padding:10px;border:1px solid rgba(90,79,63,.3);border-radius:4px;margin-bottom:8px;background:rgba(239,230,207,.5);"><div style="width:38px;height:38px;border-radius:3px;background:repeating-linear-gradient(45deg,rgba(120,90,40,.12) 0 5px,transparent 5px 10px);border:1px solid rgba(90,79,63,.3);"></div><div><div style="font-size:10px;color:#8f2c1f;">守り</div><div style="font-size:14px;color:#211c16;">五寸の手鏡</div></div></div>
+                <div style="display:flex;align-items:center;gap:11px;padding:10px;border:1px solid rgba(90,79,63,.3);border-radius:4px;background:rgba(239,230,207,.5);"><div style="width:38px;height:38px;border-radius:3px;background:repeating-linear-gradient(45deg,rgba(120,90,40,.12) 0 5px,transparent 5px 10px);border:1px solid rgba(90,79,63,.3);"></div><div><div style="font-size:10px;color:#8f2c1f;">護符</div><div style="font-size:14px;color:#211c16;">水天の御札</div></div></div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#8f2c1f;margin:0 0 11px;">行李の中</p>
+                <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#3f372b;padding:9px 4px;border-bottom:1px dotted rgba(90,79,63,.3);"><span style="width:8px;height:8px;border-radius:1px;background:#b13a2a;"></span><span style="flex:1;">清めの塩</span><span style="color:#5a4f3f;">三包</span></div>
+                <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#3f372b;padding:9px 4px;border-bottom:1px dotted rgba(90,79,63,.3);"><span style="width:8px;height:8px;border-radius:1px;background:#b13a2a;"></span><span style="flex:1;">破魔の御札</span><span style="color:#5a4f3f;">五枚</span></div>
+                <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#3f372b;padding:9px 4px;border-bottom:1px dotted rgba(90,79,63,.3);"><span style="width:8px;height:8px;border-radius:1px;background:#2c3c54;"></span><span style="flex:1;">数珠</span><span style="color:#5a4f3f;">一連</span></div>
+                <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#3f372b;padding:9px 4px;border-bottom:1px dotted rgba(90,79,63,.3);"><span style="width:8px;height:8px;border-radius:1px;background:#211c16;"></span><span style="flex:1;">古い帳面</span><span style="color:#5a4f3f;">一冊</span></div>
+                <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#3f372b;padding:9px 4px;"><span style="width:8px;height:8px;border-radius:1px;background:#211c16;"></span><span style="flex:1;">割れた鏡の欠片</span><span style="color:#5a4f3f;">一片</span></div>
+                <div style="margin-top:14px;border:1px solid rgba(90,79,63,.3);border-radius:4px;padding:13px 15px;background:rgba(239,230,207,.5);"><div style="font-size:14px;font-weight:700;color:#211c16;margin-bottom:5px;">割れた鏡の欠片</div><div style="font-size:13px;line-height:1.65;color:#5a4f3f;">沼で拾った。覗き込むと、自分の影だけが映らない。触れた指先が、冷たい。</div></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStory }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:scfade .4s ease;max-width:640px;margin:0 auto;">
+            <p style="font-size:11px;letter-spacing:4px;color:#8f2c1f;text-align:center;margin:0 0 6px;">怪異録 第七號 ・ 三</p>
+            <h1 style="font-family:'Yuji Syuku',serif;font-weight:400;font-size:30px;text-align:center;margin:0 0 4px;color:#211c16;">沼の底の、もうひとり</h1>
+            <div style="display:flex;align-items:center;gap:12px;margin:16px 0 22px;color:#b13a2a;"><span style="flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(177,58,42,.5));"></span><span style="font-size:13px;font-family:'Yuji Syuku',serif;">卍</span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(177,58,42,.5),transparent);"></span></div>
+            <p style="font-size:17px;line-height:1.95;color:#322b21;margin:0 0 18px;"><span style="float:left;font-family:'Yuji Syuku',serif;font-size:58px;line-height:.82;color:#b13a2a;margin:5px 12px 0 0;">沼</span>のおもては、夕日を返さなかった。紗那が屈み込むと、水の中の自分には影がない。背後で、村の子が囁く。「ゆうべ、もうひとりの母さんが、家に上がってきたの」</p>
+            <p style="font-size:17px;line-height:1.95;color:#322b21;margin:0 0 18px;">十三が破魔の札を構える。札の墨が、見ているうちに滲んでいく。あやめは沼に向かって鈴を鳴らし——その音だけが、こだまを返さない。「ここは、もう半分あちら側」</p>
+            <blockquote style="margin:22px 0;padding:12px 18px;border-right:3px solid rgba(177,58,42,.5);background:rgba(177,58,42,.04);font-size:18px;line-height:1.8;color:#5a4f3f;">鏡を覗くな。覗いた者の影が、こちらを覗き返す。</blockquote>
+            <p style="font-size:17px;line-height:1.95;color:#322b21;margin:0 0 26px;">沼の縁に並ぶ、足跡。すべて村のほうへ向かっている——なのに、戻ってきた者の話は、誰からも聞かない。</p>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#8f2c1f;margin:0 0 12px;">どう動く</p>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(90,79,63,.32);border-radius:5px;background:rgba(239,230,207,.6);cursor:pointer;font-family:'Shippori Mincho',serif;font-size:15px;color:#322b21;">— 足跡を <span style="color:#8f2c1f;">目星</span> で検める <span style="float:right;color:#8f2c1f;">難度13</span></button>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(90,79,63,.32);border-radius:5px;background:rgba(239,230,207,.6);cursor:pointer;font-family:'Shippori Mincho',serif;font-size:15px;color:#322b21;">— あやめに、沼の主を <span style="color:#8f2c1f;">問う</span></button>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;border:1px solid rgba(90,79,63,.32);border-radius:5px;background:rgba(239,230,207,.6);cursor:pointer;font-family:'Shippori Mincho',serif;font-size:15px;color:#322b21;">— 手鏡を、あえて沼へかざす</button>
+            <div style="margin-top:24px;height:5px;border-radius:3px;background:rgba(90,79,63,.16);overflow:hidden;"><div style="width:58%;height:100%;background:linear-gradient(90deg,#b13a2a,#cc5a44);"></div></div>
+            <p style="text-align:center;font-size:11px;letter-spacing:2px;color:#9c8657;margin:7px 0 0;">第七號 ・ 58% 了</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:scfade .4s ease;max-width:840px;margin:0 auto;">
+            <h1 style="font-family:'Yuji Syuku',serif;font-weight:400;font-size:26px;margin:0 0 16px;color:#211c16;">鏡沼村 ・ 絵図</h1>
+            <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:20px;">
+              <div style="position:relative;height:340px;border-radius:6px;border:1px solid rgba(90,79,63,.4);background-image:radial-gradient(circle at 50% 60%,rgba(44,60,84,.16),transparent 36%),radial-gradient(circle at 22% 28%,rgba(120,90,40,.1),transparent 38%),rgba(229,219,196,.7);box-shadow:inset 0 0 50px rgba(120,90,40,.16);overflow:hidden;">
+                <div style="position:absolute;left:46%;top:56%;display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="width:15px;height:15px;border-radius:50%;background:#2c3c54;border:1px solid #1c2738;box-shadow:0 0 0 4px rgba(44,60,84,.18);"></span><span style="font-size:10px;color:#2c3c54;font-weight:700;">鏡沼</span></div>
+                <div style="position:absolute;left:24%;top:30%;display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="width:12px;height:12px;transform:rotate(45deg);background:#8f2c1f;border:1px solid #5a1810;box-shadow:0 0 0 3px rgba(177,58,42,.16);"></span><span style="font-size:10px;color:#8f2c1f;font-weight:700;">村はずれ ・ 現在地</span></div>
+                <div style="position:absolute;left:70%;top:36%;display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="width:11px;height:11px;transform:rotate(45deg);background:#5a4f3f;"></span><span style="font-size:10px;color:#5a4f3f;">古い祠</span></div>
+                <div style="position:absolute;right:10px;bottom:9px;font-size:10px;letter-spacing:1px;color:#9c8657;">未踏の道は霧に沈む</div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#8f2c1f;margin:0 0 11px;">所在</p>
+                <div style="padding:11px 13px;border:1px solid #b13a2a;border-radius:5px;margin-bottom:8px;background:linear-gradient(90deg,rgba(177,58,42,.12),transparent);"><div style="font-size:14px;font-weight:700;color:#211c16;">村はずれ <span style="font-size:10px;color:#8f2c1f;">現在地</span></div><div style="font-size:12px;color:#5a4f3f;margin-top:3px;">沼を見下ろす土手。</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(90,79,63,.3);border-radius:5px;margin-bottom:8px;background:rgba(239,230,207,.5);"><div style="font-size:14px;color:#211c16;">古い祠</div><div style="font-size:12px;color:#5a4f3f;margin-top:3px;">水天を祀る。半里。</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(90,79,63,.3);border-radius:5px;background:rgba(239,230,207,.35);opacity:.7;"><div style="font-size:14px;color:#5a4f3f;">沼の底</div><div style="font-size:12px;color:#9c8657;margin-top:3px;">未踏。あちら側。</div></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isGM }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <h1 style="font-family:'Yuji Syuku',serif;font-weight:400;font-size:25px;margin:0 0 4px;color:#211c16;">{{ gmTitle }}</h1>
+            <p style="font-size:13px;color:#5a4f3f;margin:0 0 20px;">差配人だけが繰る頁。卓には伏せてある。</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#8f2c1f;margin:0 0 11px;">場面</p>
+                <div style="padding:11px 13px;border:1px solid #b13a2a;border-radius:5px;margin-bottom:8px;background:linear-gradient(90deg,rgba(177,58,42,.12),transparent);"><div style="font-size:14px;font-weight:700;color:#211c16;">沼の対峙 <span style="font-size:10px;color:#8f2c1f;">進行中</span></div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(90,79,63,.3);border-radius:5px;margin-bottom:8px;background:rgba(239,230,207,.5);"><div style="font-size:14px;color:#5a4f3f;">鏡の家</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(90,79,63,.3);border-radius:5px;background:rgba(239,230,207,.5);"><div style="font-size:14px;color:#5a4f3f;">沼の主</div></div>
+                <p style="font-size:11px;letter-spacing:3px;color:#8f2c1f;margin:20px 0 10px;">穢れの満ち</p>
+                <div style="height:9px;border-radius:5px;background:rgba(90,79,63,.16);overflow:hidden;"><div style="width:66%;height:100%;background:linear-gradient(90deg,#2c3c54,#8f2c1f);"></div></div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#8f2c1f;margin:0 0 11px;">怪異 ・ 秘匿</p>
+                <div style="border:1px solid rgba(90,79,63,.3);border-radius:5px;padding:11px 13px;margin-bottom:8px;background:rgba(239,230,207,.5);"><div style="font-size:14px;font-weight:700;color:#211c16;">影喰い</div><div style="font-size:12px;color:#5a4f3f;margin-top:2px;">望み：影を集め、人になること。</div><div style="font-size:12px;color:#8f2c1f;margin-top:4px;background:rgba(177,58,42,.1);border-radius:4px;padding:4px 8px;">正体：水死した村の娘。</div></div>
+                <div style="border:1px solid rgba(90,79,63,.3);border-radius:5px;padding:11px 13px;background:rgba(239,230,207,.5);"><div style="font-size:14px;font-weight:700;color:#211c16;">鏡の理</div><div style="font-size:12px;color:#5a4f3f;margin-top:2px;">割れば影は戻る。が、割った者の影が代償に。</div></div>
+                <p style="font-size:11px;letter-spacing:3px;color:#8f2c1f;margin:20px 0 10px;">乱表 ・ 沼の兆し (d6)</p>
+                <div style="font-size:13px;color:#3f372b;line-height:1.9;">1–2 水位が上がる ・ 3 鈴が鳴る<br>4 影が一つ消える ・ 5 もうひとりが現れる ・ 6 鏡が割れる</div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+      </main>
+    </div>
+
+    <sc-if value="{{ showTabbar }}" hint-placeholder-val="{{ false }}">
+      <nav style="position:relative;z-index:2;display:flex;border-top:1px solid rgba(90,79,63,.32);background:rgba(239,230,207,.96);">
+        <sc-for list="{{ nav }}" as="item" hint-placeholder-count="7">
+          <button onClick="{{ item.go }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px;border:0;background:{{ item.tbBg }};color:{{ item.color }};cursor:pointer;">
+            <span style="width:7px;height:7px;border-radius:1px;background:{{ item.markerBg }};box-shadow:inset 0 0 0 1px {{ item.markerBorder }};"></span>
+            <span style="font-size:10px;letter-spacing:.5px;font-family:'Shippori Mincho',serif;font-weight:{{ item.weight }};">{{ item.label }}</span>
+          </button>
+        </sc-for>
+      </nav>
+    </sc-if>
+
+    <div style="position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:50;display:flex;gap:3px;padding:5px;border-radius:999px;background:rgba(18,14,9,.85);backdrop-filter:blur(8px);box-shadow:0 8px 26px rgba(0,0,0,.5);border:1px solid rgba(177,58,42,.35);">
+      <sc-for list="{{ devs }}" as="d" hint-placeholder-count="3">
+        <button onClick="{{ d.go }}" style="padding:7px 16px;border:0;border-radius:999px;cursor:pointer;font-family:'Shippori Mincho',serif;font-size:11px;letter-spacing:1.5px;background:{{ d.bg }};color:{{ d.color }};">{{ d.label }}</button>
+      </sc-for>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { device: 'desktop', play: 'gmpl', screen: 'top' };
+
+  renderVals() {
+    const { device, play, screen } = this.state;
+    const frames = { phone: { w: 392, h: 828 }, tablet: { w: 900, h: 660 }, desktop: { w: 1240, h: 772 } };
+    const f = frames[device] || frames.desktop;
+    const isPhone = device === 'phone';
+    const compact = device === 'tablet';
+
+    const setScreen = (s) => this.setState({ screen: s });
+    const setPlay = (p) => this.setState((st) => ({ play: p, screen: (p === 'solo' && st.screen === 'gm') ? 'top' : st.screen }));
+    const setDevice = (d) => this.setState({ device: d });
+
+    const playLabel = { solo: '独り祓い', gmpl: '差配 ＋ 調査', gmless: '寄合祓い' }[play] || '';
+
+    const navDefs = [
+      ['top', '案件'], ['sheet', '調書'], ['dice', '卜定'], ['combat', '対峙'],
+      ['inventory', '道具'], ['story', '怪異録'], ['map', '絵図'], ['gm', play === 'gmless' ? '寄合' : '差配'],
+    ];
+    const nav = navDefs
+      .filter((d) => d[0] !== 'gm' || play !== 'solo')
+      .map(([id, label]) => {
+        const active = id === screen;
+        return {
+          id, label, active,
+          go: () => setScreen(id),
+          railLabel: compact ? label.charAt(0) : label,
+          color: active ? '#8f2c1f' : '#5a4f3f',
+          bg: active ? 'rgba(177,58,42,0.10)' : 'transparent',
+          tbBg: active ? 'rgba(177,58,42,0.12)' : 'transparent',
+          weight: active ? '700' : '500',
+          markerBg: active ? '#b13a2a' : 'transparent',
+          markerBorder: active ? '#b13a2a' : 'rgba(90,79,63,.5)',
+        };
+      });
+
+    const playModes = [
+      ['solo', '独り祓い', '語り手なし。帳面が怪異を裁く一人歩き。'],
+      ['gmpl', '差配 ＋ 調査', '差配人が怪異を、調査員が人を担う卓。'],
+      ['gmless', '寄合祓い', '役を回し、皆で怪異録を綴る寄合。'],
+    ].map(([id, t, d]) => {
+      const active = id === play;
+      return {
+        id, t, d, active,
+        go: () => setPlay(id),
+        border: active ? '1px solid #b13a2a' : '1px solid rgba(90,79,63,.28)',
+        bg: active ? 'linear-gradient(180deg,rgba(177,58,42,.13),rgba(177,58,42,.03))' : 'rgba(239,230,207,.5)',
+        titleColor: active ? '#211c16' : '#5a4f3f',
+      };
+    });
+
+    const devs = [
+      ['phone', 'スマホ'], ['tablet', 'タブ'], ['desktop', 'PC'],
+    ].map(([id, label]) => {
+      const active = id === device;
+      return {
+        id, label, active,
+        go: () => setDevice(id),
+        bg: active ? '#b13a2a' : 'transparent',
+        color: active ? '#f3ead3' : '#cdbd9e',
+      };
+    });
+
+    return {
+      frameW: f.w, frameH: f.h, railW: compact ? 66 : 214,
+      mainPad: isPhone ? '22px 18px 26px' : '30px 34px 38px',
+      showRail: !isPhone, showTabbar: isPhone,
+      playLabel, nav, playModes, devs,
+      isTop: screen === 'top', isSheet: screen === 'sheet', isDice: screen === 'dice',
+      isCombat: screen === 'combat', isInv: screen === 'inventory', isStory: screen === 'story',
+      isMap: screen === 'map', isGM: screen === 'gm',
+      gmTitle: play === 'gmless' ? '寄合 — 共有の采配' : '差配 — 語り手の采配',
+    };
+  }
+}
+</script>
+</body>
+</html>

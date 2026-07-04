@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ハイファンタジー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pirata+One&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#15110b;}
+  @keyframes scfade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+  @keyframes diceflip{0%{transform:rotate(-9deg) scale(.86);opacity:.4}55%{transform:rotate(6deg) scale(1.06)}100%{transform:none;opacity:1}}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-thumb{background:rgba(120,95,40,.32);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<template id="dc-template">
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:34px 20px 96px;box-sizing:border-box;font-family:'EB Garamond',serif;background:radial-gradient(120% 95% at 50% 0%,#271e12 0%,#15110b 58%,#0c0905 100%);color:#2a2117;">
+
+  <div style="position:relative;width:{{ frameW }}px;height:{{ frameH }}px;max-width:100%;background:#f1e7cf;border:1px solid #cdb784;border-radius:9px;box-shadow:0 34px 90px -22px rgba(0,0,0,.72),0 0 0 8px rgba(20,15,9,.55),inset 0 0 130px rgba(180,150,90,.13);overflow:hidden;display:flex;flex-direction:column;">
+
+    <div style="position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle at 18% 26%,rgba(150,120,60,.07),transparent 42%),radial-gradient(circle at 82% 74%,rgba(120,90,40,.08),transparent 46%),repeating-linear-gradient(0deg,rgba(90,70,30,.02) 0 2px,transparent 2px 4px);mix-blend-mode:multiply;"></div>
+
+    <header style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 22px;border-bottom:1px solid rgba(120,95,45,.34);background:linear-gradient(180deg,rgba(244,236,214,.92),rgba(231,219,189,.55));">
+      <div style="display:flex;align-items:baseline;gap:13px;">
+        <span style="font-family:'Pirata One',serif;font-size:25px;color:#294630;letter-spacing:.5px;">Aethelgard</span>
+        <span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#9c7a34;">Codex of Play</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:9px;">
+        <span style="font-size:12px;letter-spacing:1.5px;color:#6f6049;">{{ playLabel }}</span>
+        <span style="width:6px;height:6px;border-radius:50%;background:#ab8638;box-shadow:0 0 0 3px rgba(171,134,56,.18);"></span>
+      </div>
+    </header>
+
+    <div style="position:relative;z-index:2;flex:1;display:flex;min-height:0;">
+
+      <sc-if value="{{ showRail }}" hint-placeholder-val="{{ true }}">
+        <nav style="width:{{ railW }}px;flex:none;border-right:1px solid rgba(120,95,45,.28);background:linear-gradient(180deg,rgba(41,70,48,.07),rgba(41,70,48,.02));padding:15px 10px;display:flex;flex-direction:column;gap:3px;overflow-y:auto;">
+          <sc-for list="{{ nav }}" as="item" hint-placeholder-count="8">
+            <button onClick="{{ item.go }}" style="position:relative;display:flex;align-items:center;gap:12px;width:100%;padding:10px 12px;border:0;border-radius:7px;cursor:pointer;text-align:left;background:{{ item.bg }};color:{{ item.color }};font-family:'EB Garamond',serif;font-size:15px;font-weight:{{ item.weight }};">
+              <span style="font-size:15px;width:18px;text-align:center;color:#ab8638;">{{ item.glyph }}</span>
+              <span style="{{ item.labelStyle }}">{{ item.label }}</span>
+            </button>
+          </sc-for>
+        </nav>
+      </sc-if>
+
+      <main style="flex:1;min-width:0;overflow-y:auto;padding:{{ mainPad }};">
+
+        <sc-if value="{{ isTop }}" hint-placeholder-val="{{ true }}">
+          <div style="animation:scfade .4s ease;max-width:760px;margin:0 auto;">
+            <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#9c7a34;margin:0 0 7px;">第三幕 · 灰燼の谷</p>
+            <h1 style="font-family:'Cinzel',serif;font-weight:700;font-size:39px;line-height:1.09;margin:0 0 14px;color:#23351f;">王の墓所、ふたたび開く</h1>
+            <p style="font-size:17px;line-height:1.72;color:#4a3f2c;margin:0 0 28px;max-width:60ch;">前回、一行は崩れた橋のたもとで夜を明かした。東の空に紫の狼煙——あれは約束の合図か、それとも罠か。卓を囲む者たちよ、続きを紡ごう。</p>
+
+            <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#9c7a34;margin:0 0 12px;">遊び方を選ぶ</p>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 30px;">
+              <sc-for list="{{ playModes }}" as="m" hint-placeholder-count="3">
+                <button onClick="{{ m.go }}" style="text-align:left;padding:14px 15px;border-radius:9px;cursor:pointer;border:{{ m.border }};background:{{ m.bg }};">
+                  <div style="font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:{{ m.titleColor }};margin-bottom:5px;">{{ m.t }}</div>
+                  <div style="font-size:13px;line-height:1.5;color:#6f6049;">{{ m.d }}</div>
+                </button>
+              </sc-for>
+            </div>
+
+            <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#9c7a34;margin:0 0 14px;">卓の面々</p>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:92px;"><div style="width:62px;height:62px;border-radius:50%;border:2px solid #ab8638;background:repeating-linear-gradient(45deg,rgba(120,95,45,.12) 0 5px,transparent 5px 10px),rgba(244,236,214,.7);box-shadow:0 4px 10px rgba(0,0,0,.12);"></div><div style="font-family:'Cinzel',serif;font-size:13px;color:#23351f;">アリエル</div><div style="font-size:11px;color:#6f6049;">遊侠 / Lv4</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:92px;"><div style="width:62px;height:62px;border-radius:50%;border:2px solid #ab8638;background:repeating-linear-gradient(45deg,rgba(120,95,45,.12) 0 5px,transparent 5px 10px),rgba(244,236,214,.7);box-shadow:0 4px 10px rgba(0,0,0,.12);"></div><div style="font-family:'Cinzel',serif;font-size:13px;color:#23351f;">グレイ</div><div style="font-size:11px;color:#6f6049;">誓約者 / Lv4</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:92px;"><div style="width:62px;height:62px;border-radius:50%;border:2px solid #ab8638;background:repeating-linear-gradient(45deg,rgba(120,95,45,.12) 0 5px,transparent 5px 10px),rgba(244,236,214,.7);box-shadow:0 4px 10px rgba(0,0,0,.12);"></div><div style="font-family:'Cinzel',serif;font-size:13px;color:#23351f;">モルガ</div><div style="font-size:11px;color:#6f6049;">灰の魔女 / Lv4</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:92px;"><div style="width:62px;height:62px;border-radius:50%;border:2px solid #ab8638;background:repeating-linear-gradient(45deg,rgba(120,95,45,.12) 0 5px,transparent 5px 10px),rgba(244,236,214,.7);box-shadow:0 4px 10px rgba(0,0,0,.12);"></div><div style="font-family:'Cinzel',serif;font-size:13px;color:#23351f;">ヴェル</div><div style="font-size:11px;color:#6f6049;">射手 / Lv3</div></div>
+            </div>
+
+            <button onClick="{{ goStory }}" style="margin-top:30px;display:inline-flex;align-items:center;gap:10px;padding:13px 28px;border:0;border-radius:9px;cursor:pointer;background:linear-gradient(180deg,#2f4a34,#23381f);color:#f1e7cf;font-family:'Cinzel',serif;font-size:15px;letter-spacing:2px;box-shadow:0 10px 24px -8px rgba(20,40,25,.6);">物語を続ける　➜</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isSheet }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <div style="display:flex;gap:20px;align-items:flex-start;margin-bottom:22px;">
+              <div style="width:96px;height:96px;flex:none;border-radius:6px;border:1px solid rgba(120,95,45,.4);background:repeating-linear-gradient(45deg,rgba(120,95,45,.10) 0 6px,transparent 6px 12px),rgba(244,236,214,.6);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;color:#9c8657;">PORTRAIT</div>
+              <div style="flex:1;min-width:0;">
+                <h1 style="font-family:'Cinzel',serif;font-weight:700;font-size:30px;margin:0 0 4px;color:#23351f;">アリエル・ダスク</h1>
+                <p style="font-size:14px;color:#6f6049;margin:0 0 10px;">人間 ・ 灰鴉の遊侠 ・ 第四階梯</p>
+                <div style="display:flex;gap:7px;flex-wrap:wrap;">
+                  <span style="font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid rgba(120,95,45,.4);color:#6f6049;">隠密 III</span>
+                  <span style="font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid rgba(120,95,45,.4);color:#6f6049;">双剣</span>
+                  <span style="font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid rgba(120,95,45,.4);color:#6f6049;">夜目</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:22px;">
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#6f6049;margin-bottom:4px;"><span>生命 HP</span><span>{{ hpAriel }} / 41</span></div><div style="height:9px;border-radius:6px;background:rgba(120,95,45,.18);overflow:hidden;"><div style="width:{{ hpArielPct }}%;height:100%;background:linear-gradient(90deg,#7c2e22,#a8442f);"></div></div><div style="display:flex;gap:5px;margin-top:6px;"><button onClick="{{ hpDown }}" style="width:24px;height:24px;border:1px solid rgba(120,95,45,.35);border-radius:7px;background:rgba(244,236,214,.6);color:#6f6049;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ hpUp }}" style="width:24px;height:24px;border:1px solid rgba(120,95,45,.35);border-radius:7px;background:rgba(244,236,214,.6);color:#6f6049;cursor:pointer;font-size:13px;line-height:1;">＋</button></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#6f6049;margin-bottom:4px;"><span>気 MP</span><span>{{ mp }} / 18</span></div><div style="height:9px;border-radius:6px;background:rgba(120,95,45,.18);overflow:hidden;"><div style="width:{{ mpPct }}%;height:100%;background:linear-gradient(90deg,#2f6b5e,#3f8a78);"></div></div><div style="display:flex;gap:5px;margin-top:6px;"><button onClick="{{ mpDown }}" style="width:24px;height:24px;border:1px solid rgba(120,95,45,.35);border-radius:7px;background:rgba(244,236,214,.6);color:#6f6049;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ mpUp }}" style="width:24px;height:24px;border:1px solid rgba(120,95,45,.35);border-radius:7px;background:rgba(244,236,214,.6);color:#6f6049;cursor:pointer;font-size:13px;line-height:1;">＋</button></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#6f6049;margin-bottom:4px;"><span>守り AC</span><span>16</span></div><div style="height:9px;border-radius:6px;background:rgba(120,95,45,.18);overflow:hidden;"><div style="width:70%;height:100%;background:linear-gradient(90deg,#9c7a34,#c8a455);"></div></div></div>
+            </div>
+
+            <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#9c7a34;margin:0 0 12px;">能力値</p>
+            <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin-bottom:24px;">
+              <div style="border:1px solid rgba(120,95,45,.3);border-radius:8px;padding:9px 4px;text-align:center;background:rgba(244,236,214,.5);"><div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;color:#9c7a34;">膂力</div><div style="font-family:'Cinzel',serif;font-size:24px;font-weight:700;color:#23351f;line-height:1.15;">13</div><div style="font-size:11px;color:#6f6049;">+1</div></div>
+              <div style="border:1px solid rgba(120,95,45,.3);border-radius:8px;padding:9px 4px;text-align:center;background:rgba(244,236,214,.5);"><div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;color:#9c7a34;">敏捷</div><div style="font-family:'Cinzel',serif;font-size:24px;font-weight:700;color:#23351f;line-height:1.15;">18</div><div style="font-size:11px;color:#6f6049;">+4</div></div>
+              <div style="border:1px solid rgba(120,95,45,.3);border-radius:8px;padding:9px 4px;text-align:center;background:rgba(244,236,214,.5);"><div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;color:#9c7a34;">耐久</div><div style="font-family:'Cinzel',serif;font-size:24px;font-weight:700;color:#23351f;line-height:1.15;">14</div><div style="font-size:11px;color:#6f6049;">+2</div></div>
+              <div style="border:1px solid rgba(120,95,45,.3);border-radius:8px;padding:9px 4px;text-align:center;background:rgba(244,236,214,.5);"><div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;color:#9c7a34;">知力</div><div style="font-family:'Cinzel',serif;font-size:24px;font-weight:700;color:#23351f;line-height:1.15;">12</div><div style="font-size:11px;color:#6f6049;">+1</div></div>
+              <div style="border:1px solid rgba(120,95,45,.3);border-radius:8px;padding:9px 4px;text-align:center;background:rgba(244,236,214,.5);"><div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;color:#9c7a34;">感応</div><div style="font-family:'Cinzel',serif;font-size:24px;font-weight:700;color:#23351f;line-height:1.15;">15</div><div style="font-size:11px;color:#6f6049;">+2</div></div>
+              <div style="border:1px solid rgba(120,95,45,.3);border-radius:8px;padding:9px 4px;text-align:center;background:rgba(244,236,214,.5);"><div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:1px;color:#9c7a34;">意志</div><div style="font-family:'Cinzel',serif;font-size:24px;font-weight:700;color:#23351f;line-height:1.15;">10</div><div style="font-size:11px;color:#6f6049;">±0</div></div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+              <div>
+                <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#9c7a34;margin:0 0 10px;">技能</p>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#4a3f2c;padding:6px 0;border-bottom:1px dotted rgba(120,95,45,.3);"><span>隠密</span><span style="color:#9c7a34;">＋7</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#4a3f2c;padding:6px 0;border-bottom:1px dotted rgba(120,95,45,.3);"><span>軽業</span><span style="color:#9c7a34;">＋6</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#4a3f2c;padding:6px 0;border-bottom:1px dotted rgba(120,95,45,.3);"><span>看破</span><span style="color:#9c7a34;">＋4</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#4a3f2c;padding:6px 0;"><span>解錠</span><span style="color:#9c7a34;">＋5</span></div>
+              </div>
+              <div>
+                <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#9c7a34;margin:0 0 10px;">特性</p>
+                <div style="border:1px solid rgba(120,95,45,.3);border-radius:8px;padding:11px 13px;margin-bottom:9px;background:rgba(244,236,214,.5);"><div style="font-family:'Cinzel',serif;font-size:13px;color:#23351f;margin-bottom:3px;">影縫い</div><div style="font-size:12px;line-height:1.5;color:#6f6049;">闇の中では一手番に二度斬りつけられる。</div></div>
+                <div style="border:1px solid rgba(120,95,45,.3);border-radius:8px;padding:11px 13px;background:rgba(244,236,214,.5);"><div style="font-family:'Cinzel',serif;font-size:13px;color:#23351f;margin-bottom:3px;">遊侠の勘</div><div style="font-size:12px;line-height:1.5;color:#6f6049;">罠と嘘に対する判定で優位を得る。</div></div>
+              </div>
+            </div>
+            <p style="margin-top:22px;font-style:italic;font-size:14px;line-height:1.7;color:#6f6049;border-left:2px solid rgba(171,134,56,.5);padding-left:14px;">「俺は誰の旗にも与しない。ただ、借りは返す——倍にして。」 灰鴉同盟に拾われた孤児。過去を語らぬが、夜だけは饒舌になる。</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isDice }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:scfade .4s ease;max-width:560px;margin:0 auto;text-align:center;">
+            <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#9c7a34;margin:0 0 4px;">{{ diceHead }}</p>
+            <sc-if value="{{ diceIsCheck }}">
+              <div style="display:flex;justify-content:center;align-items:center;gap:9px;margin:6px 0 0;">
+                <button onClick="{{ dcMinus }}" style="width:24px;height:24px;border:1px solid rgba(120,95,45,.35);border-radius:7px;background:rgba(244,236,214,.6);color:#6f6049;cursor:pointer;font-size:13px;line-height:1;">−</button>
+                <span style="font-size:12px;letter-spacing:2px;color:#6f6049;">難度を調整</span>
+                <button onClick="{{ dcPlus }}" style="width:24px;height:24px;border:1px solid rgba(120,95,45,.35);border-radius:7px;background:rgba(244,236,214,.6);color:#6f6049;cursor:pointer;font-size:13px;line-height:1;">＋</button>
+              </div>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:7px;margin:18px 0 24px;">
+              <div style="width:122px;height:122px;border-radius:16px;animation:diceflip .55s ease;background:linear-gradient(145deg,#2f4a34,#22351f);border:2px solid #ab8638;box-shadow:0 16px 34px -12px rgba(0,0,0,.55),inset 0 0 26px rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center;color:#f1e7cf;font-family:'Cinzel',serif;font-size:56px;font-weight:700;">{{ diceFace }}</div>
+              <div style="font-size:14px;color:#6f6049;">{{ diceFormula }}</div>
+              <div style="font-family:'Cinzel',serif;font-size:15px;letter-spacing:4px;color:{{ diceVerdictColor }};">{{ diceVerdict }}</div>
+            </div>
+            <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;">
+              <sc-for list="{{ diceTypes }}" as="dt">
+                <button onClick="{{ dt.go }}" style="font-family:'EB Garamond',serif;font-size:13px;padding:7px 13px;border-radius:8px;cursor:pointer;border:{{ dt.border }};color:{{ dt.color }};background:{{ dt.bg }};">{{ dt.label }}</button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ diceIsCheck }}">
+              <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:16px;">
+                <sc-for list="{{ diceSkills }}" as="sk">
+                  <button onClick="{{ sk.go }}" style="font-family:'EB Garamond',serif;font-size:12px;padding:5px 11px;border-radius:999px;cursor:pointer;border:{{ sk.border }};color:{{ sk.color }};background:{{ sk.bg }};">{{ sk.label }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+            <button onClick="{{ rollNow }}" style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:0;border-radius:9px;cursor:pointer;background:linear-gradient(180deg,#2f4a34,#23381f);color:#f1e7cf;font-family:'Cinzel',serif;font-size:15px;letter-spacing:2px;box-shadow:0 10px 24px -8px rgba(20,40,25,.6);">骰を振る</button>
+            <div style="margin-top:26px;text-align:left;">
+              <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#9c7a34;margin:0 0 9px;">巻末の記録</p>
+              <sc-for list="{{ logRows }}" as="r">
+                <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a3f2c;padding:7px 0;border-bottom:1px dotted rgba(120,95,45,.3);"><span>{{ r.left }}</span><span style="color:{{ r.color }};">{{ r.right }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isCombat }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:scfade .4s ease;max-width:780px;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+              <h1 style="font-family:'Cinzel',serif;font-weight:700;font-size:26px;margin:0;color:#23351f;">{{ roundTitle }}</h1>
+              <div style="display:flex;gap:8px;"><button onClick="{{ nextRound }}" style="padding:8px 15px;border:1px solid rgba(120,95,45,.4);border-radius:8px;background:transparent;color:#6f6049;cursor:pointer;font-family:'EB Garamond',serif;font-size:13px;">ラウンド送り</button><button onClick="{{ nextTurn }}" style="padding:8px 15px;border:0;border-radius:8px;background:linear-gradient(180deg,#2f4a34,#23381f);color:#f1e7cf;cursor:pointer;font-family:'Cinzel',serif;font-size:13px;letter-spacing:1px;">次の手番</button></div>
+            </div>
+            <sc-for list="{{ combatants }}" as="cb">
+              <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:9px;border:{{ cb.border }};background:{{ cb.bg }};margin-bottom:8px;opacity:{{ cb.op }};">
+                <span style="width:30px;height:30px;flex:none;border-radius:50%;background:{{ cb.initBg }};color:{{ cb.initColor }};display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:14px;">{{ cb.init }}</span>
+                <span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid {{ cb.tokenBorder }};background:repeating-linear-gradient(45deg,{{ cb.tokenPat }} 0 4px,transparent 4px 8px);"></span>
+                <div style="flex:1;">
+                  <div style="font-family:'Cinzel',serif;font-size:15px;color:{{ cb.nameColor }};">{{ cb.name }} <span style="font-size:11px;color:#9c7a34;letter-spacing:1px;">{{ cb.side }}</span></div>
+                  <sc-if value="{{ cb.hasTags }}">
+                    <div style="display:flex;gap:5px;margin-top:3px;">
+                      <sc-for list="{{ cb.tags }}" as="tg"><span style="font-size:10px;padding:2px 7px;border-radius:999px;background:{{ tg.bg }};color:{{ tg.color }};">{{ tg.t }}</span></sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+                <div style="width:130px;">
+                  <div style="display:flex;justify-content:space-between;font-size:11px;color:#6f6049;margin-bottom:3px;"><span>HP</span><span>{{ cb.hp }}/{{ cb.max }}</span></div>
+                  <div style="height:7px;border-radius:5px;background:rgba(120,95,45,.18);overflow:hidden;"><div style="width:{{ cb.pct }}%;height:100%;background:linear-gradient(90deg,#7c2e22,#a8442f);"></div></div>
+                  <div style="display:flex;gap:4px;margin-top:5px;justify-content:flex-end;">
+                    <button onClick="{{ cb.dmg5 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(120,95,45,.35);border-radius:6px;background:rgba(244,236,214,.6);color:#7c2e22;cursor:pointer;">−5</button>
+                    <button onClick="{{ cb.dmg1 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(120,95,45,.35);border-radius:6px;background:rgba(244,236,214,.6);color:#7c2e22;cursor:pointer;">−1</button>
+                    <button onClick="{{ cb.heal1 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(120,95,45,.35);border-radius:6px;background:rgba(244,236,214,.6);color:#2f6b3f;cursor:pointer;">＋1</button>
+                    <button onClick="{{ cb.heal5 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(120,95,45,.35);border-radius:6px;background:rgba(244,236,214,.6);color:#2f6b3f;cursor:pointer;">＋5</button>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isInv }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+              <h1 style="font-family:'Cinzel',serif;font-weight:700;font-size:26px;margin:0;color:#23351f;">持ち物</h1>
+              <div style="display:flex;align-items:center;gap:18px;"><span style="font-family:'Cinzel',serif;font-size:16px;color:#9c7a34;">{{ gold }} ゴルド</span><div style="width:150px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#6f6049;margin-bottom:3px;"><span>荷重</span><span>23 / 35</span></div><div style="height:7px;border-radius:5px;background:rgba(120,95,45,.18);overflow:hidden;"><div style="width:66%;height:100%;background:linear-gradient(90deg,#9c7a34,#c8a455);"></div></div></div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:22px;">
+              <div>
+                <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#9c7a34;margin:0 0 11px;">装備中</p>
+                <div style="display:flex;align-items:center;gap:11px;padding:10px;border:1px solid rgba(120,95,45,.3);border-radius:8px;margin-bottom:8px;background:rgba(244,236,214,.5);"><div style="width:38px;height:38px;border-radius:6px;background:repeating-linear-gradient(45deg,rgba(120,95,45,.12) 0 5px,transparent 5px 10px);border:1px solid rgba(120,95,45,.3);"></div><div><div style="font-size:10px;color:#9c7a34;letter-spacing:1px;">武器</div><div style="font-family:'Cinzel',serif;font-size:14px;color:#23351f;">夜鳴きの双刃</div></div></div>
+                <div style="display:flex;align-items:center;gap:11px;padding:10px;border:1px solid rgba(120,95,45,.3);border-radius:8px;margin-bottom:8px;background:rgba(244,236,214,.5);"><div style="width:38px;height:38px;border-radius:6px;background:repeating-linear-gradient(45deg,rgba(120,95,45,.12) 0 5px,transparent 5px 10px);border:1px solid rgba(120,95,45,.3);"></div><div><div style="font-size:10px;color:#9c7a34;letter-spacing:1px;">防具</div><div style="font-family:'Cinzel',serif;font-size:14px;color:#23351f;">影織りの外套</div></div></div>
+                <div style="display:flex;align-items:center;gap:11px;padding:10px;border:1px solid rgba(120,95,45,.3);border-radius:8px;background:rgba(244,236,214,.5);"><div style="width:38px;height:38px;border-radius:6px;background:repeating-linear-gradient(45deg,rgba(120,95,45,.12) 0 5px,transparent 5px 10px);border:1px solid rgba(120,95,45,.3);"></div><div><div style="font-size:10px;color:#9c7a34;letter-spacing:1px;">装身具</div><div style="font-family:'Cinzel',serif;font-size:14px;color:#23351f;">灰鴉の指輪</div></div></div>
+              </div>
+              <div>
+                <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#9c7a34;margin:0 0 11px;">袋の中</p>
+                <sc-for list="{{ bagItems }}" as="it">
+                <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#4a3f2c;padding:9px 4px;border-bottom:1px dotted rgba(120,95,45,.3);opacity:{{ it.op }};">
+                  <span style="width:8px;height:8px;border-radius:2px;background:{{ it.dot }};"></span>
+                  <span style="flex:1;">{{ it.name }}</span>
+                  <sc-if value="{{ it.usable }}"><button onClick="{{ it.use }}" style="font-size:11px;padding:2px 10px;border:1px solid rgba(120,95,45,.4);border-radius:999px;background:rgba(244,236,214,.7);color:#6f6049;cursor:pointer;font-family:'EB Garamond',serif;">使う</button></sc-if>
+                  <span style="color:#6f6049;">×{{ it.qty }}</span>
+                  <span style="color:#9c7a34;width:42px;text-align:right;">{{ it.wt }}</span>
+                </div>
+              </sc-for>
+                
+                
+                
+                
+                <div style="margin-top:14px;border:1px solid rgba(120,95,45,.3);border-radius:8px;padding:13px 15px;background:rgba(244,236,214,.5);"><div style="font-family:'Cinzel',serif;font-size:14px;color:#23351f;margin-bottom:5px;">封印された巻物</div><div style="font-size:13px;line-height:1.6;color:#6f6049;">墓所の最奥で見つけた羊皮紙。蝋の封に見覚えのない紋章。識者に見せるべきだろう。</div></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStory }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:scfade .4s ease;max-width:640px;margin:0 auto;">
+            <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#9c7a34;text-align:center;margin:0 0 6px;">{{ storyKicker }}</p>
+            <h1 style="font-family:'Cinzel',serif;font-weight:700;font-size:30px;text-align:center;margin:0 0 4px;color:#23351f;">{{ storyTitle }}</h1>
+            <div style="display:flex;align-items:center;gap:12px;margin:16px 0 22px;color:#ab8638;"><span style="flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(171,134,56,.5));"></span><span style="font-size:13px;">❖</span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(171,134,56,.5),transparent);"></span></div>
+            <sc-if value="{{ storyHasNote }}">
+              <p style="text-align:center;font-style:italic;font-size:13px;letter-spacing:1px;color:{{ storyNoteColor }};margin:0 0 16px;">{{ storyNote }}</p>
+            </sc-if>
+            <p style="font-size:17px;line-height:1.85;color:#3a3122;margin:0 0 18px;"><span style="float:left;font-family:'Cinzel',serif;font-size:62px;line-height:.82;font-weight:700;color:#294630;margin:4px 12px 0 0;">{{ storyLead }}</span>{{ storyLeadRest }}</p>
+            <sc-for list="{{ storyBlocks }}" as="b">
+              <sc-if value="{{ b.isP }}"><p style="font-size:17px;line-height:1.85;color:#3a3122;margin:0 0 18px;">{{ b.t }}</p></sc-if>
+              <sc-if value="{{ b.isQ }}"><blockquote style="margin:22px 0;padding:14px 20px;border-left:3px solid rgba(171,134,56,.6);font-style:italic;font-size:18px;line-height:1.7;color:#5b4d38;">{{ b.t }}</blockquote></sc-if>
+            </sc-for>
+            <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#9c7a34;margin:8px 0 12px;">どうする</p>
+            <sc-for list="{{ storyChoices }}" as="c">
+              <button onClick="{{ c.go }}" style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(120,95,45,.35);border-radius:9px;background:rgba(244,236,214,.6);cursor:pointer;font-family:'EB Garamond',serif;font-size:15px;color:#3a3122;">— {{ c.pre }}<span style="color:#9c7a34;">{{ c.skillText }}</span>{{ c.post }} <span style="float:right;color:#9c7a34;">{{ c.dcLabel }}</span></button>
+            </sc-for>
+            <div style="margin-top:24px;height:5px;border-radius:4px;background:rgba(120,95,45,.16);overflow:hidden;"><div style="width:{{ storyPct }}%;height:100%;background:linear-gradient(90deg,#9c7a34,#c8a455);"></div></div>
+            <p style="text-align:center;font-size:11px;letter-spacing:2px;color:#9c8657;margin:7px 0 0;">{{ storyPctLabel }}</p>
+            <sc-if value="{{ storyCanRestart }}">
+              <p style="text-align:center;margin:16px 0 0;"><button onClick="{{ storyRestart }}" style="border:0;background:transparent;color:#9c8657;font-size:11px;letter-spacing:2px;cursor:pointer;text-decoration:underline;font-family:'EB Garamond',serif;">最初の頁から読み直す</button></p>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:scfade .4s ease;max-width:840px;margin:0 auto;">
+            <h1 style="font-family:'Cinzel',serif;font-weight:700;font-size:26px;margin:0 0 16px;color:#23351f;">灰燼の谷 ・ 地図</h1>
+            <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:20px;">
+              <div style="position:relative;height:340px;border-radius:10px;border:1px solid rgba(120,95,45,.4);background-image:radial-gradient(circle at 30% 40%,rgba(120,95,45,.10),transparent 40%),repeating-linear-gradient(0deg,rgba(90,70,30,.05) 0 1px,transparent 1px 26px),repeating-linear-gradient(90deg,rgba(90,70,30,.05) 0 1px,transparent 1px 26px),rgba(236,224,196,.7);box-shadow:inset 0 0 50px rgba(120,90,40,.18);overflow:hidden;">
+                <div style="position:absolute;left:24%;top:30%;display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="width:12px;height:12px;transform:rotate(45deg);background:#6f6049;border:1px solid #4a3f2c;"></span><span style="font-family:'Cinzel',serif;font-size:10px;color:#5b4d38;">崩れた橋</span></div>
+                <div style="position:absolute;left:58%;top:52%;display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="width:14px;height:14px;transform:rotate(45deg);background:#7c2e22;border:1px solid #5a1f16;box-shadow:0 0 0 4px rgba(124,46,34,.18);"></span><span style="font-family:'Cinzel',serif;font-size:10px;color:#7c2e22;">王の墓所</span></div>
+                <div style="position:absolute;left:78%;top:24%;display:flex;flex-direction:column;align-items:center;gap:3px;opacity:.5;"><span style="width:12px;height:12px;transform:rotate(45deg);background:#6f6049;"></span><span style="font-family:'Cinzel',serif;font-size:10px;color:#5b4d38;">？</span></div>
+                <div style="position:absolute;right:10px;bottom:9px;font-size:10px;letter-spacing:1px;color:#9c8657;font-style:italic;">未踏の地は霧に沈む</div>
+              </div>
+              <div>
+                <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#9c7a34;margin:0 0 11px;">地点</p>
+                <div style="padding:11px 13px;border:1px solid #ab8638;border-radius:8px;margin-bottom:8px;background:linear-gradient(90deg,rgba(171,134,56,.14),transparent);"><div style="font-family:'Cinzel',serif;font-size:14px;color:#23351f;">王の墓所 <span style="font-size:10px;color:#9c7a34;letter-spacing:1px;">現在地</span></div><div style="font-size:12px;color:#6f6049;margin-top:3px;">紫の光が脈打つ門。</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(120,95,45,.3);border-radius:8px;margin-bottom:8px;background:rgba(244,236,214,.5);"><div style="font-family:'Cinzel',serif;font-size:14px;color:#23351f;">崩れた橋</div><div style="font-size:12px;color:#6f6049;margin-top:3px;">来た道。半日の距離。</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(120,95,45,.3);border-radius:8px;background:rgba(244,236,214,.35);opacity:.7;"><div style="font-family:'Cinzel',serif;font-size:14px;color:#6f6049;">？？？</div><div style="font-size:12px;color:#9c8657;margin-top:3px;">霧の向こう。未探索。</div></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isGM }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <h1 style="font-family:'Cinzel',serif;font-weight:700;font-size:25px;margin:0 0 4px;color:#23351f;">{{ gmTitle }}</h1>
+            <p style="font-size:13px;color:#6f6049;margin:0 0 20px;">語り手だけが見る頁。卓には伏せられている。</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+              <div>
+                <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#9c7a34;margin:0 0 11px;">場面</p>
+                <sc-for list="{{ gmScenes }}" as="gs">
+                  <button onClick="{{ gs.go }}" style="display:block;width:100%;text-align:left;padding:11px 13px;border:{{ gs.border }};border-radius:8px;margin-bottom:8px;background:{{ gs.bg }};cursor:pointer;"><span style="font-family:'Cinzel',serif;font-size:14px;color:{{ gs.color }};">{{ gs.t }} <span style="font-size:10px;color:#9c7a34;">{{ gs.tag }}</span></span></button>
+                </sc-for>
+                <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#9c7a34;margin:20px 0 10px;">緊張の高まり</p>
+                <div style="height:9px;border-radius:6px;background:rgba(120,95,45,.18);overflow:hidden;"><div style="width:{{ tension }}%;height:100%;background:linear-gradient(90deg,#9c7a34,#7c2e22);"></div></div>
+                <div style="display:flex;align-items:center;gap:9px;margin-top:8px;">
+                  <button onClick="{{ tMinus }}" style="width:24px;height:24px;border:1px solid rgba(120,95,45,.35);border-radius:7px;background:rgba(244,236,214,.6);color:#6f6049;cursor:pointer;font-size:13px;line-height:1;">−</button>
+                  <span style="font-size:12px;letter-spacing:1px;color:#6f6049;">{{ tension }}%</span>
+                  <button onClick="{{ tPlus }}" style="width:24px;height:24px;border:1px solid rgba(120,95,45,.35);border-radius:7px;background:rgba(244,236,214,.6);color:#6f6049;cursor:pointer;font-size:13px;line-height:1;">＋</button>
+                </div>
+              </div>
+              <div>
+                <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#9c7a34;margin:0 0 11px;">登場人物 ・ 秘匿</p>
+                <div style="border:1px solid rgba(120,95,45,.3);border-radius:8px;padding:11px 13px;margin-bottom:8px;background:rgba(244,236,214,.5);"><div style="font-family:'Cinzel',serif;font-size:14px;color:#23351f;">墓守の亡霊</div><div style="font-size:12px;color:#6f6049;margin-top:2px;">望み：名を取り戻すこと。</div><div style="font-size:12px;color:#7c2e22;margin-top:4px;background:rgba(124,46,34,.1);border-radius:5px;padding:4px 8px;">秘密：かつての王その人。</div></div>
+                <div style="border:1px solid rgba(120,95,45,.3);border-radius:8px;padding:11px 13px;background:rgba(244,236,214,.5);"><div style="font-family:'Cinzel',serif;font-size:14px;color:#23351f;">紫の灯</div><div style="font-size:12px;color:#6f6049;margin-top:2px;">触れた者の最古の記憶を奪う。</div></div>
+                <p style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#9c7a34;margin:20px 0 10px;">乱表 ・ 墓所の異変 (d6)</p>
+                <div style="font-size:13px;color:#4a3f2c;line-height:1.9;">1–2 床が崩れる ・ 3 囁きが聞こえる<br>4 灯が増える ・ 5 亡霊が現れる ・ 6 門が閉じる</div>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:10px;">
+                  <button onClick="{{ rollTable }}" style="padding:7px 16px;border:0;border-radius:8px;background:linear-gradient(180deg,#2f4a34,#23381f);color:#f1e7cf;cursor:pointer;font-family:'Cinzel',serif;font-size:12px;letter-spacing:1px;">乱表を振る</button>
+                  <sc-if value="{{ gmHasTable }}"><span style="font-size:13px;color:#7a5a1c;">出目 {{ gmTableD }} ・ {{ gmTableText }}</span></sc-if>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+      </main>
+    </div>
+
+    <sc-if value="{{ showTabbar }}" hint-placeholder-val="{{ false }}">
+      <nav style="position:relative;z-index:2;display:flex;border-top:1px solid rgba(120,95,45,.34);background:rgba(244,236,214,.96);">
+        <sc-for list="{{ nav }}" as="item" hint-placeholder-count="7">
+          <button onClick="{{ item.go }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px;border:0;background:{{ item.tbBg }};color:{{ item.color }};cursor:pointer;">
+            <span style="font-size:15px;color:#ab8638;">{{ item.glyph }}</span>
+            <span style="font-size:9px;letter-spacing:.5px;font-family:'Cinzel',serif;">{{ item.label }}</span>
+          </button>
+        </sc-for>
+      </nav>
+    </sc-if>
+
+    <div style="position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:50;display:flex;gap:3px;padding:5px;border-radius:999px;background:rgba(20,15,9,.84);backdrop-filter:blur(8px);box-shadow:0 8px 26px rgba(0,0,0,.5);border:1px solid rgba(180,150,90,.32);">
+      <sc-for list="{{ devs }}" as="d" hint-placeholder-count="3">
+        <button onClick="{{ d.go }}" style="padding:7px 16px;border:0;border-radius:999px;cursor:pointer;font-family:'Cinzel',serif;font-size:11px;letter-spacing:1.5px;background:{{ d.bg }};color:{{ d.color }};">{{ d.label }}</button>
+      </sc-for>
+    </div>
+
+  </div>
+</div>
+</template>
+<script>
+/*
+ * Claude Design の x-dc テンプレート（sc-if / sc-for / {{ 変数 }} / onClick）を
+ * そのまま解釈して描画するミニランタイム。support.js（React ベースのプレビュー用）の代替。
+ * 状態変更のたびにテンプレート全体を再構築する（プロトタイプの再レンダーと同等）。
+ */
+(function () {
+  var cache = new Map();
+  function compile(expr) {
+    var fn = cache.get(expr);
+    if (!fn) {
+      fn = new Function('__s', 'with(__s){return(' + expr + ');}');
+      cache.set(expr, fn);
+    }
+    return fn;
+  }
+  function evalExpr(expr, scope) {
+    return compile(expr)(scope);
+  }
+  // "{{ expr }}" 単体の属性値から式を取り出す
+  function single(text) {
+    var m = /^\s*\{\{\s*([\s\S]+?)\s*\}\}\s*$/.exec(text || '');
+    return m ? m[1] : null;
+  }
+  function interpolate(text, scope) {
+    if (text.indexOf('{{') === -1) return text;
+    return text.replace(/\{\{\s*([\s\S]+?)\s*\}\}/g, function (_, expr) {
+      var v = evalExpr(expr, scope);
+      return v == null ? '' : String(v);
+    });
+  }
+  function build(nodes, scope, parent) {
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+      if (node.nodeType === Node.TEXT_NODE) {
+        parent.appendChild(document.createTextNode(interpolate(node.nodeValue, scope)));
+        continue;
+      }
+      if (node.nodeType !== Node.ELEMENT_NODE) continue;
+      var tag = node.localName;
+      if (tag === 'sc-if') {
+        var cond = single(node.getAttribute('value'));
+        if (cond && evalExpr(cond, scope)) build(node.childNodes, scope, parent);
+        continue;
+      }
+      if (tag === 'sc-for') {
+        var listExpr = single(node.getAttribute('list'));
+        var as = node.getAttribute('as') || 'item';
+        var list = (listExpr && evalExpr(listExpr, scope)) || [];
+        for (var j = 0; j < list.length; j++) {
+          var child = Object.assign({}, scope);
+          child[as] = list[j];
+          build(node.childNodes, child, parent);
+        }
+        continue;
+      }
+      var el = document.createElementNS(node.namespaceURI, tag);
+      for (var k = 0; k < node.attributes.length; k++) {
+        var attr = node.attributes[k];
+        if (attr.name.indexOf('hint-placeholder') === 0) continue;
+        if (attr.name === 'onclick') {
+          var handlerExpr = single(attr.value);
+          var fn = handlerExpr ? evalExpr(handlerExpr, scope) : null;
+          if (typeof fn === 'function') el.addEventListener('click', fn);
+          continue;
+        }
+        el.setAttribute(attr.name, interpolate(attr.value, scope));
+      }
+      build(node.childNodes, scope, el);
+      parent.appendChild(el);
+    }
+  }
+  window.DCLogic = class DCLogic {
+    mount(rootEl, templateEl) {
+      this._root = rootEl;
+      this._tpl = templateEl.content;
+      this.render();
+    }
+    setState(update) {
+      var patch = typeof update === 'function' ? update(this.state) : update;
+      Object.assign(this.state, patch);
+      this.render();
+    }
+    render() {
+      var scope = this.renderVals();
+      var frag = document.createDocumentFragment();
+      build(this._tpl.childNodes, scope, frag);
+      this._root.replaceChildren(frag);
+    }
+  };
+})();
+
+class Component extends DCLogic {
+  state = { device: 'desktop', play: 'gmpl', screen: 'top' };
+
+  renderVals() {
+    const { device, play, screen } = this.state;
+    const frames = { phone: { w: 392, h: 828 }, tablet: { w: 900, h: 660 }, desktop: { w: 1240, h: 772 } };
+    const f = frames[device] || frames.desktop;
+    const isPhone = device === 'phone';
+    const compact = device === 'tablet';
+
+    const setScreen = (s) => this.setState({ screen: s });
+    const setPlay = (p) => this.setState((st) => ({ play: p, screen: (p === 'solo' && st.screen === 'gm') ? 'top' : st.screen }));
+    const setDevice = (d) => this.setState({ device: d });
+
+    const playLabel = { solo: 'ソロ探索', gmpl: 'GM ＋ 探索者', gmless: 'GMレス協力' }[play] || '';
+
+    const navDefs = [
+      ['top', '卓', '❖'], ['sheet', '人物録', '✦'], ['dice', '判定', '◈'],
+      ['combat', '戦況', '†'], ['inventory', '持物', '◇'], ['story', '物語', '❧'],
+      ['map', '地図', '✷'], ['gm', play === 'gmless' ? '進行卓' : '進行', '☉'],
+    ];
+    const nav = navDefs
+      .filter((d) => d[0] !== 'gm' || play !== 'solo')
+      .map(([id, label, glyph]) => {
+        const active = id === screen;
+        return {
+          id, label, glyph, active,
+          go: () => setScreen(id),
+          color: active ? '#7a5a1c' : '#6f6049',
+          bg: active ? 'rgba(41,70,48,0.12)' : 'transparent',
+          tbBg: active ? 'rgba(41,70,48,0.14)' : 'transparent',
+          weight: active ? '600' : '500',
+          labelStyle: compact ? 'display:none' : 'display:inline',
+        };
+      });
+
+    const playModes = [
+      ['solo', 'ソロ探索', '語り手なし。本書が試練を裁く一人旅。'],
+      ['gmpl', 'GM ＋ 探索者', '語り手が世界を、仲間が英雄を担う卓。'],
+      ['gmless', 'GMレス協力', '役割を回し、皆で物語を編む協力卓。'],
+    ].map(([id, t, d]) => {
+      const active = id === play;
+      return {
+        id, t, d, active,
+        go: () => setPlay(id),
+        border: active ? '1px solid #ab8638' : '1px solid rgba(120,95,45,.3)',
+        bg: active ? 'linear-gradient(180deg,rgba(171,134,56,.16),rgba(171,134,56,.05))' : 'rgba(244,236,214,.5)',
+        titleColor: active ? '#23351f' : '#5b4d38',
+      };
+    });
+
+    const devs = [
+      ['phone', 'スマホ'], ['tablet', 'タブ'], ['desktop', 'PC'],
+    ].map(([id, label]) => {
+      const active = id === device;
+      return {
+        id, label, active,
+        go: () => setDevice(id),
+        bg: active ? '#ab8638' : 'transparent',
+        color: active ? '#1b140b' : '#d8c79c',
+      };
+    });
+
+    return {
+      frameW: f.w, frameH: f.h, railW: compact ? 66 : 214,
+      mainPad: isPhone ? '22px 18px 26px' : '30px 34px 38px',
+      showRail: !isPhone, showTabbar: isPhone,
+      playLabel, nav, playModes, devs,
+      isTop: screen === 'top', isSheet: screen === 'sheet', isDice: screen === 'dice',
+      isCombat: screen === 'combat', isInv: screen === 'inventory', isStory: screen === 'story',
+      isMap: screen === 'map', isGM: screen === 'gm',
+      gmTitle: play === 'gmless' ? '進行卓 — 共有の手綱' : '進行 — 語り手の手綱',
+    };
+  }
+}
+
+/*
+ * 全作品共通のゲームエンジン。ダイス・d20判定・localStorage 永続化と、
+ * シェル（DCLogic コンポーネント）へのゲーム状態の合流（attach）を担う。
+ * 作品ごとの中身（シナリオ・画面の値）は games/<id>.game.js が window.__GAME__ に定義する。
+ */
+(function () {
+  function rollDie(sides) {
+    return 1 + Math.floor(Math.random() * sides);
+  }
+  function pickKeys(obj, keys) {
+    var o = {};
+    for (var i = 0; i < keys.length; i++) o[keys[i]] = obj[keys[i]];
+    return o;
+  }
+  window.GameEngine = {
+    rollDie: rollDie,
+    clamp: function (v, lo, hi) {
+      return Math.max(lo, Math.min(hi, v));
+    },
+    // d20 判定。20 は大成功、1 は大失敗（出目優先）
+    check: function (mod, dc) {
+      var die = rollDie(20);
+      var total = die + mod;
+      var outcome = die === 20 ? 'crit' : die === 1 ? 'fumble' : total >= dc ? 'success' : 'fail';
+      return { die: die, mod: mod, total: total, dc: dc, outcome: outcome, ok: outcome === 'crit' || outcome === 'success' };
+    },
+    outcomeText: function (outcome) {
+      return { crit: '大成功', success: '成功', fail: '失敗', fumble: '大失敗' }[outcome] || '';
+    },
+    attach: function (app, game) {
+      var key = 'trpg-game-' + game.id;
+      var saved = null;
+      try { saved = JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) {}
+      Object.assign(app.state, game.initialState(), saved || {});
+      if (game.migrate) game.migrate(app.state);
+      var baseRenderVals = app.renderVals.bind(app);
+      app.renderVals = function () {
+        var vals = baseRenderVals();
+        return Object.assign(vals, game.vals(app, vals));
+      };
+      var baseSetState = app.setState.bind(app);
+      app.setState = function (update) {
+        baseSetState(update);
+        try { localStorage.setItem(key, JSON.stringify(pickKeys(app.state, game.persist))); } catch (e) {}
+      };
+      // ゲーム状態のみ初期値へ戻す（device / play / screen は保持）
+      app._resetGame = function () {
+        try { localStorage.removeItem(key); } catch (e) {}
+        Object.assign(app.state, game.initialState());
+        app.render();
+      };
+    },
+  };
+})();
+
+/*
+ * 1a-ハイファンタジー のゲーム内容。
+ * - 判定画面: 実際に振れるダイス（d4〜d100）と技能つき d20 判定・巻末の記録
+ * - 人物録: HP / MP の増減（戦況・物語と共有）
+ * - 戦況: イニシアチブ順トラッカー（手番送り・ラウンド・ダメージ / 回復・戦闘不能）
+ * - 持ち物: 所持金・数量の実データ化。癒しの霊薬は「使う」で HP+7
+ * - 物語: 分岐シナリオ「紫の狼煙」（判定つき選択肢・HP 消耗・複数エンディング）
+ * - 進行(GM): 場面切替・緊張度・乱表 d6
+ * 状態は GameEngine 経由で localStorage に自動保存される。
+ */
+(function () {
+  var E = null; // GameEngine（attach 時点では未定義の可能性があるため使用時に参照）
+  function eng() { return E || (E = window.GameEngine); }
+
+  var HP_MAX = 41, MP_MAX = 18;
+
+  var SKILLS = [
+    { name: '隠密', mod: 7 },
+    { name: '軽業', mod: 6 },
+    { name: '看破', mod: 4 },
+    { name: '解錠', mod: 5 },
+    { name: '平目', mod: 0 },
+  ];
+  var DICE_SIDES = [4, 6, 8, 10, 12, 20, 100];
+
+  var ITEM_DEFS = [
+    { k: 'potion', name: '癒しの霊薬', wt: '0.3', dot: '#9c7a34', potion: true },
+    { k: 'knife', name: '投げ短刀', wt: '1.2', dot: '#9c7a34' },
+    { k: 'scroll', name: '封印された巻物', wt: '0.5', dot: '#7c2e22' },
+    { k: 'climb', name: '登攀具一式', wt: '3.0', dot: '#9c7a34' },
+    { k: 'key', name: '古びた鍵', wt: '—', dot: '#2f6b5e' },
+    { k: 'lamp', name: '記憶の灯', wt: '—', dot: '#6b4a8c', hidden0: true },
+    { k: 'crown', name: '王家の冠', wt: '1.0', dot: '#ab8638', hidden0: true },
+  ];
+
+  var COMBATANTS = [
+    { key: 'hpAriel', name: 'アリエル', init: 21, max: HP_MAX, enemy: false, tags: [{ t: '加速', bg: 'rgba(47,107,95,.16)', color: '#2f6b5e' }] },
+    { key: 'hpGhost', name: '墓守の亡霊', init: 18, max: 30, enemy: true, tags: [{ t: '怯え', bg: 'rgba(124,46,34,.14)', color: '#7c2e22' }] },
+    { key: 'hpGray', name: 'グレイ', init: 14, max: 52, enemy: false, tags: [] },
+    { key: 'hpMorga', name: 'モルガ', init: 9, max: 26, enemy: false, tags: [{ t: '集中', bg: 'rgba(156,122,52,.16)', color: '#9c7a34' }] },
+  ];
+
+  var GM_TABLE = ['床が崩れる', '床が崩れる', '囁きが聞こえる', '灯が増える', '亡霊が現れる', '門が閉じる'];
+  var GM_SCENES = ['門前の対峙', '記憶の回廊', '玉座の主'];
+
+  var KANJI = ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+
+  // ─────────────────────────────────────────────
+  // シナリオ「紫の狼煙」
+  // text: 最初の文字列＝ドロップキャップ段落。{ q: … } は引用ブロック。
+  // 選択肢: { pre, skillText, post, dcLabel 用の check:{name,mod,dc}, success/fail または to, if }
+  // fx はノード到達時に一度だけ適用（hp/mp/gold/items/flags/hpSet）
+  // ─────────────────────────────────────────────
+  var NODES = {
+    n1: {
+      kicker: '第三幕 ・ 第七節', title: '紫の狼煙', pct: 64,
+      text: [
+        '夜が明けきらぬうち、谷を渡る風が灰を運んできた。焦げた匂い。アリエルは外套の襟を立て、橋の残骸の先——黒い門のかたちに崩れた墓所の入口を見据えた。紫の光が、その奥でゆっくりと脈打っている。',
+        '「合図にしては、長すぎる」とグレイが低く言う。誓約の楯に朝露が滴る。モルガは指先で宙に印を描き、何かを聴くように目を閉じた。「呼んでいるわ。けれど、こちらの名前を知らない声」',
+        { q: '門は記憶を喰らう。くぐる前に、捨てたくない名を胸に刻め。' },
+        '石段の縁に、真新しい爪痕。誰か——あるいは何かが、つい先刻ここを通った。前に進むほど、紫はその色を濃くしていく。',
+      ],
+      choices: [
+        { pre: '爪痕を ', skillText: '看破', post: ' で調べる', check: { name: '看破', mod: 4, dc: 14 }, success: 'n2a', fail: 'n2b' },
+        { pre: '門をくぐり、紫の光へ進む', to: 'n3' },
+        { pre: 'モルガに、声の正体を ', skillText: '尋ねる', to: 'n2c' },
+      ],
+    },
+    n2a: {
+      kicker: '第三幕 ・ 第八節', title: '爪痕の主', pct: 66, fx: { flags: { clawChecked: 1 } },
+      text: [
+        'アリエルは膝をつき、指先で石の窪みをなぞった。籠手だ。人間の手甲が石段を掴んだ痕——それも、つい先刻。灰の積もり方が浅い。',
+        '「先客がいる」と囁くと、グレイの手が楯にかかった。足跡は門の内へと続き、戻った形跡はない。',
+      ],
+      choices: [
+        { pre: '門をくぐり、跡を追う', to: 'n3' },
+        { pre: '物陰に伏せ、様子を窺う ', skillText: '隠密', check: { name: '隠密', mod: 7, dc: 12 }, success: 'n2a2', fail: 'n2a3' },
+      ],
+    },
+    n2a2: {
+      kicker: '第三幕 ・ 第八節', title: '影の中', pct: 68, fx: { flags: { spy: 1 } },
+      text: [
+        '息を殺して四半刻。門の脇、崩れた柱の陰に灰色の外套が見えた。人だ。生きている。——胸元に、見覚えのある鴉の徽章。灰鴉同盟の密偵が、なぜこんな谷の果てに。',
+        '気づかれる前にこちらから声をかけるべきか。それとも。',
+      ],
+      choices: [
+        { pre: '崩れた柱の男に、声をかける', to: 'n2a4' },
+        { pre: '捨て置いて、門へ向かう', to: 'n3' },
+      ],
+    },
+    n2a4: {
+      kicker: '第三幕 ・ 第八節', title: '灰鴉の言伝', pct: 70, fx: { flags: { knowName: 1 } },
+      text: [
+        '振り向いた男は観念したように両手を上げた。「同盟の言伝だ。……墓の主に、名を返してやれ。それが谷を鎮める唯一の道だと、長老会は言っている」',
+        'それだけ告げると、男は灰の中に消えた。名を、返す？',
+      ],
+      choices: [{ pre: '言伝を胸に、門をくぐる', to: 'n3' }],
+    },
+    n2a3: {
+      kicker: '第三幕 ・ 第八節', title: '崩れる足場', pct: 68, fx: { hp: -3 },
+      text: [
+        '柱の陰に身を沈めた、その足元で朽ちた石が鳴った。ざり、と派手な音。影が一瞬で膨れ上がり、鋭い何かが頬を掠める。（HP −3）',
+        '体勢を立て直したときには、気配は門の奥へ引いていた。もう、行くしかない。',
+      ],
+      choices: [{ pre: '追わず、門をくぐる', to: 'n3' }],
+    },
+    n2b: {
+      kicker: '第三幕 ・ 第八節', title: '灰の沈黙', pct: 66, fx: { flags: { clawChecked: 1 } },
+      text: [
+        '爪痕は深いが、灰が縁を柔らかく埋めていて、新旧の判別がつかない。風が谷を鳴らすたび、痕はただの影に沈む。',
+      ],
+      choices: [
+        { pre: '門をくぐり、紫の光へ進む', to: 'n3' },
+        { pre: 'モルガに、声の正体を尋ねる', to: 'n2c', if: function (st) { return !st.flags.knowVoice; } },
+      ],
+    },
+    n2c: {
+      kicker: '第三幕 ・ 第八節', title: 'モルガの耳', pct: 66, fx: { flags: { knowVoice: 1 } },
+      text: [
+        'モルガは目を閉じたまま長く黙り、やがて言った。「声はね、名前を探しているの。自分の、名前を。名を失くした誰かが、この墓の主よ」',
+        '「そして多分——」彼女は門を見た。「わたしたちの誰かが、それを知っているわ」',
+      ],
+      choices: [
+        { pre: '門をくぐり、紫の光へ進む', to: 'n3' },
+        { pre: '爪痕を ', skillText: '看破', post: ' で調べる', check: { name: '看破', mod: 4, dc: 14 }, success: 'n2a', fail: 'n2b', if: function (st) { return !st.flags.clawChecked; } },
+      ],
+    },
+    n3: {
+      kicker: '第三幕 ・ 第九節', title: '記憶を喰らう門', pct: 74,
+      text: [
+        '門柱に手を触れた途端、頭蓋の内側を細い指で撫でられたような感触が走った。——喰われている。まだ浅く、けれど確かに。石の門は、くぐる者の記憶を舐め取ってその身を保っているのだ。',
+        { q: '門は記憶を喰らう。くぐる前に、捨てたくない名を胸に刻め。' },
+      ],
+      choices: [
+        { pre: '捨てたくない名を胸に刻み、踏み込む ', skillText: '意志', check: { name: '意志', mod: 0, dc: 13 }, success: 'n4', fail: 'n4b' },
+        { pre: '封印された巻物の封を切り、掲げて進む', to: 'n4c', if: function (st) { return st.items.scroll > 0; } },
+      ],
+    },
+    n4: {
+      kicker: '第三幕 ・ 第十節', title: '記憶の回廊', pct: 80,
+      text: [
+        '名は、残った。冷たい水をくぐり抜けたように全身が重いが、胸の奥で自分の名が確かに脈打っている。回廊の壁には色褪せた壁画——戴冠、豊穣、そして谷を呑む灰の日。',
+      ],
+      choices: [
+        { pre: '壁画を ', skillText: '読み解く', check: { name: '知力', mod: 1, dc: 12 }, success: 'n4d', fail: 'n4e' },
+        { pre: '先を急ぐ', to: 'n5' },
+      ],
+    },
+    n4b: {
+      kicker: '第三幕 ・ 第十節', title: '欠けた頁', pct: 80, fx: { flags: { lostMemory: 1 } },
+      text: [
+        'くぐり終えた瞬間、何かが薄くなった。誰かが歌っていた歌の節が、思い出せない。確かに知っていたはずの旋律が、灰のように指の間をこぼれていく。（大切な記憶をひとつ、門に置いてきた）',
+        '回廊の壁には色褪せた壁画——戴冠、豊穣、そして谷を呑む灰の日。',
+      ],
+      choices: [
+        { pre: '壁画を ', skillText: '読み解く', check: { name: '知力', mod: 1, dc: 12 }, success: 'n4d', fail: 'n4e' },
+        { pre: '先を急ぐ', to: 'n5' },
+      ],
+    },
+    n4c: {
+      kicker: '第三幕 ・ 第十節', title: '勅書', pct: 78, fx: { items: { scroll: -1 }, flags: { royalName: 1 } },
+      text: [
+        '封蝋は触れる前に紫の炎で燃え落ちた。羊皮紙に浮かび上がったのは王家の紋章と、たった一行の勅——「朕の名を灰に封ず。谷を渡る者、これを主に返すべし」。末尾に、確かに名が記されている。',
+        '門は、勅書を掲げたアリエルの前で従順に沈黙した。',
+      ],
+      choices: [{ pre: '回廊を抜け、玉座の間へ', to: 'n5' }],
+    },
+    n4d: {
+      kicker: '第三幕 ・ 第十節', title: '壁画の告げるもの', pct: 84, fx: { flags: { knowKing: 1 } },
+      text: [
+        '読めた。最後の壁画——王は迫る灰禍から民を逃がすため、己の名を代価に門へ封を掛けたのだ。名を失った王は死してなお墓を守り、名を呼ぶ声だけが谷に残った。',
+        '王の名は、壁画の隅、戴冠の場面にだけ刻まれている。アリエルはそれを胸に刻んだ。',
+      ],
+      choices: [{ pre: '玉座の間へ', to: 'n5' }],
+    },
+    n4e: {
+      kicker: '第三幕 ・ 第十節', title: '読めない文字', pct: 82,
+      text: [
+        '古語だ。断片は拾えるが、肝心の銘の部分が灰の染みで潰れている。ただ、王が「何かを差し出して」谷を守った——その筋書きだけは読み取れた。',
+      ],
+      choices: [{ pre: '玉座の間へ', to: 'n5' }],
+    },
+    n5: {
+      kicker: '第三幕 ・ 第十一節', title: '玉座の主', pct: 88,
+      text: [
+        '玉座の間。紫の灯が幾百も浮かび、中央の朽ちた玉座の前に、それはいた。錆びた王冠、虚ろな眼窩。墓守の亡霊——誰何するより先に、剣呑な冷気が膨れ上がる。「名ヲ……返セ……」',
+      ],
+      choices: [
+        { pre: '剣を抜く——', skillText: '影縫い', check: { name: '敏捷', mod: 4, dc: 14 }, success: 'n6win', fail: 'n6hit' },
+        { pre: '王家の勅書を、高く掲げる', to: 'n8', if: function (st) { return st.flags.royalName; } },
+        { pre: '「あなたの名を、探しに来た」と ', skillText: '呼びかける', check: { name: '感応', mod: 2, dc: function (st) { return st.flags.knowVoice || st.flags.knowKing ? 11 : 15; } }, success: 'n6talk', fail: 'n6angry' },
+      ],
+    },
+    n6hit: {
+      kicker: '第三幕 ・ 第十一節', title: '冷気の一閃', pct: 90, fx: { hp: -6 },
+      text: [
+        '速い。骨の指が霞み、外套ごと肩口を凍気が抉る（HP −6）。二の太刀は空を斬った。亡霊の姿が灯の間を渡り、嗤うように揺れる。',
+      ],
+      choices: [
+        { pre: 'なおも斬り結ぶ ', skillText: '敏捷', check: { name: '敏捷', mod: 4, dc: 14 }, success: 'n6win', fail: 'n6hit2' },
+        { pre: '後退し、声を張る ', skillText: '感応', check: { name: '感応', mod: 2, dc: 13 }, success: 'n6talk', fail: 'n6angry' },
+      ],
+    },
+    n6hit2: {
+      kicker: '第三幕 ・ 第十一節', title: '膝をつく', pct: 92, fx: { hp: -6 },
+      text: [
+        '視界が白む（HP −6）。楯を構えたグレイの背中越しに、亡霊の冷気が壁の壁画を凍らせていくのが見えた。次の一手が、恐らく最後の一手になる。',
+      ],
+      choices: [
+        { pre: '最後の一太刀に懸ける ', skillText: '敏捷', check: { name: '敏捷', mod: 4, dc: 15 }, success: 'n6win', fail: 'end_down' },
+        { pre: '楯の陰へ——撤退する', to: 'end_retreat' },
+      ],
+    },
+    n6angry: {
+      kicker: '第三幕 ・ 第十一節', title: '応えぬ声', pct: 90, fx: { hp: -4 },
+      text: [
+        '冷気が渦を巻いて叩きつけた（HP −4）。「違ウ……オマエハ、知ラナイ……！」言葉はまだ、届く形をしていない。名の手がかりが要る。',
+      ],
+      choices: [
+        { pre: '剣で応える ', skillText: '敏捷', check: { name: '敏捷', mod: 4, dc: 14 }, success: 'n6win', fail: 'n6hit' },
+        { pre: '勅書を掲げる', to: 'n8', if: function (st) { return st.flags.royalName; } },
+        { pre: '壁画で知った名を、叫ぶ', to: 'n8', if: function (st) { return st.flags.knowKing; } },
+      ],
+    },
+    n6talk: {
+      kicker: '第三幕 ・ 第十一節', title: '静止', pct: 92,
+      text: [
+        '亡霊が、止まった。眼窩の奥で紫の灯が揺れる。「名……ヲ……」枯れ井戸の底から響くような声。求めているのは戦いではない。ずっと、それだけを。',
+      ],
+      choices: [
+        { pre: '勅書を、両手で差し出す', to: 'n8', if: function (st) { return st.flags.royalName; } },
+        { pre: '壁画で知った名を、静かに告げる', to: 'n8', if: function (st) { return st.flags.knowKing; } },
+        { pre: '名を知らぬまま、「共に探す」と誓う', to: 'n8b' },
+      ],
+    },
+    n6win: {
+      kicker: '第三幕 ・ 第十一節', title: '灯の残るところ', pct: 94,
+      text: [
+        '最後の一刀が冠を打ち、亡霊は灰となって崩れた。——だが、灯は消えない。玉座の周りで幾百の紫が、主を失ってなお脈打ち続けている。',
+        'モルガが呟く。「これ、記憶よ。全部、あの人の」',
+      ],
+      choices: [
+        { pre: '灯に、素手で触れる ', skillText: '意志', check: { name: '意志', mod: 0, dc: 14 }, success: 'n8c', fail: 'end_memory' },
+        { pre: '触れずに、戦利品を集めて引き上げる', to: 'n8d' },
+      ],
+    },
+    n8: {
+      kicker: '第三幕 ・ 終節', title: '名の還るところ', pct: 100, end: true, fx: { gold: 120, items: { crown: 1 } },
+      text: [
+        '名が呼ばれた——あるいは差し出された——瞬間、谷のすべての紫が一斉に高く昇り、夜明けの色に溶けた。玉座の前には錆びた冠と、両の掌に収まるほどの小さな灯がひとつ。「……礼ヲ」風のような声がそう言い、それきり谷は静かになった。',
+        '（真結・報酬：王家の冠 ・ 120ゴルド。灰燼の谷は鎮まった）',
+      ],
+      choices: [],
+    },
+    n8b: {
+      kicker: '第三幕 ・ 終節', title: '誓いの灯', pct: 100, end: true, fx: { items: { lamp: 1 } },
+      text: [
+        '長い沈黙ののち、亡霊は一つの灯を差し出した。「共ニ……探ス……」契約だ。名が見つかるまで、この灯はアリエルの荷にある。夜ごと、小さく誰かの名を囁くという。',
+        '（結・獲得：記憶の灯。物語は次の幕へ続く）',
+      ],
+      choices: [],
+    },
+    n8c: {
+      kicker: '第三幕 ・ 終節', title: '記憶の器', pct: 100, end: true, fx: { gold: 90, items: { lamp: 1 } },
+      text: [
+        '灯は掌の上で小さくまとまり、温かい重みになった。王の記憶は器に還り、谷の風から哭き声が消えた。意志は、流されなかった。',
+        '（結・報酬：記憶の灯 ・ 90ゴルド）',
+      ],
+      choices: [],
+    },
+    n8d: {
+      kicker: '第三幕 ・ 終節', title: '遠雷', pct: 100, end: true, fx: { gold: 60 },
+      text: [
+        '戦利品の金貨だけを鞍袋に詰め、一行は夜のうちに谷を離れた（＋60ゴルド）。振り返れば、紫はまだ脈打っている。あの声の主を知る日は、いずれ来るだろう。——別の物語で。',
+      ],
+      choices: [],
+    },
+    end_retreat: {
+      kicker: '第三幕 ・ 終節', title: '撤退', pct: 100, end: true,
+      text: [
+        '限界だ。グレイが殿を務め、一行は転がるように門を出た。手ぶらの帰還——だが全員、息はある。谷の紫は、また今度。',
+      ],
+      choices: [],
+    },
+    end_down: {
+      kicker: '第三幕 ・ 終節', title: '灰の中へ', pct: 100, end: true, fx: { hpSet: 1 },
+      text: [
+        '膝が落ち、灰が頬に触れた。……グレイの楯が頭上で鳴り、モルガの印が閃くのを、遠くで聞いた。目覚めたのは崩れた橋のたもと。命はある。だが墓所の門は、再び固く閉じていた。（HP 1 で撤退）',
+      ],
+      choices: [],
+    },
+    end_memory: {
+      kicker: '第三幕 ・ 終節', title: '一番古いもの', pct: 100, end: true, fx: { flags: { lostOldest: 1 } },
+      text: [
+        '紫がアリエルの腕を駆け上がり、一番古い記憶を持っていった。何を失ったのかさえ、もう分からない。ただ、夜だけ饒舌だった男は、その夜から夜も寡黙になった。一行は無言で谷を後にした。',
+      ],
+      choices: [],
+    },
+  };
+
+  var END_CHOICES = [
+    { pre: '最初の頁から、読み直す', restart: true },
+    { pre: '卓へ戻る', top: true },
+  ];
+
+  // ─────────────────────────────────────────────
+
+  function initialState() {
+    return {
+      diceSides: 20, skillIdx: 2, diceDc: 14,
+      lastRoll: { kind: 'check', die: 14, mod: 5, total: 19, dc: 14, outcome: 'success', skillName: '看破' },
+      rollLog: [
+        { left: 'アリエル ・ 看破', right: '19 ／ 成功', color: '#2f6b3f' },
+        { left: 'グレイ ・ 力業', right: '9 ／ 失敗', color: '#7c2e22' },
+        { left: 'モルガ ・ 呪文判定', right: '23 ／ 大成功', color: '#2f6b3f' },
+      ],
+      hpAriel: 32, mp: 11, hpGhost: 12, hpGray: 48, hpMorga: 22,
+      round: 2, turnIdx: 0,
+      gold: 142,
+      items: { potion: 3, knife: 6, scroll: 1, climb: 1, key: 1, lamp: 0, crown: 0 },
+      flags: {},
+      storyNode: 'n1', storyNote: null, storyNoteColor: '#6f6049',
+      gmScene: 0, tension: 72, gmTable: null,
+    };
+  }
+
+  function pushLog(st, left, right, color) {
+    st.rollLog = [{ left: left, right: right, color: color }].concat(st.rollLog).slice(0, 10);
+  }
+
+  // fx をパッチに畳み込む（st は現在値、patch は setState 用の差分）
+  function applyFx(st, fx, patch) {
+    if (!fx) return;
+    function get(k) { return k in patch ? patch[k] : st[k]; }
+    if (fx.hp) patch.hpAriel = eng().clamp(get('hpAriel') + fx.hp, 0, HP_MAX);
+    if (fx.hpSet != null) patch.hpAriel = fx.hpSet;
+    if (fx.mp) patch.mp = eng().clamp(get('mp') + fx.mp, 0, MP_MAX);
+    if (fx.gold) patch.gold = get('gold') + fx.gold;
+    if (fx.items) {
+      var items = Object.assign({}, get('items'));
+      for (var k in fx.items) items[k] = Math.max(0, (items[k] || 0) + fx.items[k]);
+      patch.items = items;
+    }
+    if (fx.flags) patch.flags = Object.assign({}, get('flags'), fx.flags);
+  }
+
+  window.__GAME__ = {
+    id: '1a',
+    initialState: initialState,
+    persist: [
+      'diceSides', 'skillIdx', 'diceDc', 'lastRoll', 'rollLog',
+      'hpAriel', 'mp', 'hpGhost', 'hpGray', 'hpMorga', 'round', 'turnIdx',
+      'gold', 'items', 'flags', 'storyNode', 'storyNote', 'storyNoteColor',
+      'gmScene', 'tension', 'gmTable',
+    ],
+    migrate: function (st) {
+      var init = initialState();
+      if (!NODES[st.storyNode]) { st.storyNode = 'n1'; st.storyNote = null; st.flags = {}; }
+      st.items = Object.assign({}, init.items, st.items || {});
+      st.flags = st.flags || {};
+      if (!Array.isArray(st.rollLog)) st.rollLog = init.rollLog;
+    },
+
+    vals: function (app) {
+      var st = app.state;
+      var E = eng();
+      var out = {};
+
+      // ── 卓 ──
+      out.goStory = function () { app.setState({ screen: 'story' }); };
+
+      // ── 人物録 ──
+      out.hpAriel = st.hpAriel;
+      out.hpArielPct = Math.round((st.hpAriel / HP_MAX) * 100);
+      out.mp = st.mp;
+      out.mpPct = Math.round((st.mp / MP_MAX) * 100);
+      out.hpUp = function () { app.setState({ hpAriel: E.clamp(st.hpAriel + 1, 0, HP_MAX) }); };
+      out.hpDown = function () { app.setState({ hpAriel: E.clamp(st.hpAriel - 1, 0, HP_MAX) }); };
+      out.mpUp = function () { app.setState({ mp: E.clamp(st.mp + 1, 0, MP_MAX) }); };
+      out.mpDown = function () { app.setState({ mp: E.clamp(st.mp - 1, 0, MP_MAX) }); };
+
+      // ── 判定 ──
+      var isCheck = st.diceSides === 20;
+      var skill = SKILLS[st.skillIdx] || SKILLS[0];
+      out.diceIsCheck = isCheck;
+      out.diceHead = isCheck ? skill.name + '判定 ・ 難度 ' + st.diceDc : 'd' + st.diceSides + ' を振る';
+      out.dcMinus = function () { app.setState({ diceDc: E.clamp(st.diceDc - 1, 2, 30) }); };
+      out.dcPlus = function () { app.setState({ diceDc: E.clamp(st.diceDc + 1, 2, 30) }); };
+      var lr = st.lastRoll;
+      if (!lr) {
+        out.diceFace = '—'; out.diceFormula = 'まだ骰は振られていない'; out.diceVerdict = ''; out.diceVerdictColor = '#6f6049';
+      } else if (lr.kind === 'check') {
+        out.diceFace = lr.die;
+        out.diceFormula = 'd20 ＝ ' + lr.die + ' ＋ 修正 ' + lr.mod;
+        out.diceVerdict = '＝ ' + lr.total + ' ・ ' + E.outcomeText(lr.outcome);
+        out.diceVerdictColor = lr.outcome === 'fail' || lr.outcome === 'fumble' ? '#7c2e22' : '#2f6b3f';
+      } else {
+        out.diceFace = lr.value;
+        out.diceFormula = 'd' + lr.sides + ' の出目';
+        out.diceVerdict = '＝ ' + lr.value;
+        out.diceVerdictColor = '#6f6049';
+      }
+      out.diceTypes = DICE_SIDES.map(function (s) {
+        var sel = s === st.diceSides;
+        return {
+          label: 'd' + s,
+          go: function () { app.setState({ diceSides: s }); },
+          border: sel ? '1px solid #ab8638' : '1px solid rgba(120,95,45,.3)',
+          color: sel ? '#23351f' : '#6f6049',
+          bg: sel ? 'rgba(171,134,56,.14)' : 'transparent',
+        };
+      });
+      out.diceSkills = SKILLS.map(function (sk, i) {
+        var sel = i === st.skillIdx;
+        return {
+          label: sk.name + '（' + (sk.mod >= 0 ? '＋' + sk.mod : sk.mod) + '）',
+          go: function () { app.setState({ skillIdx: i }); },
+          border: sel ? '1px solid #ab8638' : '1px solid rgba(120,95,45,.3)',
+          color: sel ? '#23351f' : '#6f6049',
+          bg: sel ? 'rgba(171,134,56,.14)' : 'transparent',
+        };
+      });
+      out.rollNow = function () {
+        if (st.diceSides === 20) {
+          var r = E.check(skill.mod, st.diceDc);
+          var txt = E.outcomeText(r.outcome);
+          pushLog(st, 'アリエル ・ ' + skill.name, r.total + ' ／ ' + txt, r.ok ? '#2f6b3f' : '#7c2e22');
+          app.setState({ lastRoll: { kind: 'check', die: r.die, mod: r.mod, total: r.total, dc: r.dc, outcome: r.outcome, skillName: skill.name }, rollLog: st.rollLog });
+        } else {
+          var v = E.rollDie(st.diceSides);
+          pushLog(st, 'アリエル ・ d' + st.diceSides, v + ' ／ 出目', '#6f6049');
+          app.setState({ lastRoll: { kind: 'plain', sides: st.diceSides, value: v }, rollLog: st.rollLog });
+        }
+      };
+      out.logRows = st.rollLog;
+
+      // ── 戦況 ──
+      out.roundTitle = '戦況 ・ 第' + (KANJI[st.round] || st.round) + 'ラウンド';
+      function aliveIdx(from, dir) {
+        for (var i = 1; i <= COMBATANTS.length; i++) {
+          var idx = (from + i * dir + COMBATANTS.length * i) % COMBATANTS.length;
+          if (st[COMBATANTS[idx].key] > 0) return idx;
+        }
+        return from;
+      }
+      out.nextTurn = function () {
+        var next = aliveIdx(st.turnIdx, 1);
+        var patch = { turnIdx: next };
+        if (next <= st.turnIdx) patch.round = st.round + 1; // 一巡したらラウンドも進む
+        app.setState(patch);
+      };
+      out.nextRound = function () {
+        var first = st[COMBATANTS[0].key] > 0 ? 0 : aliveIdx(0, 1);
+        app.setState({ round: st.round + 1, turnIdx: first });
+      };
+      out.combatants = COMBATANTS.map(function (c, i) {
+        var hp = st[c.key];
+        var dead = hp <= 0;
+        var active = i === st.turnIdx && !dead;
+        var tags = dead ? [{ t: '倒れた', bg: 'rgba(124,46,34,.14)', color: '#7c2e22' }] : c.tags;
+        function adj(d) {
+          return function () {
+            var patch = {};
+            patch[c.key] = E.clamp(hp + d, 0, c.max);
+            app.setState(patch);
+          };
+        }
+        return {
+          name: c.name, init: c.init, hp: hp, max: c.max,
+          pct: Math.round((hp / c.max) * 100),
+          side: active ? '行動中' : c.enemy ? '敵' : '',
+          border: active ? '1px solid #ab8638' : '1px solid rgba(120,95,45,.28)',
+          bg: active ? 'linear-gradient(90deg,rgba(171,134,56,.16),rgba(171,134,56,.04))' : 'rgba(244,236,214,.4)',
+          op: dead ? '.55' : '1',
+          initBg: active ? '#23381f' : 'rgba(120,95,45,.18)',
+          initColor: active ? '#f1e7cf' : '#6f6049',
+          tokenBorder: c.enemy ? '#7c2e22' : '#ab8638',
+          tokenPat: c.enemy ? 'rgba(124,46,34,.16)' : 'rgba(120,95,45,.14)',
+          nameColor: c.enemy ? '#7c2e22' : '#23351f',
+          hasTags: tags.length > 0, tags: tags,
+          dmg5: adj(-5), dmg1: adj(-1), heal1: adj(1), heal5: adj(5),
+        };
+      });
+
+      // ── 持ち物 ──
+      out.gold = st.gold;
+      out.bagItems = ITEM_DEFS.filter(function (d) {
+        return !(d.hidden0 && (st.items[d.k] || 0) <= 0);
+      }).map(function (d) {
+        var qty = st.items[d.k] || 0;
+        return {
+          name: d.name, wt: d.wt, dot: d.dot, qty: qty,
+          op: qty > 0 ? '1' : '.45',
+          usable: !!d.potion && qty > 0 && st.hpAriel < HP_MAX,
+          use: function () {
+            var items = Object.assign({}, st.items);
+            items[d.k] = qty - 1;
+            pushLog(st, 'アリエル ・ 癒しの霊薬', 'HP ＋7', '#2f6b3f');
+            app.setState({ items: items, hpAriel: E.clamp(st.hpAriel + 7, 0, HP_MAX), rollLog: st.rollLog });
+          },
+        };
+      });
+
+      // ── 物語 ──
+      var node = NODES[st.storyNode] || NODES.n1;
+      out.storyKicker = node.kicker;
+      out.storyTitle = node.title;
+      var lead = node.text[0];
+      out.storyLead = lead.charAt(0);
+      out.storyLeadRest = lead.slice(1);
+      out.storyBlocks = node.text.slice(1).map(function (b) {
+        return typeof b === 'string' ? { isP: true, isQ: false, t: b } : { isP: false, isQ: true, t: b.q };
+      });
+      out.storyHasNote = !!st.storyNote;
+      out.storyNote = st.storyNote || '';
+      out.storyNoteColor = st.storyNoteColor || '#6f6049';
+      out.storyPct = node.pct;
+      out.storyPctLabel = node.end ? '第三幕 ・ 読了' : '第三幕 ・ ' + node.pct + '% 読了';
+      out.storyCanRestart = st.storyNode !== 'n1';
+      out.storyRestart = function () { app._resetGame(); };
+
+      function choose(c) {
+        return function () {
+          var patch = { storyNote: null, storyNoteColor: '#6f6049' };
+          var target = c.to;
+          if (c.check) {
+            var dc = typeof c.check.dc === 'function' ? c.check.dc(st) : c.check.dc;
+            var r = E.check(c.check.mod, dc);
+            var txt = E.outcomeText(r.outcome);
+            patch.storyNote = c.check.name + '判定 — d20〈' + r.die + '〉＋' + r.mod + ' ＝ ' + r.total + ' ／ 難度' + dc + ' ・ ' + txt;
+            patch.storyNoteColor = r.ok ? '#2f6b3f' : '#7c2e22';
+            pushLog(st, 'アリエル ・ ' + c.check.name + '（物語）', r.total + ' ／ ' + txt, r.ok ? '#2f6b3f' : '#7c2e22');
+            patch.rollLog = st.rollLog;
+            target = r.ok ? c.success : c.fail;
+          }
+          var nextNode = NODES[target];
+          applyFx(st, nextNode.fx, patch);
+          // HP が尽きたら強制的に「灰の中へ」
+          var hpNow = 'hpAriel' in patch ? patch.hpAriel : st.hpAriel;
+          if (hpNow <= 0 && !nextNode.end) {
+            target = 'end_down';
+            applyFx(st, NODES.end_down.fx, patch);
+          }
+          patch.storyNode = target;
+          app.setState(patch);
+        };
+      }
+      var defs = node.end ? END_CHOICES : node.choices;
+      out.storyChoices = defs.filter(function (c) {
+        return !c.if || c.if(st);
+      }).map(function (c) {
+        var dc = c.check ? (typeof c.check.dc === 'function' ? c.check.dc(st) : c.check.dc) : null;
+        return {
+          pre: c.pre, skillText: c.skillText || '', post: c.post || '',
+          dcLabel: dc != null ? '難度' + dc : '',
+          go: c.restart ? function () { app._resetGame(); }
+            : c.top ? function () { app.setState({ screen: 'top' }); }
+            : choose(c),
+        };
+      });
+
+      // ── 進行（GM） ──
+      out.gmScenes = GM_SCENES.map(function (t, i) {
+        var active = i === st.gmScene;
+        return {
+          t: t, tag: active ? '進行中' : '',
+          go: function () { app.setState({ gmScene: i }); },
+          border: active ? '1px solid #ab8638' : '1px solid rgba(120,95,45,.3)',
+          bg: active ? 'linear-gradient(90deg,rgba(171,134,56,.14),transparent)' : 'rgba(244,236,214,.5)',
+          color: active ? '#23351f' : '#6f6049',
+        };
+      });
+      out.tension = st.tension;
+      out.tMinus = function () { app.setState({ tension: E.clamp(st.tension - 5, 0, 100) }); };
+      out.tPlus = function () { app.setState({ tension: E.clamp(st.tension + 5, 0, 100) }); };
+      out.gmHasTable = !!st.gmTable;
+      out.gmTableD = st.gmTable ? st.gmTable.d : '';
+      out.gmTableText = st.gmTable ? st.gmTable.text : '';
+      out.rollTable = function () {
+        var d = E.rollDie(6);
+        var text = GM_TABLE[d - 1];
+        pushLog(st, '語り手 ・ 乱表（墓所の異変）', d + ' ／ ' + text, '#7a5a1c');
+        app.setState({ gmTable: { d: d, text: text }, rollLog: st.rollLog });
+      };
+
+      return out;
+    },
+  };
+})();
+
+window.__dcApp = new Component();
+if (typeof GameEngine !== 'undefined' && window.__GAME__) GameEngine.attach(window.__dcApp, window.__GAME__);
+window.__dcApp.mount(document.getElementById('app'), document.getElementById('dc-template'));
+</script>
+</body>
+</html>

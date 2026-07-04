@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Shippori+Mincho:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#15151a;}
+  @keyframes scfade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+  @keyframes stampin{0%{transform:rotate(-11deg) scale(1.6);opacity:0}60%{transform:rotate(-6deg) scale(.97);opacity:1}100%{transform:rotate(-6deg) scale(1)}}
+  @keyframes smolder{0%,100%{opacity:.5}50%{opacity:1}}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-thumb{background:rgba(91,58,143,.3);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:34px 20px 96px;box-sizing:border-box;font-family:'Zen Kaku Gothic New',sans-serif;background:radial-gradient(120% 95% at 50% 0%,#1e1c26 0%,#15151a 58%,#0d0d11 100%);color:#2b2b33;">
+
+  <div style="position:relative;width:{{ frameW }}px;height:{{ frameH }}px;max-width:100%;background:#f2f0ea;border:1px solid #cfcabc;border-radius:5px;box-shadow:0 34px 90px -22px rgba(0,0,0,.72),0 0 0 8px rgba(10,10,14,.55);overflow:hidden;display:flex;flex-direction:column;">
+
+    <div style="position:absolute;inset:0;pointer-events:none;background-image:repeating-linear-gradient(0deg,rgba(43,43,51,.025) 0 1px,transparent 1px 30px),radial-gradient(circle at 92% 4%,rgba(196,90,42,.06),transparent 26%);"></div>
+
+    <header style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 22px;border-bottom:2px solid #2b2b33;background:linear-gradient(180deg,#f7f5f0,#efece4);">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;flex:none;border-radius:4px;background:#5b3a8f;color:#f2f0ea;font-family:'Shippori Mincho',serif;font-weight:800;font-size:13px;">魔</span>
+        <div>
+          <div style="font-size:9px;letter-spacing:2px;color:#7a7668;">株式会社 元魔王軍（勇者ホールディングス傘下） 総務部 人事考課課</div>
+          <div style="display:flex;align-items:baseline;gap:10px;">
+            <span style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:20px;letter-spacing:2px;color:#2b2b33;">反省文ドラゴン</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:#5b3a8f;">FORM-9 : LETTER OF APOLOGY</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:12px;letter-spacing:1px;color:#7a7668;">{{ playLabel }}</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 10px;border:1px solid rgba(196,60,60,.5);border-radius:3px;color:#c43c3c;background:rgba(196,60,60,.05);">提出期限 本日17:00</span>
+      </div>
+    </header>
+
+    <div style="position:relative;z-index:2;flex:1;display:flex;min-height:0;">
+
+      <sc-if value="{{ showRail }}" hint-placeholder-val="{{ true }}">
+        <nav style="width:{{ railW }}px;flex:none;border-right:1px solid rgba(43,43,51,.18);background:linear-gradient(180deg,rgba(91,58,143,.04),transparent);padding:15px 10px;display:flex;flex-direction:column;gap:3px;overflow-y:auto;">
+          <sc-for list="{{ nav }}" as="item" hint-placeholder-count="8">
+            <button onClick="{{ item.go }}" style="display:flex;align-items:center;gap:11px;width:100%;padding:9px 11px;border:0;border-radius:4px;cursor:pointer;text-align:left;background:{{ item.bg }};color:{{ item.color }};font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;font-weight:{{ item.weight }};">
+              <span style="width:22px;height:22px;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'Shippori Mincho',serif;font-weight:700;border-radius:3px;background:{{ item.badgeBg }};color:{{ item.badgeColor }};border:{{ item.badgeBorder }};">{{ item.badge }}</span>
+              <span style="{{ item.labelStyle }}">{{ item.label }}</span>
+            </button>
+          </sc-for>
+        </nav>
+      </sc-if>
+
+      <main style="flex:1;min-width:0;overflow-y:auto;padding:{{ mainPad }};">
+
+        <sc-if value="{{ isTop }}" hint-placeholder-val="{{ true }}">
+          <div data-screen-label="総務受付" style="animation:scfade .4s ease;max-width:760px;margin:0 auto;">
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#7a7668;margin:0 0 7px;">社内報 ・ 合併後 第14四半期</p>
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:34px;line-height:1.3;margin:0 0 14px;color:#2b2b33;">本日も、燃やしたら書く。</h1>
+            <p style="font-size:15px;line-height:2.0;color:#4a4a52;margin:0 0 10px;max-width:60ch;">魔王城陥落から三年——我が社は勇者ホールディングスに吸収合併され、破壊と侵略は「事業内容の見直し」の対象となりました。しかし我々はドラゴン。<b style="color:#c43c3c;">うっかり燃やす</b>のです。会議室を。決裁書類を。ときどき上司の前髪を。</p>
+            <p style="font-size:12px;color:#a09a88;margin:0 0 24px;">※本作のダンジョンは「経緯の説明」、ボスは「誠意の言語化」です。</p>
+
+            <div style="border:1px solid rgba(43,43,51,.25);border-radius:4px;padding:14px 16px;margin:0 0 28px;background:#faf8f3;">
+              <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 9px;">■ 今期の始末書 提出状況（部署別）</p>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:7px;"><span style="width:110px;font-size:12px;color:#4a4a52;">火竜課</span><div style="flex:1;height:10px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:94%;height:100%;background:linear-gradient(90deg,#c45a2a,#c43c3c);"></div></div><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#c43c3c;width:64px;text-align:right;">147件 ⚠</span></div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:7px;"><span style="width:110px;font-size:12px;color:#4a4a52;">氷竜課</span><div style="flex:1;height:10px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:31%;height:100%;background:#5b7fa8;"></div></div><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5b6472;width:64px;text-align:right;">48件</span></div>
+              <div style="display:flex;align-items:center;gap:10px;"><span style="width:110px;font-size:12px;color:#4a4a52;">スライム課</span><div style="flex:1;height:10px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:4%;height:100%;background:#3d8a5f;"></div></div><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5b6472;width:64px;text-align:right;">6件</span></div>
+              <p style="font-size:10px;color:#a09a88;margin:8px 0 0;">※スライム課は物理的に何も壊せないため常に優良部署です。</p>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 12px;">■ 反省の形式を選択</p>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 28px;">
+              <sc-for list="{{ playModes }}" as="m" hint-placeholder-count="3">
+                <button onClick="{{ m.go }}" style="text-align:left;padding:14px 15px;border-radius:4px;cursor:pointer;border:{{ m.border }};background:{{ m.bg }};">
+                  <div style="font-size:14px;font-weight:700;color:{{ m.titleColor }};margin-bottom:5px;">{{ m.t }}</div>
+                  <div style="font-size:12px;line-height:1.7;color:#7a7668;">{{ m.d }}</div>
+                </button>
+              </sc-for>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 14px;">■ 本日の反省者一同</p>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:26px;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:96px;"><div style="width:62px;height:62px;border-radius:8px;border:2px solid #c45a2a;background:repeating-linear-gradient(45deg,rgba(196,90,42,.14) 0 5px,transparent 5px 10px),#fff;"></div><div style="font-size:13px;font-weight:700;color:#2b2b33;">ヴォルガ</div><div style="font-size:11px;color:#7a7668;">火竜課 課長</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:96px;"><div style="width:62px;height:62px;border-radius:8px;border:2px solid #5b7fa8;background:repeating-linear-gradient(45deg,rgba(91,127,168,.14) 0 5px,transparent 5px 10px),#fff;"></div><div style="font-size:13px;font-weight:700;color:#2b2b33;">グラキエ</div><div style="font-size:11px;color:#7a7668;">氷竜課 主任</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:96px;"><div style="width:62px;height:62px;border-radius:8px;border:2px solid #5b3a8f;background:repeating-linear-gradient(45deg,rgba(91,58,143,.14) 0 5px,transparent 5px 10px),#fff;"></div><div style="font-size:13px;font-weight:700;color:#2b2b33;">ノワール</div><div style="font-size:11px;color:#7a7668;">闇竜課 新卒</div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:96px;"><div style="width:62px;height:62px;border-radius:50%;border:2px solid #3d8a5f;background:radial-gradient(circle at 40% 35%,rgba(61,138,95,.3),rgba(61,138,95,.1)),#fff;"></div><div style="font-size:13px;font-weight:700;color:#2b2b33;">ぷに男</div><div style="font-size:11px;color:#7a7668;">スライム課（監査役）</div></div>
+            </div>
+
+            <button style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:2px solid #2b2b33;border-radius:4px;cursor:pointer;background:#2b2b33;color:#f2f0ea;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:15px;letter-spacing:3px;box-shadow:3px 3px 0 rgba(43,43,51,.2);">始末書を書き始める　➜</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isSheet }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="人事ファイル" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <div style="display:flex;gap:20px;align-items:flex-start;margin-bottom:20px;">
+              <div style="width:88px;height:110px;flex:none;border:1px solid rgba(43,43,51,.35);background:repeating-linear-gradient(45deg,rgba(196,90,42,.08) 0 6px,transparent 6px 12px),#fff;display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:1px;color:#a09a88;text-align:center;">社員証写真<br>（翼は畳んで）</div>
+              <div style="flex:1;min-width:0;">
+                <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#7a7668;margin:0 0 4px;">社員番号 DRG-0084 ・ 人事考課ファイル</p>
+                <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;margin:0 0 4px;color:#2b2b33;">ヴォルガノフ・炎帝・第三世</h1>
+                <p style="font-size:13px;color:#7a7668;margin:0 0 10px;">火竜課 課長 ・ 勤続1,204年（うち侵略業務1,201年） ・ 体長22m</p>
+                <div style="display:flex;gap:7px;flex-wrap:wrap;">
+                  <span style="font-size:11px;padding:3px 9px;border-radius:2px;border:1px solid rgba(43,43,51,.3);color:#4a4a52;">元・四天王</span>
+                  <span style="font-size:11px;padding:3px 9px;border-radius:2px;border:1px solid rgba(43,43,51,.3);color:#4a4a52;">デスクは特注（耐火）</span>
+                  <span style="font-size:11px;padding:3px 9px;border-radius:2px;border:1px solid rgba(196,60,60,.5);color:#c43c3c;">くしゃみ注意（過去3回全焼）</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:22px;">
+              <div style="background:#faf8f3;border:1px solid rgba(43,43,51,.14);border-radius:4px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7668;margin-bottom:5px;"><span>体力（竜格）</span><span style="font-family:'IBM Plex Mono',monospace;">88 / 92</span></div><div style="height:9px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:96%;height:100%;background:linear-gradient(90deg,#c45a2a,#c43c3c);"></div></div></div>
+              <div style="background:#faf8f3;border:1px solid rgba(43,43,51,.14);border-radius:4px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7668;margin-bottom:5px;"><span>社会性（人間界適応）</span><span style="font-family:'IBM Plex Mono',monospace;color:#c43c3c;">6 / 20</span></div><div style="height:9px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:30%;height:100%;background:#5b7fa8;"></div></div></div>
+              <div style="background:#faf8f3;border:1px solid rgba(43,43,51,.14);border-radius:4px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7668;margin-bottom:5px;"><span>上司からの信頼</span><span style="font-family:'IBM Plex Mono',monospace;color:#b58a1f;">回復中</span></div><div style="height:9px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:41%;height:100%;background:linear-gradient(90deg,#b58a1f,#3d8a5f);"></div></div><div style="font-size:9px;color:#a09a88;margin-top:3px;">※前回の「誠意ある放火」で急落</div></div>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 12px;">■ 能力（考課基礎点）</p>
+            <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:0;border:1px solid rgba(43,43,51,.3);border-radius:4px;overflow:hidden;margin-bottom:24px;background:#fff;">
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(43,43,51,.14);"><div style="font-size:10px;color:#7a7668;">破壊力</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#c43c3c;line-height:1.25;">20</div><div style="font-size:10px;color:#c43c3c;">評価対象外</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(43,43,51,.14);"><div style="font-size:10px;color:#7a7668;">文章力</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#2b2b33;line-height:1.25;">8</div><div style="font-size:10px;color:#b58a1f;">−1</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(43,43,51,.14);background:rgba(91,58,143,.05);"><div style="font-size:10px;color:#5b3a8f;">誠意</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#5b3a8f;line-height:1.25;">17</div><div style="font-size:10px;color:#3d8a5f;">＋3</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(43,43,51,.14);"><div style="font-size:10px;color:#7a7668;">言い訳</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#2b2b33;line-height:1.25;">14</div><div style="font-size:10px;color:#3d8a5f;">＋2</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(43,43,51,.14);"><div style="font-size:10px;color:#7a7668;">土下座</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#2b2b33;line-height:1.25;">15</div><div style="font-size:10px;color:#3d8a5f;">＋2 <span style="color:#a09a88;">体格で減点</span></div></div>
+              <div style="padding:10px 4px;text-align:center;"><div style="font-size:10px;color:#7a7668;">堪忍袋</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#c43c3c;line-height:1.25;">5</div><div style="font-size:10px;color:#c43c3c;">−2</div></div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 10px;">■ 保有スキル</p>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#4a4a52;padding:6px 0;border-bottom:1px dotted rgba(43,43,51,.25);"><span>灼熱のブレス</span><span style="font-family:'IBM Plex Mono',monospace;color:#c43c3c;">社内使用禁止</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#4a4a52;padding:6px 0;border-bottom:1px dotted rgba(43,43,51,.25);"><span>謝罪文の口述</span><span style="font-family:'IBM Plex Mono',monospace;color:#3d8a5f;">+4</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#4a4a52;padding:6px 0;border-bottom:1px dotted rgba(43,43,51,.25);"><span>菓子折り選定</span><span style="font-family:'IBM Plex Mono',monospace;color:#3d8a5f;">+6</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#4a4a52;padding:6px 0;"><span>ハンコをまっすぐ押す</span><span style="font-family:'IBM Plex Mono',monospace;color:#b58a1f;">−3（爪が大きい）</span></div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 10px;">■ 特性</p>
+                <div style="border:1px solid rgba(43,43,51,.2);border-radius:4px;padding:11px 13px;margin-bottom:9px;background:#faf8f3;"><div style="font-size:13px;font-weight:700;color:#2b2b33;margin-bottom:3px;">元・四天王の矜持</div><div style="font-size:12px;line-height:1.7;color:#7a7668;">謝罪しても威厳が滲む。「申し訳ないが、余の炎は真実であった」等と書いてしまい差戻しされる。</div></div>
+                <div style="border:1px solid rgba(61,138,95,.4);border-radius:4px;padding:11px 13px;background:rgba(61,138,95,.04);"><div style="font-size:13px;font-weight:700;color:#3d8a5f;margin-bottom:3px;">部下想い</div><div style="font-size:12px;line-height:1.7;color:#7a7668;">部下の失敗を自分の始末書に書いて庇う。147件のうち52件は他人の分。</div></div>
+              </div>
+            </div>
+            <p style="margin-top:22px;font-size:13px;line-height:1.9;color:#7a7668;border-left:3px solid rgba(91,58,143,.4);padding-left:14px;">自己申告欄：「破壊は得意です。創造も、書類仕事でなければ。今期の目標は『会議室を燃やさない（3ヶ月連続達成中）』です」</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isDice }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="決裁判定" style="animation:scfade .4s ease;max-width:560px;margin:0 auto;text-align:center;">
+            <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 4px;">■ 始末書の説得力判定 ・ 決裁基準 14</p>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 24px;">
+              <div style="width:118px;height:118px;border:4px solid #b58a1f;border-radius:6px;transform:rotate(-6deg);animation:stampin .5s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#b58a1f;background:rgba(181,138,31,.04);">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:44px;font-weight:600;line-height:1;">13</span>
+                <span style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:14px;letter-spacing:2px;border-top:2px solid #b58a1f;padding-top:3px;margin-top:4px;">条件付差戻</span>
+              </div>
+              <div style="font-size:14px;color:#7a7668;margin-top:6px;">d20 ＝ 9 ＋ 誠意 3 ＋ 菓子折り 1</div>
+              <div style="font-size:14px;letter-spacing:1px;color:#b58a1f;font-weight:700;">＝ 13 ・ 惜しい。「反省の具体性が不足」との付箋つき</div>
+              <p style="font-size:10px;color:#a09a88;margin:2px 0 0;">※差戻しは失敗ではありません。反省の解像度を上げるチャンスです（総務部標語）。</p>
+            </div>
+            <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;">
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(43,43,51,.25);color:#7a7668;background:#fff;">d4</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(43,43,51,.25);color:#7a7668;background:#fff;">d6</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(43,43,51,.25);color:#7a7668;background:#fff;">d8</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(43,43,51,.25);color:#7a7668;background:#fff;">d10</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(43,43,51,.25);color:#7a7668;background:#fff;">d12</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:2px solid #5b3a8f;color:#5b3a8f;background:rgba(91,58,143,.05);font-weight:600;">d20</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(43,43,51,.25);color:#7a7668;background:#fff;">d100</span>
+            </div>
+            <button style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:2px solid #5b3a8f;border-radius:4px;cursor:pointer;background:#5b3a8f;color:#f2f0ea;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:15px;letter-spacing:3px;box-shadow:3px 3px 0 rgba(91,58,143,.25);">決裁に回す</button>
+            <div style="margin-top:26px;text-align:left;">
+              <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 9px;">■ 決裁履歴</p>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a4a52;padding:7px 0;border-bottom:1px dotted rgba(43,43,51,.25);"><span>ヴォルガ ・ 会議室焼失の件（3度目）</span><span style="font-family:'IBM Plex Mono',monospace;color:#b58a1f;">13 ／ 条件付差戻</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a4a52;padding:7px 0;border-bottom:1px dotted rgba(43,43,51,.25);"><span>グラキエ ・ 給湯室を凍結させた件</span><span style="font-family:'IBM Plex Mono',monospace;color:#3d8a5f;">18 ／ 承認（再発防止策が具体的）</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a4a52;padding:7px 0;"><span>ノワール ・ 影で先輩を驚かせた件</span><span style="font-family:'IBM Plex Mono',monospace;color:#c43c3c;">2 ／ 差戻（反省文が呪文で書かれていた）</span></div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isCombat }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="査問会議" style="animation:scfade .4s ease;max-width:780px;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0;color:#2b2b33;">査問会議 ・ 議題「会議室C 全焼の件」</h1>
+              <div style="display:flex;gap:8px;"><button style="padding:8px 15px;border:1px solid rgba(43,43,51,.3);border-radius:3px;background:#fff;color:#7a7668;cursor:pointer;font-size:13px;">お茶を淹れ直す</button><button style="padding:8px 15px;border:2px solid #2b2b33;border-radius:3px;background:#2b2b33;color:#f2f0ea;cursor:pointer;font-weight:700;font-size:13px;">次の弁明へ</button></div>
+            </div>
+            <p style="font-size:12px;color:#a09a88;margin:0 0 14px;">※勝利条件：上司の「呆れ」を0にする。敗北条件：会議室Dも燃える。</p>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:4px;border:2px solid #2f7a4f;background:rgba(47,122,79,.05);margin-bottom:14px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#2f7a4f;color:#fff;border-radius:3px;">上</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #2f7a4f;background:radial-gradient(circle at 38% 32%,#e8f3ec,#bcd8c6);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#2f7a4f;">上司 ユーリ課長代理（元・勇者） <span style="font-size:11px;color:#7a7668;">議長</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(47,122,79,.1);color:#2f7a4f;">聖剣は倉庫に封印中</span><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(43,43,51,.07);color:#4a4a52;">こめかみに指</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7668;margin-bottom:3px;"><span>呆れゲージ</span><span style="font-family:'IBM Plex Mono',monospace;">64 / 100</span></div><div style="height:8px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:64%;height:100%;background:linear-gradient(90deg,#b58a1f,#c43c3c);"></div></div><div style="font-size:9px;color:#a09a88;margin-top:2px;">※0で和解 ・ 100で「もういい」</div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:4px;border:1px solid #c45a2a;background:rgba(196,90,42,.04);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#c45a2a;color:#fff;border-radius:3px;">18</span><span style="width:30px;height:30px;flex:none;border-radius:8px;border:2px solid #c45a2a;background:repeating-linear-gradient(45deg,rgba(196,90,42,.14) 0 4px,transparent 4px 8px),#fff;"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#2b2b33;">ヴォルガ <span style="font-size:11px;color:#c45a2a;">弁明中</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(61,138,95,.12);color:#3d8a5f;">菓子折り所持（虎屋）</span><span style="font-size:10px;padding:2px 7px;border-radius:2px;animation:smolder 2s ease-in-out infinite;background:rgba(196,60,60,.1);color:#c43c3c;">鼻から微煙</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7668;margin-bottom:3px;"><span>平常心</span><span style="font-family:'IBM Plex Mono',monospace;">22/30</span></div><div style="height:8px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:73%;height:100%;background:#5b7fa8;"></div></div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:4px;border:1px solid rgba(43,43,51,.2);background:#faf8f3;margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(43,43,51,.1);color:#4a4a52;border-radius:3px;">14</span><span style="width:30px;height:30px;flex:none;border-radius:8px;border:2px solid #5b7fa8;background:repeating-linear-gradient(45deg,rgba(91,127,168,.14) 0 4px,transparent 4px 8px),#fff;"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#2b2b33;">グラキエ</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(91,127,168,.12);color:#5b7fa8;">議事録係（正確無比）</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7668;margin-bottom:3px;"><span>平常心</span><span style="font-family:'IBM Plex Mono',monospace;">26/28</span></div><div style="height:8px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:93%;height:100%;background:#5b7fa8;"></div></div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:4px;border:1px solid rgba(43,43,51,.2);background:#faf8f3;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(43,43,51,.1);color:#4a4a52;border-radius:3px;">9</span><span style="width:30px;height:30px;flex:none;border-radius:8px;border:2px solid #5b3a8f;background:repeating-linear-gradient(45deg,rgba(91,58,143,.14) 0 4px,transparent 4px 8px),#fff;"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#2b2b33;">ノワール</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(196,60,60,.1);color:#c43c3c;">緊張で実体化が不安定</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7668;margin-bottom:3px;"><span>平常心</span><span style="font-family:'IBM Plex Mono',monospace;">11/24</span></div><div style="height:8px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:46%;height:100%;background:#5b7fa8;"></div></div></div></div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isInv }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="添付資料" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+              <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0;color:#2b2b33;">添付資料 ・ 証拠品一覧</h1>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#7a7668;">事案「会議室C全焼」関係 ・ 全11点</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:22px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 11px;">■ 謝罪装備（常時携行）</p>
+                <div style="padding:12px 14px;border:1px solid rgba(43,43,51,.25);border-radius:4px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;font-weight:700;color:#2b2b33;">菓子折り〈虎屋・特上〉</div><div style="font-size:12px;color:#7a7668;margin-top:3px;line-height:1.7;">謝罪判定+1。上司が甘党であることは全社員が知っている。</div></div>
+                <div style="padding:12px 14px;border:1px solid rgba(43,43,51,.25);border-radius:4px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;font-weight:700;color:#2b2b33;">特注ハンコ〈爪装着型〉</div><div style="font-size:12px;color:#7a7668;margin-top:3px;line-height:1.7;">竜の爪でも押印できる総務部の発明。それでも斜めになる。</div></div>
+                <div style="padding:12px 14px;border:1px solid rgba(43,43,51,.25);border-radius:4px;background:#fff;"><div style="font-size:14px;font-weight:700;color:#2b2b33;">耐火性 詫び状用紙</div><div style="font-size:12px;color:#7a7668;margin-top:3px;line-height:1.7;">執筆中のため息で原稿が燃えた事故（27件）を受け導入。</div></div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 11px;">■ 証拠品袋</p>
+                <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#4a4a52;padding:9px 4px;border-bottom:1px dotted rgba(43,43,51,.25);"><span style="width:8px;height:8px;border-radius:2px;background:#c43c3c;"></span><span style="flex:1;">焼け残った議事録（右上だけ）</span><span style="font-family:'IBM Plex Mono',monospace;color:#7a7668;">証1</span></div>
+                <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#4a4a52;padding:9px 4px;border-bottom:1px dotted rgba(43,43,51,.25);"><span style="width:8px;height:8px;border-radius:2px;background:#c43c3c;"></span><span style="flex:1;">溶けたプロジェクター（原形なし）</span><span style="font-family:'IBM Plex Mono',monospace;color:#7a7668;">証2</span></div>
+                <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#4a4a52;padding:9px 4px;border-bottom:1px dotted rgba(43,43,51,.25);"><span style="width:8px;height:8px;border-radius:2px;background:#b58a1f;"></span><span style="flex:1;">当日の会議アジェンダ「コスト削減について」</span><span style="font-family:'IBM Plex Mono',monospace;color:#7a7668;">証3</span></div>
+                <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#4a4a52;padding:9px 4px;border-bottom:1px dotted rgba(43,43,51,.25);"><span style="width:8px;height:8px;border-radius:2px;background:#5b3a8f;"></span><span style="flex:1;">始末書の下書き ×47枚（推敲の跡）</span><span style="font-family:'IBM Plex Mono',monospace;color:#7a7668;">証4</span></div>
+                <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#4a4a52;padding:9px 4px;"><span style="width:8px;height:8px;border-radius:2px;background:#3d8a5f;"></span><span style="flex:1;">ぷに男の目撃証言（録音・全編相槌）</span><span style="font-family:'IBM Plex Mono',monospace;color:#7a7668;">証5</span></div>
+                <div style="margin-top:14px;border:1px solid rgba(181,138,31,.5);border-radius:4px;padding:13px 15px;background:rgba(181,138,31,.05);"><div style="font-size:13px;font-weight:700;color:#b58a1f;margin-bottom:5px;">鑑定メモ：下書き47枚目</div><div style="font-size:12px;line-height:1.8;color:#7a7668;">最後の一枚にだけ、本音が書かれている。「本当は、皆で使うあの会議室が、嫌いではなかった」——提出用には使えない。しかし、これがいちばん誠意かもしれない。</div></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStory }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="経緯書" style="animation:scfade .4s ease;max-width:640px;margin:0 auto;">
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#7a7668;text-align:center;margin:0 0 6px;">経緯書 ・ 様式第9号 別紙</p>
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;text-align:center;margin:0 0 4px;color:#2b2b33;">会議室Cが全焼するまでの経緯</h1>
+            <div style="display:flex;align-items:center;gap:12px;margin:16px 0 22px;color:#2b2b33;"><span style="flex:1;height:1px;background:rgba(43,43,51,.3);"></span><span style="font-size:12px;">§</span><span style="flex:1;height:1px;background:rgba(43,43,51,.3);"></span></div>
+            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.05;color:#33333b;margin:0 0 18px;">一、当日午後二時、私は会議室Cにて「コスト削減施策」の説明を受けておりました。二、資料は42ページに及び、私は誠実に聞いておりました。三、38ページ目「暖房費の削減について——冬期は各自の吐息で暖を取ること」の項に至り、私は<b style="color:#c43c3c;">深く感銘を受け、実演を試みました。</b></p>
+            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.05;color:#33333b;margin:0 0 18px;">四、私の吐息は摂氏千二百度でした。五、以後の記憶は煙とともにあります。六、なお、スプリンクラーは正常に作動しましたが、私の火は水で消えるものではございません。七、消火はグラキエ主任の吹雪により完了しました（同主任の給湯室凍結は、この際の余波です。彼女に非はありません）。</p>
+            <blockquote style="margin:22px 0;padding:14px 20px;border-left:3px solid #5b3a8f;background:rgba(91,58,143,.04);font-family:'Shippori Mincho',serif;font-size:16px;line-height:1.9;color:#4a4a52;">反省とは、燃やした事実を認めることではない。<br>燃やさずに済んだ未来を、具体的に書くことである。<br><span style="font-size:12px;color:#a09a88;">——総務部『始末書の書き方』第一章</span></blockquote>
+            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.05;color:#33333b;margin:0 0 26px;">八、再発防止策として、以下のいずれかを誓約いたします。</p>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 12px;">■ 誓約を選択（これが今回の分岐です）</p>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(43,43,51,.3);border-radius:4px;background:#fff;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#33333b;">①　感銘を受けても実演しない <span style="color:#5b3a8f;font-weight:700;">堪忍袋判定 ・ 難度16</span></button>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(43,43,51,.3);border-radius:4px;background:#fff;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#33333b;">②　会議はすべて屋外（採石場）で行うことを提案する</button>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;border:1px solid rgba(43,43,51,.3);border-radius:4px;background:#fff;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#33333b;">③　下書き47枚目（本音）を、そのまま提出する</button>
+            <div style="margin-top:24px;height:5px;border-radius:2px;background:rgba(43,43,51,.1);overflow:hidden;"><div style="width:78%;height:100%;background:#5b3a8f;"></div></div>
+            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#a09a88;margin:7px 0 0;">経緯書 進捗78% ・ 提出期限まで 2時間14分</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="社内図" style="animation:scfade .4s ease;max-width:840px;margin:0 auto;">
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0 0 4px;color:#2b2b33;">魔王城（現・本社ビル）フロア案内</h1>
+            <p style="font-size:12px;color:#a09a88;margin:0 0 16px;">玉座の間は現在「大会議室A」です。呪いの祭壇は複合機置き場になりました。</p>
+            <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:20px;">
+              <div style="position:relative;height:340px;border:1px solid rgba(43,43,51,.3);border-radius:4px;background:repeating-linear-gradient(0deg,rgba(43,43,51,.04) 0 1px,transparent 1px 24px),repeating-linear-gradient(90deg,rgba(43,43,51,.04) 0 1px,transparent 1px 24px),#fff;overflow:hidden;">
+                <div style="position:absolute;left:8%;right:8%;top:10%;height:48px;border:2px solid #5b3a8f;border-radius:3px;background:rgba(91,58,143,.06);display:flex;align-items:center;justify-content:space-between;padding:0 14px;"><span style="font-size:12px;font-weight:700;color:#5b3a8f;">最上階 大会議室A（旧・玉座の間）</span><span style="font-size:10px;color:#7a7668;">天井高50m・竜も直立可</span></div>
+                <div style="position:absolute;left:8%;right:8%;top:29%;height:48px;border:2px solid #c43c3c;border-radius:3px;background:rgba(196,60,60,.05);display:flex;align-items:center;justify-content:space-between;padding:0 14px;"><span style="font-size:12px;font-weight:700;color:#c43c3c;">4F 会議室C（全焼・立入禁止）</span><span style="font-size:10px;color:#c43c3c;animation:smolder 2s ease-in-out infinite;">まだ少し温かい</span></div>
+                <div style="position:absolute;left:8%;right:8%;top:48%;height:48px;border:2px solid #2b2b33;border-radius:3px;background:rgba(43,43,51,.05);display:flex;align-items:center;justify-content:space-between;padding:0 14px;"><span style="font-size:12px;font-weight:700;color:#2b2b33;">3F 総務部 ◉ 現在地</span><span style="font-size:10px;color:#7a7668;">始末書用紙は右奥の棚</span></div>
+                <div style="position:absolute;left:8%;right:8%;top:67%;height:48px;border:2px solid #2f7a4f;border-radius:3px;background:rgba(47,122,79,.05);display:flex;align-items:center;justify-content:space-between;padding:0 14px;"><span style="font-size:12px;font-weight:700;color:#2f7a4f;">2F 上司の執務室</span><span style="font-size:10px;color:#7a7668;">ノックは爪でなく指関節で</span></div>
+                <div style="position:absolute;left:8%;right:8%;top:86%;height:36px;border:2px dashed rgba(43,43,51,.3);border-radius:3px;opacity:.7;display:flex;align-items:center;justify-content:space-between;padding:0 14px;"><span style="font-size:12px;font-weight:700;color:#7a7668;">B1F 反省室（旧・地下牢）</span><span style="font-size:10px;color:#a09a88;">Wi-Fiあり</span></div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 11px;">■ フロア詳細</p>
+                <div style="padding:11px 13px;border:2px solid #2b2b33;border-radius:4px;margin-bottom:8px;background:#faf8f3;"><div style="font-size:14px;font-weight:700;color:#2b2b33;">3F 総務部 <span style="font-size:10px;color:#5b3a8f;">現在地</span></div><div style="font-size:12px;color:#7a7668;margin-top:3px;">始末書の聖地。ぷに男が判子のインクを補充してくれる。</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(43,43,51,.25);border-radius:4px;margin-bottom:8px;background:#faf8f3;"><div style="font-size:14px;font-weight:700;color:#2b2b33;">2F 上司の執務室</div><div style="font-size:12px;color:#7a7668;margin-top:3px;">最終決裁の地。ドアの前で深呼吸する竜が後を絶たない（火気厳禁）。</div></div>
+                <div style="padding:11px 13px;border:1px dashed rgba(43,43,51,.3);border-radius:4px;background:rgba(43,43,51,.03);opacity:.8;"><div style="font-size:14px;font-weight:700;color:#7a7668;">B1F 反省室</div><div style="font-size:12px;color:#a09a88;margin-top:3px;">かつての地下牢。今は静かに推敲したい社員に人気。予約制。</div></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isGM }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="人事部長室" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:23px;margin:0 0 4px;color:#2b2b33;">{{ gmTitle }}</h1>
+            <p style="font-size:13px;color:#7a7668;margin:0 0 20px;">人事部長だけが開ける施錠棚。考課の裏側は、社員には見せない。</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 11px;">■ 進行中の案件</p>
+                <div style="padding:11px 13px;border:2px solid #5b3a8f;border-radius:4px;margin-bottom:8px;background:rgba(91,58,143,.04);"><div style="font-size:14px;font-weight:700;color:#2b2b33;">会議室C全焼の査問 <span style="font-size:10px;color:#5b3a8f;">進行中</span></div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(43,43,51,.25);border-radius:4px;margin-bottom:8px;background:#faf8f3;"><div style="font-size:14px;color:#7a7668;">ノワールの試用期間 面談</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(43,43,51,.25);border-radius:4px;background:#faf8f3;"><div style="font-size:14px;color:#7a7668;">期末考課 ・ ボーナス査定</div></div>
+                <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:20px 0 10px;">■ 全社「うっかり」警戒度</p>
+                <div style="height:9px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:52%;height:100%;background:linear-gradient(90deg,#3d8a5f,#c43c3c);"></div></div>
+                <p style="font-size:11px;color:#a09a88;margin:6px 0 0;">満ちると「全社防災訓練（本番）」イベントが発生。</p>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 11px;">■ 人物 ・ 秘匿情報</p>
+                <div style="border:1px solid rgba(43,43,51,.25);border-radius:4px;padding:11px 13px;margin-bottom:8px;background:#faf8f3;"><div style="font-size:14px;font-weight:700;color:#2b2b33;">ユーリ課長代理（元・勇者）</div><div style="font-size:12px;color:#7a7668;margin-top:2px;">望み：ドラゴンたちの雇用を守ること。厳しいのはそのため。</div><div style="font-size:12px;color:#c43c3c;margin-top:4px;background:rgba(196,60,60,.06);border-radius:3px;padding:4px 8px;">秘密：本社取締役会は「竜のリストラ」を検討中。彼の机の引き出しには、否決され続けている抗弁書が127枚。</div></div>
+                <div style="border:1px solid rgba(43,43,51,.25);border-radius:4px;padding:11px 13px;background:#faf8f3;"><div style="font-size:14px;font-weight:700;color:#2b2b33;">ぷに男（スライム課・監査役）</div><div style="font-size:12px;color:#7a7668;margin-top:2px;">実は先代魔王の転生体。今の会社が、わりと気に入っている。</div></div>
+                <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:20px 0 10px;">■ 社内ハプニング表（d6）</p>
+                <div style="font-size:13px;color:#4a4a52;line-height:1.9;">1–2 火災報知器の誤作動（誤りとは限らない） ・ 3 複合機が呪いを吐く<br>4 取締役の抜き打ち視察 ・ 5 差入れの到着（士気+1） ・ 6 くしゃみの予感</div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+      </main>
+    </div>
+
+    <sc-if value="{{ showTabbar }}" hint-placeholder-val="{{ false }}">
+      <nav style="position:relative;z-index:2;display:flex;border-top:2px solid rgba(43,43,51,.35);background:#f7f5f0;">
+        <sc-for list="{{ nav }}" as="item" hint-placeholder-count="7">
+          <button onClick="{{ item.go }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px;border:0;background:{{ item.tbBg }};color:{{ item.color }};cursor:pointer;">
+            <span style="width:19px;height:19px;flex:none;display:flex;align-items:center;justify-content:center;font-size:10px;font-family:'Shippori Mincho',serif;font-weight:700;border-radius:3px;background:{{ item.badgeBg }};color:{{ item.badgeColor }};border:{{ item.badgeBorder }};">{{ item.badge }}</span>
+            <span style="font-size:9px;letter-spacing:.5px;">{{ item.label }}</span>
+          </button>
+        </sc-for>
+      </nav>
+    </sc-if>
+
+    <div style="position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:50;display:flex;gap:3px;padding:5px;border-radius:999px;background:rgba(13,13,17,.86);backdrop-filter:blur(8px);box-shadow:0 8px 26px rgba(0,0,0,.5);border:1px solid rgba(91,58,143,.45);">
+      <sc-for list="{{ devs }}" as="d" hint-placeholder-count="3">
+        <button onClick="{{ d.go }}" style="padding:7px 16px;border:0;border-radius:999px;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:11px;letter-spacing:1.5px;background:{{ d.bg }};color:{{ d.color }};">{{ d.label }}</button>
+      </sc-for>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { device: 'desktop', play: 'gmpl', screen: 'top' };
+
+  renderVals() {
+    const { device, play, screen } = this.state;
+    const frames = { phone: { w: 392, h: 828 }, tablet: { w: 900, h: 660 }, desktop: { w: 1240, h: 772 } };
+    const f = frames[device] || frames.desktop;
+    const isPhone = device === 'phone';
+    const compact = device === 'tablet';
+
+    const setScreen = (s) => this.setState({ screen: s });
+    const setPlay = (p) => this.setState((st) => ({ play: p, screen: (p === 'solo' && st.screen === 'gm') ? 'top' : st.screen }));
+    const setDevice = (d) => this.setState({ device: d });
+
+    const playLabel = { solo: '自主反省', gmpl: '査問委員会', gmless: '合同反省会' }[play] || '';
+
+    const navDefs = [
+      ['top', '総務受付', '総'],
+      ['sheet', '人事ファイル', '人'],
+      ['dice', '決裁判定', '決'],
+      ['combat', '査問会議', '査'],
+      ['inventory', '添付資料', '添'],
+      ['story', '経緯書', '経'],
+      ['map', '社内図', '図'],
+      ['gm', play === 'gmless' ? '合同考課' : '人事部長室', '部'],
+    ];
+    const nav = navDefs
+      .filter((d) => d[0] !== 'gm' || play !== 'solo')
+      .map(([id, label, badge]) => {
+        const active = id === screen;
+        return {
+          id, label, badge, active,
+          go: () => setScreen(id),
+          color: active ? '#5b3a8f' : '#7a7668',
+          bg: active ? 'rgba(91,58,143,0.08)' : 'transparent',
+          tbBg: active ? 'rgba(91,58,143,0.08)' : 'transparent',
+          weight: active ? '700' : '500',
+          badgeBg: active ? '#5b3a8f' : 'transparent',
+          badgeColor: active ? '#f2f0ea' : '#5b3a8f',
+          badgeBorder: active ? 'none' : '1.5px solid rgba(91,58,143,.5)',
+          labelStyle: compact ? 'display:none' : 'display:inline',
+        };
+      });
+
+    const playModes = [
+      ['solo', '自主反省', '上司不在。手引書を頼りに、独りで始末書を完成させ提出箱へ。'],
+      ['gmpl', '査問委員会', '上司側（GM）が会社と決裁を、竜たちが弁明と反省を担う卓。'],
+      ['gmless', '合同反省会', '全員が竜。互いの始末書を回し読みし、決裁印を持ち回る卓。'],
+    ].map(([id, t, d]) => {
+      const active = id === play;
+      return {
+        id, t, d, active,
+        go: () => setPlay(id),
+        border: active ? '2px solid #5b3a8f' : '1px solid rgba(43,43,51,.25)',
+        bg: active ? 'rgba(91,58,143,.05)' : '#fff',
+        titleColor: active ? '#5b3a8f' : '#33333b',
+      };
+    });
+
+    const devs = [
+      ['phone', 'スマホ'], ['tablet', 'タブ'], ['desktop', 'PC'],
+    ].map(([id, label]) => {
+      const active = id === device;
+      return {
+        id, label, active,
+        go: () => setDevice(id),
+        bg: active ? '#5b3a8f' : 'transparent',
+        color: active ? '#f2f0ea' : '#c9c2ad',
+      };
+    });
+
+    return {
+      frameW: f.w, frameH: f.h, railW: compact ? 66 : 214,
+      mainPad: isPhone ? '22px 18px 26px' : '30px 34px 38px',
+      showRail: !isPhone, showTabbar: isPhone,
+      playLabel, nav, playModes, devs,
+      isTop: screen === 'top', isSheet: screen === 'sheet', isDice: screen === 'dice',
+      isCombat: screen === 'combat', isInv: screen === 'inventory', isStory: screen === 'story',
+      isMap: screen === 'map', isGM: screen === 'gm',
+      gmTitle: play === 'gmless' ? '合同考課 — 持ち回りの決裁印' : '人事部長室 — 施錠棚の考課表',
+    };
+  }
+}
+</script>
+</body>
+</html>

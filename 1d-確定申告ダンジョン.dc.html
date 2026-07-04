@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#14161a;}
+  @keyframes scfade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+  @keyframes stampin{0%{transform:rotate(-14deg) scale(1.7);opacity:0}60%{transform:rotate(-8deg) scale(.96);opacity:1}100%{transform:rotate(-8deg) scale(1)}}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-thumb{background:rgba(35,50,74,.3);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:34px 20px 96px;box-sizing:border-box;font-family:'Zen Kaku Gothic New',sans-serif;background:radial-gradient(120% 95% at 50% 0%,#1d2128 0%,#14161a 58%,#0c0d10 100%);color:#23324a;">
+
+  <div style="position:relative;width:{{ frameW }}px;height:{{ frameH }}px;max-width:100%;background:#f6f3e9;border:1px solid #c9bd97;border-radius:4px;box-shadow:0 34px 90px -22px rgba(0,0,0,.72),0 0 0 8px rgba(10,12,16,.55);overflow:hidden;display:flex;flex-direction:column;">
+
+    <div style="position:absolute;inset:0;pointer-events:none;background-image:repeating-linear-gradient(0deg,rgba(35,50,74,.028) 0 1px,transparent 1px 28px),radial-gradient(circle at 88% 8%,rgba(191,58,43,.05),transparent 30%);"></div>
+
+    <header style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 22px;border-bottom:3px double rgba(35,50,74,.55);background:linear-gradient(180deg,#faf8f0,#f2eedf);">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #23324a;color:#23324a;font-family:'Shippori Mincho',serif;font-weight:800;font-size:13px;">歳</span>
+        <div>
+          <div style="font-size:9px;letter-spacing:2px;color:#5b6472;">王国歳入庁 冒険所得課 ・ 様式第20号</div>
+          <div style="display:flex;align-items:baseline;gap:10px;">
+            <span style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:20px;letter-spacing:2px;color:#23324a;">確定申告ダンジョン</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:#bf3a2b;">ADVENTURER'S TAX RETURN</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:12px;letter-spacing:1px;color:#5b6472;">{{ playLabel }}</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 10px;border:1px solid #bf3a2b;border-radius:3px;color:#bf3a2b;background:rgba(191,58,43,.06);">期限まで 残り3日</span>
+      </div>
+    </header>
+
+    <div style="position:relative;z-index:2;flex:1;display:flex;min-height:0;">
+
+      <sc-if value="{{ showRail }}" hint-placeholder-val="{{ true }}">
+        <nav style="width:{{ railW }}px;flex:none;border-right:1px solid rgba(35,50,74,.22);background:linear-gradient(180deg,rgba(35,50,74,.04),transparent);padding:15px 10px;display:flex;flex-direction:column;gap:3px;overflow-y:auto;">
+          <sc-for list="{{ nav }}" as="item" hint-placeholder-count="8">
+            <button onClick="{{ item.go }}" style="display:flex;align-items:center;gap:11px;width:100%;padding:9px 11px;border:0;border-radius:4px;cursor:pointer;text-align:left;background:{{ item.bg }};color:{{ item.color }};font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;font-weight:{{ item.weight }};">
+              <span style="width:22px;height:22px;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'Shippori Mincho',serif;font-weight:700;border-radius:3px;transform:rotate(-4deg);background:{{ item.badgeBg }};color:{{ item.badgeColor }};border:{{ item.badgeBorder }};">{{ item.badge }}</span>
+              <span style="{{ item.labelStyle }}">{{ item.label }}</span>
+            </button>
+          </sc-for>
+        </nav>
+      </sc-if>
+
+      <main style="flex:1;min-width:0;overflow-y:auto;padding:{{ mainPad }};">
+
+        <sc-if value="{{ isTop }}" hint-placeholder-val="{{ true }}">
+          <div data-screen-label="受付" style="animation:scfade .4s ease;max-width:760px;margin:0 auto;">
+            <div style="position:relative;">
+              <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#5b6472;margin:0 0 7px;">受付番号 No.087 ・ 令和八年度分</p>
+              <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:36px;line-height:1.2;margin:0 0 14px;color:#23324a;">冒険所得の確定申告</h1>
+              <div style="position:absolute;top:-6px;right:6px;width:76px;height:76px;border:3px solid rgba(191,58,43,.75);border-radius:50%;transform:rotate(-8deg);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#bf3a2b;animation:stampin .5s ease;pointer-events:none;">
+                <span style="font-family:'Shippori Mincho',serif;font-weight:700;font-size:17px;letter-spacing:3px;">受付</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;">8.7.02</span>
+              </div>
+            </div>
+            <p style="font-size:15px;line-height:1.95;color:#3a4657;margin:0 0 10px;max-width:60ch;">地下迷宮より生還されたみなさまへ。おかえりなさいませ。竜の財宝、呪いの武具、瓶詰めの妖精——それらはすべて<b style="color:#bf3a2b;">課税対象</b>です。申告期限は三日後。領収書はお手元にございますか。</p>
+            <p style="font-size:12px;color:#8a8264;margin:0 0 26px;">※虚偽の申告が発覚した場合、追徴ダメージおよび重加算税が課されます。</p>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 12px;">■ 申告の形式を選択してください</p>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 30px;">
+              <sc-for list="{{ playModes }}" as="m" hint-placeholder-count="3">
+                <button onClick="{{ m.go }}" style="text-align:left;padding:14px 15px;border-radius:4px;cursor:pointer;border:{{ m.border }};background:{{ m.bg }};">
+                  <div style="font-size:14px;font-weight:700;color:{{ m.titleColor }};margin-bottom:5px;">{{ m.t }}</div>
+                  <div style="font-size:12px;line-height:1.6;color:#5b6472;">{{ m.d }}</div>
+                </button>
+              </sc-for>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 14px;">■ 連署人（パーティ）</p>
+            <div style="border:1px solid rgba(35,50,74,.3);border-radius:4px;overflow:hidden;margin-bottom:28px;">
+              <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr .8fr;background:rgba(35,50,74,.07);border-bottom:1px solid rgba(35,50,74,.25);font-size:11px;font-weight:700;color:#5b6472;"><span style="padding:7px 12px;">氏名</span><span style="padding:7px 12px;border-left:1px solid rgba(35,50,74,.15);">職業（業種）</span><span style="padding:7px 12px;border-left:1px solid rgba(35,50,74,.15);">申告区分</span><span style="padding:7px 12px;border-left:1px solid rgba(35,50,74,.15);">信用</span></div>
+              <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr .8fr;border-bottom:1px dotted rgba(35,50,74,.25);font-size:13px;color:#23324a;"><span style="padding:9px 12px;font-weight:700;">アリエル</span><span style="padding:9px 12px;border-left:1px solid rgba(35,50,74,.1);">剣士（自営業）</span><span style="padding:9px 12px;border-left:1px solid rgba(35,50,74,.1);">青色</span><span style="padding:9px 12px;border-left:1px solid rgba(35,50,74,.1);color:#1f6e50;font-family:'IBM Plex Mono',monospace;">A</span></div>
+              <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr .8fr;border-bottom:1px dotted rgba(35,50,74,.25);font-size:13px;color:#23324a;"><span style="padding:9px 12px;font-weight:700;">モルガ</span><span style="padding:9px 12px;border-left:1px solid rgba(35,50,74,.1);">魔導士（フリーランス）</span><span style="padding:9px 12px;border-left:1px solid rgba(35,50,74,.1);">青色</span><span style="padding:9px 12px;border-left:1px solid rgba(35,50,74,.1);color:#1f6e50;font-family:'IBM Plex Mono',monospace;">B</span></div>
+              <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr .8fr;border-bottom:1px dotted rgba(35,50,74,.25);font-size:13px;color:#23324a;"><span style="padding:9px 12px;font-weight:700;">グレイ</span><span style="padding:9px 12px;border-left:1px solid rgba(35,50,74,.1);">僧侶（宗教法人）</span><span style="padding:9px 12px;border-left:1px solid rgba(35,50,74,.1);">非課税※係争中</span><span style="padding:9px 12px;border-left:1px solid rgba(35,50,74,.1);color:#b58a1f;font-family:'IBM Plex Mono',monospace;">C</span></div>
+              <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr .8fr;font-size:13px;color:#23324a;"><span style="padding:9px 12px;font-weight:700;">ヴェル</span><span style="padding:9px 12px;border-left:1px solid rgba(35,50,74,.1);">盗賊（無申告）</span><span style="padding:9px 12px;border-left:1px solid rgba(35,50,74,.1);color:#bf3a2b;">白色・要指導</span><span style="padding:9px 12px;border-left:1px solid rgba(35,50,74,.1);color:#bf3a2b;font-family:'IBM Plex Mono',monospace;">E</span></div>
+            </div>
+
+            <button style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:2px solid #23324a;border-radius:4px;cursor:pointer;background:#23324a;color:#f6f3e9;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:15px;letter-spacing:3px;box-shadow:3px 3px 0 rgba(35,50,74,.25);">申告を開始する　➜</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isSheet }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="納税者票" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <div style="display:flex;gap:20px;align-items:flex-start;margin-bottom:20px;">
+              <div style="width:88px;height:110px;flex:none;border:1px solid rgba(35,50,74,.4);background:repeating-linear-gradient(45deg,rgba(35,50,74,.07) 0 6px,transparent 6px 12px),#fdfcf7;display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:1px;color:#8a8264;text-align:center;">証明写真<br>4.5×3.5</div>
+              <div style="flex:1;min-width:0;">
+                <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#5b6472;margin:0 0 4px;">納税者整理番号 KR-0087-A</p>
+                <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;margin:0 0 4px;color:#23324a;">アリエル・ダスク</h1>
+                <p style="font-size:13px;color:#5b6472;margin:0 0 10px;">人間 ・ 剣士〔業種コード 084：斬撃業〕 ・ 冒険歴6年</p>
+                <div style="display:flex;gap:7px;flex-wrap:wrap;">
+                  <span style="font-size:11px;padding:3px 9px;border-radius:2px;border:1px solid rgba(35,50,74,.35);color:#5b6472;">青色申告</span>
+                  <span style="font-size:11px;padding:3px 9px;border-radius:2px;border:1px solid rgba(35,50,74,.35);color:#5b6472;">帳簿：複式</span>
+                  <span style="font-size:11px;padding:3px 9px;border-radius:2px;border:1px solid #bf3a2b;color:#bf3a2b;">要注意：領収書を食べる癖</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:22px;">
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#5b6472;margin-bottom:4px;"><span>体力 HP</span><span style="font-family:'IBM Plex Mono',monospace;">34 / 41</span></div><div style="height:9px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:83%;height:100%;background:#bf3a2b;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#5b6472;margin-bottom:4px;"><span>気力 MP</span><span style="font-family:'IBM Plex Mono',monospace;">12 / 18</span></div><div style="height:9px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:67%;height:100%;background:#2c5f8a;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#5b6472;margin-bottom:4px;"><span>税務信用スコア</span><span style="font-family:'IBM Plex Mono',monospace;">A（742）</span></div><div style="height:9px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:74%;height:100%;background:#1f6e50;"></div></div></div>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 12px;">■ 能力値（控除算定基礎）</p>
+            <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:0;border:1px solid rgba(35,50,74,.35);border-radius:4px;overflow:hidden;margin-bottom:24px;background:#fdfcf7;">
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(35,50,74,.18);"><div style="font-size:10px;color:#5b6472;">筋力</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#23324a;line-height:1.25;">13</div><div style="font-size:10px;color:#1f6e50;">控除+1</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(35,50,74,.18);background:rgba(31,110,80,.06);"><div style="font-size:10px;color:#5b6472;">敏捷</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#23324a;line-height:1.25;">18</div><div style="font-size:10px;color:#1f6e50;">控除+4</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(35,50,74,.18);"><div style="font-size:10px;color:#5b6472;">耐久</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#23324a;line-height:1.25;">14</div><div style="font-size:10px;color:#1f6e50;">控除+2</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(35,50,74,.18);"><div style="font-size:10px;color:#5b6472;">知力</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#23324a;line-height:1.25;">12</div><div style="font-size:10px;color:#1f6e50;">控除+1</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(35,50,74,.18);"><div style="font-size:10px;color:#5b6472;">感応</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#23324a;line-height:1.25;">15</div><div style="font-size:10px;color:#1f6e50;">控除+2</div></div>
+              <div style="padding:10px 4px;text-align:center;"><div style="font-size:10px;color:#5b6472;">経理</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#bf3a2b;line-height:1.25;">7</div><div style="font-size:10px;color:#bf3a2b;">加算−2</div></div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 10px;">■ 技能</p>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#3a4657;padding:6px 0;border-bottom:1px dotted rgba(35,50,74,.3);"><span>剣術</span><span style="font-family:'IBM Plex Mono',monospace;color:#1f6e50;">+7</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#3a4657;padding:6px 0;border-bottom:1px dotted rgba(35,50,74,.3);"><span>値切り交渉</span><span style="font-family:'IBM Plex Mono',monospace;color:#1f6e50;">+5</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#3a4657;padding:6px 0;border-bottom:1px dotted rgba(35,50,74,.3);"><span>逃走</span><span style="font-family:'IBM Plex Mono',monospace;color:#1f6e50;">+4</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#3a4657;padding:6px 0;"><span>帳簿づけ</span><span style="font-family:'IBM Plex Mono',monospace;color:#bf3a2b;">−2</span></div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 10px;">■ 特性</p>
+                <div style="border:1px solid rgba(35,50,74,.3);border-radius:4px;padding:11px 13px;margin-bottom:9px;background:#fdfcf7;"><div style="font-size:13px;font-weight:700;color:#23324a;margin-bottom:3px;">経費の目利き</div><div style="font-size:12px;line-height:1.6;color:#5b6472;">戦利品を経費として計上する判定に有利。「これは業務に必要な魔剣です」</div></div>
+                <div style="border:1px solid rgba(191,58,43,.4);border-radius:4px;padding:11px 13px;background:rgba(191,58,43,.04);"><div style="font-size:13px;font-weight:700;color:#bf3a2b;margin-bottom:3px;">白色申告の呪い</div><div style="font-size:12px;line-height:1.6;color:#5b6472;">古代の会計士の呪いにより、記した帳簿が満月の夜に白紙へ戻る。</div></div>
+              </div>
+            </div>
+            <p style="margin-top:22px;font-size:13px;line-height:1.8;color:#5b6472;border-left:3px solid rgba(35,50,74,.4);padding-left:14px;">備考欄：「ドラゴンは倒せる。でも、医療費控除とセルフメディケーション税制の違いだけは、いまだに倒せない」</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isDice }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="税額査定" style="animation:scfade .4s ease;max-width:560px;margin:0 auto;text-align:center;">
+            <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 4px;">■ 経費計上の査定 ・ 認定基準 14</p>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 24px;">
+              <div style="width:118px;height:118px;border:4px solid #bf3a2b;border-radius:6px;transform:rotate(-8deg);animation:stampin .5s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#bf3a2b;background:rgba(191,58,43,.03);">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:44px;font-weight:600;line-height:1;">19</span>
+                <span style="font-family:'Shippori Mincho',serif;font-weight:700;font-size:15px;letter-spacing:6px;border-top:2px solid #bf3a2b;padding-top:3px;margin-top:4px;">承　認</span>
+              </div>
+              <div style="font-size:14px;color:#5b6472;margin-top:6px;">d20 ＝ 14 ＋ 控除修正 5</div>
+              <div style="font-size:14px;letter-spacing:2px;color:#1f6e50;font-weight:700;">＝ 19 ・ 経費として認められた（還付 +2,400G）</div>
+              <p style="font-size:10px;color:#8a8264;margin:2px 0 0;">※この印影は複写では効力を持ちません。</p>
+            </div>
+            <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;">
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(35,50,74,.3);color:#5b6472;">d4</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(35,50,74,.3);color:#5b6472;">d6</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(35,50,74,.3);color:#5b6472;">d8</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(35,50,74,.3);color:#5b6472;">d10</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(35,50,74,.3);color:#5b6472;">d12</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:2px solid #23324a;color:#23324a;background:rgba(35,50,74,.06);font-weight:600;">d20</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(35,50,74,.3);color:#5b6472;">d100</span>
+            </div>
+            <button style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:2px solid #bf3a2b;border-radius:4px;cursor:pointer;background:#bf3a2b;color:#f6f3e9;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:15px;letter-spacing:3px;box-shadow:3px 3px 0 rgba(191,58,43,.25);">査定印を押す</button>
+            <div style="margin-top:26px;text-align:left;">
+              <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 9px;">■ 査定記録（仕訳帳）</p>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#3a4657;padding:7px 0;border-bottom:1px dotted rgba(35,50,74,.3);"><span>アリエル ・ ポーション代の経費計上</span><span style="font-family:'IBM Plex Mono',monospace;color:#1f6e50;">19 ／ 承認</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#3a4657;padding:7px 0;border-bottom:1px dotted rgba(35,50,74,.3);"><span>ヴェル ・ 「拾った」金貨の出所説明</span><span style="font-family:'IBM Plex Mono',monospace;color:#bf3a2b;">3 ／ 差戻・重加算税</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#3a4657;padding:7px 0;"><span>モルガ ・ 使い魔の飼育費は研究費か</span><span style="font-family:'IBM Plex Mono',monospace;color:#1f6e50;">23 ／ 承認（判例となる）</span></div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isCombat }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="税務調査" style="animation:scfade .4s ease;max-width:780px;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0;color:#23324a;">税務調査 ・ 第2回 質問検査</h1>
+              <div style="display:flex;gap:8px;"><button style="padding:8px 15px;border:1px solid rgba(35,50,74,.4);border-radius:3px;background:transparent;color:#5b6472;cursor:pointer;font-size:13px;">休憩を要求</button><button style="padding:8px 15px;border:2px solid #23324a;border-radius:3px;background:#23324a;color:#f6f3e9;cursor:pointer;font-weight:700;font-size:13px;">次の答弁へ</button></div>
+            </div>
+            <p style="font-size:12px;color:#8a8264;margin:0 0 16px;">※本調査は任意です。ただし拒否した場合、強制調査（物理）に移行します。</p>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:4px;border:2px solid #bf3a2b;background:rgba(191,58,43,.05);margin-bottom:14px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#bf3a2b;color:#f6f3e9;border-radius:3px;">22</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #bf3a2b;background:repeating-linear-gradient(45deg,rgba(191,58,43,.14) 0 4px,transparent 4px 8px);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#bf3a2b;">税務調査官 マルサ・ヴァルキュリア <span style="font-size:11px;color:#8a8264;">査察官・Lv??</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(191,58,43,.12);color:#bf3a2b;">全帳簿透視</span><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(35,50,74,.1);color:#5b6472;">笑顔</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#5b6472;margin-bottom:3px;"><span>追徴予定額</span><span style="font-family:'IBM Plex Mono',monospace;">184,000G</span></div><div style="height:8px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:62%;height:100%;background:linear-gradient(90deg,#b58a1f,#bf3a2b);"></div></div><div style="font-size:9px;color:#8a8264;margin-top:2px;">※0にすれば調査終了（勝利）</div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:4px;border:1px solid #23324a;background:rgba(35,50,74,.05);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#23324a;color:#f6f3e9;border-radius:3px;">18</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #23324a;background:repeating-linear-gradient(45deg,rgba(35,50,74,.12) 0 4px,transparent 4px 8px);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#23324a;">アリエル <span style="font-size:11px;color:#bf3a2b;">答弁中</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(31,110,80,.12);color:#1f6e50;">領収書の束</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#5b6472;margin-bottom:3px;"><span>精神力</span><span style="font-family:'IBM Plex Mono',monospace;">28/41</span></div><div style="height:8px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:68%;height:100%;background:#2c5f8a;"></div></div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:4px;border:1px solid rgba(35,50,74,.25);background:#fdfcf7;margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(35,50,74,.12);color:#5b6472;border-radius:3px;">14</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #23324a;background:repeating-linear-gradient(45deg,rgba(35,50,74,.12) 0 4px,transparent 4px 8px);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#23324a;">モルガ</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(44,95,138,.12);color:#2c5f8a;">交際費の抗弁 詠唱中</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#5b6472;margin-bottom:3px;"><span>精神力</span><span style="font-family:'IBM Plex Mono',monospace;">22/26</span></div><div style="height:8px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:85%;height:100%;background:#2c5f8a;"></div></div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:4px;border:1px solid rgba(191,58,43,.4);background:rgba(191,58,43,.03);"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(35,50,74,.12);color:#5b6472;border-radius:3px;">6</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #23324a;background:repeating-linear-gradient(45deg,rgba(35,50,74,.12) 0 4px,transparent 4px 8px);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#23324a;">ヴェル</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(191,58,43,.12);color:#bf3a2b;">重加算税（毎ターン精神-3）</span><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(181,138,31,.14);color:#b58a1f;">冷や汗</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#5b6472;margin-bottom:3px;"><span>精神力</span><span style="font-family:'IBM Plex Mono',monospace;">7/24</span></div><div style="height:8px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:29%;height:100%;background:#bf3a2b;"></div></div></div></div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isInv }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="領収書綴" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+              <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0;color:#23324a;">領収書綴り ・ 戦利品台帳</h1>
+              <div style="display:flex;align-items:center;gap:18px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#1f6e50;">申告済 4,200G</span><span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#bf3a2b;">未計上 820G ⚠</span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:22px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 11px;">■ 経費計上済み（装備）</p>
+                <div style="padding:11px 13px;border:1px solid rgba(35,50,74,.3);border-radius:4px;margin-bottom:8px;background:#fdfcf7;"><div style="display:flex;justify-content:space-between;"><div style="font-size:14px;font-weight:700;color:#23324a;">火竜の剣</div><span style="font-size:10px;color:#1f6e50;border:1px solid #1f6e50;border-radius:2px;padding:1px 6px;">計上済</span></div><div style="font-size:12px;color:#5b6472;margin-top:3px;">工具器具備品 ・ 減価償却3年目 ・ 残存価額 12,000G</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(35,50,74,.3);border-radius:4px;margin-bottom:8px;background:#fdfcf7;"><div style="display:flex;justify-content:space-between;"><div style="font-size:14px;font-weight:700;color:#23324a;">影織りの外套</div><span style="font-size:10px;color:#1f6e50;border:1px solid #1f6e50;border-radius:2px;padding:1px 6px;">計上済</span></div><div style="font-size:12px;color:#5b6472;margin-top:3px;">被服費 ・ 「作業着です」として承認（判定19）</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(181,138,31,.5);border-radius:4px;background:rgba(181,138,31,.04);"><div style="display:flex;justify-content:space-between;"><div style="font-size:14px;font-weight:700;color:#23324a;">宿屋の朝食（豪華）</div><span style="font-size:10px;color:#b58a1f;border:1px solid #b58a1f;border-radius:2px;padding:1px 6px;">審査中</span></div><div style="font-size:12px;color:#5b6472;margin-top:3px;">会議費か接待交際費かで係争中。同席者：スライム</div></div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 11px;">■ 綴られた領収書</p>
+                <div style="border:1px dashed rgba(35,50,74,.4);border-radius:3px;padding:10px 13px;margin-bottom:8px;background:#fdfcf7;"><div style="display:flex;justify-content:space-between;font-size:13px;color:#23324a;"><span style="font-weight:700;">ポーション ×3</span><span style="font-family:'IBM Plex Mono',monospace;">360G</span></div><div style="display:flex;justify-content:space-between;font-size:11px;color:#5b6472;margin-top:2px;"><span>但し 治療薬代として ・ 医療費控除対象</span><span style="color:#1f6e50;">✓</span></div></div>
+                <div style="border:1px dashed rgba(35,50,74,.4);border-radius:3px;padding:10px 13px;margin-bottom:8px;background:#fdfcf7;"><div style="display:flex;justify-content:space-between;font-size:13px;color:#23324a;"><span style="font-weight:700;">ドラゴンの鱗 ×1</span><span style="font-family:'IBM Plex Mono',monospace;color:#bf3a2b;">時価不明</span></div><div style="display:flex;justify-content:space-between;font-size:11px;color:#5b6472;margin-top:2px;"><span>雑所得 ・ 鑑定士の押印が無ければ認められない</span><span style="color:#bf3a2b;">⚠</span></div></div>
+                <div style="border:1px dashed rgba(35,50,74,.4);border-radius:3px;padding:10px 13px;margin-bottom:8px;background:#fdfcf7;"><div style="display:flex;justify-content:space-between;font-size:13px;color:#23324a;"><span style="font-weight:700;">謎の壺 ×1</span><span style="font-family:'IBM Plex Mono',monospace;">0G？</span></div><div style="display:flex;justify-content:space-between;font-size:11px;color:#5b6472;margin-top:2px;"><span>美術品 ・ 中から声がする ・ 資産計上を拒否している</span><span style="color:#b58a1f;">審</span></div></div>
+                <div style="border:1px dashed rgba(191,58,43,.5);border-radius:3px;padding:10px 13px;background:rgba(191,58,43,.03);"><div style="display:flex;justify-content:space-between;font-size:13px;color:#23324a;"><span style="font-weight:700;">白紙の領収書 ×5</span><span style="font-family:'IBM Plex Mono',monospace;color:#bf3a2b;">—</span></div><div style="display:flex;justify-content:space-between;font-size:11px;color:#bf3a2b;margin-top:2px;"><span>所持しているだけで調査官の敵意+1 ・ 廃棄推奨</span><span>⚠⚠</span></div></div>
+                <div style="margin-top:14px;border:1px solid rgba(35,50,74,.3);border-radius:4px;padding:13px 15px;background:#fdfcf7;"><div style="font-size:13px;font-weight:700;color:#23324a;margin-bottom:5px;">鑑定メモ：謎の壺</div><div style="font-size:12px;line-height:1.7;color:#5b6472;">夜中に「経費で落ちたい」と呟く。中の声は先代の税理士のものと酷似。開栓は自己責任。</div></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStory }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="申述書" style="animation:scfade .4s ease;max-width:640px;margin:0 auto;">
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#5b6472;text-align:center;margin:0 0 6px;">申述書 ・ 事案番号 087-3</p>
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;text-align:center;margin:0 0 4px;color:#23324a;">窓口にて、金貨三百枚の件</h1>
+            <div style="display:flex;align-items:center;gap:12px;margin:16px 0 22px;color:#23324a;"><span style="flex:1;height:1px;background:rgba(35,50,74,.35);"></span><span style="font-size:12px;">§</span><span style="flex:1;height:1px;background:rgba(35,50,74,.35);"></span></div>
+            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.0;color:#2c3648;margin:0 0 18px;">受付窓口の職員は、羽根ペンを置き、眼鏡の奥からアリエルを見た。「地下三階で取得された<span style="text-decoration:line-through;text-decoration-color:#bf3a2b;">金貨三百枚</span><span style="color:#bf3a2b;font-size:13px;">　金貨〇枚（訂正印：ヴ）</span>ですが——申告書のどこにも記載がございませんね」</p>
+            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.0;color:#2c3648;margin:0 0 18px;">背後でヴェルが口笛を吹くのをやめた。訂正印は、確かに彼の字である。モルガが小声で呪文を唱えかけ——ここが庁舎内であることを思い出して、咳払いに変えた。窓口の奥、書類の山の向こうで、誰かがゆっくりと立ち上がる気配がした。</p>
+            <blockquote style="margin:22px 0;padding:14px 20px;border-left:3px solid #bf3a2b;background:rgba(191,58,43,.04);font-family:'Shippori Mincho',serif;font-size:16px;line-height:1.9;color:#3a4657;">申告なき戦利品は、存在しない戦利品である。<br><span style="font-size:12px;color:#8a8264;">——冒険所得税法 第一条（通称：竜の口約束条項）</span></blockquote>
+            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.0;color:#2c3648;margin:0 0 26px;">「なお」職員は続けた。「当署は、正直な申告者の味方です」その笑顔が、かえって恐ろしい。</p>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 12px;">■ 答弁を選択</p>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(35,50,74,.35);border-radius:4px;background:#fdfcf7;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#2c3648;">①　正直に修正申告する（信用スコア維持 ・ 追徴あり）</button>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(35,50,74,.35);border-radius:4px;background:#fdfcf7;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#2c3648;">②　「拾ったのは別のパーティです」と申述する <span style="color:#bf3a2b;font-weight:700;">虚偽 ・ 難度15</span></button>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;border:1px solid rgba(35,50,74,.35);border-radius:4px;background:#fdfcf7;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#2c3648;">③　領収書綴りの奥の"アレ"（白紙の領収書）に手を伸ばす</button>
+            <div style="margin-top:24px;height:5px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:64%;height:100%;background:#23324a;"></div></div>
+            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#8a8264;margin:7px 0 0;">事案087 ・ 審理進捗 64%</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="庁舎案内" style="animation:scfade .4s ease;max-width:840px;margin:0 auto;">
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0 0 16px;color:#23324a;">庁舎案内図 ・ 王国歳入庁 第一庁舎</h1>
+            <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:20px;">
+              <div style="position:relative;height:340px;border:1px solid rgba(35,50,74,.4);border-radius:4px;background-image:repeating-linear-gradient(0deg,rgba(35,50,74,.05) 0 1px,transparent 1px 24px),repeating-linear-gradient(90deg,rgba(35,50,74,.05) 0 1px,transparent 1px 24px),linear-gradient(180deg,#fdfcf7,#f4f0e2);overflow:hidden;">
+                <div style="position:absolute;left:10%;right:10%;top:14%;height:44px;border:2px solid #1f6e50;border-radius:3px;background:rgba(31,110,80,.07);display:flex;align-items:center;justify-content:space-between;padding:0 14px;"><span style="font-size:12px;font-weight:700;color:#1f6e50;">2F 個人課税課</span><span style="font-size:10px;color:#5b6472;">控除の森</span></div>
+                <div style="position:absolute;left:10%;right:10%;top:33%;height:44px;border:2px solid #bf3a2b;border-radius:3px;background:rgba(191,58,43,.07);display:flex;align-items:center;justify-content:space-between;padding:0 14px;"><span style="font-size:12px;font-weight:700;color:#bf3a2b;">1F 総合受付 ◉ 現在地</span><span style="font-size:10px;color:#5b6472;">整理券の列</span></div>
+                <div style="position:absolute;left:10%;right:10%;top:52%;height:44px;border:2px solid rgba(35,50,74,.45);border-radius:3px;background:rgba(35,50,74,.05);display:flex;align-items:center;justify-content:space-between;padding:0 14px;"><span style="font-size:12px;font-weight:700;color:#3a4657;">B1F 資料保管窟</span><span style="font-size:10px;color:#5b6472;">書類ミミック生息域</span></div>
+                <div style="position:absolute;left:10%;right:10%;top:71%;height:44px;border:2px dashed rgba(35,50,74,.35);border-radius:3px;opacity:.65;display:flex;align-items:center;justify-content:space-between;padding:0 14px;"><span style="font-size:12px;font-weight:700;color:#5b6472;">B7F 審判の間</span><span style="font-size:10px;color:#8a8264;">未踏 ・ 要決裁印3つ</span></div>
+                <div style="position:absolute;right:10px;bottom:9px;font-size:10px;letter-spacing:1px;color:#8a8264;">B2F〜B6Fの存在は公式には認められていない</div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 11px;">■ フロア詳細</p>
+                <div style="padding:11px 13px;border:2px solid #bf3a2b;border-radius:4px;margin-bottom:8px;background:rgba(191,58,43,.04);"><div style="font-size:14px;font-weight:700;color:#23324a;">1F 総合受付 <span style="font-size:10px;color:#bf3a2b;">現在地</span></div><div style="font-size:12px;color:#5b6472;margin-top:3px;">整理券発券機の機嫌が悪い。列の最後尾は視認できない。</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(35,50,74,.3);border-radius:4px;margin-bottom:8px;background:#fdfcf7;"><div style="font-size:14px;font-weight:700;color:#23324a;">B1F 資料保管窟</div><div style="font-size:12px;color:#5b6472;margin-top:3px;">過去300年分の申告書が眠る。紙魚の群れ（Lv12）に注意。</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(35,50,74,.3);border-radius:4px;background:#fdfcf7;opacity:.75;"><div style="font-size:14px;font-weight:700;color:#5b6472;">B7F 審判の間</div><div style="font-size:12px;color:#8a8264;margin-top:3px;">最終決裁の場。ここで「否認」されたものは、この世から経費でなくなる。</div></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isGM }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="署長室" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:23px;margin:0 0 4px;color:#23324a;">{{ gmTitle }}</h1>
+            <p style="font-size:13px;color:#5b6472;margin:0 0 20px;">署長だけが開ける引き出し。窓口には決して出ない書類。</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 11px;">■ 進行中の事案</p>
+                <div style="padding:11px 13px;border:2px solid #bf3a2b;border-radius:4px;margin-bottom:8px;background:rgba(191,58,43,.04);"><div style="font-size:14px;font-weight:700;color:#23324a;">窓口の指摘 <span style="font-size:10px;color:#bf3a2b;">進行中</span></div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(35,50,74,.3);border-radius:4px;margin-bottom:8px;background:#fdfcf7;"><div style="font-size:14px;color:#5b6472;">資料保管窟の探索</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(35,50,74,.3);border-radius:4px;background:#fdfcf7;"><div style="font-size:14px;color:#5b6472;">査察官マルサとの対決</div></div>
+                <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:20px 0 10px;">■ 調査の深度</p>
+                <div style="height:9px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:58%;height:100%;background:linear-gradient(90deg,#2c5f8a,#bf3a2b);"></div></div>
+                <p style="font-size:11px;color:#8a8264;margin:6px 0 0;">満ちると「強制調査（物理）」フェイズへ移行。</p>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 11px;">■ 人物 ・ 秘匿情報</p>
+                <div style="border:1px solid rgba(35,50,74,.3);border-radius:4px;padding:11px 13px;margin-bottom:8px;background:#fdfcf7;"><div style="font-size:14px;font-weight:700;color:#23324a;">査察官 マルサ・ヴァルキュリア</div><div style="font-size:12px;color:#5b6472;margin-top:2px;">望み：一点の曇りもない完璧な帳簿を、一度でいいから見ること。</div><div style="font-size:12px;color:#bf3a2b;margin-top:4px;background:rgba(191,58,43,.07);border-radius:3px;padding:4px 8px;">秘密：彼女の斬魔刀「更正」は経費で落ちていない。</div></div>
+                <div style="border:1px solid rgba(35,50,74,.3);border-radius:4px;padding:11px 13px;background:#fdfcf7;"><div style="font-size:14px;font-weight:700;color:#23324a;">窓口職員 リンドウ</div><div style="font-size:12px;color:#5b6472;margin-top:2px;">親切。ただし彼が「なお」と言うとき、事態は必ず悪化する。</div></div>
+                <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:20px 0 10px;">■ 庁舎の異変表（d6）</p>
+                <div style="font-size:13px;color:#3a4657;line-height:1.9;">1–2 追加資料を求められる ・ 3 内線電話が鳴る（誰も出ない）<br>4 整理番号が飛ぶ ・ 5 書類が一枚だけ増えている ・ 6 お茶が出る（和解の兆し）</div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+      </main>
+    </div>
+
+    <sc-if value="{{ showTabbar }}" hint-placeholder-val="{{ false }}">
+      <nav style="position:relative;z-index:2;display:flex;border-top:2px solid rgba(35,50,74,.4);background:#faf8f0;">
+        <sc-for list="{{ nav }}" as="item" hint-placeholder-count="7">
+          <button onClick="{{ item.go }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px;border:0;background:{{ item.tbBg }};color:{{ item.color }};cursor:pointer;">
+            <span style="width:19px;height:19px;flex:none;display:flex;align-items:center;justify-content:center;font-size:10px;font-family:'Shippori Mincho',serif;font-weight:700;border-radius:3px;transform:rotate(-4deg);background:{{ item.badgeBg }};color:{{ item.badgeColor }};border:{{ item.badgeBorder }};">{{ item.badge }}</span>
+            <span style="font-size:9px;letter-spacing:.5px;">{{ item.label }}</span>
+          </button>
+        </sc-for>
+      </nav>
+    </sc-if>
+
+    <div style="position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:50;display:flex;gap:3px;padding:5px;border-radius:999px;background:rgba(12,14,18,.86);backdrop-filter:blur(8px);box-shadow:0 8px 26px rgba(0,0,0,.5);border:1px solid rgba(191,58,43,.4);">
+      <sc-for list="{{ devs }}" as="d" hint-placeholder-count="3">
+        <button onClick="{{ d.go }}" style="padding:7px 16px;border:0;border-radius:999px;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:11px;letter-spacing:1.5px;background:{{ d.bg }};color:{{ d.color }};">{{ d.label }}</button>
+      </sc-for>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { device: 'desktop', play: 'gmpl', screen: 'top' };
+
+  renderVals() {
+    const { device, play, screen } = this.state;
+    const frames = { phone: { w: 392, h: 828 }, tablet: { w: 900, h: 660 }, desktop: { w: 1240, h: 772 } };
+    const f = frames[device] || frames.desktop;
+    const isPhone = device === 'phone';
+    const compact = device === 'tablet';
+
+    const setScreen = (s) => this.setState({ screen: s });
+    const setPlay = (p) => this.setState((st) => ({ play: p, screen: (p === 'solo' && st.screen === 'gm') ? 'top' : st.screen }));
+    const setDevice = (d) => this.setState({ device: d });
+
+    const playLabel = { solo: '独力申告（e-Tax）', gmpl: '窓口対応', gmless: '合同申告会' }[play] || '';
+
+    const navDefs = [
+      ['top', '受付', '受'],
+      ['sheet', '納税者票', '納'],
+      ['dice', '税額査定', '査'],
+      ['combat', '税務調査', '調'],
+      ['inventory', '領収書綴', '綴'],
+      ['story', '申述書', '述'],
+      ['map', '庁舎案内', '図'],
+      ['gm', play === 'gmless' ? '合同決裁' : '署長室', '署'],
+    ];
+    const nav = navDefs
+      .filter((d) => d[0] !== 'gm' || play !== 'solo')
+      .map(([id, label, badge]) => {
+        const active = id === screen;
+        return {
+          id, label, badge, active,
+          go: () => setScreen(id),
+          color: active ? '#bf3a2b' : '#5b6472',
+          bg: active ? 'rgba(191,58,43,0.07)' : 'transparent',
+          tbBg: active ? 'rgba(191,58,43,0.08)' : 'transparent',
+          weight: active ? '700' : '500',
+          badgeBg: active ? '#bf3a2b' : 'transparent',
+          badgeColor: active ? '#f6f3e9' : '#bf3a2b',
+          badgeBorder: active ? 'none' : '1.5px solid rgba(191,58,43,.55)',
+          labelStyle: compact ? 'display:none' : 'display:inline',
+        };
+      });
+
+    const playModes = [
+      ['solo', '独力申告（e-Tax）', '手引書だけを頼りに、期限までに独りで申告を通す一人用。'],
+      ['gmpl', '窓口対応', '署員（GM）が制度と調査を、冒険者たちが申告と言い訳を担う卓。'],
+      ['gmless', '合同申告会', '役を回し、互いの申告書を審査し合う寄合。全員が納税者で審査官。'],
+    ].map(([id, t, d]) => {
+      const active = id === play;
+      return {
+        id, t, d, active,
+        go: () => setPlay(id),
+        border: active ? '2px solid #bf3a2b' : '1px solid rgba(35,50,74,.3)',
+        bg: active ? 'rgba(191,58,43,.05)' : '#fdfcf7',
+        titleColor: active ? '#bf3a2b' : '#3a4657',
+      };
+    });
+
+    const devs = [
+      ['phone', 'スマホ'], ['tablet', 'タブ'], ['desktop', 'PC'],
+    ].map(([id, label]) => {
+      const active = id === device;
+      return {
+        id, label, active,
+        go: () => setDevice(id),
+        bg: active ? '#bf3a2b' : 'transparent',
+        color: active ? '#f6f3e9' : '#c9c2ad',
+      };
+    });
+
+    return {
+      frameW: f.w, frameH: f.h, railW: compact ? 66 : 214,
+      mainPad: isPhone ? '22px 18px 26px' : '30px 34px 38px',
+      showRail: !isPhone, showTabbar: isPhone,
+      playLabel, nav, playModes, devs,
+      isTop: screen === 'top', isSheet: screen === 'sheet', isDice: screen === 'dice',
+      isCombat: screen === 'combat', isInv: screen === 'inventory', isStory: screen === 'story',
+      isMap: screen === 'map', isGM: screen === 'gm',
+      gmTitle: play === 'gmless' ? '合同決裁 — 持ち回りの署長印' : '署長室 — 最終決裁の間',
+    };
+  }
+}
+</script>
+</body>
+</html>

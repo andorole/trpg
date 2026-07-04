@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>魔法少女コールセンター</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Shippori+Mincho:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#141019;}
+  @keyframes scfade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+  @keyframes ringpulse{0%,100%{box-shadow:0 0 0 0 rgba(224,68,124,.35)}50%{box-shadow:0 0 0 8px rgba(224,68,124,0)}}
+  @keyframes blinkled{0%,100%{opacity:.35}50%{opacity:1}}
+  @keyframes stampin{0%{transform:rotate(6deg) scale(1.6);opacity:0}60%{transform:rotate(-2deg) scale(.97);opacity:1}100%{transform:rotate(-2deg) scale(1)}}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-thumb{background:rgba(224,68,124,.35);border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<template id="dc-template">
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:34px 20px 96px;box-sizing:border-box;font-family:'Zen Kaku Gothic New',sans-serif;background:radial-gradient(120% 95% at 50% 0%,#221a2e 0%,#141019 58%,#0d0a11 100%);color:#2d2438;">
+
+  <div style="position:relative;width:{{ frameW }}px;height:{{ frameH }}px;max-width:100%;background:#faf7fb;border:1px solid #e6dbe8;border-radius:8px;box-shadow:0 34px 90px -22px rgba(0,0,0,.75),0 0 0 8px rgba(10,7,13,.55);overflow:hidden;display:flex;flex-direction:column;">
+
+    <div style="position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle at 90% 4%,rgba(224,68,124,.05),transparent 32%),repeating-linear-gradient(0deg,rgba(45,36,56,.015) 0 1px,transparent 1px 30px);"></div>
+
+    <header style="position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 22px;border-bottom:2px solid #e0447c;background:linear-gradient(180deg,#ffffff,#f7eef4);">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;flex:none;border-radius:50%;background:#e0447c;color:#fff;font-weight:900;font-size:14px;animation:ringpulse 2.4s ease-in-out infinite;">☎</span>
+        <div>
+          <div style="font-size:9px;letter-spacing:2px;color:#93829b;display:{{ taglineDisp }};">魔法少女統括機構 市民対応部 ・ 第3コンタクトセンター</div>
+          <div style="display:flex;align-items:baseline;gap:10px;">
+            <span style="font-weight:900;font-size:{{ titleSize }}px;letter-spacing:2px;color:#2d2438;white-space:nowrap;">魔法少女コールセンター</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:#e0447c;display:{{ enDisp }};">MAGICAL GIRL SUPPORT DESK</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:12px;letter-spacing:1px;color:#93829b;display:{{ playLabelDisp }};white-space:nowrap;">{{ playLabel }}</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 10px;border:1px solid rgba(224,68,124,.4);border-radius:999px;color:#e0447c;background:rgba(224,68,124,.05);white-space:nowrap;"><span style="width:7px;height:7px;border-radius:50%;background:#e0447c;animation:blinkled 1.2s ease-in-out infinite;"></span>待呼 12件</span>
+      </div>
+    </header>
+
+    <div style="position:relative;z-index:2;flex:1;display:flex;min-height:0;">
+
+      <sc-if value="{{ showRail }}" hint-placeholder-val="{{ true }}">
+        <nav style="width:{{ railW }}px;flex:none;border-right:1px solid rgba(224,68,124,.18);background:linear-gradient(180deg,rgba(224,68,124,.03),transparent);padding:15px 10px;display:flex;flex-direction:column;gap:3px;overflow-y:auto;">
+          <sc-for list="{{ nav }}" as="item" hint-placeholder-count="8">
+            <button onClick="{{ item.go }}" style="display:flex;align-items:center;gap:11px;width:100%;padding:9px 11px;border:0;border-radius:8px;cursor:pointer;text-align:left;background:{{ item.bg }};color:{{ item.color }};font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;font-weight:{{ item.weight }};">
+              <span style="width:22px;height:22px;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border-radius:50%;background:{{ item.badgeBg }};color:{{ item.badgeColor }};border:{{ item.badgeBorder }};">{{ item.badge }}</span>
+              <span style="{{ item.labelStyle }}">{{ item.label }}</span>
+            </button>
+          </sc-for>
+        </nav>
+      </sc-if>
+
+      <main style="flex:1;min-width:0;overflow-y:auto;padding:{{ mainPad }};">
+
+        <sc-if value="{{ isTop }}" hint-placeholder-val="{{ true }}">
+          <div data-screen-label="受電状況" style="animation:scfade .4s ease;max-width:760px;margin:0 auto;">
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#93829b;margin:0 0 7px;">夜勤シフト ・ 22:00–06:00 ・ 本日の変身事案 3件</p>
+            <h1 style="font-weight:900;font-size:31px;line-height:1.4;margin:0 0 14px;color:#2d2438;">お電話ありがとうございます。<br>魔法少女に関する窓口です。</h1>
+            <p style="font-size:15px;line-height:2.0;color:#54465f;margin:0 0 10px;max-width:58ch;">街を守る魔法少女たち。しかし変身の閃光は眩しく、戦闘の余波でビルは壊れ、必殺技の名前は深夜には少しうるさい。ここは市民からの<b style="color:#e0447c;">苦情・相談・応援</b>をすべて受け止める窓口——そして時々、<b style="color:#7a5a9e;">魔法少女本人から泣きながら掛かってくる</b>、世界でいちばん忙しい電話番号です。</p>
+            <p style="font-size:12px;color:#b3a3ba;margin:0 0 24px;">※応対品質（CSAT）は世界の平和度に直結します。理由はまだ解明されていません。</p>
+
+            <div style="border:1px solid rgba(224,68,124,.3);border-radius:10px;overflow:hidden;margin:0 0 26px;background:#fff;">
+              <div style="padding:9px 14px;background:rgba(224,68,124,.06);border-bottom:1px solid rgba(224,68,124,.2);font-size:11px;font-weight:700;letter-spacing:2px;color:#e0447c;">■ 入電キュー（リアルタイム）</div>
+              <div style="display:grid;grid-template-columns:.8fr 1.5fr .9fr .7fr;font-size:11px;color:#93829b;border-bottom:1px solid rgba(224,68,124,.15);background:rgba(45,36,56,.02);"><span style="padding:7px 14px;font-weight:700;">受付ID</span><span style="padding:7px 14px;border-left:1px solid rgba(224,68,124,.1);font-weight:700;">用件</span><span style="padding:7px 14px;border-left:1px solid rgba(224,68,124,.1);font-weight:700;">種別</span><span style="padding:7px 14px;border-left:1px solid rgba(224,68,124,.1);font-weight:700;">待ち</span></div>
+              <div style="display:grid;grid-template-columns:.8fr 1.5fr .9fr .7fr;font-size:13px;color:#2d2438;border-bottom:1px dashed rgba(224,68,124,.18);"><span style="padding:9px 14px;font-family:'IBM Plex Mono',monospace;color:#e0447c;">#4471</span><span style="padding:9px 14px;border-left:1px solid rgba(224,68,124,.06);font-weight:700;">変身の閃光で防犯カメラが全滅した（商店会長）</span><span style="padding:9px 14px;border-left:1px solid rgba(224,68,124,.06);color:#c65448;">苦情</span><span style="padding:9px 14px;border-left:1px solid rgba(224,68,124,.06);font-family:'IBM Plex Mono',monospace;color:#c65448;">08:12</span></div>
+              <div style="display:grid;grid-template-columns:.8fr 1.5fr .9fr .7fr;font-size:13px;color:#2d2438;border-bottom:1px dashed rgba(224,68,124,.18);"><span style="padding:9px 14px;font-family:'IBM Plex Mono',monospace;color:#e0447c;">#4472</span><span style="padding:9px 14px;border-left:1px solid rgba(224,68,124,.06);font-weight:700;">「必殺技の名前を一緒に考えてほしい」（本人・3年目）</span><span style="padding:9px 14px;border-left:1px solid rgba(224,68,124,.06);color:#7a5a9e;">本人相談</span><span style="padding:9px 14px;border-left:1px solid rgba(224,68,124,.06);font-family:'IBM Plex Mono',monospace;">02:40</span></div>
+              <div style="display:grid;grid-template-columns:.8fr 1.5fr .9fr .7fr;font-size:13px;color:#2d2438;border-bottom:1px dashed rgba(224,68,124,.18);"><span style="padding:9px 14px;font-family:'IBM Plex Mono',monospace;color:#e0447c;">#4473</span><span style="padding:9px 14px;border-left:1px solid rgba(224,68,124,.06);font-weight:700;">孫が魔法少女に助けられた。礼を言いたいだけ（80代）</span><span style="padding:9px 14px;border-left:1px solid rgba(224,68,124,.06);color:#2f8a5c;">応援</span><span style="padding:9px 14px;border-left:1px solid rgba(224,68,124,.06);font-family:'IBM Plex Mono',monospace;">00:31</span></div>
+              <div style="display:grid;grid-template-columns:.8fr 1.5fr .9fr .7fr;font-size:13px;color:#2d2438;"><span style="padding:9px 14px;font-family:'IBM Plex Mono',monospace;color:#c65448;">#4474</span><span style="padding:9px 14px;border-left:1px solid rgba(224,68,124,.06);font-weight:700;">「今から世界を滅ぼすが、その前に言っておきたい」</span><span style="padding:9px 14px;border-left:1px solid rgba(224,68,124,.06);color:#c65448;font-weight:700;">敵幹部</span><span style="padding:9px 14px;border-left:1px solid rgba(224,68,124,.06);font-family:'IBM Plex Mono',monospace;color:#c65448;">保留中</span></div>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#e0447c;font-weight:700;margin:0 0 12px;">■ シフト形態を選択</p>
+            <div style="display:grid;grid-template-columns:{{ modeCols }};gap:12px;margin:0 0 28px;">
+              <sc-for list="{{ playModes }}" as="m" hint-placeholder-count="3">
+                <button onClick="{{ m.go }}" style="text-align:left;padding:14px 15px;border-radius:10px;cursor:pointer;border:{{ m.border }};background:{{ m.bg }};">
+                  <div style="font-size:14px;font-weight:700;color:{{ m.titleColor }};margin-bottom:5px;">{{ m.t }}</div>
+                  <div style="font-size:12px;line-height:1.7;color:#93829b;">{{ m.d }}</div>
+                </button>
+              </sc-for>
+            </div>
+
+            <button style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:0;border-radius:999px;cursor:pointer;background:#e0447c;color:#fff;font-weight:900;font-size:15px;letter-spacing:3px;box-shadow:0 5px 0 #a82f5b;white-space:nowrap;">ヘッドセットを装着　➜</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isSheet }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="オペレーター名鑑" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap;margin-bottom:20px;">
+              <div style="width:88px;height:110px;flex:none;border:1px solid rgba(224,68,124,.4);border-radius:8px;background:repeating-linear-gradient(45deg,rgba(224,68,124,.07) 0 6px,transparent 6px 12px),#fff;display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:1px;color:#b3a3ba;text-align:center;">社員証写真<br>（ヘッドセット可）</div>
+              <div style="flex:1;min-width:240px;">
+                <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#93829b;margin:0 0 4px;">オペレーターID OP-0093 ・ 市民対応部 人事ファイル</p>
+                <h1 style="font-weight:900;font-size:28px;margin:0 0 4px;color:#2d2438;">虹口 すず</h1>
+                <p style="font-size:13px;color:#93829b;margin:0 0 10px;">夜勤オペレーター ・ 勤続4年 ・ 二十六歳 ・ 元・魔法少女（引退済）</p>
+                <div style="display:flex;gap:7px;flex-wrap:wrap;">
+                  <span style="font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid rgba(224,68,124,.4);color:#54465f;">聞き上手</span>
+                  <span style="font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid rgba(224,68,124,.4);color:#54465f;">保留音の作曲担当</span>
+                  <span style="font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid rgba(122,90,158,.5);color:#7a5a9e;">変身資格：失効（本人談）</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:{{ modeCols }};gap:13px;margin-bottom:22px;">
+              <div style="background:#fff;border:1px solid rgba(224,68,124,.2);border-radius:10px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#93829b;margin-bottom:5px;"><span>声量（体力）</span><span style="font-family:'IBM Plex Mono',monospace;">12 / 15</span></div><div style="height:9px;border-radius:6px;background:rgba(45,36,56,.06);overflow:hidden;"><div style="width:80%;height:100%;background:#e0447c;"></div></div></div>
+              <div style="background:#fff;border:1px solid rgba(224,68,124,.2);border-radius:10px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#93829b;margin-bottom:5px;"><span>共感ゲージ</span><span style="font-family:'IBM Plex Mono',monospace;">7 / 10</span></div><div style="height:9px;border-radius:6px;background:rgba(45,36,56,.06);overflow:hidden;"><div style="width:70%;height:100%;background:#7a5a9e;"></div></div><div style="font-size:9px;color:#b3a3ba;margin-top:4px;">※満タンで「もらい泣き」発動。応対+3、記録は涙で滲む</div></div>
+              <div style="background:#fff;border:1px solid rgba(224,68,124,.2);border-radius:10px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#93829b;margin-bottom:5px;"><span>魔力残量（元職）</span><span style="font-family:'IBM Plex Mono',monospace;color:#e0447c;">3%</span></div><div style="height:9px;border-radius:6px;background:rgba(45,36,56,.06);overflow:hidden;"><div style="width:3%;height:100%;background:linear-gradient(90deg,#e0447c,#7a5a9e);"></div></div><div style="font-size:9px;color:#b3a3ba;margin-top:4px;">※引退時に返納したはず。なぜか3%だけ、戻ってくる</div></div>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#e0447c;font-weight:700;margin:0 0 12px;">■ 能力</p>
+            <div style="display:grid;grid-template-columns:repeat({{ abilityCols }},1fr);gap:0;border:1px solid rgba(224,68,124,.3);border-radius:10px;overflow:hidden;margin-bottom:24px;background:#fff;">
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(224,68,124,.12);background:rgba(224,68,124,.04);"><div style="font-size:10px;color:#e0447c;">傾聴</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#e0447c;line-height:1.25;">17</div><div style="font-size:10px;color:#2f8a5c;">＋3</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(224,68,124,.12);"><div style="font-size:10px;color:#93829b;">話術</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#2d2438;line-height:1.25;">14</div><div style="font-size:10px;color:#2f8a5c;">＋2</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(224,68,124,.12);"><div style="font-size:10px;color:#93829b;">規程知識</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#2d2438;line-height:1.25;">13</div><div style="font-size:10px;color:#2f8a5c;">＋1</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(224,68,124,.12);"><div style="font-size:10px;color:#93829b;">タイピング</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#2d2438;line-height:1.25;">15</div><div style="font-size:10px;color:#2f8a5c;">＋2</div></div>
+              <div style="padding:10px 4px;text-align:center;border-right:1px solid rgba(224,68,124,.12);"><div style="font-size:10px;color:#93829b;">胆力</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#2d2438;line-height:1.25;">11</div><div style="font-size:10px;color:#93829b;">±0</div></div>
+              <div style="padding:10px 4px;text-align:center;"><div style="font-size:10px;color:#93829b;">魔法知識</div><div style="font-family:'IBM Plex Mono',monospace;font-size:23px;font-weight:600;color:#2d2438;line-height:1.25;">16</div><div style="font-size:10px;color:#2f8a5c;">＋3（実務経験）</div></div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:{{ twoCols }};gap:24px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#e0447c;font-weight:700;margin:0 0 10px;">■ 技能</p>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#54465f;padding:6px 0;border-bottom:1px dashed rgba(224,68,124,.22);"><span>怒りの初期消火（最初の15秒）</span><span style="font-family:'IBM Plex Mono',monospace;color:#2f8a5c;">+6</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#54465f;padding:6px 0;border-bottom:1px dashed rgba(224,68,124,.22);"><span>魔法用語の平易な言い換え</span><span style="font-family:'IBM Plex Mono',monospace;color:#2f8a5c;">+5</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#54465f;padding:6px 0;border-bottom:1px dashed rgba(224,68,124,.22);"><span>保留にしない勇気</span><span style="font-family:'IBM Plex Mono',monospace;color:#2f8a5c;">+4</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:14px;color:#54465f;padding:6px 0;"><span>自分の過去を話す</span><span style="font-family:'IBM Plex Mono',monospace;color:#c65448;">−3（避けがち）</span></div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#e0447c;font-weight:700;margin:0 0 10px;">■ 特性</p>
+                <div style="border:1px solid rgba(224,68,124,.25);border-radius:10px;padding:11px 13px;margin-bottom:9px;background:#fff;"><div style="font-size:13px;font-weight:700;color:#2d2438;margin-bottom:3px;">声だけで正体がわかる</div><div style="font-size:12px;line-height:1.7;color:#93829b;">電話越しの声で、相手が変身中か、変身前か、泣くのを我慢しているかがわかる。元同業ゆえ。</div></div>
+                <div style="border:1px solid rgba(122,90,158,.4);border-radius:10px;padding:11px 13px;background:rgba(122,90,158,.04);"><div style="font-size:13px;font-weight:700;color:#7a5a9e;margin-bottom:3px;">残り3%の使い道</div><div style="font-size:12px;line-height:1.7;color:#93829b;">一晩に一度だけ、電話越しに小さな魔法を送れる。眠れない子への子守唄程度。それ以上は、もう。</div></div>
+              </div>
+            </div>
+            <p style="margin-top:22px;font-size:13px;line-height:1.9;color:#93829b;border-left:3px solid rgba(224,68,124,.4);padding-left:14px;">SV評価コメント：「引退の経緯は本人から聞かないこと。ただし#4472のような『本人相談』は、必ず虹口さんに回すこと。」</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isDice }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="応対判定" style="animation:scfade .4s ease;max-width:560px;margin:0 auto;text-align:center;">
+            <p style="font-size:11px;letter-spacing:3px;color:#e0447c;font-weight:700;margin:0 0 4px;">■ 応対品質判定 ・ 目標 15 ・ 技能:怒りの初期消火</p>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 24px;">
+              <div style="width:122px;height:122px;border:3px solid #e0447c;border-radius:50%;animation:stampin .5s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#e0447c;background:#fff;box-shadow:0 8px 20px -8px rgba(224,68,124,.35);">
+                <span style="font-size:10px;letter-spacing:2px;color:#93829b;">CSAT</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:44px;font-weight:600;line-height:1.05;color:#2d2438;">21</span>
+                <b style="display:inline-block;padding:1px 12px;border-radius:999px;background:rgba(47,138,92,.12);color:#2f8a5c;font-size:12px;letter-spacing:1px;">大変満足</b>
+              </div>
+              <div style="font-size:14px;color:#93829b;margin-top:6px;">d20 ＝ 15 ＋ 初期消火 6</div>
+              <div style="font-size:14px;letter-spacing:1px;color:#2f8a5c;font-weight:700;">＝ 21 ・ 商店会長、最後は魔法少女の後援会に入会</div>
+              <p style="font-size:10px;color:#b3a3ba;margin:2px 0 0;">※出目1は「切電」。世界の平和度が0.3%下がり、SVが飛んでくる。</p>
+            </div>
+            <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;">
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(224,68,124,.3);color:#93829b;background:#fff;">d4</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(224,68,124,.3);color:#93829b;background:#fff;">d6</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(224,68,124,.3);color:#93829b;background:#fff;">d8</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(224,68,124,.3);color:#93829b;background:#fff;">d10</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(224,68,124,.3);color:#93829b;background:#fff;">d12</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:2px solid #e0447c;color:#e0447c;background:rgba(224,68,124,.05);font-weight:600;">d20</span>
+              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(224,68,124,.3);color:#93829b;background:#fff;">d100</span>
+            </div>
+            <button style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:0;border-radius:999px;cursor:pointer;background:#e0447c;color:#fff;font-weight:900;font-size:15px;letter-spacing:3px;font-family:'Zen Kaku Gothic New',sans-serif;box-shadow:0 5px 0 #a82f5b;white-space:nowrap;">応対を開始する</button>
+            <div style="margin-top:26px;text-align:left;">
+              <p style="font-size:11px;letter-spacing:3px;color:#e0447c;font-weight:700;margin:0 0 9px;">■ 本日の応対スコア</p>
+              <div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;color:#54465f;padding:7px 0;border-bottom:1px dashed rgba(224,68,124,.22);"><span>すず ・ #4471 商店会長の苦情</span><span style="font-family:'IBM Plex Mono',monospace;color:#2f8a5c;flex:none;">21 ／ 大変満足</span></div>
+              <div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;color:#54465f;padding:7px 0;border-bottom:1px dashed rgba(224,68,124,.22);"><span>戸山 ・ #4472 必殺技の命名相談</span><span style="font-family:'IBM Plex Mono',monospace;color:#a5851f;flex:none;">12 ／ 「もう少し考える」</span></div>
+              <div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;color:#54465f;padding:7px 0;"><span>新人・小巻 ・ #4474 敵幹部の長話</span><span style="font-family:'IBM Plex Mono',monospace;color:#c65448;flex:none;">5 ／ 誤って世界滅亡を承諾</span></div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isCombat }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="入電の嵐" style="animation:scfade .4s ease;max-width:780px;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px;">
+              <h1 style="font-weight:900;font-size:24px;margin:0;color:#2d2438;">入電の嵐 ・ 駅前に怪人出現中</h1>
+              <div style="display:flex;gap:8px;"><button style="padding:8px 15px;border:1px solid rgba(224,68,124,.35);border-radius:999px;background:#fff;color:#93829b;cursor:pointer;font-size:13px;font-family:'Zen Kaku Gothic New',sans-serif;white-space:nowrap;flex:none;">全員に周知</button><button style="padding:8px 15px;border:0;border-radius:999px;background:#e0447c;color:#fff;cursor:pointer;font-weight:700;font-size:13px;font-family:'Zen Kaku Gothic New',sans-serif;box-shadow:0 4px 0 #a82f5b;white-space:nowrap;flex:none;">次の呼を取る</button></div>
+            </div>
+            <p style="font-size:12px;color:#b3a3ba;margin:0 0 14px;">※怪人出現中は入電が10倍。放棄呼が増えるほど街のパニックが進行します。電話で戦うタイプの戦闘です。</p>
+
+            <div style="border:2px solid #c65448;border-radius:12px;padding:12px 14px;margin-bottom:14px;background:rgba(198,84,72,.03);">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:6px;"><span style="font-size:15px;font-weight:900;color:#c65448;">事案：駅前ロータリー怪人「シメキリの獣」</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#c65448;white-space:nowrap;">対応中：プリズム・ノヴァ（現地）</span></div>
+              <div style="display:grid;grid-template-columns:{{ modeCols }};gap:10px;">
+                <div><div style="display:flex;justify-content:space-between;font-size:11px;color:#93829b;margin-bottom:3px;"><span>街のパニック度</span><span style="font-family:'IBM Plex Mono',monospace;">42/100</span></div><div style="height:8px;border-radius:5px;background:rgba(45,36,56,.06);overflow:hidden;"><div style="width:42%;height:100%;background:#c65448;"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;font-size:11px;color:#93829b;margin-bottom:3px;"><span>待呼</span><span style="font-family:'IBM Plex Mono',monospace;">12件</span></div><div style="height:8px;border-radius:5px;background:rgba(45,36,56,.06);overflow:hidden;"><div style="width:60%;height:100%;background:#e0447c;"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;font-size:11px;color:#93829b;margin-bottom:3px;"><span>ノヴァの魔力</span><span style="font-family:'IBM Plex Mono',monospace;">67%</span></div><div style="height:8px;border-radius:5px;background:rgba(45,36,56,.06);overflow:hidden;"><div style="width:67%;height:100%;background:#7a5a9e;"></div></div></div>
+              </div>
+            </div>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#e0447c;font-weight:700;margin:0 0 10px;">■ 回線状況（手番順）</p>
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:2px solid #e0447c;background:rgba(224,68,124,.04);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;background:#e0447c;color:#fff;border-radius:50%;">1</span><div style="flex:1;min-width:0;"><div style="font-size:15px;font-weight:700;color:#2d2438;">すず ⇄ プリズム・ノヴァ（現地から入電） <span style="font-size:11px;color:#e0447c;">通話中 04:22</span></div><div style="display:flex;gap:5px;margin-top:3px;flex-wrap:wrap;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(122,90,158,.1);color:#7a5a9e;">「弱点がわからない、調べて」</span></div></div><div style="width:150px;flex:none;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#93829b;margin-bottom:3px;"><span>共感ゲージ</span><span style="font-family:'IBM Plex Mono',monospace;">7/10</span></div><div style="height:8px;border-radius:5px;background:rgba(45,36,56,.06);overflow:hidden;"><div style="width:70%;height:100%;background:#7a5a9e;"></div></div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:1px solid rgba(224,68,124,.25);background:#fff;margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(224,68,124,.1);color:#e0447c;border-radius:50%;">2</span><div style="flex:1;min-width:0;"><div style="font-size:15px;font-weight:700;color:#2d2438;">戸山 ⇄ 規程課の当直（弱点データベース照会）</div><div style="display:flex;gap:5px;margin-top:3px;flex-wrap:wrap;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(201,168,46,.12);color:#a5851f;">「シメキリの獣」＝該当3件、絞り込み中</span></div></div><div style="width:150px;flex:none;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#93829b;margin-bottom:3px;"><span>照会進捗</span><span style="font-family:'IBM Plex Mono',monospace;">64%</span></div><div style="height:8px;border-radius:5px;background:rgba(45,36,56,.06);overflow:hidden;"><div style="width:64%;height:100%;background:#e0447c;"></div></div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:1px solid rgba(224,68,124,.25);background:#fff;margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(224,68,124,.1);color:#e0447c;border-radius:50%;">3</span><div style="flex:1;min-width:0;"><div style="font-size:15px;font-weight:700;color:#2d2438;">新人・小巻 ⇄ 避難誘導の実況（拡声モード）</div><div style="display:flex;gap:5px;margin-top:3px;flex-wrap:wrap;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(47,138,92,.1);color:#2f8a5c;">声が意外と通る。天職かもしれない</span></div></div><div style="width:150px;flex:none;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#93829b;margin-bottom:3px;"><span>避難完了</span><span style="font-family:'IBM Plex Mono',monospace;">81%</span></div><div style="height:8px;border-radius:5px;background:rgba(45,36,56,.06);overflow:hidden;"><div style="width:81%;height:100%;background:#2f8a5c;"></div></div></div></div>
+
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:1px dashed rgba(198,84,72,.5);background:rgba(198,84,72,.02);"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;background:#c65448;color:#fff;border-radius:50%;">敵</span><div style="flex:1;min-width:0;"><div style="font-size:15px;font-weight:700;color:#c65448;">#4474 敵幹部（まだ保留中） <span style="font-size:11px;color:#93829b;">保留 22:40</span></div><div style="font-size:12px;color:#93829b;margin-top:2px;">保留音を3周聴いた敵幹部の敵意が、なぜか2%ずつ下がっている。すずの作曲した保留音である。</div></div><div style="width:150px;flex:none;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#93829b;margin-bottom:3px;"><span>敵意</span><span style="font-family:'IBM Plex Mono',monospace;">86/100</span></div><div style="height:8px;border-radius:5px;background:rgba(45,36,56,.06);overflow:hidden;"><div style="width:86%;height:100%;background:#c65448;"></div></div></div></div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isInv }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="ナレッジ" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:18px;">
+              <h1 style="font-weight:900;font-size:24px;margin:0;color:#2d2438;">ナレッジベース ・ 応対ツール</h1>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#93829b;white-space:nowrap;">スクリプト登録数 412件</span>
+            </div>
+            <div style="display:grid;grid-template-columns:{{ invCols }};gap:22px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#e0447c;font-weight:700;margin:0 0 11px;">■ 装備（デスク周り）</p>
+                <div style="padding:12px 14px;border:1px solid rgba(224,68,124,.25);border-radius:10px;margin-bottom:8px;background:#fff;"><div style="display:flex;justify-content:space-between;gap:8px;"><div style="font-size:14px;font-weight:700;color:#2d2438;">ヘッドセット（退魔加工済）</div><span style="font-size:10px;color:#2f8a5c;font-family:'IBM Plex Mono',monospace;flex:none;">装備中</span></div><div style="font-size:12px;color:#93829b;margin-top:3px;line-height:1.7;">呪詛系クレームの精神ダメージを50%軽減。月一で聖水拭き上げ。</div></div>
+                <div style="padding:12px 14px;border:1px solid rgba(224,68,124,.25);border-radius:10px;margin-bottom:8px;background:#fff;"><div style="display:flex;justify-content:space-between;gap:8px;"><div style="font-size:14px;font-weight:700;color:#2d2438;">エスカレーションボタン（赤）</div><span style="font-size:10px;color:#a5851f;font-family:'IBM Plex Mono',monospace;flex:none;">使用は慎重に</span></div><div style="font-size:12px;color:#93829b;margin-top:3px;line-height:1.7;">押すとSVが来る。二度押しすると統括機構の偉い人が来る。三度押した者はまだいない。</div></div>
+                <div style="padding:12px 14px;border:1px solid rgba(122,90,158,.4);border-radius:10px;background:rgba(122,90,158,.04);"><div style="display:flex;justify-content:space-between;gap:8px;"><div style="font-size:14px;font-weight:700;color:#7a5a9e;">私物のマグカップ</div><span style="font-size:10px;color:#7a5a9e;font-family:'IBM Plex Mono',monospace;flex:none;">魔力反応：微</span></div><div style="font-size:12px;color:#93829b;margin-top:3px;line-height:1.7;">現役時代の相棒（妖精）が、今は普通のマグカップのふりをして住んでいる。すずはまだ気づいていないふりをしている。</div></div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#e0447c;font-weight:700;margin:0 0 11px;">■ よく使うスクリプト</p>
+                <div style="border:1px solid rgba(224,68,124,.25);border-radius:10px;padding:10px 13px;margin-bottom:8px;background:#fff;"><div style="display:flex;justify-content:space-between;gap:8px;font-size:13px;color:#2d2438;"><span style="font-weight:700;">KB-012 変身閃光への謝罪と補償案内</span><span style="font-family:'IBM Plex Mono',monospace;color:#e0447c;flex:none;">使用率 高</span></div><div style="font-size:11px;color:#93829b;margin-top:2px;">「眩しさはお守りの光でもあります」の一文で満足度が平均+2。</div></div>
+                <div style="border:1px solid rgba(224,68,124,.25);border-radius:10px;padding:10px 13px;margin-bottom:8px;background:#fff;"><div style="display:flex;justify-content:space-between;gap:8px;font-size:13px;color:#2d2438;"><span style="font-weight:700;">KB-077 本人相談（進路・引退）</span><span style="font-family:'IBM Plex Mono',monospace;color:#7a5a9e;flex:none;">担当指定</span></div><div style="font-size:11px;color:#93829b;margin-top:2px;">スクリプトなし。「マニュアルを読まずに聞くこと」とだけ書いてある。</div></div>
+                <div style="border:1px solid rgba(224,68,124,.25);border-radius:10px;padding:10px 13px;margin-bottom:8px;background:#fff;"><div style="display:flex;justify-content:space-between;gap:8px;font-size:13px;color:#2d2438;"><span style="font-weight:700;">KB-101 敵組織からの入電</span><span style="font-family:'IBM Plex Mono',monospace;color:#c65448;flex:none;">改訂中</span></div><div style="font-size:11px;color:#93829b;margin-top:2px;">「世界滅亡の予告は、まず日時と場所を復唱して確認」——復唱すると、だいたい向こうが恥ずかしくなってやめる。</div></div>
+                <div style="border:2px solid rgba(224,68,124,.5);border-radius:10px;padding:10px 13px;background:rgba(224,68,124,.03);"><div style="display:flex;justify-content:space-between;gap:8px;font-size:13px;color:#2d2438;"><span style="font-weight:700;">KB-000 最初のマニュアル（初代直筆）</span><span style="font-family:'IBM Plex Mono',monospace;color:#e0447c;flex:none;">閲覧注意</span></div><div style="font-size:11px;color:#e0447c;margin-top:2px;">一行だけ。「電話を取った人が、その子の味方です」</div></div>
+                <div style="margin-top:14px;border:1px solid rgba(224,68,124,.3);border-radius:10px;padding:13px 15px;background:#fff;"><div style="font-size:13px;font-weight:700;color:#2d2438;margin-bottom:5px;">SVメモ</div><div style="font-size:12px;line-height:1.8;color:#93829b;">スクリプトは盾であって台本ではない。読み上げた瞬間、相手には伝わります。</div></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStory }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="通話ログ" style="animation:scfade .4s ease;max-width:640px;margin:0 auto;">
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#93829b;text-align:center;margin:0 0 6px;">通話記録 ・ #4472 ・ 22:47–23:15 ・ 担当:OP-0093</p>
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;text-align:center;margin:0 0 4px;color:#2d2438;">必殺技の名前が、決められない</h1>
+            <div style="display:flex;align-items:center;gap:12px;margin:16px 0 22px;color:#e0447c;"><span style="flex:1;height:1px;background:rgba(224,68,124,.35);"></span><span style="font-size:12px;">☎</span><span style="flex:1;height:1px;background:rgba(224,68,124,.35);"></span></div>
+            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.1;color:#3c3246;margin:0 0 18px;">「三年目になるんです」と、電話の向こうの声は言った。プリズム・ノヴァ。駅前を守って三年、市民満足度92%のベテランだ。「新しい技ができたのに、名前が決められなくて。名前を叫ばないと、技が出ないんです。うちの魔法、そういう仕様で」</p>
+            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.1;color:#3c3246;margin:0 0 18px;">すずはメモ帳に候補を書き出していく。輝きなんとか。なんとかレイ。途中で気づく。この子が決められないのは、語彙の問題じゃない。<b style="color:#e0447c;">「その技、誰かを守る技？　それとも——終わらせる技？」</b>電話の向こうで、息を呑む音がした。長い沈黙。コールセンターの規程では、沈黙は7秒で声をかけることになっている。すずは、規程を破って待った。</p>
+            <blockquote style="margin:22px 0;padding:14px 20px;border-left:3px solid #e0447c;background:rgba(224,68,124,.03);font-family:'Shippori Mincho',serif;font-size:16px;line-height:1.9;color:#54465f;">技の名前は、その子が魔法に付ける「約束」だ。<br>だから代わりに考えてはいけない。一緒に考えることしか、できない。<br><span style="font-size:12px;color:#b3a3ba;">——応対マニュアル KB-077 余白の手書き（筆跡:虹口）</span></blockquote>
+            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.1;color:#3c3246;margin:0 0 26px;">「……最後の技、なんです」と声は言った。「これを使ったら、私、魔力を使い切って引退なんです。だから、ちゃんとした名前じゃないと嫌で」。すずの手が止まる。マグカップが、デスクの上で小さく震えた。三年前、自分が最後の技の名前を決めた夜のことを、すずはまだ誰にも話していない。</p>
+
+            <p style="font-size:11px;letter-spacing:3px;color:#e0447c;font-weight:700;margin:0 0 12px;">■ どう応対する</p>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(224,68,124,.35);border-radius:10px;background:#fff;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#3c3246;">①　自分の「最後の技」の名前と、その夜の話をする <span style="color:#c9722e;font-weight:700;">自分の過去を話す ・ −3補正</span></button>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(224,68,124,.35);border-radius:10px;background:#fff;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#3c3246;">②　「引退しない技」の可能性を、規程課と一緒に探す（前例なし）</button>
+            <button style="display:block;width:100%;text-align:left;padding:13px 16px;border:1px solid rgba(224,68,124,.35);border-radius:10px;background:#fff;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#3c3246;">③　黙って聴き続ける——名前は、この子の中にもうある気がする <span style="color:#7a5a9e;font-weight:700;">傾聴判定 ・ 難度12</span></button>
+            <div style="margin-top:24px;height:5px;border-radius:3px;background:rgba(45,36,56,.06);overflow:hidden;"><div style="width:72%;height:100%;background:#e0447c;"></div></div>
+            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#b3a3ba;margin:7px 0 0;">通話 28:11 ・ 待呼 12件 ・ 共感ゲージ 9/10</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="管轄マップ" style="animation:scfade .4s ease;max-width:840px;margin:0 auto;">
+            <h1 style="font-weight:900;font-size:24px;margin:0 0 4px;color:#2d2438;">管轄マップ ・ 入電ヒートマップ</h1>
+            <p style="font-size:12px;color:#b3a3ba;margin:0 0 16px;">濃いピンク＝入電集中。魔法少女の配置と苦情の発生は、だいたい同じ場所で起きる。</p>
+            <div style="display:grid;grid-template-columns:{{ mapCols }};gap:20px;">
+              <div style="position:relative;height:340px;border:1px solid rgba(224,68,124,.35);border-radius:10px;background:repeating-linear-gradient(0deg,rgba(224,68,124,.03) 0 1px,transparent 1px 28px),repeating-linear-gradient(90deg,rgba(224,68,124,.03) 0 1px,transparent 1px 28px),#fff;overflow:hidden;">
+                <div style="position:absolute;left:8%;top:10%;width:38%;height:30%;border:2px solid #c65448;border-radius:10px;background:radial-gradient(circle at 50% 50%,rgba(198,84,72,.15),rgba(198,84,72,.03));padding:7px 10px;box-sizing:border-box;"><div style="font-size:12px;font-weight:900;color:#c65448;">駅前ロータリー ⚠</div><div style="font-size:10px;color:#93829b;margin-top:2px;">怪人出現中 ・ 入電の68%がここ<br>担当:プリズム・ノヴァ（現地）</div></div>
+                <div style="position:absolute;right:8%;top:12%;width:34%;height:26%;border:2px solid rgba(224,68,124,.45);border-radius:10px;background:rgba(224,68,124,.05);padding:7px 10px;box-sizing:border-box;"><div style="font-size:12px;font-weight:700;color:#e0447c;">商店街</div><div style="font-size:10px;color:#93829b;margin-top:2px;">防犯カメラ感光事案 ・ 補償手続き中</div></div>
+                <div style="position:absolute;left:8%;bottom:12%;width:34%;height:26%;border:2px solid rgba(122,90,158,.5);border-radius:10px;background:rgba(122,90,158,.05);padding:7px 10px;box-sizing:border-box;"><div style="font-size:12px;font-weight:700;color:#7a5a9e;">住宅地（夜間）</div><div style="font-size:10px;color:#93829b;margin-top:2px;">「必殺技の声量」苦情が微増<br>22時以降は囁き変身を推奨中</div></div>
+                <div style="position:absolute;right:8%;bottom:10%;width:38%;height:30%;border:2px dashed rgba(147,130,155,.5);border-radius:10px;background:rgba(45,36,56,.02);padding:7px 10px;box-sizing:border-box;opacity:.9;"><div style="font-size:12px;font-weight:700;color:#7d7086;">旧・変身ポイント（廃止）</div><div style="font-size:10px;color:#b3a3ba;margin-top:2px;">三年前まで使われていた給水塔。<br>すずが最後に変身した場所。入電はもう、ない。</div></div>
+                <div style="position:absolute;left:47%;top:44%;display:flex;flex-direction:column;align-items:center;gap:3px;"><span style="width:16px;height:16px;border-radius:50%;background:#e0447c;border:2px solid #fff;box-shadow:0 0 0 4px rgba(224,68,124,.2);animation:ringpulse 2s ease-in-out infinite;"></span><span style="font-size:10px;color:#e0447c;font-weight:700;">当センター</span></div>
+                <div style="position:absolute;right:10px;bottom:8px;font-size:10px;letter-spacing:1px;color:#b3a3ba;">入電密度 ・ 22:00–23:00</div>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#e0447c;font-weight:700;margin:0 0 11px;">■ 地区メモ</p>
+                <div style="padding:11px 13px;border:2px solid #c65448;border-radius:10px;margin-bottom:8px;background:rgba(198,84,72,.03);"><div style="font-size:14px;font-weight:700;color:#2d2438;">駅前ロータリー <span style="font-size:10px;color:#c65448;">事案進行中</span></div><div style="font-size:12px;color:#93829b;margin-top:3px;">シメキリの獣：〆切を破った人間の後悔が集まって生まれた怪人。弱点は「延長の承認」らしい。</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(224,68,124,.3);border-radius:10px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;font-weight:700;color:#2d2438;">商店街</div><div style="font-size:12px;color:#93829b;margin-top:3px;">会長は苦情の常連だが、後援会の会計も務めている。ツンデレの類。</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(224,68,124,.3);border-radius:10px;background:#fff;opacity:.9;"><div style="font-size:14px;font-weight:700;color:#7d7086;">旧・変身ポイント</div><div style="font-size:12px;color:#b3a3ba;margin-top:3px;">地図から消す提案が毎年出て、毎年、誰かが反対している。今年はSVだった。</div></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isGM }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="SV席" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
+            <h1 style="font-weight:900;font-size:23px;margin:0 0 4px;color:#2d2438;">{{ gmTitle }}</h1>
+            <p style="font-size:13px;color:#93829b;margin:0 0 20px;">SV席は全回線をモニタリングできる。介入は最小限に。オペレーターの成長も、この席の仕事のうち。</p>
+            <div style="display:grid;grid-template-columns:{{ twoCols }};gap:20px;">
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#e0447c;font-weight:700;margin:0 0 11px;">■ シナリオ進行</p>
+                <div style="padding:11px 13px;border:2px solid #e0447c;border-radius:10px;margin-bottom:8px;background:rgba(224,68,124,.04);"><div style="font-size:14px;font-weight:700;color:#2d2438;">第2幕：入電の嵐 <span style="font-size:10px;color:#e0447c;">進行中</span></div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(224,68,124,.3);border-radius:10px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;color:#93829b;">第3幕：ノヴァの最後の技（命名の夜）</div></div>
+                <div style="padding:11px 13px;border:1px solid rgba(224,68,124,.3);border-radius:10px;background:#fff;"><div style="font-size:14px;color:#93829b;">エピローグ：保留中の敵幹部が電話を切る前に</div></div>
+                <p style="font-size:11px;letter-spacing:3px;color:#e0447c;font-weight:700;margin:20px 0 10px;">■ 世界の平和度（CSAT連動）</p>
+                <div style="height:9px;border-radius:5px;background:rgba(45,36,56,.06);overflow:hidden;"><div style="width:74%;height:100%;background:linear-gradient(90deg,#e0447c,#7a5a9e);"></div></div>
+                <p style="font-size:11px;color:#b3a3ba;margin:6px 0 0;">74%。今夜の応対次第で、世界は少し優しくなったり、ならなかったりする。</p>
+              </div>
+              <div>
+                <p style="font-size:11px;letter-spacing:3px;color:#e0447c;font-weight:700;margin:0 0 11px;">■ 秘匿情報（SV限り）</p>
+                <div style="border:1px solid rgba(224,68,124,.3);border-radius:10px;padding:11px 13px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;font-weight:700;color:#2d2438;">#4474 敵幹部の正体</div><div style="font-size:12px;color:#93829b;margin-top:2px;">「世界を滅ぼす」と繰り返すが、通話履歴によると今月4回目。毎回、誰かが話を聞くと帰っていく。</div><div style="font-size:12px;color:#c65448;margin-top:4px;background:rgba(198,84,72,.05);border-radius:4px;padding:4px 8px;">秘密：正体は初代魔法少女。守った世界が自分を忘れていくのが、耐えられない夜がある。</div></div>
+                <div style="border:1px solid rgba(224,68,124,.3);border-radius:10px;padding:11px 13px;background:#fff;"><div style="font-size:14px;font-weight:700;color:#2d2438;">虹口すずの引退の経緯</div><div style="font-size:12px;color:#93829b;margin-top:2px;">最後の技で街を救い、魔力を使い切った。技の名前は「また明日」。翌朝、彼女はこのセンターの求人に応募した。</div></div>
+                <p style="font-size:11px;letter-spacing:3px;color:#e0447c;font-weight:700;margin:20px 0 10px;">■ 入電ハプニング表（d6）</p>
+                <div style="font-size:13px;color:#54465f;line-height:1.9;">1–2 間違い電話（ピザの注文） ・ 3 マスコミからの取材申込<br>4 妖精語の入電（翻訳機必須） ・ 5 全回線に同時入電（怪人の仕業） ・ 6 未来の自分から着信</div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+      </main>
+    </div>
+
+    <sc-if value="{{ showTabbar }}" hint-placeholder-val="{{ false }}">
+      <nav style="position:relative;z-index:2;display:flex;border-top:2px solid rgba(224,68,124,.35);background:#fff;">
+        <sc-for list="{{ nav }}" as="item" hint-placeholder-count="7">
+          <button onClick="{{ item.go }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px;border:0;background:{{ item.tbBg }};color:{{ item.color }};cursor:pointer;">
+            <span style="width:19px;height:19px;flex:none;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;border-radius:50%;background:{{ item.badgeBg }};color:{{ item.badgeColor }};border:{{ item.badgeBorder }};">{{ item.badge }}</span>
+            <span style="font-size:9px;letter-spacing:.5px;font-family:'Zen Kaku Gothic New',sans-serif;">{{ item.label }}</span>
+          </button>
+        </sc-for>
+      </nav>
+    </sc-if>
+
+    <div style="position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:50;display:flex;gap:3px;padding:5px;border-radius:999px;background:rgba(13,10,17,.86);backdrop-filter:blur(8px);box-shadow:0 8px 26px rgba(0,0,0,.5);border:1px solid rgba(224,68,124,.45);">
+      <sc-for list="{{ devs }}" as="d" hint-placeholder-count="3">
+        <button onClick="{{ d.go }}" style="padding:7px 16px;border:0;border-radius:999px;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:11px;letter-spacing:1.5px;background:{{ d.bg }};color:{{ d.color }};">{{ d.label }}</button>
+      </sc-for>
+    </div>
+
+  </div>
+</div>
+</template>
+<script>
+/*
+ * Claude Design の x-dc テンプレート（sc-if / sc-for / {{ 変数 }} / onClick）を
+ * そのまま解釈して描画するミニランタイム。support.js（React ベースのプレビュー用）の代替。
+ * 状態変更のたびにテンプレート全体を再構築する（プロトタイプの再レンダーと同等）。
+ */
+(function () {
+  var cache = new Map();
+  function compile(expr) {
+    var fn = cache.get(expr);
+    if (!fn) {
+      fn = new Function('__s', 'with(__s){return(' + expr + ');}');
+      cache.set(expr, fn);
+    }
+    return fn;
+  }
+  function evalExpr(expr, scope) {
+    return compile(expr)(scope);
+  }
+  // "{{ expr }}" 単体の属性値から式を取り出す
+  function single(text) {
+    var m = /^\s*\{\{\s*([\s\S]+?)\s*\}\}\s*$/.exec(text || '');
+    return m ? m[1] : null;
+  }
+  function interpolate(text, scope) {
+    if (text.indexOf('{{') === -1) return text;
+    return text.replace(/\{\{\s*([\s\S]+?)\s*\}\}/g, function (_, expr) {
+      var v = evalExpr(expr, scope);
+      return v == null ? '' : String(v);
+    });
+  }
+  function build(nodes, scope, parent) {
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+      if (node.nodeType === Node.TEXT_NODE) {
+        parent.appendChild(document.createTextNode(interpolate(node.nodeValue, scope)));
+        continue;
+      }
+      if (node.nodeType !== Node.ELEMENT_NODE) continue;
+      var tag = node.localName;
+      if (tag === 'sc-if') {
+        var cond = single(node.getAttribute('value'));
+        if (cond && evalExpr(cond, scope)) build(node.childNodes, scope, parent);
+        continue;
+      }
+      if (tag === 'sc-for') {
+        var listExpr = single(node.getAttribute('list'));
+        var as = node.getAttribute('as') || 'item';
+        var list = (listExpr && evalExpr(listExpr, scope)) || [];
+        for (var j = 0; j < list.length; j++) {
+          var child = Object.assign({}, scope);
+          child[as] = list[j];
+          build(node.childNodes, child, parent);
+        }
+        continue;
+      }
+      var el = document.createElementNS(node.namespaceURI, tag);
+      for (var k = 0; k < node.attributes.length; k++) {
+        var attr = node.attributes[k];
+        if (attr.name.indexOf('hint-placeholder') === 0) continue;
+        if (attr.name === 'onclick') {
+          var handlerExpr = single(attr.value);
+          var fn = handlerExpr ? evalExpr(handlerExpr, scope) : null;
+          if (typeof fn === 'function') el.addEventListener('click', fn);
+          continue;
+        }
+        el.setAttribute(attr.name, interpolate(attr.value, scope));
+      }
+      build(node.childNodes, scope, el);
+      parent.appendChild(el);
+    }
+  }
+  window.DCLogic = class DCLogic {
+    mount(rootEl, templateEl) {
+      this._root = rootEl;
+      this._tpl = templateEl.content;
+      this.render();
+    }
+    setState(update) {
+      var patch = typeof update === 'function' ? update(this.state) : update;
+      Object.assign(this.state, patch);
+      this.render();
+    }
+    render() {
+      var scope = this.renderVals();
+      var frag = document.createDocumentFragment();
+      build(this._tpl.childNodes, scope, frag);
+      this._root.replaceChildren(frag);
+    }
+  };
+})();
+
+class Component extends DCLogic {
+  state = { device: 'desktop', play: 'gmpl', screen: 'top' };
+
+  renderVals() {
+    const { device, play, screen } = this.state;
+    const frames = { phone: { w: 392, h: 828 }, tablet: { w: 900, h: 660 }, desktop: { w: 1240, h: 772 } };
+    const f = frames[device] || frames.desktop;
+    const isPhone = device === 'phone';
+    const compact = device === 'tablet';
+
+    const setScreen = (s) => this.setState({ screen: s });
+    const setPlay = (p) => this.setState((st) => ({ play: p, screen: (p === 'solo' && st.screen === 'gm') ? 'top' : st.screen }));
+    const setDevice = (d) => this.setState({ device: d });
+
+    const playLabel = { solo: 'ワンオペ夜勤', gmpl: 'SVとオペレーター', gmless: '全員応対' }[play] || '';
+
+    const navDefs = [
+      ['top', '受電状況', '受'],
+      ['sheet', '名鑑', '名'],
+      ['dice', '応対判定', '判'],
+      ['combat', '入電の嵐', '嵐'],
+      ['inventory', 'ナレッジ', '知'],
+      ['story', '通話ログ', '話'],
+      ['map', '管轄マップ', '図'],
+      ['gm', play === 'gmless' ? '共有モニタ' : 'SV席', 'SV'],
+    ];
+    const nav = navDefs
+      .filter((d) => d[0] !== 'gm' || play !== 'solo')
+      .map(([id, label, badge]) => {
+        const active = id === screen;
+        return {
+          id, label, badge, active,
+          go: () => setScreen(id),
+          color: active ? '#e0447c' : '#93829b',
+          bg: active ? 'rgba(224,68,124,0.08)' : 'transparent',
+          tbBg: active ? 'rgba(224,68,124,0.08)' : 'transparent',
+          weight: active ? '700' : '500',
+          badgeBg: active ? '#e0447c' : 'transparent',
+          badgeColor: active ? '#fff' : '#e0447c',
+          badgeBorder: active ? 'none' : '1.5px solid rgba(224,68,124,.5)',
+          labelStyle: compact ? 'display:none' : 'display:inline',
+        };
+      });
+
+    const playModes = [
+      ['solo', 'ワンオペ夜勤', '深夜帯、オペレーターはあなただけ。鳴り続ける電話と、あなたの声だけの卓。'],
+      ['gmpl', 'SVとオペレーター', 'SV役（GM）が入電と街を、オペレーターたちが応対を担う通常シフト。'],
+      ['gmless', '全員応対', 'SV不在の夜。全員で受電し、交代で「電話の向こう側」を演じる卓。'],
+    ].map(([id, t, d]) => {
+      const active = id === play;
+      return {
+        id, t, d, active,
+        go: () => setPlay(id),
+        border: active ? '2px solid #e0447c' : '1px solid rgba(224,68,124,.3)',
+        bg: active ? 'rgba(224,68,124,.04)' : '#fff',
+        titleColor: active ? '#e0447c' : '#3c3246',
+      };
+    });
+
+    const devs = [
+      ['phone', 'スマホ'], ['tablet', 'タブ'], ['desktop', 'PC'],
+    ].map(([id, label]) => {
+      const active = id === device;
+      return {
+        id, label, active,
+        go: () => setDevice(id),
+        bg: active ? '#e0447c' : 'transparent',
+        color: active ? '#fff' : '#cbb8ce',
+      };
+    });
+
+    return {
+      frameW: f.w, frameH: f.h, railW: compact ? 66 : 214,
+      mainPad: isPhone ? '22px 18px 26px' : '30px 34px 38px',
+      showRail: !isPhone, showTabbar: isPhone,
+      taglineDisp: isPhone ? 'none' : 'block', enDisp: isPhone ? 'none' : 'inline',
+      playLabelDisp: isPhone ? 'none' : 'inline',
+      titleSize: isPhone ? 15 : 19,
+      modeCols: isPhone ? '1fr' : 'repeat(3,1fr)',
+      twoCols: isPhone ? '1fr' : '1fr 1fr',
+      invCols: isPhone ? '1fr' : '1fr 1.4fr',
+      mapCols: isPhone ? '1fr' : '1.5fr 1fr',
+      abilityCols: isPhone ? 3 : 6,
+      playLabel, nav, playModes, devs,
+      isTop: screen === 'top', isSheet: screen === 'sheet', isDice: screen === 'dice',
+      isCombat: screen === 'combat', isInv: screen === 'inventory', isStory: screen === 'story',
+      isMap: screen === 'map', isGM: screen === 'gm',
+      gmTitle: play === 'gmless' ? '共有モニタ — 全員がSVの夜' : 'SV席 — 全回線モニタリング',
+    };
+  }
+}
+
+window.__dcApp = new Component();
+if (typeof GameEngine !== 'undefined' && window.__GAME__) GameEngine.attach(window.__dcApp, window.__GAME__);
+window.__dcApp.mount(document.getElementById('app'), document.getElementById('dc-template'));
+</script>
+</body>
+</html>
