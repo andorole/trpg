@@ -89,7 +89,7 @@
               <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr .8fr;font-size:13px;color:#23324a;"><span style="padding:9px 12px;font-weight:700;">ヴェル</span><span style="padding:9px 12px;border-left:1px solid rgba(35,50,74,.1);">盗賊（無申告）</span><span style="padding:9px 12px;border-left:1px solid rgba(35,50,74,.1);color:#bf3a2b;">白色・要指導</span><span style="padding:9px 12px;border-left:1px solid rgba(35,50,74,.1);color:#bf3a2b;font-family:'IBM Plex Mono',monospace;">E</span></div>
             </div>
 
-            <button style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:2px solid #23324a;border-radius:4px;cursor:pointer;background:#23324a;color:#f6f3e9;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:15px;letter-spacing:3px;box-shadow:3px 3px 0 rgba(35,50,74,.25);">申告を開始する　➜</button>
+            <button onClick="{{ goStory }}" style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:2px solid #23324a;border-radius:4px;cursor:pointer;background:#23324a;color:#f6f3e9;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:15px;letter-spacing:3px;box-shadow:3px 3px 0 rgba(35,50,74,.25);">申告を開始する　➜</button>
           </div>
         </sc-if>
 
@@ -110,9 +110,9 @@
             </div>
 
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:22px;">
-              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#5b6472;margin-bottom:4px;"><span>体力 HP</span><span style="font-family:'IBM Plex Mono',monospace;">34 / 41</span></div><div style="height:9px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:83%;height:100%;background:#bf3a2b;"></div></div></div>
-              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#5b6472;margin-bottom:4px;"><span>気力 MP</span><span style="font-family:'IBM Plex Mono',monospace;">12 / 18</span></div><div style="height:9px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:67%;height:100%;background:#2c5f8a;"></div></div></div>
-              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#5b6472;margin-bottom:4px;"><span>税務信用スコア</span><span style="font-family:'IBM Plex Mono',monospace;">A（742）</span></div><div style="height:9px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:74%;height:100%;background:#1f6e50;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#5b6472;margin-bottom:4px;"><span>体力 HP</span><span style="font-family:'IBM Plex Mono',monospace;">{{ tai }} / 41</span></div><div style="height:9px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:{{ taiPct }}%;height:100%;background:#bf3a2b;"></div></div><div style="display:flex;gap:5px;margin-top:6px;"><button onClick="{{ taiDown }}" style="width:24px;height:24px;border:1px solid rgba(35,50,74,.35);border-radius:3px;background:#fdfcf7;color:#5b6472;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ taiUp }}" style="width:24px;height:24px;border:1px solid rgba(35,50,74,.35);border-radius:3px;background:#fdfcf7;color:#5b6472;cursor:pointer;font-size:13px;line-height:1;">＋</button></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#5b6472;margin-bottom:4px;"><span>気力 MP</span><span style="font-family:'IBM Plex Mono',monospace;">{{ mp }} / 18</span></div><div style="height:9px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:{{ mpPct }}%;height:100%;background:#2c5f8a;"></div></div><div style="display:flex;gap:5px;margin-top:6px;"><button onClick="{{ mpDown }}" style="width:24px;height:24px;border:1px solid rgba(35,50,74,.35);border-radius:3px;background:#fdfcf7;color:#5b6472;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ mpUp }}" style="width:24px;height:24px;border:1px solid rgba(35,50,74,.35);border-radius:3px;background:#fdfcf7;color:#5b6472;cursor:pointer;font-size:13px;line-height:1;">＋</button></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#5b6472;margin-bottom:4px;"><span>税務信用スコア</span><span style="font-family:'IBM Plex Mono',monospace;">{{ shinyoRank }}（{{ shinyo }}）</span></div><div style="height:9px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:{{ shinyoPct }}%;height:100%;background:{{ shinyoColor }};"></div></div><div style="display:flex;gap:5px;margin-top:6px;"><button onClick="{{ shinyoDown }}" style="width:24px;height:24px;border:1px solid rgba(35,50,74,.35);border-radius:3px;background:#fdfcf7;color:#5b6472;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ shinyoUp }}" style="width:24px;height:24px;border:1px solid rgba(35,50,74,.35);border-radius:3px;background:#fdfcf7;color:#5b6472;cursor:pointer;font-size:13px;line-height:1;">＋</button></div></div>
             </div>
 
             <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 12px;">■ 能力値（控除算定基礎）</p>
@@ -145,31 +145,41 @@
 
         <sc-if value="{{ isDice }}" hint-placeholder-val="{{ false }}">
           <div data-screen-label="税額査定" style="animation:scfade .4s ease;max-width:560px;margin:0 auto;text-align:center;">
-            <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 4px;">■ 経費計上の査定 ・ 認定基準 14</p>
+            <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 4px;">{{ diceHead }}</p>
+            <sc-if value="{{ diceIsCheck }}">
+              <div style="display:flex;justify-content:center;align-items:center;gap:9px;margin:6px 0 0;">
+                <button onClick="{{ dcMinus }}" style="width:24px;height:24px;border:1px solid rgba(35,50,74,.35);border-radius:3px;background:#fdfcf7;color:#5b6472;cursor:pointer;font-size:13px;line-height:1;">−</button>
+                <span style="font-size:12px;letter-spacing:2px;color:#5b6472;">認定基準を調整</span>
+                <button onClick="{{ dcPlus }}" style="width:24px;height:24px;border:1px solid rgba(35,50,74,.35);border-radius:3px;background:#fdfcf7;color:#5b6472;cursor:pointer;font-size:13px;line-height:1;">＋</button>
+              </div>
+            </sc-if>
             <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 24px;">
               <div style="width:118px;height:118px;border:4px solid #bf3a2b;border-radius:6px;transform:rotate(-8deg);animation:stampin .5s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#bf3a2b;background:rgba(191,58,43,.03);">
-                <span style="font-family:'IBM Plex Mono',monospace;font-size:44px;font-weight:600;line-height:1;">19</span>
-                <span style="font-family:'Shippori Mincho',serif;font-weight:700;font-size:15px;letter-spacing:6px;border-top:2px solid #bf3a2b;padding-top:3px;margin-top:4px;">承　認</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:44px;font-weight:600;line-height:1;">{{ diceFace }}</span>
+                <span style="font-family:'Shippori Mincho',serif;font-weight:700;font-size:15px;letter-spacing:6px;border-top:2px solid #bf3a2b;padding-top:3px;margin-top:4px;">{{ stampWord }}</span>
               </div>
-              <div style="font-size:14px;color:#5b6472;margin-top:6px;">d20 ＝ 14 ＋ 控除修正 5</div>
-              <div style="font-size:14px;letter-spacing:2px;color:#1f6e50;font-weight:700;">＝ 19 ・ 経費として認められた（還付 +2,400G）</div>
+              <div style="font-size:14px;color:#5b6472;margin-top:6px;">{{ diceFormula }}</div>
+              <div style="font-size:14px;letter-spacing:2px;color:{{ diceVerdictColor }};font-weight:700;">{{ diceVerdict }}</div>
               <p style="font-size:10px;color:#8a8264;margin:2px 0 0;">※この印影は複写では効力を持ちません。</p>
             </div>
             <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;">
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(35,50,74,.3);color:#5b6472;">d4</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(35,50,74,.3);color:#5b6472;">d6</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(35,50,74,.3);color:#5b6472;">d8</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(35,50,74,.3);color:#5b6472;">d10</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(35,50,74,.3);color:#5b6472;">d12</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:2px solid #23324a;color:#23324a;background:rgba(35,50,74,.06);font-weight:600;">d20</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(35,50,74,.3);color:#5b6472;">d100</span>
+              <sc-for list="{{ diceTypes }}" as="dt">
+                <button onClick="{{ dt.go }}" style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;cursor:pointer;border:{{ dt.border }};color:{{ dt.color }};background:{{ dt.bg }};font-weight:{{ dt.weight }};">{{ dt.label }}</button>
+              </sc-for>
             </div>
-            <button style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:2px solid #bf3a2b;border-radius:4px;cursor:pointer;background:#bf3a2b;color:#f6f3e9;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:15px;letter-spacing:3px;box-shadow:3px 3px 0 rgba(191,58,43,.25);">査定印を押す</button>
+            <sc-if value="{{ diceIsCheck }}">
+              <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:16px;">
+                <sc-for list="{{ diceSkills }}" as="sk">
+                  <button onClick="{{ sk.go }}" style="font-family:'Zen Kaku Gothic New',sans-serif;font-size:12px;padding:5px 11px;border-radius:3px;cursor:pointer;border:{{ sk.border }};color:{{ sk.color }};background:{{ sk.bg }};">{{ sk.label }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+            <button onClick="{{ rollNow }}" style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:2px solid #bf3a2b;border-radius:4px;cursor:pointer;background:#bf3a2b;color:#f6f3e9;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:15px;letter-spacing:3px;box-shadow:3px 3px 0 rgba(191,58,43,.25);">査定印を押す</button>
             <div style="margin-top:26px;text-align:left;">
               <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 9px;">■ 査定記録（仕訳帳）</p>
-              <div style="display:flex;justify-content:space-between;font-size:13px;color:#3a4657;padding:7px 0;border-bottom:1px dotted rgba(35,50,74,.3);"><span>アリエル ・ ポーション代の経費計上</span><span style="font-family:'IBM Plex Mono',monospace;color:#1f6e50;">19 ／ 承認</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:13px;color:#3a4657;padding:7px 0;border-bottom:1px dotted rgba(35,50,74,.3);"><span>ヴェル ・ 「拾った」金貨の出所説明</span><span style="font-family:'IBM Plex Mono',monospace;color:#bf3a2b;">3 ／ 差戻・重加算税</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:13px;color:#3a4657;padding:7px 0;"><span>モルガ ・ 使い魔の飼育費は研究費か</span><span style="font-family:'IBM Plex Mono',monospace;color:#1f6e50;">23 ／ 承認（判例となる）</span></div>
+              <sc-for list="{{ logRows }}" as="r">
+                <div style="display:flex;justify-content:space-between;font-size:13px;color:#3a4657;padding:7px 0;border-bottom:1px dotted rgba(35,50,74,.3);"><span>{{ r.left }}</span><span style="font-family:'IBM Plex Mono',monospace;color:{{ r.color }};">{{ r.right }}</span></div>
+              </sc-for>
             </div>
           </div>
         </sc-if>
@@ -177,18 +187,32 @@
         <sc-if value="{{ isCombat }}" hint-placeholder-val="{{ false }}">
           <div data-screen-label="税務調査" style="animation:scfade .4s ease;max-width:780px;margin:0 auto;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-              <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0;color:#23324a;">税務調査 ・ 第2回 質問検査</h1>
-              <div style="display:flex;gap:8px;"><button style="padding:8px 15px;border:1px solid rgba(35,50,74,.4);border-radius:3px;background:transparent;color:#5b6472;cursor:pointer;font-size:13px;">休憩を要求</button><button style="padding:8px 15px;border:2px solid #23324a;border-radius:3px;background:#23324a;color:#f6f3e9;cursor:pointer;font-weight:700;font-size:13px;">次の答弁へ</button></div>
+              <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0;color:#23324a;">{{ kaiTitle }}</h1>
+              <div style="display:flex;gap:8px;"><button onClick="{{ takeBreak }}" style="padding:8px 15px;border:1px solid rgba(35,50,74,.4);border-radius:3px;background:transparent;color:#5b6472;cursor:pointer;font-size:13px;">休憩を要求</button><button onClick="{{ nextTurn }}" style="padding:8px 15px;border:2px solid #23324a;border-radius:3px;background:#23324a;color:#f6f3e9;cursor:pointer;font-weight:700;font-size:13px;">次の答弁へ</button></div>
             </div>
-            <p style="font-size:12px;color:#8a8264;margin:0 0 16px;">※本調査は任意です。ただし拒否した場合、強制調査（物理）に移行します。</p>
-
-            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:4px;border:2px solid #bf3a2b;background:rgba(191,58,43,.05);margin-bottom:14px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#bf3a2b;color:#f6f3e9;border-radius:3px;">22</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #bf3a2b;background:repeating-linear-gradient(45deg,rgba(191,58,43,.14) 0 4px,transparent 4px 8px);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#bf3a2b;">税務調査官 マルサ・ヴァルキュリア <span style="font-size:11px;color:#8a8264;">査察官・Lv??</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(191,58,43,.12);color:#bf3a2b;">全帳簿透視</span><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(35,50,74,.1);color:#5b6472;">笑顔</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#5b6472;margin-bottom:3px;"><span>追徴予定額</span><span style="font-family:'IBM Plex Mono',monospace;">184,000G</span></div><div style="height:8px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:62%;height:100%;background:linear-gradient(90deg,#b58a1f,#bf3a2b);"></div></div><div style="font-size:9px;color:#8a8264;margin-top:2px;">※0にすれば調査終了（勝利）</div></div></div>
-
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:4px;border:1px solid #23324a;background:rgba(35,50,74,.05);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#23324a;color:#f6f3e9;border-radius:3px;">18</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #23324a;background:repeating-linear-gradient(45deg,rgba(35,50,74,.12) 0 4px,transparent 4px 8px);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#23324a;">アリエル <span style="font-size:11px;color:#bf3a2b;">答弁中</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(31,110,80,.12);color:#1f6e50;">領収書の束</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#5b6472;margin-bottom:3px;"><span>精神力</span><span style="font-family:'IBM Plex Mono',monospace;">28/41</span></div><div style="height:8px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:68%;height:100%;background:#2c5f8a;"></div></div></div></div>
-
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:4px;border:1px solid rgba(35,50,74,.25);background:#fdfcf7;margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(35,50,74,.12);color:#5b6472;border-radius:3px;">14</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #23324a;background:repeating-linear-gradient(45deg,rgba(35,50,74,.12) 0 4px,transparent 4px 8px);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#23324a;">モルガ</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(44,95,138,.12);color:#2c5f8a;">交際費の抗弁 詠唱中</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#5b6472;margin-bottom:3px;"><span>精神力</span><span style="font-family:'IBM Plex Mono',monospace;">22/26</span></div><div style="height:8px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:85%;height:100%;background:#2c5f8a;"></div></div></div></div>
-
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:4px;border:1px solid rgba(191,58,43,.4);background:rgba(191,58,43,.03);"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(35,50,74,.12);color:#5b6472;border-radius:3px;">6</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #23324a;background:repeating-linear-gradient(45deg,rgba(35,50,74,.12) 0 4px,transparent 4px 8px);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#23324a;">ヴェル</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(191,58,43,.12);color:#bf3a2b;">重加算税（毎ターン精神-3）</span><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(181,138,31,.14);color:#b58a1f;">冷や汗</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#5b6472;margin-bottom:3px;"><span>精神力</span><span style="font-family:'IBM Plex Mono',monospace;">7/24</span></div><div style="height:8px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:29%;height:100%;background:#bf3a2b;"></div></div></div></div>
+            <p style="font-size:12px;color:#8a8264;margin:0 0 16px;">※本調査は任意です。ただし拒否した場合、強制調査（物理）に移行します。休憩で味方の精神+2。検査回が進むたび、重加算税で精神−3。</p>
+            <sc-for list="{{ combatants }}" as="cb">
+              <div style="display:flex;align-items:center;gap:12px;padding:{{ cb.pad }};border-radius:4px;border:{{ cb.border }};background:{{ cb.bg }};margin-bottom:{{ cb.mb }};opacity:{{ cb.op }};">
+                <span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:{{ cb.initBg }};color:{{ cb.initColor }};border-radius:3px;">{{ cb.init }}</span>
+                <span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid {{ cb.tokenBorder }};background:repeating-linear-gradient(45deg,{{ cb.tokenPat }} 0 4px,transparent 4px 8px);"></span>
+                <div style="flex:1;">
+                  <div style="font-size:15px;font-weight:700;color:{{ cb.nameColor }};">{{ cb.name }} <span style="font-size:11px;color:{{ cb.sideColor }};">{{ cb.side }}</span></div>
+                  <sc-if value="{{ cb.hasTags }}">
+                    <div style="display:flex;gap:5px;margin-top:3px;flex-wrap:wrap;">
+                      <sc-for list="{{ cb.tags }}" as="tg"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:{{ tg.bg }};color:{{ tg.color }};">{{ tg.t }}</span></sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+                <div style="width:170px;">
+                  <div style="display:flex;justify-content:space-between;font-size:11px;color:#5b6472;margin-bottom:3px;"><span>{{ cb.gauge }}</span><span style="font-family:'IBM Plex Mono',monospace;">{{ cb.valLabel }}</span></div>
+                  <div style="height:8px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:{{ cb.pct }}%;height:100%;background:{{ cb.barBg }};"></div></div>
+                  <sc-if value="{{ cb.isBoss }}"><div style="font-size:9px;color:#8a8264;margin-top:2px;">※0にすれば調査終了（勝利）</div></sc-if>
+                  <div style="display:flex;gap:4px;margin-top:5px;justify-content:flex-end;">
+                    <sc-for list="{{ cb.btns }}" as="bt"><button onClick="{{ bt.go }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(35,50,74,.3);border-radius:3px;background:#fdfcf7;color:{{ bt.color }};cursor:pointer;">{{ bt.t }}</button></sc-for>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
           </div>
         </sc-if>
 
@@ -196,7 +220,7 @@
           <div data-screen-label="領収書綴" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
               <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0;color:#23324a;">領収書綴り ・ 戦利品台帳</h1>
-              <div style="display:flex;align-items:center;gap:18px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#1f6e50;">申告済 4,200G</span><span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#bf3a2b;">未計上 820G ⚠</span></div>
+              <div style="display:flex;align-items:center;gap:18px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#1f6e50;">申告済 {{ decLabel }}</span><span style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:{{ undecColor }};">未計上 {{ undecLabel }}</span></div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:22px;">
               <div>
@@ -207,10 +231,15 @@
               </div>
               <div>
                 <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 11px;">■ 綴られた領収書</p>
-                <div style="border:1px dashed rgba(35,50,74,.4);border-radius:3px;padding:10px 13px;margin-bottom:8px;background:#fdfcf7;"><div style="display:flex;justify-content:space-between;font-size:13px;color:#23324a;"><span style="font-weight:700;">ポーション ×3</span><span style="font-family:'IBM Plex Mono',monospace;">360G</span></div><div style="display:flex;justify-content:space-between;font-size:11px;color:#5b6472;margin-top:2px;"><span>但し 治療薬代として ・ 医療費控除対象</span><span style="color:#1f6e50;">✓</span></div></div>
-                <div style="border:1px dashed rgba(35,50,74,.4);border-radius:3px;padding:10px 13px;margin-bottom:8px;background:#fdfcf7;"><div style="display:flex;justify-content:space-between;font-size:13px;color:#23324a;"><span style="font-weight:700;">ドラゴンの鱗 ×1</span><span style="font-family:'IBM Plex Mono',monospace;color:#bf3a2b;">時価不明</span></div><div style="display:flex;justify-content:space-between;font-size:11px;color:#5b6472;margin-top:2px;"><span>雑所得 ・ 鑑定士の押印が無ければ認められない</span><span style="color:#bf3a2b;">⚠</span></div></div>
-                <div style="border:1px dashed rgba(35,50,74,.4);border-radius:3px;padding:10px 13px;margin-bottom:8px;background:#fdfcf7;"><div style="display:flex;justify-content:space-between;font-size:13px;color:#23324a;"><span style="font-weight:700;">謎の壺 ×1</span><span style="font-family:'IBM Plex Mono',monospace;">0G？</span></div><div style="display:flex;justify-content:space-between;font-size:11px;color:#5b6472;margin-top:2px;"><span>美術品 ・ 中から声がする ・ 資産計上を拒否している</span><span style="color:#b58a1f;">審</span></div></div>
-                <div style="border:1px dashed rgba(191,58,43,.5);border-radius:3px;padding:10px 13px;background:rgba(191,58,43,.03);"><div style="display:flex;justify-content:space-between;font-size:13px;color:#23324a;"><span style="font-weight:700;">白紙の領収書 ×5</span><span style="font-family:'IBM Plex Mono',monospace;color:#bf3a2b;">—</span></div><div style="display:flex;justify-content:space-between;font-size:11px;color:#bf3a2b;margin-top:2px;"><span>所持しているだけで調査官の敵意+1 ・ 廃棄推奨</span><span>⚠⚠</span></div></div>
+                <sc-for list="{{ receipts }}" as="rc">
+                <div style="border:1px dashed {{ rc.bd }};border-radius:3px;padding:10px 13px;margin-bottom:8px;background:{{ rc.bg }};opacity:{{ rc.op }};">
+                  <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#23324a;"><span style="font-weight:700;">{{ rc.title }}</span><span style="display:flex;align-items:center;gap:8px;"><sc-if value="{{ rc.actionable }}"><button onClick="{{ rc.act }}" style="font-size:10px;padding:2px 9px;border:1px solid rgba(35,50,74,.35);border-radius:3px;background:#fdfcf7;color:#3a4657;cursor:pointer;">{{ rc.actLabel }}</button></sc-if><span style="font-family:'IBM Plex Mono',monospace;color:{{ rc.amtColor }};">{{ rc.amt }}</span></span></div>
+                  <div style="display:flex;justify-content:space-between;font-size:11px;color:{{ rc.noteColor }};margin-top:2px;"><span>{{ rc.note }}</span><span style="color:{{ rc.markColor }};">{{ rc.mark }}</span></div>
+                </div>
+              </sc-for>
+                
+                
+                
                 <div style="margin-top:14px;border:1px solid rgba(35,50,74,.3);border-radius:4px;padding:13px 15px;background:#fdfcf7;"><div style="font-size:13px;font-weight:700;color:#23324a;margin-bottom:5px;">鑑定メモ：謎の壺</div><div style="font-size:12px;line-height:1.7;color:#5b6472;">夜中に「経費で落ちたい」と呟く。中の声は先代の税理士のものと酷似。開栓は自己責任。</div></div>
               </div>
             </div>
@@ -219,20 +248,25 @@
 
         <sc-if value="{{ isStory }}" hint-placeholder-val="{{ false }}">
           <div data-screen-label="申述書" style="animation:scfade .4s ease;max-width:640px;margin:0 auto;">
-            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#5b6472;text-align:center;margin:0 0 6px;">申述書 ・ 事案番号 087-3</p>
-            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;text-align:center;margin:0 0 4px;color:#23324a;">窓口にて、金貨三百枚の件</h1>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#5b6472;text-align:center;margin:0 0 6px;">{{ storyKicker }}</p>
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;text-align:center;margin:0 0 4px;color:#23324a;">{{ storyTitle }}</h1>
             <div style="display:flex;align-items:center;gap:12px;margin:16px 0 22px;color:#23324a;"><span style="flex:1;height:1px;background:rgba(35,50,74,.35);"></span><span style="font-size:12px;">§</span><span style="flex:1;height:1px;background:rgba(35,50,74,.35);"></span></div>
-            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.0;color:#2c3648;margin:0 0 18px;">受付窓口の職員は、羽根ペンを置き、眼鏡の奥からアリエルを見た。「地下三階で取得された<span style="text-decoration:line-through;text-decoration-color:#bf3a2b;">金貨三百枚</span><span style="color:#bf3a2b;font-size:13px;">　金貨〇枚（訂正印：ヴ）</span>ですが——申告書のどこにも記載がございませんね」</p>
-            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.0;color:#2c3648;margin:0 0 18px;">背後でヴェルが口笛を吹くのをやめた。訂正印は、確かに彼の字である。モルガが小声で呪文を唱えかけ——ここが庁舎内であることを思い出して、咳払いに変えた。窓口の奥、書類の山の向こうで、誰かがゆっくりと立ち上がる気配がした。</p>
-            <blockquote style="margin:22px 0;padding:14px 20px;border-left:3px solid #bf3a2b;background:rgba(191,58,43,.04);font-family:'Shippori Mincho',serif;font-size:16px;line-height:1.9;color:#3a4657;">申告なき戦利品は、存在しない戦利品である。<br><span style="font-size:12px;color:#8a8264;">——冒険所得税法 第一条（通称：竜の口約束条項）</span></blockquote>
-            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.0;color:#2c3648;margin:0 0 26px;">「なお」職員は続けた。「当署は、正直な申告者の味方です」その笑顔が、かえって恐ろしい。</p>
-
-            <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 12px;">■ 答弁を選択</p>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(35,50,74,.35);border-radius:4px;background:#fdfcf7;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#2c3648;">①　正直に修正申告する（信用スコア維持 ・ 追徴あり）</button>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(35,50,74,.35);border-radius:4px;background:#fdfcf7;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#2c3648;">②　「拾ったのは別のパーティです」と申述する <span style="color:#bf3a2b;font-weight:700;">虚偽 ・ 難度15</span></button>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;border:1px solid rgba(35,50,74,.35);border-radius:4px;background:#fdfcf7;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#2c3648;">③　領収書綴りの奥の"アレ"（白紙の領収書）に手を伸ばす</button>
-            <div style="margin-top:24px;height:5px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:64%;height:100%;background:#23324a;"></div></div>
-            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#8a8264;margin:7px 0 0;">事案087 ・ 審理進捗 64%</p>
+            <sc-if value="{{ storyHasNote }}">
+              <p style="text-align:center;font-size:13px;letter-spacing:1px;color:{{ storyNoteColor }};margin:0 0 16px;font-family:'IBM Plex Mono',monospace;">{{ storyNote }}</p>
+            </sc-if>
+            <sc-for list="{{ storyBlocks }}" as="b">
+              <sc-if value="{{ b.isP }}"><p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.0;color:#2c3648;margin:0 0 18px;">{{ b.t }}</p></sc-if>
+              <sc-if value="{{ b.isQ }}"><blockquote style="margin:22px 0;padding:14px 20px;border-left:3px solid #bf3a2b;background:rgba(191,58,43,.04);font-family:'Shippori Mincho',serif;font-size:16px;line-height:1.9;color:#3a4657;">{{ b.t }}</blockquote></sc-if>
+            </sc-for>
+            <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:8px 0 12px;">■ 答弁を選択</p>
+            <sc-for list="{{ storyChoices }}" as="c">
+              <button onClick="{{ c.go }}" style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(35,50,74,.35);border-radius:4px;background:#fdfcf7;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#2c3648;">{{ c.num }}　{{ c.pre }}<span style="color:#bf3a2b;font-weight:700;">{{ c.skillText }}</span>{{ c.post }} <span style="float:right;color:#bf3a2b;font-weight:700;">{{ c.dcLabel }}</span></button>
+            </sc-for>
+            <div style="margin-top:24px;height:5px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:{{ storyPct }}%;height:100%;background:#23324a;"></div></div>
+            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#8a8264;margin:7px 0 0;">{{ storyPctLabel }}</p>
+            <sc-if value="{{ storyCanRestart }}">
+              <p style="text-align:center;margin:16px 0 0;"><button onClick="{{ storyRestart }}" style="border:0;background:transparent;color:#8a8264;font-size:11px;letter-spacing:2px;cursor:pointer;text-decoration:underline;font-family:'Zen Kaku Gothic New',sans-serif;">申述書を最初から書き直す</button></p>
+            </sc-if>
           </div>
         </sc-if>
 
@@ -264,12 +298,17 @@
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
               <div>
                 <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 11px;">■ 進行中の事案</p>
-                <div style="padding:11px 13px;border:2px solid #bf3a2b;border-radius:4px;margin-bottom:8px;background:rgba(191,58,43,.04);"><div style="font-size:14px;font-weight:700;color:#23324a;">窓口の指摘 <span style="font-size:10px;color:#bf3a2b;">進行中</span></div></div>
-                <div style="padding:11px 13px;border:1px solid rgba(35,50,74,.3);border-radius:4px;margin-bottom:8px;background:#fdfcf7;"><div style="font-size:14px;color:#5b6472;">資料保管窟の探索</div></div>
-                <div style="padding:11px 13px;border:1px solid rgba(35,50,74,.3);border-radius:4px;background:#fdfcf7;"><div style="font-size:14px;color:#5b6472;">査察官マルサとの対決</div></div>
+                <sc-for list="{{ gmScenes }}" as="gs">
+                  <button onClick="{{ gs.go }}" style="display:block;width:100%;text-align:left;padding:11px 13px;border:{{ gs.border }};border-radius:4px;margin-bottom:8px;background:{{ gs.bg }};cursor:pointer;"><span style="font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;font-weight:{{ gs.weight }};color:{{ gs.color }};">{{ gs.t }} <span style="font-size:10px;color:#bf3a2b;">{{ gs.tag }}</span></span></button>
+                </sc-for>
                 <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:20px 0 10px;">■ 調査の深度</p>
-                <div style="height:9px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:58%;height:100%;background:linear-gradient(90deg,#2c5f8a,#bf3a2b);"></div></div>
+                <div style="height:9px;border-radius:2px;background:rgba(35,50,74,.12);overflow:hidden;"><div style="width:{{ depth }}%;height:100%;background:linear-gradient(90deg,#2c5f8a,#bf3a2b);"></div></div>
                 <p style="font-size:11px;color:#8a8264;margin:6px 0 0;">満ちると「強制調査（物理）」フェイズへ移行。</p>
+                <div style="display:flex;align-items:center;gap:9px;margin-top:8px;">
+                  <button onClick="{{ depthMinus }}" style="width:24px;height:24px;border:1px solid rgba(35,50,74,.35);border-radius:3px;background:#fdfcf7;color:#5b6472;cursor:pointer;font-size:13px;line-height:1;">−</button>
+                  <span style="font-size:12px;letter-spacing:1px;color:#5b6472;">{{ depth }}%</span>
+                  <button onClick="{{ depthPlus }}" style="width:24px;height:24px;border:1px solid rgba(35,50,74,.35);border-radius:3px;background:#fdfcf7;color:#5b6472;cursor:pointer;font-size:13px;line-height:1;">＋</button>
+                </div>
               </div>
               <div>
                 <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:0 0 11px;">■ 人物 ・ 秘匿情報</p>
@@ -277,6 +316,10 @@
                 <div style="border:1px solid rgba(35,50,74,.3);border-radius:4px;padding:11px 13px;background:#fdfcf7;"><div style="font-size:14px;font-weight:700;color:#23324a;">窓口職員 リンドウ</div><div style="font-size:12px;color:#5b6472;margin-top:2px;">親切。ただし彼が「なお」と言うとき、事態は必ず悪化する。</div></div>
                 <p style="font-size:11px;letter-spacing:3px;color:#bf3a2b;font-weight:700;margin:20px 0 10px;">■ 庁舎の異変表（d6）</p>
                 <div style="font-size:13px;color:#3a4657;line-height:1.9;">1–2 追加資料を求められる ・ 3 内線電話が鳴る（誰も出ない）<br>4 整理番号が飛ぶ ・ 5 書類が一枚だけ増えている ・ 6 お茶が出る（和解の兆し）</div>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:10px;">
+                  <button onClick="{{ rollTable }}" style="padding:7px 16px;border:2px solid #23324a;border-radius:3px;background:#23324a;color:#f6f3e9;cursor:pointer;font-weight:700;font-size:12px;letter-spacing:1px;">異変表を振る</button>
+                  <sc-if value="{{ gmHasTable }}"><span style="font-size:13px;color:#bf3a2b;">出目 {{ gmTableD }} ・ {{ gmTableText }}</span></sc-if>
+                </div>
               </div>
             </div>
           </div>
@@ -480,6 +523,715 @@ class Component extends DCLogic {
     };
   }
 }
+
+/*
+ * 全作品共通のゲームエンジン。ダイス・d20判定・localStorage 永続化と、
+ * シェル（DCLogic コンポーネント）へのゲーム状態の合流（attach）を担う。
+ * 作品ごとの中身（シナリオ・画面の値）は games/<id>.game.js が window.__GAME__ に定義する。
+ */
+(function () {
+  function rollDie(sides) {
+    return 1 + Math.floor(Math.random() * sides);
+  }
+  function pickKeys(obj, keys) {
+    var o = {};
+    for (var i = 0; i < keys.length; i++) o[keys[i]] = obj[keys[i]];
+    return o;
+  }
+  window.GameEngine = {
+    rollDie: rollDie,
+    clamp: function (v, lo, hi) {
+      return Math.max(lo, Math.min(hi, v));
+    },
+    // d20 判定。20 は大成功、1 は大失敗（出目優先）
+    check: function (mod, dc) {
+      var die = rollDie(20);
+      var total = die + mod;
+      var outcome = die === 20 ? 'crit' : die === 1 ? 'fumble' : total >= dc ? 'success' : 'fail';
+      return { die: die, mod: mod, total: total, dc: dc, outcome: outcome, ok: outcome === 'crit' || outcome === 'success' };
+    },
+    outcomeText: function (outcome) {
+      return { crit: '大成功', success: '成功', fail: '失敗', fumble: '大失敗' }[outcome] || '';
+    },
+    attach: function (app, game) {
+      var key = 'trpg-game-' + game.id;
+      var saved = null;
+      try { saved = JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) {}
+      Object.assign(app.state, game.initialState(), saved || {});
+      if (game.migrate) game.migrate(app.state);
+      var baseRenderVals = app.renderVals.bind(app);
+      app.renderVals = function () {
+        var vals = baseRenderVals();
+        return Object.assign(vals, game.vals(app, vals));
+      };
+      var baseSetState = app.setState.bind(app);
+      app.setState = function (update) {
+        baseSetState(update);
+        try { localStorage.setItem(key, JSON.stringify(pickKeys(app.state, game.persist))); } catch (e) {}
+      };
+      // ゲーム状態のみ初期値へ戻す（device / play / screen は保持）
+      app._resetGame = function () {
+        try { localStorage.removeItem(key); } catch (e) {}
+        Object.assign(app.state, game.initialState());
+        app.render();
+      };
+    },
+  };
+})();
+
+/*
+ * 1d-確定申告ダンジョン のゲーム内容。
+ * - 税額査定: d4〜d100。d20 判定は査定印（承認／差戻／差戻・重加算税）。大成功は「判例となる」
+ * - 納税者票: 体力 / 気力 / 税務信用スコア（0-1000, A〜Eランク）の増減（税務調査・申述書と共有）
+ * - 税務調査: 検査回トラッカー。査察官マルサの「追徴予定額」を0にすれば調査終了（勝利）
+ * - 領収書綴: 申告済/未計上額の実データ化。領収書カードは個別に「計上する」操作が可能
+ * - 申述書: 分岐シナリオ「窓口にて、金貨三百枚の件」（信用スコアルール・複数エンディング）
+ *   GM 秘匿（マルサの刀「更正」は経費で落ちていない）を交渉材料として回収する真ルートあり
+ * - 署長室: 事案切替・調査の深度・庁舎の異変表 d6
+ */
+(function () {
+  var E = null;
+  function eng() { return E || (E = window.GameEngine); }
+
+  var TAI_MAX = 41, MP_MAX = 18, SHINYO_MAX = 1000;
+  var BOSS_MAX = 300000;
+
+  var SKILLS = [
+    { name: '剣術', mod: 7 },
+    { name: '値切り交渉', mod: 5 },
+    { name: '逃走', mod: 4 },
+    { name: '帳簿づけ', mod: -2 },
+    { name: '経費の目利き', mod: 3 },
+  ];
+  var DICE_SIDES = [4, 6, 8, 10, 12, 20, 100];
+
+  function commaG(n) { return n.toLocaleString('en-US') + 'G'; }
+
+  function shinyoInfo(v) {
+    if (v >= 700) return { rank: 'A', color: '#1f6e50' };
+    if (v >= 500) return { rank: 'B', color: '#1f6e50' };
+    if (v >= 300) return { rank: 'C', color: '#b58a1f' };
+    if (v >= 100) return { rank: 'D', color: '#b58a1f' };
+    return { rank: 'E', color: '#bf3a2b' };
+  }
+
+  // 査定印: 出目20=満場一致で承認（判例となる） / 大失敗=差戻・重加算税 / 通常成功=承認 / 失敗=差戻
+  function stampInfo(r) {
+    var refund = Math.max(0, (r.total - r.dc + 1) * 200);
+    var ok = r.ok != null ? r.ok : (r.outcome === 'crit' || r.outcome === 'success');
+    if (r.die === 20) return { word: '承認', verdict: '＝ ' + r.total + ' ・ 満場一致で承認（判例となる） ・ 還付 +' + commaG(refund * 3), color: '#1f6e50', ok: true, refund: refund * 3 };
+    if (r.outcome === 'fumble') return { word: '差戻', verdict: '＝ ' + r.total + ' ・ 差戻・重加算税（追徴 +' + commaG(3000) + '）', color: '#bf3a2b', ok: false, refund: -3000 };
+    if (ok) return { word: '承認', verdict: '＝ ' + r.total + ' ・ 経費として認められた（還付 +' + commaG(refund) + '）', color: '#1f6e50', ok: true, refund: refund };
+    return { word: '差戻', verdict: '＝ ' + r.total + ' ・ 差戻（追加資料を求められた）', color: '#bf3a2b', ok: false, refund: 0 };
+  }
+
+  var RECEIPT_DEFS = [
+    { k: 'potion', title: 'ポーション ×3', amt: '360G', bd: 'rgba(35,50,74,.4)', bg: '#fdfcf7', note: '但し 治療薬代として ・ 医療費控除対象', mark: '✓', markColor: '#1f6e50', noteColor: '#5b6472', done: true },
+    { k: 'scale', title: 'ドラゴンの鱗 ×1', amt: '時価不明', amtColor: '#bf3a2b', bd: 'rgba(35,50,74,.4)', bg: '#fdfcf7', note: '雑所得 ・ 鑑定士の押印が無ければ認められない', mark: '⚠', markColor: '#bf3a2b', noteColor: '#5b6472', actionable: true, actLabel: '計上する' },
+    { k: 'jar', title: '謎の壺 ×1', amt: '0G？', bd: 'rgba(35,50,74,.4)', bg: '#fdfcf7', note: '美術品 ・ 中から声がする ・ 資産計上を拒否している', mark: '審', markColor: '#b58a1f', noteColor: '#5b6472', actionable: true, actLabel: '開ける' },
+    { k: 'blank', title: '白紙の領収書 ×5', amt: '—', amtColor: '#bf3a2b', bd: 'rgba(191,58,43,.5)', bg: 'rgba(191,58,43,.03)', note: '所持しているだけで調査官の敵意+1 ・ 廃棄推奨', mark: '⚠⚠', markColor: '#bf3a2b', noteColor: '#bf3a2b', actionable: true, actLabel: '廃棄する' },
+    { k: 'stamp', title: '幽霊税理士の認印', amt: '評価不能', amtColor: '#7a5a9e', bd: 'rgba(122,90,158,.5)', bg: 'rgba(122,90,158,.04)', note: '押すと何かが「経費で落ちた」ことになる。使い道は不明', mark: '？', markColor: '#7a5a9e', noteColor: '#5b6472', hidden0: true },
+  ];
+
+  var TOKEN_HUMAN = "width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #23324a;background:repeating-linear-gradient(45deg,rgba(35,50,74,.12) 0 4px,transparent 4px 8px);";
+  var TOKEN_BOSS = "width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #bf3a2b;background:repeating-linear-gradient(45deg,rgba(191,58,43,.14) 0 4px,transparent 4px 8px);";
+
+  var COMBATANTS = [
+    { key: 'seiAriel', name: 'アリエル', init: 18, max: 41, boss: false, deadTag: '戦意喪失', tags: [{ t: '領収書の束', bg: 'rgba(31,110,80,.12)', color: '#1f6e50' }] },
+    { key: 'seiMorga', name: 'モルガ', init: 14, max: 26, boss: false, deadTag: '戦意喪失', tags: [{ t: '交際費の抗弁 詠唱中', bg: 'rgba(44,95,138,.12)', color: '#2c5f8a' }] },
+    { key: 'seiVeru', name: 'ヴェル', init: 6, max: 24, boss: false, deadTag: '戦意喪失', tags: [{ t: '重加算税（毎ターン精神-3）', bg: 'rgba(191,58,43,.12)', color: '#bf3a2b' }, { t: '冷や汗', bg: 'rgba(181,138,31,.14)', color: '#b58a1f' }] },
+    { key: 'choutei', name: '税務調査官 マルサ・ヴァルキュリア', init: 22, max: BOSS_MAX, boss: true, deadTag: '調査終了', tags: [{ t: '全帳簿透視', bg: 'rgba(191,58,43,.12)', color: '#bf3a2b' }, { t: '笑顔', bg: 'rgba(35,50,74,.1)', color: '#5b6472' }] },
+  ];
+
+  var GM_TABLE = ['追加資料を求められる', '追加資料を求められる', '内線電話が鳴る（誰も出ない）', '整理番号が飛ぶ', '書類が一枚だけ増えている', 'お茶が出る（和解の兆し）'];
+  var GM_SCENES = ['窓口の指摘', '資料保管窟の探索', '査察官マルサとの対決'];
+
+  // ─────────────────────────────────────────────
+  // シナリオ「窓口にて、金貨三百枚の件」（申述書 事案087-3）
+  // fx: tai / mp / shinyo / gold / items / flags / taiSet / shinyoSet
+  // ─────────────────────────────────────────────
+  var NODES = {
+    t1: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '窓口にて、金貨三百枚の件', pct: 64,
+      text: [
+        '受付窓口の職員は、羽根ペンを置き、眼鏡の奥からアリエルを見た。「地下三階で取得された金貨三百枚ですが——申告書のどこにも記載がございませんね」',
+        '背後でヴェルが口笛を吹くのをやめた。訂正印は、確かに彼の字である。モルガが小声で呪文を唱えかけ——ここが庁舎内であることを思い出して、咳払いに変えた。窓口の奥、書類の山の向こうで、誰かがゆっくりと立ち上がる気配がした。',
+        { q: '申告なき戦利品は、存在しない戦利品である。' },
+        '「なお」職員は続けた。「当署は、正直な申告者の味方です」その笑顔が、かえって恐ろしい。',
+      ],
+      choices: [
+        { num: '①', pre: '正直に修正申告する（信用スコア維持 ・ 追徴あり）', to: 't2honest' },
+        { num: '②', pre: '「拾ったのは別のパーティです」と申述する ', skillText: '値切り交渉', post: 'で言い抜ける', check: { name: '値切り交渉', mod: 5, dc: 15 }, success: 't2false_ok', fail: 't2false_fail' },
+        { num: '③', pre: '領収書綴りの奥の"アレ"（白紙の領収書）に手を伸ばす', to: 't2jar' },
+      ],
+    },
+    t2honest: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '修正申告書、提出', pct: 70, fx: { gold: -400, shinyo: 10 },
+      text: [
+        '羽根ペンが紙の上を滑る音だけが、しばらく響いた。追徴金四百枚。痛いが、正直に払える額だ。職員は印を三つ押し、それから顔を上げた。「以上で、本件は片付きました。……なお」',
+        '「なお」の後に続く言葉を、庁舎に六年通うアリエルは知っている。あれは絶対に、ろくでもない話の前触れだ。',
+      ],
+      choices: [{ pre: '身構えて、続きを聞く', to: 't3nao' }],
+    },
+    t2false_ok: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '言い抜けの代償', pct: 68, fx: { gold: 300, flags: { lied: 1 } },
+      text: [
+        '「なるほど、それは失礼いたしました」職員は涼しい顔で頷き、書類を戻した。あっけないほど簡単に通った。三百枚は懐に残ったままだ。',
+        'だが背筋の産毛が、ずっと逆立っている。書類の山の奥の気配は、まだ立ち上がったままこちらを見ているような気がした。',
+      ],
+      choices: [{ pre: '何事もなかった顔で、窓口を離れる', to: 't3nao' }],
+    },
+    t2false_fail: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '露見', pct: 68, fx: { shinyo: -150, tai: -3, flags: { caughtLie: 1 } },
+      text: [
+        '「別のパーティ、ですか」職員の声が、一段低くなった。「では、その"別のパーティ"の受付番号を、いま呼んで参りましょうか」——嘘は、この庁舎では通らない。（信用 −150 ・ 体力 −3）',
+        '書類の山の奥から、赤い制服の女が音もなく立ち上がった。「呼ばれる前に、来ました」査察官マルサ・ヴァルキュリア。目が、笑っていない。',
+      ],
+      choices: [
+        { pre: 'その場で ', skillText: '帳簿づけ', post: 'をやり直し、誠意を見せる', check: { name: '帳簿づけ', mod: -2, dc: 16 }, success: 't3confront', fail: 'E_forced' },
+      ],
+    },
+    t2jar: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '白紙の領収書', pct: 66,
+      text: [
+        '綴りの奥、五枚の白紙が、指先に吸いつくように冷たい。触れた瞬間、紙の隙間から嗄れた声が漏れた。「経費で……落として……くれ……」先代の税理士の声だと、後で知ることになる。',
+        '声は取引を持ちかけてくる。「わしを一枚、認めてくれれば、お前の申告を手伝ってやろう」',
+      ],
+      choices: [
+        { pre: '頷いて、取引に応じる', to: 't2jarA' },
+        { pre: '綴りごと蓋を閉じ、拒否する', to: 't2jarB' },
+      ],
+    },
+    t2jarA: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '幽霊税理士との契約', pct: 68, fx: { items: { stamp: 1 }, flags: { dealGhost: 1 } },
+      text: [
+        '白紙の一枚に、自然と文字が浮かんだ。「幽霊税理士の認印」——受け取った瞬間、掌にひやりとした重みが宿る。「使いどころは、お前が決めろ。わしはもう、決められる立場じゃない」',
+        '声は満足げに、残りの白紙とともに沈黙した。',
+      ],
+      choices: [{ pre: '認印を懐に、窓口へ戻る', to: 't3nao' }],
+    },
+    t2jarB: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '拒まれた声', pct: 67, fx: { mp: -2, shinyo: -20, flags: { refusedGhost: 1 } },
+      text: [
+        '蓋を閉じた瞬間、綴り全体がぶるりと震え、拒絶の波動が指先から肘まで痺れさせた。（気力 −2 ・ 信用 −20）',
+        '「そうか……」声は寂しげに遠のいていく。マルサがどこからか現れ、綴りを一瞥した。「白紙とお話しになりましたか。それは、規定違反ではありませんが——推奨は、いたしません」',
+      ],
+      choices: [{ pre: '何も言わず、窓口へ戻る', to: 't3nao' }],
+    },
+    t3confront: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '即席の帳簿修正', pct: 71, fx: { shinyo: 50 },
+      text: [
+        '震える手で、ペンを走らせる。数字は合わない、が、誠意だけは伝わったらしい。マルサは長い沈黙のあと、書類に「厳重注意」の判を押した。「今回だけです」（信用 ＋50）',
+        '彼女は踵を返しかけ、ふと足を止めた。「……あなた方は、資料保管窟をご存知ですか。過去の判例に、参考になるものがあるかもしれません」',
+      ],
+      choices: [{ pre: '案内に従い、資料保管窟へ向かう', to: 't4vault' }],
+    },
+    t3nao: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '「なお」の続き', pct: 73,
+      text: [
+        '「なお」職員リンドウは続けた。「資料保管窟にて、興味深い書類が一枚、見つかっております。皆様の事案に、関係があるかもしれません」',
+        'その一言だけを残し、彼は次の窓口業務に戻っていった。感応を澄ませれば、何か裏がありそうな気配がする。',
+      ],
+      choices: [
+        { pre: '感応を澄ませ、リンドウの真意を ', skillText: '探る', check: { name: '感応', mod: 2, dc: 12 }, success: 't3naoA', fail: 't3naoB' },
+      ],
+    },
+    t3naoA: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '感じ取った気配', pct: 75, fx: { flags: { earlyHint: 1 } },
+      text: [
+        'リンドウの声の端に、微かな同情が滲んでいた。彼は「知っている」のだ——保管窟にある書類が、査察官マルサ個人に関わることを。だが職務上、それ以上は言えない。',
+        '目線で「そちらから、見つけてください」と伝えている。',
+      ],
+      choices: [{ pre: '資料保管窟へ向かう', to: 't4vault' }],
+    },
+    t3naoB: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '読めない顔', pct: 74, fx: { tai: -2 },
+      text: [
+        'リンドウの顔からは何も読み取れなかった。ただ庁舎特有の圧の中で、なぜか肩の重さだけが増した気がする。（体力 −2）',
+        'ともかく、保管窟に行くしかなさそうだ。',
+      ],
+      choices: [{ pre: '資料保管窟へ向かう', to: 't4vault' }],
+    },
+    t4vault: {
+      kicker: '申述書 ・ 事案番号 087-3', title: 'B1F 資料保管窟', pct: 79,
+      text: [
+        '過去三百年分の申告書が、天井まで積み上がっている。紙魚の群れが本棚の隙間で蠢く音がする。目的の一枚は、おそらく「査察官」の項目にあるはずだ。',
+        '古い購入記録の綴りに手をかける。経理の目で読めば、何かが見えてくるかもしれない。',
+      ],
+      choices: [
+        { pre: '古い記録を、', skillText: '経費の目利き', post: 'で読み解く', check: { name: '経費の目利き', mod: 3, dc: 13 }, success: 't4vaultA', fail: 't4vaultB' },
+      ],
+    },
+    t4vaultA: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '一枚の購入記録', pct: 84, fx: { flags: { knowSword: 1 } },
+      text: [
+        '見つけた。二十年前、マルサ・ヴァルキュリア個人による斬魔刀「更正」の購入記録。備考欄には赤字で「業務使用と認められず、経費計上を却下」——却下したのは、当時の窓口担当者。名は、リンドウ。',
+        '彼女は身銭を切って、仕事の得物を買った。そしてそれを、二十年間、誰にも経費にしてもらえていない。',
+      ],
+      choices: [{ pre: '書類を胸に、窓口へ戻る', to: 't5final' }],
+    },
+    t4vaultB: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '読み解けない記録', pct: 82, fx: { mp: -2, flags: { knowSwordPartial: 1 } },
+      text: [
+        '古い書体は難しく、断片しか拾えない。「斬魔刀」「却下」「二十年」——それだけの単語が、意味を結ばないまま頭に残る。（気力 −2）',
+        '紙魚に指を齧られながら、窟を後にする。',
+      ],
+      choices: [{ pre: '窓口へ戻る', to: 't5final' }],
+    },
+    t5final: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '査察官との対峙', pct: 90,
+      text: [
+        '窓口に戻ると、マルサが待っていた。決裁印を片手に、表情を変えずに問う。「本件、最終決裁といたします。何か、申し立てはございますか」',
+        '答え方ひとつで、この事案の結末が決まる。',
+      ],
+      choices: [
+        { pre: '刀「更正」の購入記録を差し出す', to: 't6true', if: function (st) { return st.flags.knowSword; } },
+        { pre: '幽霊税理士の認印を、そっと差し出す', to: 't6ghost', if: function (st) { return st.flags.dealGhost; } },
+        { pre: '堂々と、', skillText: '感応', post: 'で申し立てる', check: { name: '感応', mod: 2, dc: 14 }, success: 't6persuade', fail: 't6reject' },
+        { pre: '大人しく、決裁に従う', to: 't6comply' },
+      ],
+    },
+    t6true: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '二十年目の経費', pct: 96,
+      text: [
+        '書類を見た瞬間、査察官の決裁印を持つ手が、初めて止まった。「……これを、どこで」声が、わずかに揺れる。',
+        '「更正を、経費として認めていただけませんか。あなたが、正しく仕事をしてきた証として」アリエルが言うと、庁舎中の空気が変わった気がした。',
+      ],
+      choices: [{ pre: '返事を待つ', to: 'E_true' }],
+    },
+    t6ghost: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '幽霊の認印', pct: 94, fx: { items: { stamp: -1 } },
+      text: [
+        'マルサは差し出された古い認印を一目見て、絶句した。「先代の……これは、先々代の税理士殿の印章です。どこで手に入れたのですか」',
+        '答えられずにいると、彼女は静かに、書類にその印を押した。「規定にはありませんが……先達の判断を、尊重いたします」',
+      ],
+      choices: [{ pre: '成り行きを見守る', to: 'E_ghost' }],
+    },
+    t6persuade: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '申し立て、通る', pct: 92,
+      text: [
+        '感応を込めた申し立ては、下手な弁論よりずっと誠実に響いた。マルサは細く息を吐き、決裁印の角度を、わずかに緩めた。「……次席への報告は、軽微な訂正として処理します」',
+      ],
+      choices: [{ pre: '一礼して受け取る', to: 'E_partial' }],
+    },
+    t6reject: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '突っぱねられる', pct: 92, fx: { shinyo: -100, gold: -500 },
+      text: [
+        '言葉は届かなかった。マルサの印が、迷いなく紙に落ちる。「本件、追加徴収額五百枚。信用スコアはランクを一段、引き下げます」（信用 −100 ・ ５００Ｇ徴収）',
+      ],
+      choices: [{ pre: '結果を受け入れる', to: 'E_reject' }],
+    },
+    t6comply: {
+      kicker: '申述書 ・ 事案番号 087-3', title: '粛々と', pct: 90, fx: { gold: -200 },
+      text: [
+        '波風を立てず、決裁に従う。追徴二百枚。悪くはないが、良くもない——庁舎で生き延びる、いちばん平凡なやり方だった。',
+      ],
+      choices: [{ pre: '窓口を後にする', to: 'E_comply' }],
+    },
+    E_true: {
+      kicker: '申述書 ・ 結審', title: '更正、経費で落ちる', pct: 100, end: true, fx: { gold: 5000, shinyo: 300 },
+      text: [
+        'マルサは決裁印を置き、代わりに古い購入記録に自らの印を重ねた。二十年越しの経費承認。彼女の目に浮かんだものを、庁舎の誰も見たことがなかった。',
+        '「本件、完全なる帳簿として承認いたします」追徴どころか、還付金五千枚。信用スコアは満点に近い数値まで跳ね上がった。（真結 ・ 還付 ＋5,000G ・ 信用 ＋300）',
+      ],
+      choices: [],
+    },
+    E_ghost: {
+      kicker: '申述書 ・ 結審', title: '先達の判断', pct: 100, end: true, fx: { gold: 50000, shinyoSet: 1 },
+      text: [
+        '認印の効力は絶大だった。金貨三百枚どころか、これまでの全経費が一括で「先達の判断」により承認される。手持ちは五万枚まで膨れ上がった。',
+        'ただし——後日、庁舎のあらゆる帳簿にその印の影響が及んでいることが判明し、パーティの信用スコアは「規定外の要注意先」として最低ランクに固定された。金はある。信用は、ない。（貝殻硬貨ならぬ金貨 ＋50,000G ・ 信用スコア最低ランクに）',
+      ],
+      choices: [],
+    },
+    E_partial: {
+      kicker: '申述書 ・ 結審', title: '軽微な訂正', pct: 100, end: true, fx: { gold: 1000, shinyo: 50 },
+      text: [
+        '「軽微な訂正」の四文字は、この庁舎で得られる中庸としては上出来の結果だった。追徴は最小限、信用も僅かに回復。マルサは最後に小さく頷いた。「また、いらしてください」',
+        '（結 ・ 還付 ＋1,000G ・ 信用 ＋50）',
+      ],
+      choices: [],
+    },
+    E_reject: {
+      kicker: '申述書 ・ 結審', title: '通らなかった申し立て', pct: 100, end: true,
+      text: [
+        '追徴五百枚、信用ランク一段降格。悪い結末ではあるが、致命傷でもない。庁舎はいつも通り、次の受付番号を呼び上げている。',
+        '来年は、もう少しうまくやろう。事案087、結審。',
+      ],
+      choices: [],
+    },
+    E_comply: {
+      kicker: '申述書 ・ 結審', title: '波風なく', pct: 100, end: true,
+      text: [
+        '追徴二百枚を払い、頭を下げ、窓口を後にした。冒険者としては地味だが、納税者としては満点の対応だったかもしれない。',
+        'マルサの視線が、去り際に一瞬だけ、羨ましそうに書類の山を見ていた気がした。',
+      ],
+      choices: [],
+    },
+    E_forced: {
+      kicker: '申述書 ・ 結審', title: '強制調査（物理）', pct: 100, end: true, fx: { tai: -6, shinyo: -300 },
+      text: [
+        '嘘の上塗りは、マルサには通じなかった。「任意調査は、終了です」次の瞬間、庁舎の床が消え、一行は物理的に地下へと落とされる。強制調査（物理）フェイズ、開幕。',
+        '（体力 −6 ・ 信用 −300。信用スコアはEランクに転落。事案087、強制継続）',
+      ],
+      choices: [],
+    },
+    E_faint: {
+      kicker: '申述書 ・ 結審', title: '窓口で力尽きる', pct: 100, end: true, fx: { taiSet: 1 },
+      text: [
+        '書類の重圧と徹夜の申告作業が、ついに体力を奪い切った。長椅子で目を覚ますと、ヴェルが心配そうに顔を覗き込んでいる。「意外と根性なしだな、リーダー」',
+        '事案087は、しばらく保留扱いとなった。（体力 1 で目覚める）',
+      ],
+      choices: [],
+    },
+    E_shinyoZero: {
+      kicker: '申述書 ・ 結審', title: 'ブラックリスト入り', pct: 100, end: true, fx: { shinyoSet: 50 },
+      text: [
+        '信用スコアが底を打った瞬間、窓口の呼び出しランプが一斉に赤く点滅した。「要指導対象」の判が、申告書の表紙に大きく押される。',
+        '来年からは、毎月の面談が義務付けられるだろう。それでも——追い出されなかっただけ、まだましだ。（信用スコア 50 まで底上げされ再開）',
+      ],
+      choices: [],
+    },
+  };
+
+  var END_CHOICES = [
+    { pre: '申述書を最初から書き直す', restart: true },
+    { pre: '受付の間へ戻る', top: true },
+  ];
+
+  // ─────────────────────────────────────────────
+
+  function initialState() {
+    return {
+      diceSides: 20, skillIdx: 0, diceDc: 14,
+      lastRoll: { kind: 'check', die: 14, mod: 5, total: 19, dc: 14, outcome: 'success', skillName: '剣術' },
+      rollLog: [
+        { left: 'アリエル ・ ポーション代の経費計上', right: '19 ／ 承認', color: '#1f6e50' },
+        { left: 'ヴェル ・ 「拾った」金貨の出所説明', right: '3 ／ 差戻・重加算税', color: '#bf3a2b' },
+        { left: 'モルガ ・ 使い魔の飼育費は研究費か', right: '23 ／ 承認（判例となる）', color: '#1f6e50' },
+      ],
+      tai: 34, mp: 12, shinyo: 742,
+      seiAriel: 28, seiMorga: 22, seiVeru: 7, choutei: 186000,
+      kai: 2, turnIdx: 0,
+      decGold: 4200, undecGold: 820,
+      items: { scale: 0, jar: 0, blank: 5, stamp: 0 },
+      receiptState: {},
+      flags: {},
+      storyNode: 't1', storyNote: null, storyNoteColor: '#5b6472',
+      gmScene: 0, depth: 58, gmTable: null,
+    };
+  }
+
+  function pushLog(st, left, right, color) {
+    st.rollLog = [{ left: left, right: right, color: color }].concat(st.rollLog).slice(0, 10);
+  }
+
+  function applyFx(st, fx, patch) {
+    if (!fx) return;
+    function get(k) { return k in patch ? patch[k] : st[k]; }
+    if (fx.tai) patch.tai = eng().clamp(get('tai') + fx.tai, 0, TAI_MAX);
+    if (fx.taiSet != null) patch.tai = fx.taiSet;
+    if (fx.mp) patch.mp = eng().clamp(get('mp') + fx.mp, 0, MP_MAX);
+    if (fx.shinyo) patch.shinyo = eng().clamp(get('shinyo') + fx.shinyo, 0, SHINYO_MAX);
+    if (fx.shinyoSet != null) patch.shinyo = fx.shinyoSet;
+    if (fx.gold) patch.decGold = Math.max(0, get('decGold') + fx.gold);
+    if (fx.items) {
+      var items = Object.assign({}, get('items'));
+      for (var k in fx.items) items[k] = Math.max(0, (items[k] || 0) + fx.items[k]);
+      patch.items = items;
+    }
+    if (fx.flags) patch.flags = Object.assign({}, get('flags'), fx.flags);
+  }
+
+  window.__GAME__ = {
+    id: '1d',
+    initialState: initialState,
+    persist: [
+      'diceSides', 'skillIdx', 'diceDc', 'lastRoll', 'rollLog',
+      'tai', 'mp', 'shinyo', 'seiAriel', 'seiMorga', 'seiVeru', 'choutei', 'kai', 'turnIdx',
+      'decGold', 'undecGold', 'items', 'receiptState', 'flags', 'storyNode', 'storyNote', 'storyNoteColor',
+      'gmScene', 'depth', 'gmTable',
+    ],
+    migrate: function (st) {
+      var init = initialState();
+      if (!NODES[st.storyNode]) { st.storyNode = 't1'; st.storyNote = null; st.flags = {}; }
+      st.items = Object.assign({}, init.items, st.items || {});
+      st.receiptState = st.receiptState || {};
+      st.flags = st.flags || {};
+      if (!Array.isArray(st.rollLog)) st.rollLog = init.rollLog;
+    },
+
+    vals: function (app) {
+      var st = app.state;
+      var E = eng();
+      var out = {};
+
+      // ── 受付 ──
+      out.goStory = function () { app.setState({ screen: 'story' }); };
+
+      // ── 納税者票 ──
+      out.tai = st.tai;
+      out.taiPct = Math.round((st.tai / TAI_MAX) * 100);
+      out.mp = st.mp;
+      out.mpPct = Math.round((st.mp / MP_MAX) * 100);
+      var sInfo = shinyoInfo(st.shinyo);
+      out.shinyo = st.shinyo;
+      out.shinyoRank = sInfo.rank;
+      out.shinyoColor = sInfo.color;
+      out.shinyoPct = Math.round((E.clamp(st.shinyo, 0, SHINYO_MAX) / SHINYO_MAX) * 100);
+      out.taiUp = function () { app.setState({ tai: E.clamp(st.tai + 1, 0, TAI_MAX) }); };
+      out.taiDown = function () { app.setState({ tai: E.clamp(st.tai - 1, 0, TAI_MAX) }); };
+      out.mpUp = function () { app.setState({ mp: E.clamp(st.mp + 1, 0, MP_MAX) }); };
+      out.mpDown = function () { app.setState({ mp: E.clamp(st.mp - 1, 0, MP_MAX) }); };
+      out.shinyoUp = function () { app.setState({ shinyo: E.clamp(st.shinyo + 10, 0, SHINYO_MAX) }); };
+      out.shinyoDown = function () { app.setState({ shinyo: E.clamp(st.shinyo - 10, 0, SHINYO_MAX) }); };
+
+      // ── 税額査定 ──
+      var isCheck = st.diceSides === 20;
+      var skill = SKILLS[st.skillIdx] || SKILLS[0];
+      out.diceIsCheck = isCheck;
+      out.diceHead = isCheck ? '■ ' + skill.name + 'の査定 ・ 認定基準 ' + st.diceDc : 'd' + st.diceSides + ' を振る';
+      out.dcMinus = function () { app.setState({ diceDc: E.clamp(st.diceDc - 1, 2, 30) }); };
+      out.dcPlus = function () { app.setState({ diceDc: E.clamp(st.diceDc + 1, 2, 30) }); };
+      var lr = st.lastRoll;
+      if (!lr) {
+        out.diceFace = '—'; out.stampWord = ''; out.diceFormula = 'まだ査定印は押していない'; out.diceVerdict = ''; out.diceVerdictColor = '#5b6472';
+      } else if (lr.kind === 'check') {
+        var si = stampInfo(lr);
+        out.diceFace = lr.die;
+        out.stampWord = si.word;
+        out.diceFormula = 'd20 ＝ ' + lr.die + ' ＋ 控除修正 ' + lr.mod;
+        out.diceVerdict = si.verdict;
+        out.diceVerdictColor = si.color;
+      } else {
+        out.diceFace = lr.value;
+        out.stampWord = '出目';
+        out.diceFormula = 'd' + lr.sides + ' の出目';
+        out.diceVerdict = '＝ ' + lr.value;
+        out.diceVerdictColor = '#5b6472';
+      }
+      out.diceTypes = DICE_SIDES.map(function (s) {
+        var sel = s === st.diceSides;
+        return {
+          label: 'd' + s,
+          go: function () { app.setState({ diceSides: s }); },
+          border: sel ? '2px solid #23324a' : '1px solid rgba(35,50,74,.3)',
+          color: sel ? '#23324a' : '#5b6472',
+          bg: sel ? 'rgba(35,50,74,.06)' : 'transparent',
+          weight: sel ? '600' : '400',
+        };
+      });
+      out.diceSkills = SKILLS.map(function (sk, i) {
+        var sel = i === st.skillIdx;
+        return {
+          label: sk.name + '（' + (sk.mod >= 0 ? '+' + sk.mod : sk.mod) + '）',
+          go: function () { app.setState({ skillIdx: i }); },
+          border: sel ? '1px solid #23324a' : '1px solid rgba(35,50,74,.3)',
+          color: sel ? '#23324a' : '#5b6472',
+          bg: sel ? 'rgba(35,50,74,.06)' : 'transparent',
+        };
+      });
+      out.rollNow = function () {
+        if (st.diceSides === 20) {
+          var r = E.check(skill.mod, st.diceDc);
+          var si = stampInfo(r);
+          pushLog(st, 'アリエル ・ ' + skill.name, r.total + ' ／ ' + si.word, si.color);
+          var patch = { lastRoll: { kind: 'check', die: r.die, mod: r.mod, total: r.total, dc: r.dc, outcome: r.outcome, ok: r.ok, skillName: skill.name }, rollLog: st.rollLog };
+          if (si.refund) patch.decGold = Math.max(0, st.decGold + si.refund);
+          app.setState(patch);
+        } else {
+          var v = E.rollDie(st.diceSides);
+          pushLog(st, 'アリエル ・ d' + st.diceSides, v + ' ／ 出目', '#5b6472');
+          app.setState({ lastRoll: { kind: 'plain', sides: st.diceSides, value: v }, rollLog: st.rollLog });
+        }
+      };
+      out.logRows = st.rollLog;
+
+      // ── 税務調査 ──
+      out.kaiTitle = '税務調査 ・ 第' + st.kai + '回 質問検査';
+      function aliveIdx(from) {
+        for (var i = 1; i <= COMBATANTS.length; i++) {
+          var idx = (from + i) % COMBATANTS.length;
+          if (st[COMBATANTS[idx].key] > 0) return idx;
+        }
+        return from;
+      }
+      out.nextTurn = function () {
+        var next = aliveIdx(st.turnIdx);
+        var patch = { turnIdx: next };
+        if (next <= st.turnIdx) patch.kai = st.kai + 1;
+        app.setState(patch);
+      };
+      out.takeBreak = function () {
+        var patch = {};
+        COMBATANTS.forEach(function (c) {
+          if (!c.boss && st[c.key] > 0) patch[c.key] = E.clamp(st[c.key] + 2, 0, c.max);
+        });
+        app.setState(patch);
+      };
+      out.combatants = COMBATANTS.map(function (c, i) {
+        var hp = st[c.key];
+        var dead = hp <= 0;
+        var active = i === st.turnIdx && !dead;
+        var tags = dead
+          ? [{ t: c.deadTag, bg: c.boss ? 'rgba(31,110,80,.14)' : 'rgba(191,58,43,.14)', color: c.boss ? '#1f6e50' : '#bf3a2b' }]
+          : c.tags;
+        function adj(d) {
+          return function () {
+            var patch = {};
+            patch[c.key] = E.clamp(hp + d, 0, c.max);
+            app.setState(patch);
+          };
+        }
+        var btns = c.boss
+          ? [
+              { t: '−3万', color: '#1f6e50', go: adj(-30000) },
+              { t: '−1万', color: '#1f6e50', go: adj(-10000) },
+              { t: '+1万', color: '#bf3a2b', go: adj(10000) },
+              { t: '+3万', color: '#bf3a2b', go: adj(30000) },
+            ]
+          : [
+              { t: '−5', color: '#bf3a2b', go: adj(-5) },
+              { t: '−1', color: '#bf3a2b', go: adj(-1) },
+              { t: '+1', color: '#2c5f8a', go: adj(1) },
+              { t: '+5', color: '#2c5f8a', go: adj(5) },
+            ];
+        return {
+          name: c.name, init: c.init, gauge: c.boss ? '追徴予定額' : '精神力',
+          valLabel: c.boss ? commaG(hp) : hp + '/' + c.max,
+          pct: Math.round((hp / c.max) * 100),
+          side: active ? '答弁中' : c.boss ? '査察官' : '',
+          sideColor: c.boss ? '#8a8264' : '#bf3a2b',
+          isBoss: c.boss,
+          pad: c.boss ? '12px 14px' : '11px 14px',
+          mb: c.boss ? '14px' : '8px',
+          border: active ? '2px solid #bf3a2b' : c.boss ? '2px solid #bf3a2b' : '1px solid rgba(35,50,74,.25)',
+          bg: active ? 'rgba(191,58,43,.05)' : c.boss ? 'rgba(191,58,43,.05)' : i % 2 ? '#fdfcf7' : 'rgba(35,50,74,.05)',
+          op: dead ? '.55' : '1',
+          initBg: active || c.boss ? '#bf3a2b' : 'rgba(35,50,74,.12)',
+          initColor: active || c.boss ? '#f6f3e9' : '#5b6472',
+          tokenBorder: c.boss ? '#bf3a2b' : '#23324a',
+          tokenPat: c.boss ? 'rgba(191,58,43,.14)' : 'rgba(35,50,74,.12)',
+          nameColor: c.boss ? '#bf3a2b' : '#23324a',
+          barBg: c.boss ? 'linear-gradient(90deg,#b58a1f,#bf3a2b)' : '#2c5f8a',
+          hasTags: tags.length > 0, tags: tags,
+          btns: btns,
+        };
+      });
+
+      // ── 領収書綴 ──
+      out.decLabel = commaG(st.decGold);
+      out.undecLabel = commaG(st.undecGold) + (st.undecGold > 0 ? ' ⚠' : '');
+      out.undecColor = st.undecGold > 0 ? '#bf3a2b' : '#1f6e50';
+      out.receipts = RECEIPT_DEFS.filter(function (d) {
+        return !(d.hidden0 && (st.items[d.k] || 0) <= 0);
+      }).map(function (d) {
+        var resolved = !!st.receiptState[d.k];
+        var actionable = !!d.actionable && !resolved;
+        return {
+          title: d.title, amt: resolved ? '計上済' : d.amt, amtColor: resolved ? '#1f6e50' : (d.amtColor || '#23324a'),
+          bd: d.bd, bg: d.bg, note: resolved ? 'この件は解決済み' : d.note,
+          noteColor: resolved ? '#1f6e50' : d.noteColor, mark: resolved ? '✓' : d.mark, markColor: resolved ? '#1f6e50' : d.markColor,
+          op: '1', actionable: actionable, actLabel: d.actLabel,
+          act: function () {
+            var rs = Object.assign({}, st.receiptState);
+            rs[d.k] = 1;
+            var patch = { receiptState: rs };
+            if (d.k === 'scale') { patch.decGold = st.decGold + 900; patch.undecGold = Math.max(0, st.undecGold - 900); pushLog(st, 'アリエル ・ ドラゴンの鱗の鑑定計上', '900G ／ 承認', '#1f6e50'); }
+            if (d.k === 'jar') { patch.mp = E.clamp(st.mp - 1, 0, MP_MAX); pushLog(st, 'アリエル ・ 謎の壺を開ける', '中から声が漏れた', '#7a5a9e'); }
+            if (d.k === 'blank') { patch.shinyo = E.clamp(st.shinyo + 20, 0, SHINYO_MAX); pushLog(st, '一同 ・ 白紙の領収書を廃棄', '信用 ＋20', '#1f6e50'); }
+            patch.rollLog = st.rollLog;
+            app.setState(patch);
+          },
+        };
+      });
+
+      // ── 申述書 ──
+      var node = NODES[st.storyNode] || NODES.t1;
+      out.storyKicker = node.kicker;
+      out.storyTitle = node.title;
+      out.storyBlocks = node.text.map(function (b) {
+        return typeof b === 'string' ? { isP: true, isQ: false, t: b } : { isP: false, isQ: true, t: b.q };
+      });
+      out.storyHasNote = !!st.storyNote;
+      out.storyNote = st.storyNote || '';
+      out.storyNoteColor = st.storyNoteColor || '#5b6472';
+      out.storyPct = node.pct;
+      out.storyPctLabel = node.end ? '事案087 ・ 結審' : '事案087 ・ 審理進捗 ' + node.pct + '%';
+      out.storyCanRestart = st.storyNode !== 't1';
+      out.storyRestart = function () { app._resetGame(); };
+
+      function choose(c) {
+        return function () {
+          var patch = { storyNote: null, storyNoteColor: '#5b6472' };
+          var target = c.to;
+          if (c.check) {
+            var dc = typeof c.check.dc === 'function' ? c.check.dc(st) : c.check.dc;
+            var r = E.check(c.check.mod, dc);
+            patch.storyNote = c.check.name + '判定 — d20〈' + r.die + '〉＋' + r.mod + ' ＝ ' + r.total + ' ／ 基準' + dc + ' ・ ' + (r.ok ? '承認' : '差戻');
+            patch.storyNoteColor = r.ok ? '#1f6e50' : '#bf3a2b';
+            pushLog(st, 'アリエル ・ ' + c.check.name + '（申述書）', r.total + ' ／ ' + (r.ok ? '承認' : '差戻'), r.ok ? '#1f6e50' : '#bf3a2b');
+            patch.rollLog = st.rollLog;
+            target = r.ok ? c.success : c.fail;
+          }
+          var nextNode = NODES[target];
+          applyFx(st, nextNode.fx, patch);
+          var taiNow = 'tai' in patch ? patch.tai : st.tai;
+          var shinyoNow = 'shinyo' in patch ? patch.shinyo : st.shinyo;
+          if (taiNow <= 0 && !nextNode.end) {
+            target = 'E_faint';
+            applyFx(st, NODES.E_faint.fx, patch);
+          } else if (shinyoNow <= 0 && !nextNode.end) {
+            target = 'E_shinyoZero';
+            applyFx(st, NODES.E_shinyoZero.fx, patch);
+          }
+          patch.storyNode = target;
+          app.setState(patch);
+        };
+      }
+      var defs = node.end ? END_CHOICES : node.choices;
+      out.storyChoices = defs.filter(function (c) {
+        return !c.if || c.if(st);
+      }).map(function (c) {
+        var dc = c.check ? (typeof c.check.dc === 'function' ? c.check.dc(st) : c.check.dc) : null;
+        return {
+          num: c.num || '', pre: c.pre, skillText: c.skillText || '', post: c.post || '',
+          dcLabel: dc != null ? '難度' + dc : '',
+          go: c.restart ? function () { app._resetGame(); }
+            : c.top ? function () { app.setState({ screen: 'top' }); }
+            : choose(c),
+        };
+      });
+
+      // ── 署長室 ──
+      out.gmScenes = GM_SCENES.map(function (t, i) {
+        var active = i === st.gmScene;
+        return {
+          t: t, tag: active ? '進行中' : '',
+          go: function () { app.setState({ gmScene: i }); },
+          border: active ? '2px solid #bf3a2b' : '1px solid rgba(35,50,74,.3)',
+          bg: active ? 'rgba(191,58,43,.04)' : '#fdfcf7',
+          color: active ? '#23324a' : '#5b6472',
+          weight: active ? '700' : '400',
+        };
+      });
+      out.depth = st.depth;
+      out.depthMinus = function () { app.setState({ depth: E.clamp(st.depth - 5, 0, 100) }); };
+      out.depthPlus = function () { app.setState({ depth: E.clamp(st.depth + 5, 0, 100) }); };
+      out.gmHasTable = !!st.gmTable;
+      out.gmTableD = st.gmTable ? st.gmTable.d : '';
+      out.gmTableText = st.gmTable ? st.gmTable.text : '';
+      out.rollTable = function () {
+        var d = E.rollDie(6);
+        var text = GM_TABLE[d - 1];
+        pushLog(st, '署長 ・ 庁舎の異変表', d + ' ／ ' + text, '#23324a');
+        app.setState({ gmTable: { d: d, text: text }, rollLog: st.rollLog });
+      };
+
+      return out;
+    },
+  };
+})();
 
 window.__dcApp = new Component();
 if (typeof GameEngine !== 'undefined' && window.__GAME__) GameEngine.attach(window.__dcApp, window.__GAME__);
