@@ -109,7 +109,7 @@
               </div>
             </div>
 
-            <button style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:0;border-radius:999px;cursor:pointer;background:linear-gradient(180deg,#e0566a,#b32e3f);color:#fff;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:15px;letter-spacing:2px;box-shadow:0 10px 24px -8px rgba(179,46,63,.5);">内見ツアーへ出発　➜</button>
+            <button onClick="{{ goStory }}" style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:0;border-radius:999px;cursor:pointer;background:linear-gradient(180deg,#e0566a,#b32e3f);color:#fff;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:15px;letter-spacing:2px;box-shadow:0 10px 24px -8px rgba(179,46,63,.5);">内見ツアーへ出発　➜</button>
           </div>
         </sc-if>
 
@@ -130,9 +130,9 @@
             </div>
 
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:22px;">
-              <div style="background:#fff;border:1px solid rgba(58,53,46,.14);border-radius:12px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7264;margin-bottom:5px;"><span>体力</span><span style="font-family:'IBM Plex Mono',monospace;">14 / 17</span></div><div style="height:9px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:82%;height:100%;background:linear-gradient(90deg,#e0566a,#b32e3f);"></div></div></div>
-              <div style="background:#fff;border:1px solid rgba(58,53,46,.14);border-radius:12px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7264;margin-bottom:5px;"><span>血液残量（家賃原資）</span><span style="font-family:'IBM Plex Mono',monospace;">3.4L</span></div><div style="height:9px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:68%;height:100%;background:linear-gradient(90deg,#cf3f4f,#8f1f2e);"></div></div><div style="font-size:9px;color:#a89a86;margin-top:4px;">※4.2ヶ月分。滞納時は直接徴収されます</div></div>
-              <div style="background:#fff;border:1px solid rgba(58,53,46,.14);border-radius:12px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7264;margin-bottom:5px;"><span>宿主適合率</span><span style="font-family:'IBM Plex Mono',monospace;color:#3d8a5f;">76%</span></div><div style="height:9px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:76%;height:100%;background:linear-gradient(90deg,#57a87c,#3d8a5f);"></div></div><div style="font-size:9px;color:#a89a86;margin-top:4px;">※下がると「異物」と認定されます</div></div>
+              <div style="background:#fff;border:1px solid rgba(58,53,46,.14);border-radius:12px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7264;margin-bottom:5px;"><span>体力</span><span style="font-family:'IBM Plex Mono',monospace;">{{ tai }} / 17</span></div><div style="height:9px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:{{ taiPct }}%;height:100%;background:linear-gradient(90deg,#e0566a,#b32e3f);"></div></div><div style="display:flex;gap:5px;margin-top:6px;"><button onClick="{{ taiDown }}" style="width:24px;height:24px;border:1px solid rgba(58,53,46,.2);border-radius:999px;background:#fff;color:#7a7264;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ taiUp }}" style="width:24px;height:24px;border:1px solid rgba(58,53,46,.2);border-radius:999px;background:#fff;color:#7a7264;cursor:pointer;font-size:13px;line-height:1;">＋</button></div></div>
+              <div style="background:#fff;border:1px solid rgba(58,53,46,.14);border-radius:12px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7264;margin-bottom:5px;"><span>血液残量（家賃原資）</span><span style="font-family:'IBM Plex Mono',monospace;">{{ bloodLabel }}</span></div><div style="height:9px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:{{ bloodPct }}%;height:100%;background:linear-gradient(90deg,#cf3f4f,#8f1f2e);"></div></div><div style="font-size:9px;color:#a89a86;margin-top:4px;">※滞納時は直接徴収されます</div><div style="display:flex;gap:5px;margin-top:6px;"><button onClick="{{ bloodDown }}" style="width:24px;height:24px;border:1px solid rgba(58,53,46,.2);border-radius:999px;background:#fff;color:#7a7264;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ bloodUp }}" style="width:24px;height:24px;border:1px solid rgba(58,53,46,.2);border-radius:999px;background:#fff;color:#7a7264;cursor:pointer;font-size:13px;line-height:1;">＋</button></div></div>
+              <div style="background:#fff;border:1px solid rgba(58,53,46,.14);border-radius:12px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7264;margin-bottom:5px;"><span>宿主適合率</span><span style="font-family:'IBM Plex Mono',monospace;color:#3d8a5f;">{{ tekigo }}%</span></div><div style="height:9px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:{{ tekigo }}%;height:100%;background:linear-gradient(90deg,#57a87c,#3d8a5f);"></div></div><div style="font-size:9px;color:#a89a86;margin-top:4px;">※下がると「異物」と認定されます</div><div style="display:flex;gap:5px;margin-top:6px;"><button onClick="{{ tekigoDown }}" style="width:24px;height:24px;border:1px solid rgba(58,53,46,.2);border-radius:999px;background:#fff;color:#7a7264;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ tekigoUp }}" style="width:24px;height:24px;border:1px solid rgba(58,53,46,.2);border-radius:999px;background:#fff;color:#7a7264;cursor:pointer;font-size:13px;line-height:1;">＋</button></div></div>
             </div>
 
             <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 12px;">● 能力（入居適性）</p>
@@ -165,31 +165,41 @@
 
         <sc-if value="{{ isDice }}" hint-placeholder-val="{{ false }}">
           <div data-screen-label="入居審査" style="animation:scfade .4s ease;max-width:560px;margin:0 auto;text-align:center;">
-            <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 4px;">● 値下げ交渉の判定 ・ 難度 14（大家：心臓）</p>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 24px;">
-              <div style="width:118px;height:118px;border:4px solid #3d8a5f;border-radius:16px;transform:rotate(-5deg);animation:stampin .5s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#3d8a5f;background:rgba(61,138,95,.05);">
-                <span style="font-family:'IBM Plex Mono',monospace;font-size:44px;font-weight:600;line-height:1;">17</span>
-                <span style="font-weight:900;font-size:14px;letter-spacing:4px;border-top:2px solid #3d8a5f;padding-top:3px;margin-top:4px;">審査通過</span>
+            <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 4px;">{{ diceHead }}</p>
+            <sc-if value="{{ diceIsCheck }}">
+              <div style="display:flex;justify-content:center;align-items:center;gap:9px;margin:6px 0 0;">
+                <button onClick="{{ dcMinus }}" style="width:24px;height:24px;border:1px solid rgba(58,53,46,.2);border-radius:999px;background:#fff;color:#7a7264;cursor:pointer;font-size:13px;line-height:1;">−</button>
+                <span style="font-size:12px;letter-spacing:2px;color:#7a7264;">難度を調整</span>
+                <button onClick="{{ dcPlus }}" style="width:24px;height:24px;border:1px solid rgba(58,53,46,.2);border-radius:999px;background:#fff;color:#7a7264;cursor:pointer;font-size:13px;line-height:1;">＋</button>
               </div>
-              <div style="font-size:14px;color:#7a7264;margin-top:6px;">d20 ＝ 12 ＋ 値下げ交渉 5</div>
-              <div style="font-size:14px;letter-spacing:1px;color:#3d8a5f;font-weight:700;">＝ 17 ・ 家賃 800→650cc/月に成功！</div>
-              <p style="font-size:10px;color:#a89a86;margin:2px 0 0;">※大家の機嫌により、成功しても心拍が+8bpmされる場合があります。</p>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 24px;">
+              <div style="width:118px;height:118px;border:4px solid {{ stampColor }};border-radius:16px;transform:rotate(-5deg);animation:stampin .5s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;color:{{ stampColor }};background:{{ stampBg }};">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:44px;font-weight:600;line-height:1;">{{ diceFace }}</span>
+                <span style="font-weight:900;font-size:14px;letter-spacing:4px;border-top:2px solid {{ stampColor }};padding-top:3px;margin-top:4px;">{{ stampWord }}</span>
+              </div>
+              <div style="font-size:14px;color:#7a7264;margin-top:6px;">{{ diceFormula }}</div>
+              <div style="font-size:14px;letter-spacing:1px;color:{{ stampColor }};font-weight:700;">{{ diceVerdict }}</div>
+              <p style="font-size:10px;color:#a89a86;margin:2px 0 0;">※大家の機嫌により、成功しても評価はまちまちです。</p>
             </div>
             <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;">
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(58,53,46,.25);color:#7a7264;background:#fff;">d4</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(58,53,46,.25);color:#7a7264;background:#fff;">d6</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(58,53,46,.25);color:#7a7264;background:#fff;">d8</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(58,53,46,.25);color:#7a7264;background:#fff;">d10</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(58,53,46,.25);color:#7a7264;background:#fff;">d12</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:2px solid #cf3f4f;color:#b32e3f;background:rgba(207,63,79,.06);font-weight:600;">d20</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(58,53,46,.25);color:#7a7264;background:#fff;">d100</span>
+              <sc-for list="{{ diceTypes }}" as="dt">
+                <button onClick="{{ dt.go }}" style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;cursor:pointer;border:{{ dt.border }};color:{{ dt.color }};background:{{ dt.bg }};font-weight:{{ dt.weight }};">{{ dt.label }}</button>
+              </sc-for>
             </div>
-            <button style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:0;border-radius:999px;cursor:pointer;background:linear-gradient(180deg,#e0566a,#b32e3f);color:#fff;font-weight:900;font-size:15px;letter-spacing:2px;font-family:'Zen Maru Gothic',sans-serif;box-shadow:0 10px 24px -8px rgba(179,46,63,.5);">サイコロを振る</button>
+            <sc-if value="{{ diceIsCheck }}">
+              <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:16px;">
+                <sc-for list="{{ diceSkills }}" as="sk">
+                  <button onClick="{{ sk.go }}" style="font-family:'Zen Maru Gothic',sans-serif;font-size:12px;padding:5px 11px;border-radius:999px;cursor:pointer;border:{{ sk.border }};color:{{ sk.color }};background:{{ sk.bg }};">{{ sk.label }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+            <button onClick="{{ rollNow }}" style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:0;border-radius:999px;cursor:pointer;background:linear-gradient(180deg,#e0566a,#b32e3f);color:#fff;font-weight:900;font-size:15px;letter-spacing:2px;font-family:'Zen Maru Gothic',sans-serif;box-shadow:0 10px 24px -8px rgba(179,46,63,.5);">サイコロを振る</button>
             <div style="margin-top:26px;text-align:left;">
               <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 9px;">● 審査履歴</p>
-              <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a4436;padding:7px 0;border-bottom:1px dotted rgba(58,53,46,.25);"><span>ツグミ ・ 値下げ交渉</span><span style="font-family:'IBM Plex Mono',monospace;color:#3d8a5f;">17 ／ 通過（-150cc）</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a4436;padding:7px 0;border-bottom:1px dotted rgba(58,53,46,.25);"><span>ドズル ・ 壁ドン耐久チェック</span><span style="font-family:'IBM Plex Mono',monospace;color:#b32e3f;">4 ／ 却下（心室痙攣）</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a4436;padding:7px 0;"><span>ピリカ ・ 「前の住人」を聞き出す</span><span style="font-family:'IBM Plex Mono',monospace;color:#3d8a5f;">22 ／ 大成功（聞かなきゃよかった）</span></div>
+              <sc-for list="{{ logRows }}" as="r">
+                <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a4436;padding:7px 0;border-bottom:1px dotted rgba(58,53,46,.25);"><span>{{ r.left }}</span><span style="font-family:'IBM Plex Mono',monospace;color:{{ r.color }};">{{ r.right }}</span></div>
+              </sc-for>
             </div>
           </div>
         </sc-if>
@@ -197,24 +207,39 @@
         <sc-if value="{{ isCombat }}" hint-placeholder-val="{{ false }}">
           <div data-screen-label="免疫対応" style="animation:scfade .4s ease;max-width:780px;margin:0 auto;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-              <h1 style="font-weight:900;font-size:24px;margin:0;color:#3a352e;">退去勧告 ・ 第2波</h1>
-              <div style="display:flex;gap:8px;"><button style="padding:8px 15px;border:1px solid rgba(58,53,46,.3);border-radius:999px;background:#fff;color:#6b6353;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-size:13px;">物陰に隠れる</button><button style="padding:8px 15px;border:0;border-radius:999px;background:linear-gradient(180deg,#e0566a,#b32e3f);color:#fff;cursor:pointer;font-weight:700;font-size:13px;font-family:'Zen Maru Gothic',sans-serif;">次の手番</button></div>
+              <h1 style="font-weight:900;font-size:24px;margin:0;color:#3a352e;">{{ waveTitle }}</h1>
+              <div style="display:flex;gap:8px;"><button onClick="{{ hideBehind }}" style="padding:8px 15px;border:1px solid rgba(58,53,46,.3);border-radius:999px;background:#fff;color:#6b6353;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-size:13px;">物陰に隠れる</button><button onClick="{{ nextTurn }}" style="padding:8px 15px;border:0;border-radius:999px;background:linear-gradient(180deg,#e0566a,#b32e3f);color:#fff;cursor:pointer;font-weight:700;font-size:13px;font-family:'Zen Maru Gothic',sans-serif;">次の手番</button></div>
             </div>
             <p style="font-size:12px;color:#a89a86;margin:0 0 14px;">※免疫システムはあなたを「敵」ではなく「汚れ」として処理します。悪意はありません。それが一番怖い。</p>
 
             <div style="border:1px solid rgba(201,138,42,.5);border-radius:12px;padding:10px 14px;margin-bottom:14px;background:rgba(201,138,42,.06);display:flex;align-items:center;gap:12px;">
               <span style="font-size:20px;">⚠</span>
               <div style="flex:1;"><div style="font-size:13px;font-weight:700;color:#c98a2a;">パーティ共有ゲージ：抗原認識度</div><div style="font-size:11px;color:#7a7264;">満タンで全館一斉退去（くしゃみ）が発動します</div></div>
-              <div style="width:170px;"><div style="height:10px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:58%;height:100%;background:linear-gradient(90deg,#c98a2a,#cf3f4f);"></div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#c98a2a;text-align:right;margin-top:2px;">58 / 100</div></div>
+              <div style="width:170px;"><div style="height:10px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:{{ ninshiki }}%;height:100%;background:linear-gradient(90deg,#c98a2a,#cf3f4f);"></div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#c98a2a;text-align:right;margin-top:2px;">{{ ninshiki }} / 100</div></div>
             </div>
+            <sc-if value="{{ hasSneeze }}"><p style="font-size:12px;color:#b32e3f;font-weight:700;margin:0 0 14px;">{{ sneezeMsg }}</p></sc-if>
 
-            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;border:2px solid #cf3f4f;background:#fff;margin-bottom:8px;box-shadow:0 4px 12px rgba(207,63,79,.1);"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#cf3f4f;color:#fff;border-radius:50%;">19</span><span style="width:30px;height:30px;flex:none;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#dfe4ee 70%);border:2px solid #8d93a0;"></span><div style="flex:1;"><div style="font-size:15px;font-weight:900;color:#3a352e;">マクロファージ〈お掃除の大きい人〉 <span style="font-size:11px;color:#b32e3f;">行動中</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(207,63,79,.1);color:#b32e3f;">包み込み体勢</span><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(58,53,46,.08);color:#6b6353;">悪意なし</span></div></div><div style="width:150px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7264;margin-bottom:3px;"><span>お掃除意欲</span><span style="font-family:'IBM Plex Mono',monospace;">28/30</span></div><div style="height:8px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:93%;height:100%;background:#8d93a0;"></div></div></div></div>
-
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:1px solid rgba(58,53,46,.16);background:#fff;margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(58,53,46,.1);color:#6b6353;border-radius:50%;">15</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:3px solid #cf3f4f;background:repeating-linear-gradient(45deg,rgba(207,63,79,.12) 0 4px,transparent 4px 8px),#fff;"></span><div style="flex:1;"><div style="font-size:15px;font-weight:900;color:#3a352e;">ツグミ</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(61,138,95,.12);color:#3d8a5f;">消臭済み（認識度+0）</span></div></div><div style="width:150px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7264;margin-bottom:3px;"><span>体力</span><span style="font-family:'IBM Plex Mono',monospace;">14/17</span></div><div style="height:8px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:82%;height:100%;background:linear-gradient(90deg,#e0566a,#b32e3f);"></div></div></div></div>
-
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:1px solid rgba(58,53,46,.16);background:#fff;margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(58,53,46,.1);color:#6b6353;border-radius:50%;">12</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:3px solid #cf3f4f;background:repeating-linear-gradient(45deg,rgba(207,63,79,.12) 0 4px,transparent 4px 8px),#fff;"></span><div style="flex:1;"><div style="font-size:15px;font-weight:900;color:#3a352e;">ドズル</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(207,63,79,.1);color:#b32e3f;">異物認定（毎ターン認識度+6）</span></div></div><div style="width:150px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7264;margin-bottom:3px;"><span>体力</span><span style="font-family:'IBM Plex Mono',monospace;">21/28</span></div><div style="height:8px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:75%;height:100%;background:linear-gradient(90deg,#e0566a,#b32e3f);"></div></div></div></div>
-
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:1px solid rgba(58,53,46,.16);background:#fff;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(58,53,46,.1);color:#6b6353;border-radius:50%;">8</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:3px solid #cf3f4f;background:repeating-linear-gradient(45deg,rgba(207,63,79,.12) 0 4px,transparent 4px 8px),#fff;"></span><div style="flex:1;"><div style="font-size:15px;font-weight:900;color:#3a352e;">ピリカ</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(63,95,168,.12);color:#3f5fa8;">白血球と交渉中（前例なし）</span></div></div><div style="width:150px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7264;margin-bottom:3px;"><span>体力</span><span style="font-family:'IBM Plex Mono',monospace;">16/19</span></div><div style="height:8px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:84%;height:100%;background:linear-gradient(90deg,#e0566a,#b32e3f);"></div></div></div></div>
+            <sc-for list="{{ combatants }}" as="cb">
+              <div style="display:flex;align-items:center;gap:12px;padding:{{ cb.pad }};border-radius:12px;border:{{ cb.border }};background:#fff;margin-bottom:8px;opacity:{{ cb.op }};box-shadow:{{ cb.shadow }};">
+                <span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:{{ cb.initBg }};color:{{ cb.initColor }};border-radius:50%;">{{ cb.init }}</span>
+                <span style="{{ cb.tokenStyle }}"></span>
+                <div style="flex:1;">
+                  <div style="font-size:15px;font-weight:900;color:#3a352e;">{{ cb.name }} <span style="font-size:11px;color:#b32e3f;">{{ cb.side }}</span></div>
+                  <div style="display:flex;gap:5px;margin-top:3px;flex-wrap:wrap;">
+                    <sc-for list="{{ cb.tags }}" as="tg"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:{{ tg.bg }};color:{{ tg.color }};">{{ tg.t }}</span></sc-for>
+                    <sc-if value="{{ cb.toggleable }}"><button onClick="{{ cb.toggle }}" style="font-size:10px;padding:2px 8px;border-radius:999px;border:1px solid rgba(58,53,46,.25);background:#fff;color:#6b6353;cursor:pointer;">{{ cb.toggleLabel }}</button></sc-if>
+                  </div>
+                </div>
+                <div style="width:150px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7264;margin-bottom:3px;"><span>{{ cb.gauge }}</span><span style="font-family:'IBM Plex Mono',monospace;">{{ cb.hp }}/{{ cb.max }}</span></div><div style="height:8px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:{{ cb.pct }}%;height:100%;background:{{ cb.barBg }};"></div></div>
+                  <div style="display:flex;gap:4px;margin-top:5px;justify-content:flex-end;">
+                    <button onClick="{{ cb.dmg5 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(58,53,46,.2);border-radius:999px;background:#fff;color:#b32e3f;cursor:pointer;">−5</button>
+                    <button onClick="{{ cb.dmg1 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(58,53,46,.2);border-radius:999px;background:#fff;color:#b32e3f;cursor:pointer;">−1</button>
+                    <button onClick="{{ cb.heal1 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(58,53,46,.2);border-radius:999px;background:#fff;color:#3d8a5f;cursor:pointer;">＋1</button>
+                    <button onClick="{{ cb.heal5 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(58,53,46,.2);border-radius:999px;background:#fff;color:#3d8a5f;cursor:pointer;">＋5</button>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
           </div>
         </sc-if>
 
@@ -238,7 +263,7 @@
                 <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#4a4436;padding:9px 4px;border-bottom:1px dotted rgba(58,53,46,.25);"><span style="width:8px;height:8px;border-radius:50%;background:#cf3f4f;"></span><span style="flex:1;">血液パック（家賃3ヶ月分）</span><span style="color:#7a7264;">×3</span></div>
                 <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#4a4436;padding:9px 4px;border-bottom:1px dotted rgba(58,53,46,.25);"><span style="width:8px;height:8px;border-radius:50%;background:#3f5fa8;"></span><span style="flex:1;">メジャー（天井高そして脈拍を測る）</span><span style="color:#7a7264;">×1</span></div>
                 <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#4a4436;padding:9px 4px;"><span style="width:8px;height:8px;border-radius:50%;background:#c98a2a;"></span><span style="flex:1;">前の住人の日記（39日目で終わっている）</span><span style="color:#7a7264;">×1</span></div>
-                <div style="margin-top:14px;border:1px solid rgba(201,138,42,.45);border-radius:12px;padding:13px 15px;background:rgba(201,138,42,.05);"><div style="font-size:13px;font-weight:900;color:#c98a2a;margin-bottom:5px;">鑑定メモ：前の住人の日記</div><div style="font-size:12px;line-height:1.8;color:#7a7264;">最終ページ：「39日目。ついに気づいた。この部屋、心室じゃない。ここは——」以降、白紙。ページの端に胃液の染み。</div></div>
+                <div style="margin-top:14px;border:1px solid rgba(201,138,42,.45);border-radius:12px;padding:13px 15px;background:rgba(201,138,42,.05);"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;"><div style="font-size:13px;font-weight:900;color:#c98a2a;">鑑定メモ：前の住人の日記</div><sc-if value="{{ diaryUnread }}"><button onClick="{{ readDiary }}" style="font-size:10px;padding:2px 10px;border:1px solid rgba(201,138,42,.5);border-radius:999px;background:#fff;color:#c98a2a;cursor:pointer;">読む</button></sc-if></div><div style="font-size:12px;line-height:1.8;color:#7a7264;">{{ diaryText }}</div></div>
               </div>
             </div>
           </div>
@@ -246,20 +271,25 @@
 
         <sc-if value="{{ isStory }}" hint-placeholder-val="{{ false }}">
           <div data-screen-label="内見記録" style="animation:scfade .4s ease;max-width:640px;margin:0 auto;">
-            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#a89a86;text-align:center;margin:0 0 6px;">内見記録 ・ 物件No.001 左心室2LDK</p>
-            <h1 style="font-weight:900;font-size:28px;text-align:center;margin:0 0 4px;color:#3a352e;">内見、はじまる（ドクン）</h1>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#a89a86;text-align:center;margin:0 0 6px;">{{ storyKicker }}</p>
+            <h1 style="font-weight:900;font-size:28px;text-align:center;margin:0 0 4px;color:#3a352e;">{{ storyTitle }}</h1>
             <div style="display:flex;align-items:center;gap:12px;margin:16px 0 22px;color:#cf3f4f;"><span style="flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(207,63,79,.4));"></span><span style="font-size:13px;">♥</span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(207,63,79,.4),transparent);"></span></div>
-            <p style="font-size:16px;line-height:2.05;color:#4a4436;margin:0 0 18px;">担当のカナメさん（営業スマイル・年中無休）は、弁の前で音叉を鳴らした。ラの音。ぬめる扉がゆっくり開き、体温36.8℃の風が吹き出す。「こちらが玄関です。脱ぎ履きしやすい広さ、そして——お気づきですか？　この<b style="color:#b32e3f;">床暖房</b>」</p>
-            <p style="font-size:16px;line-height:2.05;color:#4a4436;margin:0 0 18px;">たしかに暖かい。暖かいというか、脈打っている。ドクン、ドクン。二拍ごとに照明（発光器官）がまたたく。ピリカが壁を撫でて言った。「この壁紙、呼吸してません？」カナメさんのスマイルは揺るがない。「<b>換気機能</b>です」</p>
-            <blockquote style="margin:22px 0;padding:14px 20px;border-left:4px solid #cf3f4f;border-radius:0 12px 12px 0;background:#fff;font-size:15px;line-height:1.9;color:#6b6353;">敷金は戻りません。血液も戻りません。それでも人は、住む場所を選べるだけ幸せなのです。<br><span style="font-size:12px;color:#a89a86;">——『体内賃貸のしおり』第一章</span></blockquote>
-            <p style="font-size:16px;line-height:2.05;color:#4a4436;margin:0 0 26px;">奥の部屋——右心房側の壁に、前の住人が残した爪痕がある。数えると、ちょうど39本。カナメさんはそこにカレンダーを掛けた。「収納も豊富です」</p>
-
+            <sc-if value="{{ storyHasNote }}">
+              <p style="text-align:center;font-size:13px;letter-spacing:1px;color:{{ storyNoteColor }};margin:0 0 16px;">{{ storyNote }}</p>
+            </sc-if>
+            <sc-for list="{{ storyBlocks }}" as="b">
+              <sc-if value="{{ b.isP }}"><p style="font-size:16px;line-height:2.05;color:#4a4436;margin:0 0 18px;">{{ b.t }}</p></sc-if>
+              <sc-if value="{{ b.isQ }}"><blockquote style="margin:22px 0;padding:14px 20px;border-left:4px solid #cf3f4f;border-radius:0 12px 12px 0;background:#fff;font-size:15px;line-height:1.9;color:#6b6353;">{{ b.t }}</blockquote></sc-if>
+            </sc-for>
             <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 12px;">● どうする？</p>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(58,53,46,.2);border-radius:12px;background:#fff;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-size:14px;color:#4a4436;box-shadow:0 2px 8px rgba(58,53,46,.05);">①　爪痕を調べる <span style="color:#b32e3f;font-weight:700;">内見判定 ・ 難度14</span></button>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(58,53,46,.2);border-radius:12px;background:#fff;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-size:14px;color:#4a4436;box-shadow:0 2px 8px rgba(58,53,46,.05);">②　「前の入居者さんは、どちらへ？」と聞く（カナメさんの笑顔が試される）</button>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;border:1px solid rgba(58,53,46,.2);border-radius:12px;background:#fff;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-size:14px;color:#4a4436;box-shadow:0 2px 8px rgba(58,53,46,.05);">③　何も見なかった。日当たり（発光器官）の話をしよう</button>
-            <div style="margin-top:24px;height:6px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:42%;height:100%;background:linear-gradient(90deg,#e0566a,#b32e3f);"></div></div>
-            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#a89a86;margin:7px 0 0;">内見ツアー進捗 42% ・ 心拍 76bpm（少し上がっている）</p>
+            <sc-for list="{{ storyChoices }}" as="c">
+              <button onClick="{{ c.go }}" style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(58,53,46,.2);border-radius:12px;background:#fff;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-size:14px;color:#4a4436;box-shadow:0 2px 8px rgba(58,53,46,.05);">{{ c.num }}　{{ c.pre }}<span style="color:#b32e3f;font-weight:700;">{{ c.skillText }}</span>{{ c.post }} <span style="float:right;color:#b32e3f;font-weight:700;">{{ c.dcLabel }}</span></button>
+            </sc-for>
+            <div style="margin-top:24px;height:6px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:{{ storyPct }}%;height:100%;background:linear-gradient(90deg,#e0566a,#b32e3f);"></div></div>
+            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#a89a86;margin:7px 0 0;">{{ storyPctLabel }}</p>
+            <sc-if value="{{ storyCanRestart }}">
+              <p style="text-align:center;margin:16px 0 0;"><button onClick="{{ storyRestart }}" style="border:0;background:transparent;color:#a89a86;font-size:11px;letter-spacing:2px;cursor:pointer;text-decoration:underline;font-family:'Zen Maru Gothic',sans-serif;">内見記録を最初からやり直す</button></p>
+            </sc-if>
           </div>
         </sc-if>
 
@@ -300,12 +330,17 @@
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
               <div>
                 <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 11px;">● 進行中の案件</p>
-                <div style="padding:11px 13px;border:2px solid #cf3f4f;border-radius:12px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;font-weight:900;color:#3a352e;">左心室2LDKの内見 <span style="font-size:10px;color:#b32e3f;">進行中</span></div></div>
-                <div style="padding:11px 13px;border:1px solid rgba(58,53,46,.18);border-radius:12px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;color:#7a7264;">39本目の爪痕の真相</div></div>
-                <div style="padding:11px 13px;border:1px solid rgba(58,53,46,.18);border-radius:12px;background:#fff;"><div style="font-size:14px;color:#7a7264;">オオヌシ様、健康診断の日</div></div>
+                <sc-for list="{{ gmScenes }}" as="gs">
+                  <button onClick="{{ gs.go }}" style="display:block;width:100%;text-align:left;padding:11px 13px;border:{{ gs.border }};border-radius:12px;margin-bottom:8px;background:{{ gs.bg }};cursor:pointer;"><span style="font-size:14px;font-weight:{{ gs.weight }};color:{{ gs.color }};">{{ gs.t }} <span style="font-size:10px;color:#b32e3f;">{{ gs.tag }}</span></span></button>
+                </sc-for>
                 <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:20px 0 10px;">● 宿主の体調（＝世界の天気）</p>
-                <div style="height:9px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:71%;height:100%;background:linear-gradient(90deg,#3d8a5f,#c98a2a);"></div></div>
+                <div style="height:9px;border-radius:999px;background:rgba(58,53,46,.1);overflow:hidden;"><div style="width:{{ taicho }}%;height:100%;background:linear-gradient(90deg,#3d8a5f,#c98a2a);"></div></div>
                 <p style="font-size:11px;color:#a89a86;margin:6px 0 0;">微熱気味。38.5℃を超えると全物件が「サウナ付き」になります。</p>
+                <div style="display:flex;align-items:center;gap:9px;margin-top:8px;">
+                  <button onClick="{{ taichoMinus }}" style="width:24px;height:24px;border:1px solid rgba(58,53,46,.2);border-radius:999px;background:#fff;color:#7a7264;cursor:pointer;font-size:13px;line-height:1;">−</button>
+                  <span style="font-size:12px;letter-spacing:1px;color:#7a7264;">{{ taicho }}%</span>
+                  <button onClick="{{ taichoPlus }}" style="width:24px;height:24px;border:1px solid rgba(58,53,46,.2);border-radius:999px;background:#fff;color:#7a7264;cursor:pointer;font-size:13px;line-height:1;">＋</button>
+                </div>
               </div>
               <div>
                 <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:0 0 11px;">● 秘匿情報</p>
@@ -313,6 +348,10 @@
                 <div style="border:1px solid rgba(58,53,46,.18);border-radius:12px;padding:11px 13px;background:#fff;"><div style="font-size:14px;font-weight:900;color:#3a352e;">オオヌシ様（宿主）</div><div style="font-size:12px;color:#7a7264;margin-top:2px;">自分の体に賃貸物件があることを、まだ知らない。</div><div style="font-size:12px;color:#c98a2a;margin-top:4px;background:rgba(201,138,42,.08);border-radius:8px;padding:4px 8px;">最近「お腹のあたりで生活音がする」と友達に相談し始めた。</div></div>
                 <p style="font-size:11px;letter-spacing:3px;color:#b32e3f;font-weight:700;margin:20px 0 10px;">● 体内の異変表（d6）</p>
                 <div style="font-size:13px;color:#4a4436;line-height:1.9;">1–2 心拍上昇（宿主が階段） ・ 3 胃酸逆流警報<br>4 新しい入居希望者（ウイルス） ・ 5 くしゃみ予報 ・ 6 宿主が恋をする（全館暖房・家賃高騰）</div>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:10px;">
+                  <button onClick="{{ rollTable }}" style="padding:7px 16px;border:0;border-radius:999px;background:linear-gradient(180deg,#e0566a,#b32e3f);color:#fff;cursor:pointer;font-weight:900;font-size:12px;letter-spacing:1px;">異変表を振る</button>
+                  <sc-if value="{{ gmHasTable }}"><span style="font-size:13px;color:#b32e3f;">出目 {{ gmTableD }} ・ {{ gmTableText }}</span></sc-if>
+                </div>
               </div>
             </div>
           </div>
@@ -516,6 +555,614 @@ class Component extends DCLogic {
     };
   }
 }
+
+/*
+ * 全作品共通のゲームエンジン。ダイス・d20判定・localStorage 永続化と、
+ * シェル（DCLogic コンポーネント）へのゲーム状態の合流（attach）を担う。
+ * 作品ごとの中身（シナリオ・画面の値）は games/<id>.game.js が window.__GAME__ に定義する。
+ */
+(function () {
+  function rollDie(sides) {
+    return 1 + Math.floor(Math.random() * sides);
+  }
+  function pickKeys(obj, keys) {
+    var o = {};
+    for (var i = 0; i < keys.length; i++) o[keys[i]] = obj[keys[i]];
+    return o;
+  }
+  window.GameEngine = {
+    rollDie: rollDie,
+    clamp: function (v, lo, hi) {
+      return Math.max(lo, Math.min(hi, v));
+    },
+    // d20 判定。20 は大成功、1 は大失敗（出目優先）
+    check: function (mod, dc) {
+      var die = rollDie(20);
+      var total = die + mod;
+      var outcome = die === 20 ? 'crit' : die === 1 ? 'fumble' : total >= dc ? 'success' : 'fail';
+      return { die: die, mod: mod, total: total, dc: dc, outcome: outcome, ok: outcome === 'crit' || outcome === 'success' };
+    },
+    outcomeText: function (outcome) {
+      return { crit: '大成功', success: '成功', fail: '失敗', fumble: '大失敗' }[outcome] || '';
+    },
+    attach: function (app, game) {
+      var key = 'trpg-game-' + game.id;
+      var saved = null;
+      try { saved = JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) {}
+      Object.assign(app.state, game.initialState(), saved || {});
+      if (game.migrate) game.migrate(app.state);
+      var baseRenderVals = app.renderVals.bind(app);
+      app.renderVals = function () {
+        var vals = baseRenderVals();
+        return Object.assign(vals, game.vals(app, vals));
+      };
+      var baseSetState = app.setState.bind(app);
+      app.setState = function (update) {
+        baseSetState(update);
+        try { localStorage.setItem(key, JSON.stringify(pickKeys(app.state, game.persist))); } catch (e) {}
+      };
+      // ゲーム状態のみ初期値へ戻す（device / play / screen は保持）
+      app._resetGame = function () {
+        try { localStorage.removeItem(key); } catch (e) {}
+        Object.assign(app.state, game.initialState());
+        app.render();
+      };
+    },
+  };
+})();
+
+/*
+ * 1f-左心室不動産 のゲーム内容。
+ * - 入居審査: d4〜d100。d20 判定は審査印（審査通過／却下）。値下げ交渉での成功は家賃を実際に下げる
+ * - 入居者カード: 体力 / 血液残量(L) / 宿主適合率(0-100%) の増減
+ * - 免疫対応: パーティ共有ゲージ「抗原認識度」。異物認定タグを持つ入居者は毎手番ゲージを押し上げる。
+ *   満タンで「くしゃみ」イベント（軽い巻き戻し）が発生する
+ * - 契約書類: 「前の住人の日記」だけ読める。読むと内見記録の終盤に専用の対決選択肢が解禁される
+ * - 内見記録: 分岐シナリオ「内見、はじまる（ドクン）」（宿主適合率ルール・複数エンディング）。
+ *   GM 秘匿（営業担当カナメ＝前の住人。39日目に免疫と和解して転職した）を発見する真ルートあり
+ * - 管理会社: 案件切替・宿主の体調・体内の異変表 d6
+ */
+(function () {
+  var E = null;
+  function eng() { return E || (E = window.GameEngine); }
+
+  var TAI_MAX = 17;
+
+  var SKILLS = [
+    { name: '内見（見抜く目）', mod: 7 },
+    { name: '値下げ交渉', mod: 5 },
+    { name: '応急処置', mod: 4 },
+    { name: '逃げ足', mod: 3 },
+    { name: '探索', mod: 3 },
+  ];
+  var DICE_SIDES = [4, 6, 8, 10, 12, 20, 100];
+
+  function bloodLabel(dl) { return (dl / 10).toFixed(1) + 'L'; }
+
+  // 審査印: 値下げ交渉なら家賃反映。それ以外は審査通過／却下の一般判定
+  function stampInfo(r, skillName, rent) {
+    var ok = r.ok != null ? r.ok : (r.outcome === 'crit' || r.outcome === 'success');
+    var isNego = skillName === '値下げ交渉';
+    if (r.outcome === 'fumble') {
+      return { word: '却下', color: '#b32e3f', bg: 'rgba(207,63,79,.05)', verdict: '＝ ' + r.total + ' ・ 却下（心室痙攣）', rentDelta: 0, hp: -2 };
+    }
+    if (ok && isNego) {
+      var cut = (r.total - r.dc + 1) * 10;
+      var bonus = r.die === 20 ? cut : 0;
+      var total = cut + bonus;
+      return { word: '審査通過', color: '#3d8a5f', bg: 'rgba(61,138,95,.05)', verdict: '＝ ' + r.total + ' ・ 家賃 ' + rent + '→' + Math.max(50, rent - total) + 'cc/月に成功！' + (bonus ? '（特別優遇）' : ''), rentDelta: -total, hp: 0 };
+    }
+    if (ok) {
+      return { word: '審査通過', color: '#3d8a5f', bg: 'rgba(61,138,95,.05)', verdict: '＝ ' + r.total + ' ・ 審査通過', rentDelta: 0, hp: 0 };
+    }
+    return { word: '却下', color: '#b32e3f', bg: 'rgba(207,63,79,.05)', verdict: '＝ ' + r.total + ' ・ 却下', rentDelta: 0, hp: 0 };
+  }
+
+  var COMBATANTS = [
+    { key: 'hpMacro', name: 'マクロファージ〈お掃除の大きい人〉', init: 19, max: 30, gauge: 'お掃除意欲', toggleable: false, tokenStyle: "width:30px;height:30px;flex:none;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#dfe4ee 70%);border:2px solid #8d93a0;", baseTags: [{ t: '包み込み体勢', bg: 'rgba(207,63,79,.1)', color: '#b32e3f' }, { t: '悪意なし', bg: 'rgba(58,53,46,.08)', color: '#6b6353' }] },
+    { key: 'hpTsugumi', name: 'ツグミ', init: 15, max: 17, gauge: '体力', toggleable: true, tokenStyle: "width:30px;height:30px;flex:none;border-radius:50%;border:3px solid #cf3f4f;background:repeating-linear-gradient(45deg,rgba(207,63,79,.12) 0 4px,transparent 4px 8px),#fff;", identifiedDefault: false },
+    { key: 'hpDozuru', name: 'ドズル', init: 12, max: 28, gauge: '体力', toggleable: true, tokenStyle: "width:30px;height:30px;flex:none;border-radius:50%;border:3px solid #cf3f4f;background:repeating-linear-gradient(45deg,rgba(207,63,79,.12) 0 4px,transparent 4px 8px),#fff;", identifiedDefault: true },
+    { key: 'hpPirika', name: 'ピリカ', init: 8, max: 19, gauge: '体力', toggleable: false, tokenStyle: "width:30px;height:30px;flex:none;border-radius:50%;border:3px solid #cf3f4f;background:repeating-linear-gradient(45deg,rgba(207,63,79,.12) 0 4px,transparent 4px 8px),#fff;", baseTags: [{ t: '白血球と交渉中（前例なし）', bg: 'rgba(63,95,168,.12)', color: '#3f5fa8' }] },
+  ];
+
+  var GM_TABLE = ['心拍上昇（宿主が階段）', '心拍上昇（宿主が階段）', '胃酸逆流警報', '新しい入居希望者（ウイルス）', 'くしゃみ予報', '宿主が恋をする（全館暖房・家賃高騰）'];
+  var GM_SCENES = ['左心室2LDKの内見', '39本目の爪痕の真相', 'オオヌシ様、健康診断の日'];
+
+  var DIARY_TEXT = '最終ページ：「39日目。ついに気づいた。この部屋、心室じゃない。ここは——」以降、白紙。ページの端に胃液の染み。';
+  var DIARY_TEXT_READ = '震える字で続きが読める。「——ここは、誰かの生活そのものだ。出て行けと言われている気がしていたが、違った。ただ、"住み方"を変えろと言われていただけだった。39日目、僕は営業に転職した」ページの隅に小さく、見覚えのある名前のサイン。カナメ。';
+
+  // ─────────────────────────────────────────────
+  // シナリオ「内見、はじまる（ドクン）」（内見記録 物件No.001）
+  // fx: tai / blood(dL) / tekigo / flags / taiSet / tekigoSet
+  // ─────────────────────────────────────────────
+  var NODES = {
+    f1: {
+      kicker: '内見記録 ・ 物件No.001 左心室2LDK', title: '内見、はじまる（ドクン）', pct: 42,
+      text: [
+        '担当のカナメさん（営業スマイル・年中無休）は、弁の前で音叉を鳴らした。ラの音。ぬめる扉がゆっくり開き、体温36.8℃の風が吹き出す。「こちらが玄関です。脱ぎ履きしやすい広さ、そして——お気づきですか？　この床暖房」',
+        'たしかに暖かい。暖かいというか、脈打っている。ドクン、ドクン。二拍ごとに照明（発光器官）がまたたく。ピリカが壁を撫でて言った。「この壁紙、呼吸してません？」カナメさんのスマイルは揺るがない。「換気機能です」',
+        { q: '敷金は戻りません。血液も戻りません。それでも人は、住む場所を選べるだけ幸せなのです。' },
+        '奥の部屋——右心房側の壁に、前の住人が残した爪痕がある。数えると、ちょうど39本。カナメさんはそこにカレンダーを掛けた。「収納も豊富です」',
+      ],
+      choices: [
+        { num: '①', pre: '爪痕を調べる ', skillText: '内見判定', check: { name: '内見（見抜く目）', mod: 7, dc: 14 }, success: 'f2a', fail: 'f2b' },
+        { num: '②', pre: '「前の入居者さんは、どちらへ？」と聞く（カナメさんの笑顔が試される） ', skillText: '', check: { name: '内見（見抜く目）', mod: 7, dc: 13 }, success: 'f2c', fail: 'f2d' },
+        { num: '③', pre: '何も見なかった。日当たり（発光器官）の話をしよう', to: 'f2e' },
+      ],
+    },
+    f2a: {
+      kicker: '内見記録 ・ 物件No.001', title: '規則正しい39本', pct: 48, fx: { flags: { foundPattern: 1 } },
+      text: [
+        '爪痕は乱雑ではなかった。等間隔、同じ深さ、まるでカレンダーに丸をつけるように——一日一本。誰かが、日数を数えながら耐えていた跡だ。',
+        'カナメさんの視線が、ほんの一瞬だけ爪痕に泳いだ。すぐに営業スマイルへ戻ったが。',
+      ],
+      choices: [{ pre: '契約書類の確認へ進む', to: 'f3' }],
+    },
+    f2b: {
+      kicker: '内見記録 ・ 物件No.001', title: '数え損なう', pct: 46, fx: { tekigo: -2 },
+      text: [
+        '途中で数を見失った。34本か、39本か。心臓が一拍ごとにリズムを乱すせいで、集中が続かない。（宿主適合率 −2）',
+        '「気にしすぎると、体に嫌われますよ」カナメさんが笑って言った。冗談には聞こえなかった。',
+      ],
+      choices: [{ pre: '契約書類の確認へ進む', to: 'f3' }],
+    },
+    f2c: {
+      kicker: '内見記録 ・ 物件No.001', title: 'わずかな亀裂', pct: 48, fx: { flags: { sawCrack: 1 } },
+      text: [
+        '「前の入居者さんは、どちらへ？」と尋ねた瞬間、カナメさんの営業スマイルに、ほんの一瞬だけ亀裂が入った。「……お引っ越しです。とても、良いご縁で」',
+        '良いご縁、という言葉の選び方が、やけに具体的だった。',
+      ],
+      choices: [{ pre: '契約書類の確認へ進む', to: 'f3' }],
+    },
+    f2d: {
+      kicker: '内見記録 ・ 物件No.001', title: '崩れない笑顔', pct: 46,
+      text: [
+        '「前の入居者さんは、どちらへ？」カナメさんは澱みなく答えた。「守秘義務がございますので」営業スマイルは鉄壁で、そこから何も読み取れなかった。',
+      ],
+      choices: [{ pre: '契約書類の確認へ進む', to: 'f3' }],
+    },
+    f2e: {
+      kicker: '内見記録 ・ 物件No.001', title: '日当たりの話', pct: 44, fx: { flags: { avoided: 1 } },
+      text: [
+        '爪痕からも、前の住人の話題からも、あえて目を逸らした。「発光器官の色、変えられたりします？」カナメさんは心底ほっとした様子で、間接照明のプランを語り始めた。',
+        '知らないままのほうが、幸せなこともある。たぶん。',
+      ],
+      choices: [{ pre: 'このまま契約する', to: 'Et_naive' }],
+    },
+    f3: {
+      kicker: '内見記録 ・ 物件No.001', title: '契約書類の確認', pct: 62,
+      text: [
+        'ツグミの荷物の中には、前の住人が残していったという日記が一冊。ページの隅に、胃液の染みがついている。読めば、何かが分かるかもしれない。',
+        'カナメさんは契約書類を広げながら、こちらの様子を静かにうかがっている。',
+      ],
+      choices: [
+        { pre: '日記の内容を踏まえ、カナメさんに真実を尋ねる', to: 'f4confront', if: function (st) { return st.flags.readDiary; } },
+        { pre: '爪痕や態度から、それとなく核心を ', skillText: '探る', check: { name: '探索', mod: 3, dc: 14 }, success: 'f4hint', fail: 'f4deflect', if: function (st) { return st.flags.foundPattern || st.flags.sawCrack; } },
+        { pre: '深入りせず、このまま契約に進む', to: 'Et_sign_blind' },
+      ],
+    },
+    f4confront: {
+      kicker: '内見記録 ・ 物件No.001', title: '日記の名前', pct: 74, fx: { flags: { knowTruth: 1 } },
+      text: [
+        '「この日記……あなたの字ですよね」静かに切り出すと、カナメさんの営業スマイルが、初めて完全に消えた。「……ばれちゃいましたか」',
+        '彼は長い沈黙のあと、小さく笑った。今度は営業用ではない、少し疲れた本物の笑みだった。「39日目に、僕はここの住人でした。免疫システムと、直接話したんです。それから——」',
+      ],
+      choices: [{ pre: '続きを聞く', to: 'f5' }],
+    },
+    f4hint: {
+      kicker: '内見記録 ・ 物件No.001', title: '崩れかけた営業スマイル', pct: 70, fx: { flags: { knowTruth: 1 } },
+      text: [
+        '「もしかして、あの爪痕をつけたのは……」最後まで言わないうちに、カナメさんの笑顔が音を立てそうなほど揺れた。「……鋭い方ですね。今期一番、鋭いお客様です」',
+        '彼は観念したように、契約書類をテーブルに置いた。',
+      ],
+      choices: [{ pre: '続きを聞く', to: 'f5' }],
+    },
+    f4deflect: {
+      kicker: '内見記録 ・ 物件No.001', title: '届かなかった探り', pct: 68, fx: { tekigo: -3 },
+      text: [
+        '核心に近づこうとするほど、言葉が空回りした。カナメさんは終始にこやかで、こちらの追及は虚しく壁に吸い込まれていく。（宿主適合率 −3）',
+        '「さ、契約の話に戻りましょうか」笑顔の圧に押され、話題は自然と流れていった。',
+      ],
+      choices: [{ pre: '契約について話す', to: 'f5' }],
+    },
+    f5: {
+      kicker: '内見記録 ・ 物件No.001', title: '契約の間', pct: 88,
+      text: [
+        'テーブルの上には契約書と、朱肉ならぬ血判のための針。カナメさんが、静かにこちらを見ている。',
+      ],
+      choices: [
+        { pre: '「あなたと同じ道を、私も辿るのでしょうか」と穏やかに尋ね、契約する', to: 'Et_true', if: function (st) { return st.flags.knowTruth; } },
+        { pre: '秘密を握った勢いで、営業成績のために客を欺いていないか問い詰める', to: 'Et_expose', if: function (st) { return st.flags.knowTruth; } },
+        { pre: '何も言わず、契約書にサインする', to: 'Et_sign_blind' },
+        { pre: '契約せず、回れ右する', to: 'Et_walkaway' },
+      ],
+    },
+    Et_true: {
+      kicker: '内見記録 ・ 結', title: '同じ道の、その先', pct: 100, end: true, fx: { tekigo: 8 },
+      text: [
+        'カナメさんは血判の針を置き、代わりに握手を求めてきた。「辿るかもしれません。でも、それは悪いことばかりじゃなかった。ここで暮らして、ここで働いて——僕は初めて、自分の"住み方"を選べた気がするんです」',
+        '契約は成立した。家賃はそのまま、けれど敷金は「先輩からの贈り物」として免除された。宿主適合率が、じんわりと上がっていく。（宿主適合率 ＋8）',
+      ],
+      choices: [],
+    },
+    Et_expose: {
+      kicker: '内見記録 ・ 結', title: '問い詰めた先', pct: 100, end: true, fx: { tekigo: -2 },
+      text: [
+        '「欺いてなんかいません」カナメさんの声は、初めて硬かった。「僕はただ、この物件の良さを、誰よりも知っているだけです。住んでいたから」',
+        '気まずい沈黙のまま契約は成立したが、彼の営業スマイルはもう、以前と同じようには戻らなかった。物件自体に非はない。ただ、内見の後味は少し苦い。（宿主適合率 −2）',
+      ],
+      choices: [],
+    },
+    Et_naive: {
+      kicker: '内見記録 ・ 結', title: '知らないままの契約', pct: 100, end: true,
+      text: [
+        '何も知らないまま、契約書に血判を押した。カナメさんは満面の営業スマイルで見送ってくれた。「ご入居、お待ちしております！」',
+        '引っ越しの荷解きをしながら、壁の爪痕がふと目に入る。数えようとして——やめておいた。知らないほうがいいことも、きっとある。',
+      ],
+      choices: [],
+    },
+    Et_sign_blind: {
+      kicker: '内見記録 ・ 結', title: '深入りしない契約', pct: 100, end: true,
+      text: [
+        '謎は謎のまま、契約だけを済ませた。実務的で、賢明な判断だったかもしれない。カナメさんは書類を丁寧にファイルにまとめ、深々と一礼した。',
+        '新生活は、特に何事もなく始まった。たぶん。',
+      ],
+      choices: [],
+    },
+    Et_walkaway: {
+      kicker: '内見記録 ・ 結', title: '回れ右', pct: 100, end: true, fx: { blood: -3 },
+      text: [
+        '弁の外へ、静かに引き返した。カナメさんは引き止めなかった。「またのご縁があれば」その声に、恨みがましさは欠片もなかった。（血液 −0.3L・交通費）',
+        '大森林——いや、オオヌシ様の外側で、あなたはまた次の物件を探し始める。',
+      ],
+      choices: [],
+    },
+    E_faint: {
+      kicker: '内見記録 ・ 結', title: '内見中に力尽きる', pct: 100, end: true, fx: { taiSet: 1 },
+      text: [
+        '床暖房（拍動）の心地よさに、意識が遠のいた。気づけば応急処置キットを持ったピリカが顔を覗き込んでいる。「寝るような内見の仕方、初めて見た」',
+        '契約は、また今度。（体力 1 で目覚める）',
+      ],
+      choices: [],
+    },
+    E_rejected: {
+      kicker: '内見記録 ・ 結', title: '異物認定、退去勧告', pct: 100, end: true, fx: { tekigoSet: 10 },
+      text: [
+        '宿主適合率が底を打った瞬間、周囲の壁がぎゅっと収縮した。「申し訳ございません」カナメさんが青ざめる。「免疫システムが、お客様を"異物"と……！」',
+        '白血球に丁重に——本当に丁重に——大動脈駅まで運ばれ、体外へ見送られた。宿主適合率は最低ラインまで底上げされ、審査はやり直しとなる。（宿主適合率 10 まで戻り再開）',
+      ],
+      choices: [],
+    },
+  };
+
+  var END_CHOICES = [
+    { pre: '内見記録を最初からやり直す', restart: true },
+    { pre: '物件一覧の間へ戻る', top: true },
+  ];
+
+  // ─────────────────────────────────────────────
+
+  function initialState() {
+    return {
+      diceSides: 20, skillIdx: 1, diceDc: 14, rent: 800,
+      lastRoll: { kind: 'check', die: 12, mod: 5, total: 17, dc: 14, outcome: 'success', skillName: '値下げ交渉' },
+      rollLog: [
+        { left: 'ツグミ ・ 値下げ交渉', right: '17 ／ 通過（-150cc）', color: '#3d8a5f' },
+        { left: 'ドズル ・ 壁ドン耐久チェック', right: '4 ／ 却下（心室痙攣）', color: '#b32e3f' },
+        { left: 'ピリカ ・ 「前の住人」を聞き出す', right: '22 ／ 大成功（聞かなきゃよかった）', color: '#3d8a5f' },
+      ],
+      tai: 14, bloodDL: 34, tekigo: 76,
+      hpMacro: 28, hpTsugumi: 14, hpDozuru: 21, hpPirika: 16,
+      identified: { hpTsugumi: false, hpDozuru: true },
+      wave: 2, turnIdx: 0, ninshiki: 58, sneezeMsg: null,
+      items: { diaryRead: 0 },
+      flags: {},
+      storyNode: 'f1', storyNote: null, storyNoteColor: '#7a7264',
+      gmScene: 0, taicho: 71, gmTable: null,
+    };
+  }
+
+  function pushLog(st, left, right, color) {
+    st.rollLog = [{ left: left, right: right, color: color }].concat(st.rollLog).slice(0, 10);
+  }
+
+  function applyFx(st, fx, patch) {
+    if (!fx) return;
+    function get(k) { return k in patch ? patch[k] : st[k]; }
+    if (fx.tai) patch.tai = eng().clamp(get('tai') + fx.tai, 0, TAI_MAX);
+    if (fx.taiSet != null) patch.tai = fx.taiSet;
+    if (fx.blood) patch.bloodDL = Math.max(0, get('bloodDL') + fx.blood);
+    if (fx.tekigo) patch.tekigo = eng().clamp(get('tekigo') + fx.tekigo, 0, 100);
+    if (fx.tekigoSet != null) patch.tekigo = fx.tekigoSet;
+    if (fx.flags) patch.flags = Object.assign({}, get('flags'), fx.flags);
+  }
+
+  window.__GAME__ = {
+    id: '1f',
+    initialState: initialState,
+    persist: [
+      'diceSides', 'skillIdx', 'diceDc', 'rent', 'lastRoll', 'rollLog',
+      'tai', 'bloodDL', 'tekigo', 'hpMacro', 'hpTsugumi', 'hpDozuru', 'hpPirika',
+      'identified', 'wave', 'turnIdx', 'ninshiki', 'sneezeMsg',
+      'items', 'flags', 'storyNode', 'storyNote', 'storyNoteColor',
+      'gmScene', 'taicho', 'gmTable',
+    ],
+    migrate: function (st) {
+      var init = initialState();
+      if (!NODES[st.storyNode]) { st.storyNode = 'f1'; st.storyNote = null; st.flags = {}; }
+      st.items = Object.assign({}, init.items, st.items || {});
+      st.identified = Object.assign({}, init.identified, st.identified || {});
+      st.flags = st.flags || {};
+      if (!Array.isArray(st.rollLog)) st.rollLog = init.rollLog;
+    },
+
+    vals: function (app) {
+      var st = app.state;
+      var E = eng();
+      var out = {};
+
+      // ── 物件一覧 ──
+      out.goStory = function () { app.setState({ screen: 'story' }); };
+
+      // ── 入居者カード ──
+      out.tai = st.tai;
+      out.taiPct = Math.round((st.tai / TAI_MAX) * 100);
+      out.bloodLabel = bloodLabel(st.bloodDL);
+      out.bloodPct = E.clamp(Math.round((st.bloodDL / 50) * 100), 0, 100);
+      out.tekigo = st.tekigo;
+      out.taiUp = function () { app.setState({ tai: E.clamp(st.tai + 1, 0, TAI_MAX) }); };
+      out.taiDown = function () { app.setState({ tai: E.clamp(st.tai - 1, 0, TAI_MAX) }); };
+      out.bloodUp = function () { app.setState({ bloodDL: st.bloodDL + 1 }); };
+      out.bloodDown = function () { app.setState({ bloodDL: Math.max(0, st.bloodDL - 1) }); };
+      out.tekigoUp = function () { app.setState({ tekigo: E.clamp(st.tekigo + 1, 0, 100) }); };
+      out.tekigoDown = function () { app.setState({ tekigo: E.clamp(st.tekigo - 1, 0, 100) }); };
+
+      // ── 入居審査 ──
+      var isCheck = st.diceSides === 20;
+      var skill = SKILLS[st.skillIdx] || SKILLS[0];
+      out.diceIsCheck = isCheck;
+      out.diceHead = isCheck ? '● ' + skill.name + 'の判定 ・ 難度 ' + st.diceDc + '（大家：心臓）' : 'd' + st.diceSides + ' を振る';
+      out.dcMinus = function () { app.setState({ diceDc: E.clamp(st.diceDc - 1, 2, 30) }); };
+      out.dcPlus = function () { app.setState({ diceDc: E.clamp(st.diceDc + 1, 2, 30) }); };
+      var lr = st.lastRoll;
+      if (!lr) {
+        out.diceFace = '—'; out.stampWord = ''; out.diceFormula = 'まだサイコロは振っていない'; out.diceVerdict = ''; out.stampColor = '#7a7264'; out.stampBg = '#fff';
+      } else if (lr.kind === 'check') {
+        var si = stampInfo(lr, lr.skillName, st.rent);
+        out.diceFace = lr.die;
+        out.stampWord = si.word;
+        out.diceFormula = 'd20 ＝ ' + lr.die + ' ＋ ' + lr.skillName + ' ' + lr.mod;
+        out.diceVerdict = si.verdict;
+        out.stampColor = si.color;
+        out.stampBg = si.bg;
+      } else {
+        out.diceFace = lr.value;
+        out.stampWord = '出目';
+        out.diceFormula = 'd' + lr.sides + ' の出目';
+        out.diceVerdict = '＝ ' + lr.value;
+        out.stampColor = '#7a7264';
+        out.stampBg = '#fff';
+      }
+      out.diceTypes = DICE_SIDES.map(function (s) {
+        var sel = s === st.diceSides;
+        return {
+          label: 'd' + s,
+          go: function () { app.setState({ diceSides: s }); },
+          border: sel ? '2px solid #cf3f4f' : '1px solid rgba(58,53,46,.25)',
+          color: sel ? '#b32e3f' : '#7a7264',
+          bg: sel ? 'rgba(207,63,79,.06)' : '#fff',
+          weight: sel ? '600' : '400',
+        };
+      });
+      out.diceSkills = SKILLS.map(function (sk, i) {
+        var sel = i === st.skillIdx;
+        return {
+          label: sk.name + '（' + (sk.mod >= 0 ? '+' + sk.mod : sk.mod) + '）',
+          go: function () { app.setState({ skillIdx: i }); },
+          border: sel ? '1px solid #cf3f4f' : '1px solid rgba(58,53,46,.2)',
+          color: sel ? '#b32e3f' : '#7a7264',
+          bg: sel ? 'rgba(207,63,79,.06)' : '#fff',
+        };
+      });
+      out.rollNow = function () {
+        if (st.diceSides === 20) {
+          var r = E.check(skill.mod, st.diceDc);
+          var si = stampInfo(r, skill.name, st.rent);
+          pushLog(st, 'ツグミ ・ ' + skill.name, r.total + ' ／ ' + si.word, si.color);
+          var patch = {
+            lastRoll: { kind: 'check', die: r.die, mod: r.mod, total: r.total, dc: r.dc, outcome: r.outcome, ok: r.ok, skillName: skill.name },
+            rollLog: st.rollLog,
+          };
+          if (si.rentDelta) patch.rent = Math.max(50, st.rent + si.rentDelta);
+          if (si.hp) patch.tai = E.clamp(st.tai + si.hp, 0, TAI_MAX);
+          app.setState(patch);
+        } else {
+          var v = E.rollDie(st.diceSides);
+          pushLog(st, 'ツグミ ・ d' + st.diceSides, v + ' ／ 出目', '#7a7264');
+          app.setState({ lastRoll: { kind: 'plain', sides: st.diceSides, value: v }, rollLog: st.rollLog });
+        }
+      };
+      out.logRows = st.rollLog;
+
+      // ── 免疫対応 ──
+      out.waveTitle = '退去勧告 ・ 第' + st.wave + '波';
+      out.ninshiki = st.ninshiki;
+      out.hasSneeze = !!st.sneezeMsg;
+      out.sneezeMsg = st.sneezeMsg || '';
+      function aliveIdx(from) {
+        for (var i = 1; i <= COMBATANTS.length; i++) {
+          var idx = (from + i) % COMBATANTS.length;
+          if (st[COMBATANTS[idx].key] > 0) return idx;
+        }
+        return from;
+      }
+      function identifiedGrowth() {
+        var total = 0;
+        COMBATANTS.forEach(function (c) {
+          if (c.toggleable && st.identified[c.key] && st[c.key] > 0) total += 6;
+        });
+        return total;
+      }
+      out.nextTurn = function () {
+        var next = aliveIdx(st.turnIdx);
+        var patch = { turnIdx: next, sneezeMsg: null };
+        if (next <= st.turnIdx) {
+          patch.wave = st.wave + 1;
+          var grown = E.clamp(st.ninshiki + identifiedGrowth(), 0, 999);
+          if (grown >= 100) {
+            patch.ninshiki = 20;
+            patch.sneezeMsg = '——満タンにより、全館一斉退去（くしゃみ）発生！ 認識度は20まで巻き戻り、全員に軽い衝撃（体力−1）。';
+            COMBATANTS.forEach(function (c) {
+              patch[c.key] = E.clamp((c.key in patch ? patch[c.key] : st[c.key]) - 1, 0, c.max);
+            });
+          } else {
+            patch.ninshiki = grown;
+          }
+        }
+        app.setState(patch);
+      };
+      out.hideBehind = function () {
+        app.setState({ ninshiki: E.clamp(st.ninshiki - 5, 0, 100) });
+      };
+      out.combatants = COMBATANTS.map(function (c, i) {
+        var hp = st[c.key];
+        var dead = hp <= 0;
+        var active = i === st.turnIdx && !dead;
+        var tags = (c.baseTags || []).slice();
+        var toggleLabel = '', toggleFn = null;
+        if (c.toggleable) {
+          var isId = !!st.identified[c.key];
+          tags.push(isId
+            ? { t: '異物認定（毎ターン認識度+6）', bg: 'rgba(207,63,79,.1)', color: '#b32e3f' }
+            : { t: '消臭済み（認識度+0）', bg: 'rgba(61,138,95,.12)', color: '#3d8a5f' });
+          toggleLabel = isId ? '消臭する' : '認定させる';
+          toggleFn = function () {
+            var identified = Object.assign({}, st.identified);
+            identified[c.key] = !isId;
+            app.setState({ identified: identified });
+          };
+        }
+        if (dead) tags = [{ t: '戦線離脱', bg: 'rgba(207,63,79,.1)', color: '#b32e3f' }];
+        function adj(d) {
+          return function () {
+            var patch = {};
+            patch[c.key] = E.clamp(hp + d, 0, c.max);
+            app.setState(patch);
+          };
+        }
+        return {
+          name: c.name, init: c.init, gauge: c.gauge, hp: hp, max: c.max,
+          pct: Math.round((hp / c.max) * 100),
+          side: active ? '行動中' : '',
+          border: active ? '2px solid #cf3f4f' : '1px solid rgba(58,53,46,.16)',
+          shadow: active ? '0 4px 12px rgba(207,63,79,.1)' : 'none',
+          pad: '11px 14px', op: dead ? '.6' : '1',
+          initBg: active ? '#cf3f4f' : 'rgba(58,53,46,.1)',
+          initColor: active ? '#fff' : '#6b6353',
+          tokenStyle: c.tokenStyle,
+          barBg: c.key === 'hpMacro' ? '#8d93a0' : 'linear-gradient(90deg,#e0566a,#b32e3f)',
+          tags: tags, toggleable: c.toggleable, toggle: toggleFn, toggleLabel: toggleLabel,
+          dmg5: adj(-5), dmg1: adj(-1), heal1: adj(1), heal5: adj(5),
+        };
+      });
+
+      // ── 契約書類 ──
+      out.diaryUnread = !st.items.diaryRead;
+      out.diaryText = st.items.diaryRead ? DIARY_TEXT_READ : DIARY_TEXT;
+      out.readDiary = function () {
+        var items = Object.assign({}, st.items);
+        items.diaryRead = 1;
+        app.setState({ items: items, flags: Object.assign({}, st.flags, { readDiary: 1 }) });
+      };
+
+      // ── 内見記録 ──
+      var node = NODES[st.storyNode] || NODES.f1;
+      out.storyKicker = node.kicker;
+      out.storyTitle = node.title;
+      out.storyBlocks = node.text.map(function (b) {
+        return typeof b === 'string' ? { isP: true, isQ: false, t: b } : { isP: false, isQ: true, t: b.q };
+      });
+      out.storyHasNote = !!st.storyNote;
+      out.storyNote = st.storyNote || '';
+      out.storyNoteColor = st.storyNoteColor || '#7a7264';
+      out.storyPct = node.pct;
+      out.storyPctLabel = node.end
+        ? '内見ツアー完了 ・ 契約結審'
+        : '内見ツアー進捗 ' + node.pct + '% ・ 心拍 ' + (72 + Math.round(node.pct / 4)) + 'bpm';
+      out.storyCanRestart = st.storyNode !== 'f1';
+      out.storyRestart = function () { app._resetGame(); };
+
+      function choose(c) {
+        return function () {
+          var patch = { storyNote: null, storyNoteColor: '#7a7264' };
+          var target = c.to;
+          if (c.check) {
+            var dc = typeof c.check.dc === 'function' ? c.check.dc(st) : c.check.dc;
+            var r = E.check(c.check.mod, dc);
+            patch.storyNote = c.check.name + '判定 — d20〈' + r.die + '〉＋' + r.mod + ' ＝ ' + r.total + ' ／ 難度' + dc + ' ・ ' + (r.ok ? '成功' : '失敗');
+            patch.storyNoteColor = r.ok ? '#3d8a5f' : '#b32e3f';
+            pushLog(st, 'ツグミ ・ ' + c.check.name + '（内見記録）', r.total + ' ／ ' + (r.ok ? '成功' : '失敗'), r.ok ? '#3d8a5f' : '#b32e3f');
+            patch.rollLog = st.rollLog;
+            target = r.ok ? c.success : c.fail;
+          }
+          var nextNode = NODES[target];
+          applyFx(st, nextNode.fx, patch);
+          var taiNow = 'tai' in patch ? patch.tai : st.tai;
+          var tekigoNow = 'tekigo' in patch ? patch.tekigo : st.tekigo;
+          if (taiNow <= 0 && !nextNode.end) {
+            target = 'E_faint';
+            applyFx(st, NODES.E_faint.fx, patch);
+          } else if (tekigoNow <= 0 && !nextNode.end) {
+            target = 'E_rejected';
+            applyFx(st, NODES.E_rejected.fx, patch);
+          }
+          patch.storyNode = target;
+          app.setState(patch);
+        };
+      }
+      var defs = node.end ? END_CHOICES : node.choices;
+      out.storyChoices = defs.filter(function (c) {
+        return !c.if || c.if(st);
+      }).map(function (c) {
+        var dc = c.check ? (typeof c.check.dc === 'function' ? c.check.dc(st) : c.check.dc) : null;
+        return {
+          num: c.num || '', pre: c.pre, skillText: c.skillText || '', post: c.post || '',
+          dcLabel: dc != null ? '難度' + dc : '',
+          go: c.restart ? function () { app._resetGame(); }
+            : c.top ? function () { app.setState({ screen: 'top' }); }
+            : choose(c),
+        };
+      });
+
+      // ── 管理会社 ──
+      out.gmScenes = GM_SCENES.map(function (t, i) {
+        var active = i === st.gmScene;
+        return {
+          t: t, tag: active ? '進行中' : '',
+          go: function () { app.setState({ gmScene: i }); },
+          border: active ? '2px solid #cf3f4f' : '1px solid rgba(58,53,46,.18)',
+          bg: active ? 'rgba(207,63,79,.04)' : '#fff',
+          color: active ? '#3a352e' : '#7a7264',
+          weight: active ? '900' : '400',
+        };
+      });
+      out.taicho = st.taicho;
+      out.taichoMinus = function () { app.setState({ taicho: E.clamp(st.taicho - 5, 0, 100) }); };
+      out.taichoPlus = function () { app.setState({ taicho: E.clamp(st.taicho + 5, 0, 100) }); };
+      out.gmHasTable = !!st.gmTable;
+      out.gmTableD = st.gmTable ? st.gmTable.d : '';
+      out.gmTableText = st.gmTable ? st.gmTable.text : '';
+      out.rollTable = function () {
+        var d = E.rollDie(6);
+        var text = GM_TABLE[d - 1];
+        pushLog(st, '管理会社 ・ 体内の異変表', d + ' ／ ' + text, '#c98a2a');
+        app.setState({ gmTable: { d: d, text: text }, rollLog: st.rollLog });
+      };
+
+      return out;
+    },
+  };
+})();
 
 window.__dcApp = new Component();
 if (typeof GameEngine !== 'undefined' && window.__GAME__) GameEngine.attach(window.__dcApp, window.__GAME__);
