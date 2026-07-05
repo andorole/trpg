@@ -17,16 +17,36 @@ fs.mkdirSync(outDir, { recursive: true });
 
 // games/<id>.patches.js のパッチをテンプレートへ適用する。
 // { find, replace } は完全一致（1回だけ出現すること）、
-// { block: 'isXxx', replace } は <sc-if value="{{ isXxx }}"> ブロック全体を差し替える。
+// { block: 'isXxx', replace } は <sc-if value="{{ isXxx }}"> ブロック全体を差し替える
+// （入れ子の sc-if があっても深さを数えて正しく対応する閉じタグを探す）。
+function findMatchingClose(template, openEnd) {
+  let depth = 1;
+  let i = openEnd;
+  while (depth > 0) {
+    const nextOpen = template.indexOf('<sc-if', i);
+    const nextClose = template.indexOf('</sc-if>', i);
+    if (nextClose === -1) return -1;
+    if (nextOpen !== -1 && nextOpen < nextClose) {
+      depth++;
+      i = nextOpen + '<sc-if'.length;
+    } else {
+      depth--;
+      if (depth === 0) return nextClose;
+      i = nextClose + '</sc-if>'.length;
+    }
+  }
+  return -1;
+}
+
 function applyPatches(template, patches, file) {
   for (const p of patches) {
     if (p.block) {
       const startTag = '<sc-if value="{{ ' + p.block + ' }}"';
       const s = template.indexOf(startTag);
       if (s === -1) throw new Error(`${file}: ブロック ${p.block} が見つからない`);
-      const e = template.indexOf('</sc-if>', s);
-      const inner = template.slice(s + startTag.length, e);
-      if (inner.includes('<sc-if')) throw new Error(`${file}: ブロック ${p.block} に入れ子の sc-if があるため block 置換は使えない`);
+      const openEnd = template.indexOf('>', s) + 1;
+      const e = findMatchingClose(template, openEnd);
+      if (e === -1) throw new Error(`${file}: ブロック ${p.block} の閉じタグが見つからない`);
       template = template.slice(0, s) + p.replace + template.slice(e + '</sc-if>'.length);
     } else {
       const hits = template.split(p.find).length - 1;

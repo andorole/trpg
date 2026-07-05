@@ -93,7 +93,7 @@
               <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:96px;"><div style="width:62px;height:62px;border-radius:50%;border:2px dashed rgba(217,164,65,.5);background:rgba(23,29,40,.4);"></div><div style="font-size:13px;color:#8d93a0;">窓口の老人</div><div style="font-size:11px;color:#7d8492;">在職年数不明</div></div>
             </div>
 
-            <button style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:2px solid #d9a441;border-radius:5px;cursor:pointer;background:linear-gradient(180deg,#e2b355,#b8862f);color:#191104;font-family:'Shippori Mincho',serif;font-weight:800;font-size:15px;letter-spacing:3px;box-shadow:0 10px 24px -8px rgba(217,164,65,.4);">開門する　➜</button>
+            <button onClick="{{ goStory }}" style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:2px solid #d9a441;border-radius:5px;cursor:pointer;background:linear-gradient(180deg,#e2b355,#b8862f);color:#191104;font-family:'Shippori Mincho',serif;font-weight:800;font-size:15px;letter-spacing:3px;box-shadow:0 10px 24px -8px rgba(217,164,65,.4);">開門する　➜</button>
           </div>
         </sc-if>
 
@@ -114,9 +114,9 @@
             </div>
 
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:22px;">
-              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#8d93a0;margin-bottom:4px;"><span>体力</span><span style="font-family:'IBM Plex Mono',monospace;">12 / 16</span></div><div style="height:9px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:75%;height:100%;background:#b0603f;"></div></div></div>
-              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#8d93a0;margin-bottom:4px;"><span>覚醒度</span><span style="font-family:'IBM Plex Mono',monospace;">7 / 10</span></div><div style="height:9px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:70%;height:100%;background:#d9a441;"></div></div></div>
-              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#8d93a0;margin-bottom:4px;"><span>実在感</span><span style="font-family:'IBM Plex Mono',monospace;color:#6fd3d8;">63%</span></div><div style="height:9px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:63%;height:100%;background:#4f8f94;"></div></div><div style="font-size:9px;color:#7d8492;margin-top:3px;">※勤務を続けると減少します</div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#8d93a0;margin-bottom:4px;"><span>体力</span><span style="font-family:'IBM Plex Mono',monospace;">{{ tai }} / 16</span></div><div style="height:9px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:{{ taiPct }}%;height:100%;background:#b0603f;"></div></div><div style="display:flex;gap:5px;margin-top:6px;"><button onClick="{{ taiDown }}" style="width:24px;height:24px;border:1px solid rgba(217,164,65,.3);border-radius:3px;background:rgba(255,255,255,.03);color:#8d93a0;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ taiUp }}" style="width:24px;height:24px;border:1px solid rgba(217,164,65,.3);border-radius:3px;background:rgba(255,255,255,.03);color:#8d93a0;cursor:pointer;font-size:13px;line-height:1;">＋</button></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#8d93a0;margin-bottom:4px;"><span>覚醒度</span><span style="font-family:'IBM Plex Mono',monospace;">{{ kaku }} / 10</span></div><div style="height:9px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:{{ kakuPct }}%;height:100%;background:#d9a441;"></div></div><div style="display:flex;gap:5px;margin-top:6px;"><button onClick="{{ kakuDown }}" style="width:24px;height:24px;border:1px solid rgba(217,164,65,.3);border-radius:3px;background:rgba(255,255,255,.03);color:#8d93a0;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ kakuUp }}" style="width:24px;height:24px;border:1px solid rgba(217,164,65,.3);border-radius:3px;background:rgba(255,255,255,.03);color:#8d93a0;cursor:pointer;font-size:13px;line-height:1;">＋</button></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:12px;color:#8d93a0;margin-bottom:4px;"><span>実在感</span><span style="font-family:'IBM Plex Mono',monospace;color:#6fd3d8;">{{ jitsu }}%</span></div><div style="height:9px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:{{ jitsu }}%;height:100%;background:#4f8f94;"></div></div><div style="font-size:9px;color:#7d8492;margin-top:3px;">※判定を下すたび、自動で1%減少します</div><div style="display:flex;gap:5px;margin-top:6px;"><button onClick="{{ jitsuDown }}" style="width:24px;height:24px;border:1px solid rgba(217,164,65,.3);border-radius:3px;background:rgba(255,255,255,.03);color:#8d93a0;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ jitsuUp }}" style="width:24px;height:24px;border:1px solid rgba(217,164,65,.3);border-radius:3px;background:rgba(255,255,255,.03);color:#8d93a0;cursor:pointer;font-size:13px;line-height:1;">＋</button></div></div>
             </div>
 
             <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 12px;">■ 能力</p>
@@ -149,31 +149,41 @@
 
         <sc-if value="{{ isDice }}" hint-placeholder-val="{{ false }}">
           <div data-screen-label="照合判定" style="animation:scfade .4s ease;max-width:560px;margin:0 auto;text-align:center;">
-            <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 4px;">■ 旅券の照合判定 ・ 難度 15</p>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 24px;">
-              <div style="width:118px;height:118px;border:4px solid #3f9268;border-radius:6px;transform:rotate(-6deg);animation:stampin .5s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#4fae7d;background:rgba(63,146,104,.05);">
-                <span style="font-family:'IBM Plex Mono',monospace;font-size:44px;font-weight:600;line-height:1;">18</span>
-                <span style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:15px;letter-spacing:6px;border-top:2px solid #3f9268;padding-top:3px;margin-top:4px;">許　可</span>
+            <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 4px;">{{ diceHead }}</p>
+            <sc-if value="{{ diceIsCheck }}">
+              <div style="display:flex;justify-content:center;align-items:center;gap:9px;margin:6px 0 0;">
+                <button onClick="{{ dcMinus }}" style="width:24px;height:24px;border:1px solid rgba(217,164,65,.3);border-radius:3px;background:rgba(255,255,255,.03);color:#8d93a0;cursor:pointer;font-size:13px;line-height:1;">−</button>
+                <span style="font-size:12px;letter-spacing:2px;color:#8d93a0;">難度を調整</span>
+                <button onClick="{{ dcPlus }}" style="width:24px;height:24px;border:1px solid rgba(217,164,65,.3);border-radius:3px;background:rgba(255,255,255,.03);color:#8d93a0;cursor:pointer;font-size:13px;line-height:1;">＋</button>
               </div>
-              <div style="font-size:14px;color:#8d93a0;margin-top:6px;">d20 ＝ 13 ＋ 印影鑑定 5</div>
-              <div style="font-size:14px;letter-spacing:2px;color:#4fae7d;font-weight:700;">＝ 18 ・ 照合成立 ・ 通過を認める</div>
-              <p style="font-family:'DotGothic16',monospace;font-size:12px;color:#6fd3d8;margin:4px 0 0;">……いま、一瞬「拒否」と読めなかったか？</p>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 24px;">
+              <div style="width:118px;height:118px;border:4px solid {{ stampBorder }};border-radius:6px;transform:rotate(-6deg);animation:stampin .5s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;color:{{ diceVerdictColor }};background:{{ stampBg }};">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:44px;font-weight:600;line-height:1;">{{ diceFace }}</span>
+                <span style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:15px;letter-spacing:6px;border-top:2px solid {{ stampBorder }};padding-top:3px;margin-top:4px;">{{ stampWord }}</span>
+              </div>
+              <div style="font-size:14px;color:#8d93a0;margin-top:6px;">{{ diceFormula }}</div>
+              <div style="font-size:14px;letter-spacing:2px;color:{{ diceVerdictColor }};font-weight:700;">{{ diceVerdict }}</div>
+              <p style="font-family:'DotGothic16',monospace;font-size:12px;color:#6fd3d8;margin:4px 0 0;">{{ diceAside }}</p>
             </div>
             <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;">
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(217,164,65,.3);color:#8d93a0;">d4</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(217,164,65,.3);color:#8d93a0;">d6</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(217,164,65,.3);color:#8d93a0;">d8</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(217,164,65,.3);color:#8d93a0;">d10</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(217,164,65,.3);color:#8d93a0;">d12</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:2px solid #d9a441;color:#e8e0cc;background:rgba(217,164,65,.1);font-weight:600;">d20</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(217,164,65,.3);color:#8d93a0;">d100</span>
+              <sc-for list="{{ diceTypes }}" as="dt">
+                <button onClick="{{ dt.go }}" style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;cursor:pointer;border:{{ dt.border }};color:{{ dt.color }};background:{{ dt.bg }};font-weight:{{ dt.weight }};">{{ dt.label }}</button>
+              </sc-for>
             </div>
-            <button style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:2px solid #d9a441;border-radius:5px;cursor:pointer;background:linear-gradient(180deg,#e2b355,#b8862f);color:#191104;font-family:'Shippori Mincho',serif;font-weight:800;font-size:15px;letter-spacing:3px;box-shadow:0 10px 24px -8px rgba(217,164,65,.4);">審査印を押す</button>
+            <sc-if value="{{ diceIsCheck }}">
+              <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:16px;">
+                <sc-for list="{{ diceSkills }}" as="sk">
+                  <button onClick="{{ sk.go }}" style="font-family:'Shippori Mincho',serif;font-size:12px;padding:5px 11px;border-radius:3px;cursor:pointer;border:{{ sk.border }};color:{{ sk.color }};background:{{ sk.bg }};">{{ sk.label }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+            <button onClick="{{ rollNow }}" style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:2px solid #d9a441;border-radius:5px;cursor:pointer;background:linear-gradient(180deg,#e2b355,#b8862f);color:#191104;font-family:'Shippori Mincho',serif;font-weight:800;font-size:15px;letter-spacing:3px;box-shadow:0 10px 24px -8px rgba(217,164,65,.4);">審査印を押す</button>
             <div style="margin-top:26px;text-align:left;">
               <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 9px;">■ 今夜の審査記録</p>
-              <div style="display:flex;justify-content:space-between;font-size:13px;color:#c9c2ad;padding:7px 0;border-bottom:1px dotted rgba(217,164,65,.22);"><span>一人目 ・ 商人フェン ・ 印影鑑定</span><span style="font-family:'IBM Plex Mono',monospace;color:#4fae7d;">18 ／ 許可</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:13px;color:#c9c2ad;padding:7px 0;border-bottom:1px dotted rgba(217,164,65,.22);"><span>二人目 ・ 名を思い出せない男 ・ 虚偽看破</span><span style="font-family:'IBM Plex Mono',monospace;color:#c04a3a;">6 ／ 失敗——通してしまった</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:13px;color:#c9c2ad;padding:7px 0;"><span>犬のセロ ・ 吠えるべきか ・ 直感</span><span style="font-family:'IBM Plex Mono',monospace;color:#4fae7d;">20 ／ 大成功（吠えなかった）</span></div>
+              <sc-for list="{{ logRows }}" as="r">
+                <div style="display:flex;justify-content:space-between;font-size:13px;color:#c9c2ad;padding:7px 0;border-bottom:1px dotted rgba(217,164,65,.22);"><span>{{ r.left }}</span><span style="font-family:'IBM Plex Mono',monospace;color:{{ r.color }};">{{ r.right }}</span></div>
+              </sc-for>
             </div>
           </div>
         </sc-if>
@@ -181,18 +191,43 @@
         <sc-if value="{{ isCombat }}" hint-placeholder-val="{{ false }}">
           <div data-screen-label="検問の列" style="animation:scfade .4s ease;max-width:780px;margin:0 auto;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-              <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0;color:#e8e0cc;">検問の列 ・ 三人目を審査中</h1>
-              <div style="display:flex;gap:8px;"><button style="padding:8px 15px;border:1px solid rgba(217,164,65,.4);border-radius:3px;background:transparent;color:#c9c2ad;cursor:pointer;font-family:'Shippori Mincho',serif;font-size:13px;">保留室へ送る</button><button style="padding:8px 15px;border:2px solid #d9a441;border-radius:3px;background:linear-gradient(180deg,#e2b355,#b8862f);color:#191104;cursor:pointer;font-weight:800;font-size:13px;font-family:'Shippori Mincho',serif;">次の窓口へ</button></div>
+              <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0;color:#e8e0cc;">{{ queueTitle }}</h1>
+              <div style="display:flex;gap:8px;"><button onClick="{{ sendHolding }}" style="padding:8px 15px;border:1px solid rgba(217,164,65,.4);border-radius:3px;background:transparent;color:#c9c2ad;cursor:pointer;font-family:'Shippori Mincho',serif;font-size:13px;">保留室へ送る</button><button onClick="{{ nextWindow }}" style="padding:8px 15px;border:2px solid #d9a441;border-radius:3px;background:linear-gradient(180deg,#e2b355,#b8862f);color:#191104;cursor:pointer;font-weight:800;font-size:13px;font-family:'Shippori Mincho',serif;">次の窓口へ</button></div>
             </div>
             <p style="font-size:12px;color:#7d8492;margin:0 0 16px;">列の長さ：目視不能 ・ 霧の濃度：中 ・ 犬の機嫌：普通</p>
-
-            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:5px;border:2px solid #d9a441;background:rgba(217,164,65,.06);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#d9a441;color:#191104;border-radius:3px;">3</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #d9a441;background:repeating-linear-gradient(45deg,rgba(217,164,65,.16) 0 4px,transparent 4px 8px),rgba(23,29,40,.7);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#e8e0cc;">「アンナ・ヴェイル」 <span style="font-size:11px;color:#d9a441;">審査中</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(217,164,65,.12);color:#d9a441;">旅券が温かい</span><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(111,211,216,.12);color:#6fd3d8;">帰郷と主張</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#8d93a0;margin-bottom:3px;"><span>発見した矛盾</span><span style="font-family:'IBM Plex Mono',monospace;">2 / 3</span></div><div style="height:8px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:66%;height:100%;background:linear-gradient(90deg,#4f8f94,#d9a441);"></div></div><div style="font-size:9px;color:#7d8492;margin-top:2px;">※3つ揃えば審問へ移行できる</div></div></div>
-
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:5px;border:1px solid rgba(192,74,58,.5);background:rgba(192,74,58,.04);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(255,255,255,.08);color:#8d93a0;border-radius:3px;">4</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #c04a3a;background:rgba(23,29,40,.9);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#c96a52;">顔のない外交官 <span style="font-size:11px;color:#8d93a0;">待機中 ・ 外交旅券</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(192,74,58,.12);color:#c96a52;">通達第一項の対象</span><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(255,255,255,.06);color:#8d93a0;">周囲の気温−3℃</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#8d93a0;margin-bottom:3px;"><span>発見した矛盾</span><span style="font-family:'IBM Plex Mono',monospace;color:#c96a52;">？ / ？</span></div><div style="height:8px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:100%;height:100%;background:repeating-linear-gradient(90deg,rgba(192,74,58,.35) 0 6px,transparent 6px 12px);"></div></div></div></div>
-
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:5px;border:1px solid rgba(217,164,65,.2);background:rgba(255,255,255,.02);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(255,255,255,.08);color:#8d93a0;border-radius:3px;">5</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid rgba(217,164,65,.5);background:repeating-linear-gradient(45deg,rgba(217,164,65,.1) 0 4px,transparent 4px 8px),rgba(23,29,40,.7);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#e8e0cc;">少女（名乗らない）</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(111,211,216,.12);color:#6fd3d8;">旅券が白紙</span><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(255,255,255,.06);color:#8d93a0;">「おじいちゃんに会いに行くの」</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#8d93a0;margin-bottom:3px;"><span>発見した矛盾</span><span style="font-family:'IBM Plex Mono',monospace;">0 / 1</span></div><div style="height:8px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:4%;height:100%;background:#4f8f94;"></div></div></div></div>
-
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:5px;border:1px dashed rgba(217,164,65,.3);background:transparent;opacity:.7;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7d8492;border:1px dashed rgba(217,164,65,.4);border-radius:3px;">6+</span><div style="flex:1;"><div style="font-size:14px;color:#8d93a0;">以降の列は霧の中 <span style="font-family:'DotGothic16',monospace;font-size:11px;color:#6fd3d8;">——数えるたびに一人増えている</span></div></div></div>
+            <sc-for list="{{ travelers }}" as="tv">
+              <div style="display:flex;align-items:center;gap:12px;padding:{{ tv.pad }};border-radius:5px;border:{{ tv.border }};background:{{ tv.bg }};margin-bottom:8px;opacity:{{ tv.op }};">
+                <span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:{{ tv.numBg }};color:{{ tv.numColor }};border-radius:3px;">{{ tv.num }}</span>
+                <span style="width:30px;height:30px;flex:none;border-radius:50%;{{ tv.tokenStyle }}"></span>
+                <div style="flex:1;">
+                  <div style="font-size:15px;font-weight:700;color:{{ tv.nameColor }};">{{ tv.name }} <span style="font-size:11px;color:{{ tv.sideColor }};">{{ tv.side }}</span></div>
+                  <sc-if value="{{ tv.hasTags }}">
+                    <div style="display:flex;gap:5px;margin-top:3px;flex-wrap:wrap;">
+                      <sc-for list="{{ tv.tags }}" as="tg"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:{{ tg.bg }};color:{{ tg.color }};">{{ tg.t }}</span></sc-for>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ tv.hasNote }}"><div style="font-size:11px;color:#6fd3d8;font-family:'DotGothic16',monospace;margin-top:3px;">{{ tv.note }}</div></sc-if>
+                </div>
+                <div style="width:170px;">
+                  <sc-if value="{{ tv.trackable }}">
+                    <div style="display:flex;justify-content:space-between;font-size:11px;color:#8d93a0;margin-bottom:3px;"><span>発見した矛盾</span><span style="font-family:'IBM Plex Mono',monospace;">{{ tv.count }} / {{ tv.max }}</span></div>
+                    <div style="height:8px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:{{ tv.pct }}%;height:100%;background:linear-gradient(90deg,#4f8f94,#d9a441);"></div></div>
+                    <sc-if value="{{ tv.ready }}"><div style="font-size:9px;color:#d9a441;margin-top:2px;">※審問へ移行可能</div></sc-if>
+                    <div style="display:flex;gap:4px;margin-top:5px;justify-content:flex-end;">
+                      <button onClick="{{ tv.dec }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(217,164,65,.3);border-radius:3px;background:rgba(255,255,255,.04);color:#c9c2ad;cursor:pointer;">−1</button>
+                      <button onClick="{{ tv.inc }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(217,164,65,.3);border-radius:3px;background:rgba(255,255,255,.04);color:#c9c2ad;cursor:pointer;">＋1</button>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ tv.unknown }}">
+                    <div style="display:flex;justify-content:space-between;font-size:11px;color:#8d93a0;margin-bottom:3px;"><span>発見した矛盾</span><span style="font-family:'IBM Plex Mono',monospace;color:#c96a52;">？ / ？</span></div>
+                    <div style="height:8px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:100%;height:100%;background:repeating-linear-gradient(90deg,rgba(192,74,58,.35) 0 6px,transparent 6px 12px);"></div></div>
+                  </sc-if>
+                  <sc-if value="{{ tv.isFog }}">
+                    <button onClick="{{ tv.peek }}" style="font-size:10px;padding:3px 9px;border:1px dashed rgba(217,164,65,.4);border-radius:3px;background:transparent;color:#7d8492;cursor:pointer;">覗き見る</button>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-for>
           </div>
         </sc-if>
 
@@ -214,7 +249,7 @@
                 <div style="border:1px solid rgba(217,164,65,.22);border-radius:4px;padding:10px 13px;margin-bottom:8px;background:rgba(255,255,255,.02);"><div style="display:flex;justify-content:space-between;font-size:13px;color:#e8e0cc;"><span style="font-weight:700;">偽造印章</span><span style="font-family:'IBM Plex Mono',monospace;color:#8d93a0;">No.083</span></div><div style="font-size:11px;color:#8d93a0;margin-top:2px;">精巧。握ると体温がある。本物より本物らしい、が問題。</div></div>
                 <div style="border:1px solid rgba(217,164,65,.22);border-radius:4px;padding:10px 13px;margin-bottom:8px;background:rgba(255,255,255,.02);"><div style="display:flex;justify-content:space-between;font-size:13px;color:#e8e0cc;"><span style="font-weight:700;">存在しない都市の絵葉書 ×12</span><span style="font-family:'IBM Plex Mono',monospace;color:#8d93a0;">No.084</span></div><div style="font-size:11px;color:#8d93a0;margin-top:2px;">消印はすべて未来の日付。風景は毎朝すこし変わる。</div></div>
                 <div style="border:1px solid rgba(217,164,65,.22);border-radius:4px;padding:10px 13px;margin-bottom:8px;background:rgba(255,255,255,.02);"><div style="display:flex;justify-content:space-between;font-size:13px;color:#e8e0cc;"><span style="font-weight:700;">誰も吹けない口笛</span><span style="font-family:'IBM Plex Mono',monospace;color:#8d93a0;">No.091</span></div><div style="font-size:11px;color:#8d93a0;margin-top:2px;">金属製。吹くと音の代わりに静寂が出る。犬が嫌う。</div></div>
-                <div style="border:1px solid rgba(192,74,58,.5);border-radius:4px;padding:10px 13px;background:rgba(192,74,58,.04);"><div style="display:flex;justify-content:space-between;font-size:13px;color:#e8e0cc;"><span style="font-weight:700;">手紙（宛先：あなた）</span><span style="font-family:'IBM Plex Mono',monospace;color:#c96a52;">No.097</span></div><div style="font-size:11px;color:#c96a52;margin-top:2px;">未開封。差出人欄の筆跡は、あなた自身のもの。開封は推奨されない。</div></div>
+                <div style="border:1px solid rgba(192,74,58,.5);border-radius:4px;padding:10px 13px;background:rgba(192,74,58,.04);"><div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#e8e0cc;"><span style="font-weight:700;">手紙（宛先：あなた）</span><span style="display:flex;align-items:center;gap:8px;"><sc-if value="{{ letterUnopened }}"><button onClick="{{ openLetter }}" style="font-size:10px;padding:2px 9px;border:1px solid rgba(192,74,58,.5);border-radius:3px;background:rgba(255,255,255,.04);color:#c96a52;cursor:pointer;">開封する</button></sc-if><span style="font-family:'IBM Plex Mono',monospace;color:#c96a52;">No.097</span></span></div><div style="font-size:11px;color:#c96a52;margin-top:2px;">{{ letterNote }}</div></div>
                 <div style="margin-top:14px;border:1px solid rgba(217,164,65,.3);border-radius:5px;padding:13px 15px;background:rgba(255,255,255,.02);"><div style="font-size:13px;font-weight:700;color:#e8e0cc;margin-bottom:5px;">保管庫規則 第4条</div><div style="font-size:12px;line-height:1.8;color:#8d93a0;">押収品が夜間に増えていた場合、増えた分も台帳に記載すること。<span style="font-family:'DotGothic16',monospace;color:#6fd3d8;">誰が持ち込んだかは、調べないこと。</span></div></div>
               </div>
             </div>
@@ -223,11 +258,17 @@
 
         <sc-if value="{{ isStory }}" hint-placeholder-val="{{ false }}">
           <div data-screen-label="審査記録" style="animation:scfade .4s ease;max-width:640px;margin:0 auto;">
-            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#8d93a0;text-align:center;margin:0 0 6px;">審査記録 ・ 今夜の三人目</p>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#8d93a0;text-align:center;margin:0 0 6px;">{{ storyKicker }}</p>
             <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;text-align:center;margin:0 0 4px;color:#e8e0cc;">「アンナ・ヴェイル」</h1>
             <div style="display:flex;align-items:center;gap:12px;margin:16px 0 22px;color:#d9a441;"><span style="flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(217,164,65,.5));"></span><span style="font-size:12px;">✧</span><span style="flex:1;height:1px;background:linear-gradient(90deg,rgba(217,164,65,.5),transparent);"></span></div>
-            <p style="font-size:16px;line-height:2.05;color:#c9c2ad;margin:0 0 18px;">窓口に置かれた旅券は、革ではなく、何かもっと柔らかいものでできていた。持ち上げると、かすかに温かい。「帰るんです」と彼女は言った。「アルカディアへ。生まれた町へ」。その目は嘘をついていない。<b style="color:#d9a441;">目は。</b></p>
-            <p style="font-size:16px;line-height:2.05;color:#c9c2ad;margin:0 0 22px;">セロは吠えなかった。ただ、彼女の影を——彼女より少し遅れて動く影を、じっと見ていた。</p>
+            <sc-if value="{{ storyHasNote }}">
+              <p style="text-align:center;font-size:13px;letter-spacing:1px;color:{{ storyNoteColor }};margin:0 0 16px;">{{ storyNote }}</p>
+            </sc-if>
+            <sc-for list="{{ storyBlocks }}" as="b">
+              <sc-if value="{{ b.isP }}"><p style="font-size:16px;line-height:2.05;color:#c9c2ad;margin:0 0 18px;">{{ b.t }}</p></sc-if>
+              <sc-if value="{{ b.isQ }}"><blockquote style="margin:22px 0;padding:14px 20px;border-left:3px solid rgba(217,164,65,.5);background:rgba(217,164,65,.03);font-size:16px;line-height:1.9;color:#c9c2ad;">{{ b.t }}</blockquote></sc-if>
+              <sc-if value="{{ b.isA }}"><p style="font-family:'DotGothic16',monospace;font-size:12px;color:#6fd3d8;margin:0 0 18px;">{{ b.t }}</p></sc-if>
+            </sc-for>
 
             <div style="border:1px solid rgba(217,164,65,.4);border-radius:6px;overflow:hidden;margin:0 0 10px;background:#efe9d8;color:#2a3140;box-shadow:0 14px 30px -12px rgba(0,0,0,.6);">
               <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 16px;background:#e3dbc2;border-bottom:1px solid rgba(42,49,64,.25);">
@@ -255,11 +296,14 @@
             </div>
 
             <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 12px;">■ 審査官の行動</p>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(217,164,65,.35);border-radius:5px;background:rgba(255,255,255,.02);cursor:pointer;font-family:'Shippori Mincho',serif;font-size:14px;color:#e8e0cc;">①　矛盾を指摘する <span style="color:#d9a441;">虚偽看破 ・ 難度15</span></button>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(217,164,65,.35);border-radius:5px;background:rgba(255,255,255,.02);cursor:pointer;font-family:'Shippori Mincho',serif;font-size:14px;color:#e8e0cc;">②　見なかったことにして、許可印を押す</button>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;border:1px solid rgba(217,164,65,.35);border-radius:5px;background:rgba(255,255,255,.02);cursor:pointer;font-family:'Shippori Mincho',serif;font-size:14px;color:#e8e0cc;">③　「アルカディアは、どんな国ですか」と尋ねる</button>
-            <div style="margin-top:24px;height:5px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:33%;height:100%;background:linear-gradient(90deg,#b8862f,#d9a441);"></div></div>
-            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#7d8492;margin:7px 0 0;">今夜の審査 3/9件 ・ 夜明けまで あと3時間（推定）</p>
+            <sc-for list="{{ storyChoices }}" as="c">
+              <button onClick="{{ c.go }}" style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(217,164,65,.35);border-radius:5px;background:rgba(255,255,255,.02);cursor:pointer;font-family:'Shippori Mincho',serif;font-size:14px;color:#e8e0cc;">{{ c.num }}　{{ c.pre }}<span style="color:#d9a441;">{{ c.skillText }}</span>{{ c.post }} <span style="float:right;color:#d9a441;">{{ c.dcLabel }}</span></button>
+            </sc-for>
+            <div style="margin-top:24px;height:5px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:{{ storyPct }}%;height:100%;background:linear-gradient(90deg,#b8862f,#d9a441);"></div></div>
+            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#7d8492;margin:7px 0 0;">{{ storyPctLabel }}</p>
+            <sc-if value="{{ storyCanRestart }}">
+              <p style="text-align:center;margin:16px 0 0;"><button onClick="{{ storyRestart }}" style="border:0;background:transparent;color:#7d8492;font-size:11px;letter-spacing:2px;cursor:pointer;text-decoration:underline;font-family:'Shippori Mincho',serif;">審査記録を最初から書き直す</button></p>
+            </sc-if>
           </div>
         </sc-if>
 
@@ -295,12 +339,17 @@
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
               <div>
                 <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 11px;">■ 今夜の場面</p>
-                <div style="padding:11px 13px;border:2px solid #d9a441;border-radius:5px;margin-bottom:8px;background:rgba(217,164,65,.06);"><div style="font-size:14px;font-weight:700;color:#e8e0cc;">三人目の審査 <span style="font-size:10px;color:#d9a441;">進行中</span></div></div>
-                <div style="padding:11px 13px;border:1px solid rgba(217,164,65,.25);border-radius:5px;margin-bottom:8px;background:rgba(255,255,255,.02);"><div style="font-size:14px;color:#8d93a0;">顔のない外交官の順番</div></div>
-                <div style="padding:11px 13px;border:1px solid rgba(217,164,65,.25);border-radius:5px;background:rgba(255,255,255,.02);"><div style="font-size:14px;color:#8d93a0;">夜明け（来るとは限らない）</div></div>
+                <sc-for list="{{ gmScenes }}" as="gs">
+                  <button onClick="{{ gs.go }}" style="display:block;width:100%;text-align:left;padding:11px 13px;border:{{ gs.border }};border-radius:5px;margin-bottom:8px;background:{{ gs.bg }};cursor:pointer;"><span style="font-family:'Shippori Mincho',serif;font-size:14px;font-weight:{{ gs.weight }};color:{{ gs.color }};">{{ gs.t }} <span style="font-size:10px;color:#d9a441;">{{ gs.tag }}</span></span></button>
+                </sc-for>
                 <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:20px 0 10px;">■ 国境の揺らぎ</p>
-                <div style="height:9px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:44%;height:100%;background:linear-gradient(90deg,#4f8f94,#c04a3a);"></div></div>
+                <div style="height:9px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;"><div style="width:{{ yuragi }}%;height:100%;background:linear-gradient(90deg,#4f8f94,#c04a3a);"></div></div>
                 <p style="font-size:11px;color:#7d8492;margin:6px 0 0;">満ちると国境が検問所を「向こう側」へ置いて移動する。</p>
+                <div style="display:flex;align-items:center;gap:9px;margin-top:8px;">
+                  <button onClick="{{ yuragiMinus }}" style="width:24px;height:24px;border:1px solid rgba(217,164,65,.3);border-radius:3px;background:rgba(255,255,255,.03);color:#8d93a0;cursor:pointer;font-size:13px;line-height:1;">−</button>
+                  <span style="font-size:12px;letter-spacing:1px;color:#8d93a0;">{{ yuragi }}%</span>
+                  <button onClick="{{ yuragiPlus }}" style="width:24px;height:24px;border:1px solid rgba(217,164,65,.3);border-radius:3px;background:rgba(255,255,255,.03);color:#8d93a0;cursor:pointer;font-size:13px;line-height:1;">＋</button>
+                </div>
               </div>
               <div>
                 <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:0 0 11px;">■ 人物 ・ 秘匿情報</p>
@@ -308,6 +357,10 @@
                 <div style="border:1px solid rgba(217,164,65,.25);border-radius:5px;padding:11px 13px;background:rgba(255,255,255,.02);"><div style="font-size:14px;font-weight:700;color:#e8e0cc;">窓口の老人</div><div style="font-size:12px;color:#8d93a0;margin-top:2px;">初代審査官。実在感が薄れすぎて、もう誰にも解雇できない。</div></div>
                 <p style="font-size:11px;letter-spacing:3px;color:#d9a441;font-weight:700;margin:20px 0 10px;">■ 夜の異変表（d6）</p>
                 <div style="font-size:13px;color:#c9c2ad;line-height:1.9;">1–2 列が一人増えている ・ 3 ランプが瞬く<br>4 印章の位置が変わっている ・ 5 犬が誰もいない方を見る ・ 6 夜が明けない</div>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:10px;">
+                  <button onClick="{{ rollTable }}" style="padding:7px 16px;border:2px solid #d9a441;border-radius:3px;background:linear-gradient(180deg,#e2b355,#b8862f);color:#191104;cursor:pointer;font-weight:800;font-size:12px;letter-spacing:1px;">異変表を振る</button>
+                  <sc-if value="{{ gmHasTable }}"><span style="font-size:13px;color:#e8c876;">出目 {{ gmTableD }} ・ {{ gmTableText }}</span></sc-if>
+                </div>
               </div>
             </div>
           </div>
@@ -530,6 +583,596 @@ class Component extends DCLogic {
     };
   }
 }
+
+/*
+ * 全作品共通のゲームエンジン。ダイス・d20判定・localStorage 永続化と、
+ * シェル（DCLogic コンポーネント）へのゲーム状態の合流（attach）を担う。
+ * 作品ごとの中身（シナリオ・画面の値）は games/<id>.game.js が window.__GAME__ に定義する。
+ */
+(function () {
+  function rollDie(sides) {
+    return 1 + Math.floor(Math.random() * sides);
+  }
+  function pickKeys(obj, keys) {
+    var o = {};
+    for (var i = 0; i < keys.length; i++) o[keys[i]] = obj[keys[i]];
+    return o;
+  }
+  window.GameEngine = {
+    rollDie: rollDie,
+    clamp: function (v, lo, hi) {
+      return Math.max(lo, Math.min(hi, v));
+    },
+    // d20 判定。20 は大成功、1 は大失敗（出目優先）
+    check: function (mod, dc) {
+      var die = rollDie(20);
+      var total = die + mod;
+      var outcome = die === 20 ? 'crit' : die === 1 ? 'fumble' : total >= dc ? 'success' : 'fail';
+      return { die: die, mod: mod, total: total, dc: dc, outcome: outcome, ok: outcome === 'crit' || outcome === 'success' };
+    },
+    outcomeText: function (outcome) {
+      return { crit: '大成功', success: '成功', fail: '失敗', fumble: '大失敗' }[outcome] || '';
+    },
+    attach: function (app, game) {
+      var key = 'trpg-game-' + game.id;
+      var saved = null;
+      try { saved = JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) {}
+      Object.assign(app.state, game.initialState(), saved || {});
+      if (game.migrate) game.migrate(app.state);
+      var baseRenderVals = app.renderVals.bind(app);
+      app.renderVals = function () {
+        var vals = baseRenderVals();
+        return Object.assign(vals, game.vals(app, vals));
+      };
+      var baseSetState = app.setState.bind(app);
+      app.setState = function (update) {
+        baseSetState(update);
+        try { localStorage.setItem(key, JSON.stringify(pickKeys(app.state, game.persist))); } catch (e) {}
+      };
+      // ゲーム状態のみ初期値へ戻す（device / play / screen は保持）
+      app._resetGame = function () {
+        try { localStorage.removeItem(key); } catch (e) {}
+        Object.assign(app.state, game.initialState());
+        app.render();
+      };
+    },
+  };
+})();
+
+/*
+ * 1e-存在しない国の入国審査 のゲーム内容。
+ * - 照合判定: d4〜d100。d20 判定は審査印（許可／拒否）。大失敗は印が「入れ替わる」不穏な誤審
+ * - 審査官手帳: 体力 / 覚醒度 / 実在感(0-100%) の増減。判定を下すたび実在感が自動で1%減る
+ * - 検問の列: 各旅行者の「発見した矛盾」を実際に数えるトラッカー。次の窓口／保留室送りで列を捌く
+ * - 押収品保管庫: 「手紙（宛先：あなた）」だけ開封可能。開封が審査記録の特殊選択肢を解禁する
+ * - 審査記録: 分岐シナリオ「「アンナ・ヴェイル」の審査」（実在感ルール・複数エンディング）。
+ *   原本にあった「書類を再確認する」トグルはそのまま維持（GameEngine が上書きしない）
+ *   GM 秘匿（アルカディアは彼女が眠るたびに作り直される国）を発見する真ルートあり
+ * - 上級審問室: 場面切替・国境の揺らぎ・夜の異変表 d6
+ */
+(function () {
+  var E = null;
+  function eng() { return E || (E = window.GameEngine); }
+
+  var TAI_MAX = 16, KAKU_MAX = 10;
+
+  var SKILLS = [
+    { name: '印影鑑定', mod: 7 },
+    { name: '虚偽看破', mod: 6 },
+    { name: '書類整理', mod: 4 },
+    { name: '夢語り', mod: -2 },
+    { name: '観察', mod: 3 },
+  ];
+  var DICE_SIDES = [4, 6, 8, 10, 12, 20, 100];
+
+  // 審査印: 出目20=迷いなく許可 / 大失敗=印が入れ替わる誤審 / 通常成功=許可 / 失敗=拒否
+  function stampInfo(r) {
+    var ok = r.ok != null ? r.ok : (r.outcome === 'crit' || r.outcome === 'success');
+    if (r.die === 20) return { word: '許可', verdict: '＝ ' + r.total + ' ・ 迷いなく許可 ・ 通過を認める', color: '#4fae7d', border: '#3f9268', bg: 'rgba(63,146,104,.05)', aside: '……いま、一瞬「拒否」と読めなかったか？', ok: true };
+    if (r.outcome === 'fumble') return { word: '拒否', verdict: '＝ ' + r.total + ' ・ 誤審 ・ 印が入れ替わっていた', color: '#c04a3a', border: '#8a3a30', bg: 'rgba(192,74,58,.06)', aside: '押した瞬間の記憶が、ない。', ok: false };
+    if (ok) return { word: '許可', verdict: '＝ ' + r.total + ' ・ 照合成立 ・ 通過を認める', color: '#4fae7d', border: '#3f9268', bg: 'rgba(63,146,104,.05)', aside: '……いま、一瞬「拒否」と読めなかったか？', ok: true };
+    return { word: '拒否', verdict: '＝ ' + r.total + ' ・ 照合不成立 ・ 通過を拒む', color: '#c04a3a', border: '#8a3a30', bg: 'rgba(192,74,58,.05)', aside: '……いま、一瞬「許可」と読めなかったか？', ok: false };
+  }
+
+  var TOKEN_NORMAL = "border:2px solid #d9a441;background:repeating-linear-gradient(45deg,rgba(217,164,65,.16) 0 4px,transparent 4px 8px),rgba(23,29,40,.7);";
+  var TOKEN_FACELESS = "border:2px solid #c04a3a;background:rgba(23,29,40,.9);";
+  var TOKEN_PALE = "border:2px solid rgba(217,164,65,.5);background:repeating-linear-gradient(45deg,rgba(217,164,65,.1) 0 4px,transparent 4px 8px),rgba(23,29,40,.7);";
+
+  var TRAVELER_DEFS = [
+    { key: 'anna', name: '「アンナ・ヴェイル」', num: 3, max: 3, tokenStyle: TOKEN_NORMAL, nameColor: '#e8e0cc', tags: [{ t: '旅券が温かい', bg: 'rgba(217,164,65,.12)', color: '#d9a441' }, { t: '帰郷と主張', bg: 'rgba(111,211,216,.12)', color: '#6fd3d8' }] },
+    { key: 'diplomat', name: '顔のない外交官', num: 4, unknown: true, tokenStyle: TOKEN_FACELESS, nameColor: '#c96a52', tags: [{ t: '通達第一項の対象', bg: 'rgba(192,74,58,.12)', color: '#c96a52' }, { t: '周囲の気温−3℃', bg: 'rgba(255,255,255,.06)', color: '#8d93a0' }] },
+    { key: 'girl', name: '少女（名乗らない）', num: 5, max: 1, tokenStyle: TOKEN_PALE, nameColor: '#e8e0cc', tags: [{ t: '旅券が白紙', bg: 'rgba(111,211,216,.12)', color: '#6fd3d8' }], note: '「おじいちゃんに会いに行くの」' },
+  ];
+
+  var GM_TABLE = ['列が一人増えている', '列が一人増えている', 'ランプが瞬く', '印章の位置が変わっている', '犬が誰もいない方を見る', '夜が明けない'];
+  var GM_SCENES = ['三人目の審査', '顔のない外交官の順番', '夜明け（来るとは限らない）'];
+
+  // ─────────────────────────────────────────────
+  // シナリオ「「アンナ・ヴェイル」の審査」
+  // fx: tai / kaku / jitsu / flags / taiSet / jitsuSet
+  // ─────────────────────────────────────────────
+  var NODES = {
+    n1: {
+      kicker: '審査記録 ・ 今夜の三人目', pct: 33,
+      text: [
+        '窓口に置かれた旅券は、革ではなく、何かもっと柔らかいものでできていた。持ち上げると、かすかに温かい。「帰るんです」と彼女は言った。「アルカディアへ。生まれた町へ」。その目は嘘をついていない。目は。',
+        'セロは吠えなかった。ただ、彼女の影を——彼女より少し遅れて動く影を、じっと見ていた。',
+      ],
+      choices: [
+        { num: '①', pre: '矛盾を指摘する ', skillText: '虚偽看破', check: { name: '虚偽看破', mod: 6, dc: 15 }, success: 'n2a', fail: 'n2b' },
+        { num: '②', pre: '見なかったことにして、許可印を押す', to: 'n2c' },
+        { num: '③', pre: '「アルカディアは、どんな国ですか」と尋ねる', to: 'n2d' },
+      ],
+    },
+    n2a: {
+      kicker: '審査記録 ・ 今夜の三人目', pct: 40, fx: { flags: { annaAdmits: 1 } },
+      text: [
+        '「影の遅れについて、説明していただけますか」静かに問うと、彼女の笑顔が初めて揺れた。「……ああ。それは、まだ、慣れていないの。生まれたばかりだから」',
+        '生まれたばかり。彼女は、二十歳は超えて見える。',
+        { a: '手帳の余白に、勝手に文字が浮かぶ。「疑うのが、仕事だ」' },
+      ],
+      choices: [
+        { pre: '保留室へ送り、詳しく調べる', to: 'n3hold' },
+        { pre: 'このまま、情に免じて通す', to: 'Er_mercy_partial' },
+      ],
+    },
+    n2b: {
+      kicker: '審査記録 ・ 今夜の三人目', pct: 38, fx: { jitsu: -3 },
+      text: [
+        '指摘の言葉は、口に出す前に溶けて消えた。彼女の笑顔があまりに自然で、疑いそのものが不自然に思えてくる。（実在感 −3）',
+        '手のひらの中で、審査印がわずかに重くなった気がした。',
+      ],
+      choices: [
+        { pre: '特性「二度見」で、旅券の本当の姿を見る', to: 'n3nidome', if: function (st) { return !st.flags.usedNidome; } },
+        { pre: '疑いを飲み込み、このまま通す', to: 'Er_pass_blind' },
+      ],
+    },
+    n2c: {
+      kicker: '審査記録 ・ 今夜の三人目', pct: 40, fx: { flags: { passedBlind: 1 } },
+      text: [
+        '深く考えず、許可の面を押した。彼女は深々と頭を下げ、霧の向こうへ足早に消えていく。窓口の老人が、初めて声をかけてきた。「若いの。今夜のことは、覚えておいたほうがいい」',
+        'なぜそう思うのか、老人自身も分かっていない様子だった。',
+      ],
+      choices: [{ pre: '老人の言葉を、記録に留めておく', to: 'Er_easy' }],
+    },
+    n2d: {
+      kicker: '審査記録 ・ 今夜の三人目', pct: 40, fx: { flags: { heardDream: 1 } },
+      text: [
+        '「アルカディアは、どんな国ですか」彼女は目を細め、遠くを見るように答えた。「毎朝、少しずつ違う国よ。港の位置が変わったり、母の家の色が変わったり。でも、目が覚めるといつも——帰りたくなる」',
+        '毎朝、少しずつ違う。それは国の説明ではなく、夢の説明に聞こえた。',
+      ],
+      choices: [{ pre: 'さらに踏み込んで尋ねる', to: 'n3hold' }],
+    },
+    n3hold: {
+      kicker: '審査記録 ・ 保留室にて', pct: 55,
+      text: [
+        '保留室の中では、時間が流れない。お茶だけが湯気を立て続けている。ヴェスパーが記録簿を繰りながら言う。「彼女のような申請者は、これで七人目です。全員、行き先はアルカディア」',
+        '威厳を持って、核心に踏み込むべきだ。',
+      ],
+      choices: [
+        { pre: '威厳をもって、核心を問い質す ', skillText: '威厳', check: { name: '威厳', mod: 1, dc: 13 }, success: 'n4truth', fail: 'n4evade' },
+      ],
+    },
+    n3nidome: {
+      kicker: '審査記録 ・ 二度見', pct: 60, fx: { kaku: -2, flags: { usedNidome: 1, knowTruth: 1 } },
+      text: [
+        '一晩に一度きりの力を使う。瞬きの間、旅券が透けて見えた——紙の裏側で、小さな町がまだ「描かれている途中」だった。桟橋の線が、いま引かれたばかりのインクのように濡れている。（覚醒度 −2）',
+        'アルカディアは、記載された国ではない。今なお、誰かの手で——あるいは彼女自身の眠りの中で——描き足されている国だ。',
+      ],
+      choices: [{ pre: '見たものを、胸に納めて向き直る', to: 'n5final' }],
+    },
+    n4truth: {
+      kicker: '審査記録 ・ 保留室にて', pct: 70, fx: { flags: { knowTruth: 1 } },
+      text: [
+        '「アルカディアは、地図に載っていない国です。ですが、彼女が眠るたびに、少しずつ形を変えて存在し続けている——そうですね」',
+        '彼女は答えなかった。ただ、旅券を持つ手にほんの少し力がこもり、革ではない何かが、確かに脈打つのを感じた。',
+      ],
+      choices: [{ pre: '窓口へ戻り、最後の判断を下す', to: 'n5final' }],
+    },
+    n4evade: {
+      kicker: '審査記録 ・ 保留室にて', pct: 65, fx: { jitsu: -4 },
+      text: [
+        '踏み込もうとするほど、言葉が空を切った。彼女は困ったように微笑むばかりで、核心は霧の向こうへ退いていく。（実在感 −4）',
+        'ヴェスパーが記録簿を閉じた。「時間切れです、審査官」',
+      ],
+      choices: [{ pre: '窓口へ戻り、最後の判断を下す', to: 'n5final' }],
+    },
+    n5final: {
+      kicker: '審査記録 ・ 最後の判断', pct: 85,
+      text: [
+        '窓口に戻ると、彼女はまだそこにいた。旅券を両手で包み、ただ静かに、審査印の音を待っている。',
+      ],
+      choices: [
+        { pre: '真実を悟った上で、心を込めて許可印を押す', to: 'Et_true', if: function (st) { return st.flags.knowTruth; } },
+        { pre: '手紙の内容を踏まえ、彼女に問う', to: 'Et_letter', if: function (st) { return st.flags.openedLetter; } },
+        { pre: '規定通り、許可する', to: 'Et_approve' },
+        { pre: '規定通り、拒否する', to: 'Et_deny' },
+      ],
+    },
+    Et_true: {
+      kicker: '審査記録 ・ 結', pct: 100, end: true, fx: { jitsu: 5 },
+      text: [
+        '許可の面が紙に触れた瞬間、旅券がひときわ強く脈打ち、窓口いっぱいに港町の匂いがした。彼女は涙ぐみ、深く一礼する。「ありがとう。ちゃんと——見てくれて」',
+        '霧の向こうに消える背中を、セロが初めて尻尾を振って見送った。あなたの実在感は、なぜかわずかに戻っている。誰かを正しく見ることは、自分を保つことでもあるらしい。（実在感 ＋5）',
+      ],
+      choices: [],
+    },
+    Et_letter: {
+      kicker: '審査記録 ・ 結', pct: 100, end: true, fx: { flags: { metaEnding: 1 } },
+      text: [
+        '「一つだけ、伺っても？」あなたは手紙の一節を、記憶のまま口にする。彼女は目を見開き——それから、あなたと同じ顔で微笑んだ。「その手紙、まだ読み終えていなかったのね。続きは、あなたが審査官を辞める夜に読めるわ」',
+        '彼女は霧に消え、あなたは手の中の審査印を見つめる。これを書いたのは、本当に「先代」だったのか。それとも——。事案は、来夜へ持ち越された。',
+      ],
+      choices: [],
+    },
+    Et_approve: {
+      kicker: '審査記録 ・ 結', pct: 100, end: true, fx: { jitsu: -2 },
+      text: [
+        '規定通りに許可を与えた。彼女は礼を言い、霧の向こうへ消えていく。何も暴かず、何も知らないまま。仕事としては、模範的な一夜だった。（実在感 −2）',
+        '手帳に「異常なし」と記す指先が、少しだけ、他人のものに見えた。',
+      ],
+      choices: [],
+    },
+    Et_deny: {
+      kicker: '審査記録 ・ 結', pct: 100, end: true, fx: { jitsu: -6 },
+      text: [
+        '拒否の面を押した。彼女は静かに頷き、何も言わずに窓口を離れる。振り返らなかった。旅券に残っていた温もりだけが、しばらく手のひらに残った。（実在感 −6）',
+        'アルカディアという国は、たぶん今夜、彼女の眠りの中で少しだけ小さくなった。あなたは、それを知る術を持たない。',
+      ],
+      choices: [],
+    },
+    Er_mercy_partial: {
+      kicker: '審査記録 ・ 結', pct: 100, end: true, fx: { jitsu: 2 },
+      text: [
+        '矛盾を知りながら、あなたは情のほうを選んだ。「行きなさい」彼女は驚いた顔をしてから、涙を堪えて一礼した。老人がどこかで小さく頷いた気がした。（実在感 ＋2）',
+        '正しい審査ではなかったかもしれない。それでも、悪い夜ではなかった。',
+      ],
+      choices: [],
+    },
+    Er_pass_blind: {
+      kicker: '審査記録 ・ 結', pct: 100, end: true, fx: { jitsu: -4 },
+      text: [
+        '疑いを飲み込んだまま、印を押した。彼女は微笑んで去っていったが、その微笑みの形を、あなたはもう正確に思い出せない。（実在感 −4）',
+        '今夜見たものと見なかったものの境目が、少しずつ曖昧になっていく。',
+      ],
+      choices: [],
+    },
+    Er_easy: {
+      kicker: '審査記録 ・ 結', pct: 100, end: true,
+      text: [
+        '何も疑わず、何も知らず、窓口を閉じた。老人の忠告だけが、理由もわからないまま手帳の隅に記されている。「今夜のことは、覚えておいたほうがいい」',
+        '穏当な一夜。だが、なぜか朝が来ても、よく眠れた気がしなかった。',
+      ],
+      choices: [],
+    },
+    E_faint: {
+      kicker: '審査記録 ・ 結', pct: 100, end: true, fx: { taiSet: 1 },
+      text: [
+        '窓口に突っ伏し、そのまま眠りに落ちた。目を覚ますと、ヴェスパーが毛布をかけてくれていた。「誰も、あなたを責めていません。夜勤は、そういうものです」',
+        '審査記録は、途中で途切れている。（体力 1 で目覚める）',
+      ],
+      choices: [],
+    },
+    E_fade: {
+      kicker: '審査記録 ・ 結', pct: 100, end: true, fx: { jitsuSet: 10 },
+      text: [
+        '気づけば、窓口の老人の顔が、以前よりほんの少し、自分に似ている気がした。実在感は底を打ち、輪郭がひどく曖昧になっている。',
+        '「大丈夫」と老人が言う。「わしも最初は、そうだった。ここで働くほど、外側の世界での自分は薄くなる。でも——窓口の中では、誰よりも実在できる」それが慰めなのか、警告なのかは分からない。（実在感 10 まで戻り、勤務を続ける）',
+      ],
+      choices: [],
+    },
+  };
+
+  var END_CHOICES = [
+    { pre: '審査記録を最初から書き直す', restart: true },
+    { pre: '検問所の間へ戻る', top: true },
+  ];
+
+  // ─────────────────────────────────────────────
+
+  function initialState() {
+    return {
+      diceSides: 20, skillIdx: 0, diceDc: 15,
+      lastRoll: { kind: 'check', die: 13, mod: 5, total: 18, dc: 15, outcome: 'success', skillName: '印影鑑定' },
+      rollLog: [
+        { left: '一人目 ・ 商人フェン ・ 印影鑑定', right: '18 ／ 許可', color: '#4fae7d' },
+        { left: '二人目 ・ 名を思い出せない男 ・ 虚偽看破', right: '6 ／ 失敗——通してしまった', color: '#c04a3a' },
+        { left: '犬のセロ ・ 吠えるべきか ・ 直感', right: '20 ／ 大成功（吠えなかった）', color: '#4fae7d' },
+      ],
+      tai: 12, kaku: 7, jitsu: 63,
+      queueIdx: 0, heldSet: {}, counts: { anna: 2, diplomat: 0, girl: 0 }, fogCount: 6,
+      items: { letterOpened: 0 },
+      flags: {},
+      storyNode: 'n1', storyNote: null, storyNoteColor: '#8d93a0',
+      gmScene: 0, yuragi: 44, gmTable: null,
+    };
+  }
+
+  function pushLog(st, left, right, color) {
+    st.rollLog = [{ left: left, right: right, color: color }].concat(st.rollLog).slice(0, 10);
+  }
+
+  function applyFx(st, fx, patch) {
+    if (!fx) return;
+    function get(k) { return k in patch ? patch[k] : st[k]; }
+    if (fx.tai) patch.tai = eng().clamp(get('tai') + fx.tai, 0, TAI_MAX);
+    if (fx.taiSet != null) patch.tai = fx.taiSet;
+    if (fx.kaku) patch.kaku = eng().clamp(get('kaku') + fx.kaku, 0, KAKU_MAX);
+    if (fx.jitsu) patch.jitsu = eng().clamp(get('jitsu') + fx.jitsu, 0, 100);
+    if (fx.jitsuSet != null) patch.jitsu = fx.jitsuSet;
+    if (fx.flags) patch.flags = Object.assign({}, get('flags'), fx.flags);
+  }
+
+  window.__GAME__ = {
+    id: '1e',
+    initialState: initialState,
+    persist: [
+      'diceSides', 'skillIdx', 'diceDc', 'lastRoll', 'rollLog',
+      'tai', 'kaku', 'jitsu', 'queueIdx', 'heldSet', 'counts', 'fogCount',
+      'items', 'flags', 'storyNode', 'storyNote', 'storyNoteColor',
+      'gmScene', 'yuragi', 'gmTable', 'rechecked',
+    ],
+    migrate: function (st) {
+      var init = initialState();
+      if (!NODES[st.storyNode]) { st.storyNode = 'n1'; st.storyNote = null; st.flags = {}; }
+      st.items = Object.assign({}, init.items, st.items || {});
+      st.counts = Object.assign({}, init.counts, st.counts || {});
+      st.heldSet = st.heldSet || {};
+      st.flags = st.flags || {};
+      if (!Array.isArray(st.rollLog)) st.rollLog = init.rollLog;
+    },
+
+    vals: function (app) {
+      var st = app.state;
+      var E = eng();
+      var out = {};
+
+      // ── 検問所 ──
+      out.goStory = function () { app.setState({ screen: 'story' }); };
+
+      // ── 審査官手帳 ──
+      out.tai = st.tai;
+      out.taiPct = Math.round((st.tai / TAI_MAX) * 100);
+      out.kaku = st.kaku;
+      out.kakuPct = Math.round((st.kaku / KAKU_MAX) * 100);
+      out.jitsu = st.jitsu;
+      out.taiUp = function () { app.setState({ tai: E.clamp(st.tai + 1, 0, TAI_MAX) }); };
+      out.taiDown = function () { app.setState({ tai: E.clamp(st.tai - 1, 0, TAI_MAX) }); };
+      out.kakuUp = function () { app.setState({ kaku: E.clamp(st.kaku + 1, 0, KAKU_MAX) }); };
+      out.kakuDown = function () { app.setState({ kaku: E.clamp(st.kaku - 1, 0, KAKU_MAX) }); };
+      out.jitsuUp = function () { app.setState({ jitsu: E.clamp(st.jitsu + 1, 0, 100) }); };
+      out.jitsuDown = function () { app.setState({ jitsu: E.clamp(st.jitsu - 1, 0, 100) }); };
+
+      // ── 照合判定 ──
+      var isCheck = st.diceSides === 20;
+      var skill = SKILLS[st.skillIdx] || SKILLS[0];
+      out.diceIsCheck = isCheck;
+      out.diceHead = isCheck ? '■ ' + skill.name + '判定 ・ 難度 ' + st.diceDc : 'd' + st.diceSides + ' を振る';
+      out.dcMinus = function () { app.setState({ diceDc: E.clamp(st.diceDc - 1, 2, 30) }); };
+      out.dcPlus = function () { app.setState({ diceDc: E.clamp(st.diceDc + 1, 2, 30) }); };
+      var lr = st.lastRoll;
+      if (!lr) {
+        out.diceFace = '—'; out.stampWord = ''; out.diceFormula = 'まだ審査印は押していない'; out.diceVerdict = ''; out.diceVerdictColor = '#8d93a0'; out.stampBorder = 'rgba(217,164,65,.3)'; out.stampBg = 'rgba(255,255,255,.02)'; out.diceAside = '';
+      } else if (lr.kind === 'check') {
+        var si = stampInfo(lr);
+        out.diceFace = lr.die;
+        out.stampWord = si.word;
+        out.diceFormula = 'd20 ＝ ' + lr.die + ' ＋ ' + lr.skillName + ' ' + lr.mod;
+        out.diceVerdict = si.verdict;
+        out.diceVerdictColor = si.color;
+        out.stampBorder = si.border;
+        out.stampBg = si.bg;
+        out.diceAside = si.aside;
+      } else {
+        out.diceFace = lr.value;
+        out.stampWord = '出目';
+        out.diceFormula = 'd' + lr.sides + ' の出目';
+        out.diceVerdict = '＝ ' + lr.value;
+        out.diceVerdictColor = '#8d93a0';
+        out.stampBorder = 'rgba(217,164,65,.3)';
+        out.stampBg = 'rgba(255,255,255,.02)';
+        out.diceAside = '';
+      }
+      out.diceTypes = DICE_SIDES.map(function (s) {
+        var sel = s === st.diceSides;
+        return {
+          label: 'd' + s,
+          go: function () { app.setState({ diceSides: s }); },
+          border: sel ? '2px solid #d9a441' : '1px solid rgba(217,164,65,.3)',
+          color: sel ? '#e8e0cc' : '#8d93a0',
+          bg: sel ? 'rgba(217,164,65,.1)' : 'transparent',
+          weight: sel ? '600' : '400',
+        };
+      });
+      out.diceSkills = SKILLS.map(function (sk, i) {
+        var sel = i === st.skillIdx;
+        return {
+          label: sk.name + '（' + (sk.mod >= 0 ? '+' + sk.mod : sk.mod) + '）',
+          go: function () { app.setState({ skillIdx: i }); },
+          border: sel ? '1px solid #d9a441' : '1px solid rgba(217,164,65,.3)',
+          color: sel ? '#e8e0cc' : '#8d93a0',
+          bg: sel ? 'rgba(217,164,65,.1)' : 'transparent',
+        };
+      });
+      out.rollNow = function () {
+        if (st.diceSides === 20) {
+          var r = E.check(skill.mod, st.diceDc);
+          var si = stampInfo(r);
+          pushLog(st, 'ノクト ・ ' + skill.name, r.total + ' ／ ' + si.word, si.color);
+          app.setState({
+            lastRoll: { kind: 'check', die: r.die, mod: r.mod, total: r.total, dc: r.dc, outcome: r.outcome, ok: r.ok, skillName: skill.name },
+            rollLog: st.rollLog,
+            jitsu: E.clamp(st.jitsu - 1, 0, 100),
+          });
+        } else {
+          var v = E.rollDie(st.diceSides);
+          pushLog(st, 'ノクト ・ d' + st.diceSides, v + ' ／ 出目', '#8d93a0');
+          app.setState({ lastRoll: { kind: 'plain', sides: st.diceSides, value: v }, rollLog: st.rollLog });
+        }
+      };
+      out.logRows = st.rollLog;
+
+      // ── 検問の列 ──
+      var order = TRAVELER_DEFS.map(function (d) { return d.key; });
+      function nextUnheld(from) {
+        for (var i = 1; i <= order.length; i++) {
+          var idx = (from + i) % order.length;
+          if (!st.heldSet[order[idx]]) return idx;
+        }
+        return from;
+      }
+      var currentKey = order[st.queueIdx];
+      out.queueTitle = '検問の列 ・ ' + (TRAVELER_DEFS[st.queueIdx] ? TRAVELER_DEFS[st.queueIdx].num : '?') + '人目を審査中';
+      out.nextWindow = function () { app.setState({ queueIdx: nextUnheld(st.queueIdx) }); };
+      out.sendHolding = function () {
+        var held = Object.assign({}, st.heldSet);
+        held[currentKey] = 1;
+        app.setState({ heldSet: held, queueIdx: nextUnheld(st.queueIdx) });
+      };
+      out.travelers = TRAVELER_DEFS.map(function (d, i) {
+        var held = !!st.heldSet[d.key];
+        var active = i === st.queueIdx && !held;
+        var count = st.counts[d.key] || 0;
+        function adjust(delta) {
+          return function () {
+            var counts = Object.assign({}, st.counts);
+            counts[d.key] = E.clamp(count + delta, 0, d.max || 99);
+            app.setState({ counts: counts });
+          };
+        }
+        var tags = d.tags.slice();
+        if (held) tags = tags.concat([{ t: '保留中', bg: 'rgba(217,164,65,.12)', color: '#d9a441' }]);
+        return {
+          num: d.num, name: d.name, nameColor: d.nameColor,
+          side: active ? '審査中' : held ? '保留中' : '',
+          sideColor: held ? '#d9a441' : '#d9a441',
+          tokenStyle: d.tokenStyle,
+          numBg: active ? '#d9a441' : 'rgba(255,255,255,.08)',
+          numColor: active ? '#191104' : '#8d93a0',
+          border: active ? '2px solid #d9a441' : held ? '1px dashed rgba(217,164,65,.3)' : d.unknown ? '1px solid rgba(192,74,58,.5)' : '1px solid rgba(217,164,65,.2)',
+          bg: active ? 'rgba(217,164,65,.06)' : d.unknown ? 'rgba(192,74,58,.04)' : 'rgba(255,255,255,.02)',
+          pad: '11px 14px', op: held ? '.65' : '1',
+          hasTags: tags.length > 0, tags: tags,
+          hasNote: !!d.note, note: d.note || '',
+          trackable: !d.unknown, unknown: !!d.unknown, isFog: false,
+          count: count, max: d.max, pct: d.max ? Math.round((count / d.max) * 100) : 0,
+          ready: !d.unknown && count >= (d.max || 99),
+          inc: adjust(1), dec: adjust(-1),
+        };
+      }).concat([{
+        num: '6+', name: '以降の列は霧の中', nameColor: '#8d93a0',
+        side: '', sideColor: '#8d93a0',
+        tokenStyle: 'border:1px dashed rgba(217,164,65,.4);background:transparent;',
+        numBg: 'transparent', numColor: '#7d8492',
+        border: '1px dashed rgba(217,164,65,.3)', bg: 'transparent', pad: '11px 14px', op: '.7',
+        hasTags: false, tags: [],
+        hasNote: true, note: '——数えるたびに、推定 ' + st.fogCount + ' 人に増えている',
+        trackable: false, unknown: false, isFog: true,
+        peek: function () { app.setState({ fogCount: st.fogCount + 1 }); },
+      }]);
+
+      // ── 押収品保管庫 ──
+      out.letterUnopened = !st.items.letterOpened;
+      out.letterNote = st.items.letterOpened
+        ? '開封済み。中身は、あなた自身の筆跡で書かれた一文だけだった。審査記録の場で、思い出せるかもしれない。'
+        : '未開封。差出人欄の筆跡は、あなた自身のもの。開封は推奨されない。';
+      out.openLetter = function () {
+        var items = Object.assign({}, st.items);
+        items.letterOpened = 1;
+        app.setState({ items: items, jitsu: E.clamp(st.jitsu - 5, 0, 100), flags: Object.assign({}, st.flags, { openedLetter: 1 }) });
+      };
+
+      // ── 審査記録（story） ──
+      var node = NODES[st.storyNode] || NODES.n1;
+      out.storyKicker = node.kicker;
+      out.storyBlocks = node.text.map(function (b) {
+        if (typeof b === 'string') return { isP: true, isQ: false, isA: false, t: b };
+        if (b.q) return { isP: false, isQ: true, isA: false, t: b.q };
+        return { isP: false, isQ: false, isA: true, t: b.a };
+      });
+      out.storyHasNote = !!st.storyNote;
+      out.storyNote = st.storyNote || '';
+      out.storyNoteColor = st.storyNoteColor || '#8d93a0';
+      out.storyPct = node.pct;
+      var caseNum = E.clamp(Math.round(3 + ((node.pct - 33) / 67) * 6), 3, 9);
+      var hoursLeft = E.clamp(Math.round(3 * (1 - (node.pct - 33) / 67)), 0, 3);
+      out.storyPctLabel = node.end
+        ? '今夜の審査 ' + caseNum + '/9件 ・ 結審'
+        : '今夜の審査 ' + caseNum + '/9件 ・ 夜明けまで あと' + hoursLeft + '時間（推定）';
+      out.storyCanRestart = st.storyNode !== 'n1';
+      out.storyRestart = function () { app._resetGame(); };
+
+      function choose(c) {
+        return function () {
+          var patch = { storyNote: null, storyNoteColor: '#8d93a0' };
+          var target = c.to;
+          if (c.check) {
+            var dc = typeof c.check.dc === 'function' ? c.check.dc(st) : c.check.dc;
+            var r = E.check(c.check.mod, dc);
+            patch.storyNote = c.check.name + '判定 — d20〈' + r.die + '〉＋' + r.mod + ' ＝ ' + r.total + ' ／ 難度' + dc + ' ・ ' + (r.ok ? '成功' : '失敗');
+            patch.storyNoteColor = r.ok ? '#4fae7d' : '#c04a3a';
+            pushLog(st, 'ノクト ・ ' + c.check.name + '（審査記録）', r.total + ' ／ ' + (r.ok ? '成功' : '失敗'), r.ok ? '#4fae7d' : '#c04a3a');
+            patch.rollLog = st.rollLog;
+            target = r.ok ? c.success : c.fail;
+          }
+          var nextNode = NODES[target];
+          applyFx(st, nextNode.fx, patch);
+          var taiNow = 'tai' in patch ? patch.tai : st.tai;
+          var jitsuNow = 'jitsu' in patch ? patch.jitsu : st.jitsu;
+          if (taiNow <= 0 && !nextNode.end) {
+            target = 'E_faint';
+            applyFx(st, NODES.E_faint.fx, patch);
+          } else if (jitsuNow <= 0 && !nextNode.end) {
+            target = 'E_fade';
+            applyFx(st, NODES.E_fade.fx, patch);
+          }
+          patch.storyNode = target;
+          app.setState(patch);
+        };
+      }
+      var defs = node.end ? END_CHOICES : node.choices;
+      out.storyChoices = defs.filter(function (c) {
+        return !c.if || c.if(st);
+      }).map(function (c) {
+        var dc = c.check ? (typeof c.check.dc === 'function' ? c.check.dc(st) : c.check.dc) : null;
+        return {
+          num: c.num || '', pre: c.pre, skillText: c.skillText || '', post: c.post || '',
+          dcLabel: dc != null ? '難度' + dc : '',
+          go: c.restart ? function () { app._resetGame(); }
+            : c.top ? function () { app.setState({ screen: 'top' }); }
+            : choose(c),
+        };
+      });
+
+      // ── 上級審問室 ──
+      out.gmScenes = GM_SCENES.map(function (t, i) {
+        var active = i === st.gmScene;
+        return {
+          t: t, tag: active ? '進行中' : '',
+          go: function () { app.setState({ gmScene: i }); },
+          border: active ? '2px solid #d9a441' : '1px solid rgba(217,164,65,.25)',
+          bg: active ? 'rgba(217,164,65,.06)' : 'rgba(255,255,255,.02)',
+          color: active ? '#e8e0cc' : '#8d93a0',
+          weight: active ? '700' : '400',
+        };
+      });
+      out.yuragi = st.yuragi;
+      out.yuragiMinus = function () { app.setState({ yuragi: E.clamp(st.yuragi - 5, 0, 100) }); };
+      out.yuragiPlus = function () { app.setState({ yuragi: E.clamp(st.yuragi + 5, 0, 100) }); };
+      out.gmHasTable = !!st.gmTable;
+      out.gmTableD = st.gmTable ? st.gmTable.d : '';
+      out.gmTableText = st.gmTable ? st.gmTable.text : '';
+      out.rollTable = function () {
+        var d = E.rollDie(6);
+        var text = GM_TABLE[d - 1];
+        pushLog(st, '管理官 ・ 夜の異変表', d + ' ／ ' + text, '#e8c876');
+        app.setState({ gmTable: { d: d, text: text }, rollLog: st.rollLog });
+      };
+
+      return out;
+    },
+  };
+})();
 
 window.__dcApp = new Component();
 if (typeof GameEngine !== 'undefined' && window.__GAME__) GameEngine.attach(window.__dcApp, window.__GAME__);
