@@ -94,7 +94,7 @@
               <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:96px;"><div style="width:62px;height:62px;border-radius:50%;border:3px solid #2b9eae;background:radial-gradient(circle at 40% 35%,rgba(43,158,174,.35),rgba(43,158,174,.08)),#fff;box-shadow:0 0 12px rgba(43,158,174,.3);"></div><div style="font-size:13px;font-weight:900;color:#2b9eae;">7号機の龍</div><div style="font-size:11px;color:#7d9298;">推定三千歳</div></div>
             </div>
 
-            <button style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:0;border-radius:999px;cursor:pointer;background:#2b9eae;color:#fff;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:15px;letter-spacing:3px;box-shadow:0 6px 0 #1f7683;">夜番をはじめる　➜</button>
+            <button onClick="{{ goStory }}" style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:0;border-radius:999px;cursor:pointer;background:#2b9eae;color:#fff;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:15px;letter-spacing:3px;box-shadow:0 6px 0 #1f7683;">夜番をはじめる　➜</button>
           </div>
         </sc-if>
 
@@ -115,9 +115,9 @@
             </div>
 
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:22px;">
-              <div style="background:#fff;border:1px solid rgba(43,158,174,.2);border-radius:10px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7d9298;margin-bottom:5px;"><span>体力</span><span style="font-family:'IBM Plex Mono',monospace;">11 / 16</span></div><div style="height:9px;border-radius:6px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:69%;height:100%;background:#2b9eae;"></div></div></div>
-              <div style="background:#fff;border:1px solid rgba(43,158,174,.2);border-radius:10px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7d9298;margin-bottom:5px;"><span>清潔感（心の）</span><span style="font-family:'IBM Plex Mono',monospace;">8 / 10</span></div><div style="height:9px;border-radius:6px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:80%;height:100%;background:#3ec98a;"></div></div><div style="font-size:9px;color:#9db1b5;margin-top:4px;">※呪いに触れると汚れる。汚れた心は龍が湯洗い可（要予約）</div></div>
-              <div style="background:#fff;border:1px solid rgba(43,158,174,.2);border-radius:10px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7d9298;margin-bottom:5px;"><span>龍との信頼</span><span style="font-family:'IBM Plex Mono',monospace;color:#2b9eae;">57 / 100</span></div><div style="height:9px;border-radius:6px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:57%;height:100%;background:linear-gradient(90deg,#2b9eae,#3ec98a);"></div></div><div style="font-size:9px;color:#9db1b5;margin-top:4px;">※100で龍が「背中に乗せてくれる」らしい（店長談）</div></div>
+              <div style="background:#fff;border:1px solid rgba(43,158,174,.2);border-radius:10px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7d9298;margin-bottom:5px;"><span>体力</span><span style="font-family:'IBM Plex Mono',monospace;">{{ tai }} / 16</span></div><div style="height:9px;border-radius:6px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:{{ taiPct }}%;height:100%;background:#2b9eae;"></div></div><div style="display:flex;gap:5px;margin-top:6px;"><button onClick="{{ taiDown }}" style="width:24px;height:24px;border:1px solid rgba(43,158,174,.3);border-radius:6px;background:#fff;color:#7d9298;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ taiUp }}" style="width:24px;height:24px;border:1px solid rgba(43,158,174,.3);border-radius:6px;background:#fff;color:#7d9298;cursor:pointer;font-size:13px;line-height:1;">＋</button></div></div>
+              <div style="background:#fff;border:1px solid rgba(43,158,174,.2);border-radius:10px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7d9298;margin-bottom:5px;"><span>清潔感（心の）</span><span style="font-family:'IBM Plex Mono',monospace;">{{ seiketsu }} / 10</span></div><div style="height:9px;border-radius:6px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:{{ seiketsuPct }}%;height:100%;background:#3ec98a;"></div></div><div style="font-size:9px;color:#9db1b5;margin-top:4px;">※呪いに触れると汚れる。汚れた心は龍が湯洗い可（要予約）</div><div style="display:flex;gap:5px;margin-top:6px;"><button onClick="{{ seiketsuDown }}" style="width:24px;height:24px;border:1px solid rgba(43,158,174,.3);border-radius:6px;background:#fff;color:#7d9298;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ seiketsuUp }}" style="width:24px;height:24px;border:1px solid rgba(43,158,174,.3);border-radius:6px;background:#fff;color:#7d9298;cursor:pointer;font-size:13px;line-height:1;">＋</button></div></div>
+              <div style="background:#fff;border:1px solid rgba(43,158,174,.2);border-radius:10px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7d9298;margin-bottom:5px;"><span>龍との信頼</span><span style="font-family:'IBM Plex Mono',monospace;color:#2b9eae;">{{ shinrai }} / 100</span></div><div style="height:9px;border-radius:6px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:{{ shinrai }}%;height:100%;background:linear-gradient(90deg,#2b9eae,#3ec98a);"></div></div><div style="font-size:9px;color:#9db1b5;margin-top:4px;">※100で龍が「背中に乗せてくれる」らしい（店長談）</div><div style="display:flex;gap:5px;margin-top:6px;"><button onClick="{{ shinraiDown }}" style="width:24px;height:24px;border:1px solid rgba(43,158,174,.3);border-radius:6px;background:#fff;color:#7d9298;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ shinraiUp }}" style="width:24px;height:24px;border:1px solid rgba(43,158,174,.3);border-radius:6px;background:#fff;color:#7d9298;cursor:pointer;font-size:13px;line-height:1;">＋</button></div></div>
             </div>
 
             <p style="font-size:11px;letter-spacing:3px;color:#2b9eae;font-weight:700;margin:0 0 12px;">■ 能力</p>
@@ -150,40 +150,52 @@
 
         <sc-if value="{{ isDice }}" hint-placeholder-val="{{ false }}">
           <div data-screen-label="洗い判定" style="animation:scfade .4s ease;max-width:560px;margin:0 auto;text-align:center;">
-            <p style="font-size:11px;letter-spacing:3px;color:#2b9eae;font-weight:700;margin:0 0 4px;">■ 洗い上がり判定 ・ 基準 15 ・ 工程：しみ抜き</p>
+            <p style="font-size:11px;letter-spacing:3px;color:#2b9eae;font-weight:700;margin:0 0 4px;">{{ diceHead }}</p>
+            <sc-if value="{{ diceIsCheck }}">
+              <div style="display:flex;justify-content:center;align-items:center;gap:9px;margin:6px 0 0;">
+                <button onClick="{{ dcMinus }}" style="width:24px;height:24px;border:1px solid rgba(43,158,174,.3);border-radius:6px;background:#fff;color:#7d9298;cursor:pointer;font-size:13px;line-height:1;">−</button>
+                <span style="font-size:12px;letter-spacing:2px;color:#7d9298;">基準を調整</span>
+                <button onClick="{{ dcPlus }}" style="width:24px;height:24px;border:1px solid rgba(43,158,174,.3);border-radius:6px;background:#fff;color:#7d9298;cursor:pointer;font-size:13px;line-height:1;">＋</button>
+              </div>
+            </sc-if>
             <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 24px;">
               <div style="position:relative;width:126px;height:126px;">
                 <div style="position:absolute;inset:0;border-radius:50%;border:4px solid #2b9eae;background:radial-gradient(circle at 50% 45%,#e6f4f5 30%,rgba(43,158,174,.25) 31% 38%,#e6f4f5 39%);animation:drumspin 2.4s linear infinite;"></div>
                 <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;">
-                  <span style="font-family:'IBM Plex Mono',monospace;font-size:42px;font-weight:600;line-height:1;color:#26343a;">19</span>
-                  <span style="font-size:11px;letter-spacing:2px;font-weight:900;color:#3ec98a;">スッキリ</span>
+                  <span style="font-family:'IBM Plex Mono',monospace;font-size:42px;font-weight:600;line-height:1;color:#26343a;">{{ diceFace }}</span>
+                  <span style="font-size:11px;letter-spacing:2px;font-weight:900;color:{{ stampColor }};">{{ stampWord }}</span>
                 </div>
               </div>
-              <div style="font-size:14px;color:#7d9298;margin-top:6px;">2d10 ＝ 14 ＋ しみ抜き 5</div>
-              <div style="font-size:14px;letter-spacing:1px;color:#3ec98a;font-weight:700;">＝ 19 ・ 大成功。呪いが「三代前の油染み」まで落ちた</div>
-              <div style="display:flex;gap:8px;margin-top:8px;">
-                <span title="洗える" style="width:34px;height:34px;border:2px solid #3ec98a;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#3ec98a;font-weight:900;">〇</span>
-                <span title="漂白可" style="width:34px;height:34px;border:2px solid #2b9eae;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#2b9eae;font-weight:900;">△</span>
-                <span title="タンブル乾燥禁止" style="width:34px;height:34px;border:2px solid #c9722e;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#c9722e;font-weight:900;">◻✕</span>
-                <span title="祓い済み" style="width:34px;height:34px;border:2px solid #7d9298;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#7d9298;font-weight:900;">祓</span>
-              </div>
+              <div style="font-size:14px;color:#7d9298;margin-top:6px;">{{ diceFormula }}</div>
+              <div style="font-size:14px;letter-spacing:1px;color:{{ stampColor }};font-weight:700;">{{ diceVerdict }}</div>
+              <sc-if value="{{ diceIsCheck }}">
+                <div style="display:flex;gap:8px;margin-top:8px;">
+                  <span title="洗える" style="width:34px;height:34px;border:2px solid {{ markOColor }};border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;color:{{ markOColor }};font-weight:900;">〇</span>
+                  <span title="漂白可" style="width:34px;height:34px;border:2px solid {{ markSanColor }};border-radius:6px;display:flex;align-items:center;justify-content:center;color:{{ markSanColor }};font-weight:900;">△</span>
+                  <span title="タンブル乾燥禁止" style="width:34px;height:34px;border:2px solid {{ markBatsuColor }};border-radius:6px;display:flex;align-items:center;justify-content:center;color:{{ markBatsuColor }};font-weight:900;">◻✕</span>
+                  <span title="祓い済み" style="width:34px;height:34px;border:2px solid #7d9298;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#7d9298;font-weight:900;">祓</span>
+                </div>
+              </sc-if>
               <p style="font-size:10px;color:#9db1b5;margin:4px 0 0;">※判定結果は「洗濯表示」で記録されます。〇=成功 △=部分成功 ✕=洗濯不可（イベント発生）</p>
             </div>
             <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;">
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(43,158,174,.3);color:#7d9298;background:#fff;">d4</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(43,158,174,.3);color:#7d9298;background:#fff;">d6</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(43,158,174,.3);color:#7d9298;background:#fff;">d8</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:2px solid #2b9eae;color:#2b9eae;background:rgba(43,158,174,.05);font-weight:600;">2d10</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(43,158,174,.3);color:#7d9298;background:#fff;">d12</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(43,158,174,.3);color:#7d9298;background:#fff;">d20</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;border:1px solid rgba(43,158,174,.3);color:#7d9298;background:#fff;">d100</span>
+              <sc-for list="{{ diceTypes }}" as="dt">
+                <button onClick="{{ dt.go }}" style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:999px;cursor:pointer;border:{{ dt.border }};color:{{ dt.color }};background:{{ dt.bg }};font-weight:{{ dt.weight }};">{{ dt.label }}</button>
+              </sc-for>
             </div>
-            <button style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:0;border-radius:999px;cursor:pointer;background:#2b9eae;color:#fff;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:15px;letter-spacing:3px;box-shadow:0 6px 0 #1f7683;">スタートボタンを押す</button>
+            <sc-if value="{{ diceIsCheck }}">
+              <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:16px;">
+                <sc-for list="{{ diceSkills }}" as="sk">
+                  <button onClick="{{ sk.go }}" style="font-family:'Zen Maru Gothic',sans-serif;font-size:12px;padding:5px 11px;border-radius:999px;cursor:pointer;border:{{ sk.border }};color:{{ sk.color }};background:{{ sk.bg }};">{{ sk.label }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+            <button onClick="{{ rollNow }}" style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:0;border-radius:999px;cursor:pointer;background:#2b9eae;color:#fff;font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:15px;letter-spacing:3px;box-shadow:0 6px 0 #1f7683;">スタートボタンを押す</button>
             <div style="margin-top:26px;text-align:left;">
               <p style="font-size:11px;letter-spacing:3px;color:#2b9eae;font-weight:700;margin:0 0 9px;">■ 本日の洗い上がり</p>
-              <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a5d63;padding:7px 0;border-bottom:1px dashed rgba(43,158,174,.25);"><span>潤 ・ しみ抜き（ウェディングドレス）</span><span style="font-family:'IBM Plex Mono',monospace;color:#3ec98a;">19 ／ 〇 スッキリ</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a5d63;padding:7px 0;border-bottom:1px dashed rgba(43,158,174,.25);"><span>柚木さん ・ 観察（6号機の声の主）</span><span style="font-family:'IBM Plex Mono',monospace;color:#c9722e;">11 ／ △ 「知ってる声だった」</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a5d63;padding:7px 0;"><span>潤 ・ 龍語（脱水の延長交渉）</span><span style="font-family:'IBM Plex Mono',monospace;color:#c9722e;">6 ／ ✕ 龍が拗ねた（要おやつ）</span></div>
+              <sc-for list="{{ logRows }}" as="r">
+                <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a5d63;padding:7px 0;border-bottom:1px dashed rgba(43,158,174,.25);"><span>{{ r.left }}</span><span style="font-family:'IBM Plex Mono',monospace;color:{{ r.color }};">{{ r.right }}</span></div>
+              </sc-for>
             </div>
           </div>
         </sc-if>
@@ -192,25 +204,29 @@
           <div data-screen-label="洗い工程" style="animation:scfade .4s ease;max-width:780px;margin:0 auto;">
             <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px;">
               <h1 style="font-family:'Zen Maru Gothic',sans-serif;font-weight:900;font-size:24px;margin:0;color:#26343a;">洗い工程 ・ 案件「花嫁衣装の呪い」</h1>
-              <div style="display:flex;gap:8px;"><button style="padding:8px 15px;border:1px solid rgba(43,158,174,.35);border-radius:999px;background:#fff;color:#7d9298;cursor:pointer;font-size:13px;font-family:'Zen Maru Gothic',sans-serif;white-space:nowrap;flex:none;">一時停止</button><button style="padding:8px 15px;border:0;border-radius:999px;background:#2b9eae;color:#fff;cursor:pointer;font-weight:700;font-size:13px;font-family:'Zen Maru Gothic',sans-serif;box-shadow:0 4px 0 #1f7683;white-space:nowrap;flex:none;">次の工程へ</button></div>
+              <div style="display:flex;gap:8px;"><button onClick="{{ pauseProcess }}" style="padding:8px 15px;border:1px solid rgba(43,158,174,.35);border-radius:999px;background:#fff;color:#7d9298;cursor:pointer;font-size:13px;font-family:'Zen Maru Gothic',sans-serif;white-space:nowrap;flex:none;">一時停止</button><button onClick="{{ nextStage }}" style="padding:8px 15px;border:0;border-radius:999px;background:#2b9eae;color:#fff;cursor:pointer;font-weight:700;font-size:13px;font-family:'Zen Maru Gothic',sans-serif;box-shadow:0 4px 0 #1f7683;white-space:nowrap;flex:none;">次の工程へ</button></div>
             </div>
             <p style="font-size:12px;color:#9db1b5;margin:0 0 14px;">※呪いとの戦闘は「洗い工程」で進みます。工程ごとに全員が一手番。脱水で暴れます、たいてい。</p>
 
             <div style="display:flex;gap:0;margin-bottom:16px;border:1px solid rgba(43,158,174,.3);border-radius:999px;overflow:hidden;background:#fff;">
-              <div style="flex:1;padding:8px 4px;text-align:center;font-size:11px;font-weight:700;color:#fff;background:#3ec98a;">予洗い ✓</div>
-              <div style="flex:1;padding:8px 4px;text-align:center;font-size:11px;font-weight:700;color:#fff;background:#3ec98a;">本洗い ✓</div>
-              <div style="flex:1;padding:8px 4px;text-align:center;font-size:11px;font-weight:900;color:#fff;background:#2b9eae;">すすぎ ◉ 今ここ</div>
-              <div style="flex:1;padding:8px 4px;text-align:center;font-size:11px;font-weight:700;color:#7d9298;background:#eef6f6;">脱水</div>
-              <div style="flex:1;padding:8px 4px;text-align:center;font-size:11px;font-weight:700;color:#7d9298;background:#eef6f6;">乾燥</div>
+              <sc-for list="{{ stages }}" as="sg">
+                <div style="flex:1;padding:8px 4px;text-align:center;font-size:11px;font-weight:{{ sg.weight }};color:{{ sg.color }};background:{{ sg.bg }};">{{ sg.label }}</div>
+              </sc-for>
             </div>
 
-            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;border:2px solid #6b4a8f;background:rgba(107,74,143,.05);margin-bottom:14px;"><span style="width:34px;height:34px;flex:none;border-radius:50%;background:radial-gradient(circle at 38% 32%,#b79ad4,#6b4a8f);box-shadow:0 0 10px rgba(107,74,143,.4);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:900;color:#6b4a8f;">花嫁衣装の呪い <span style="font-size:11px;color:#7d9298;">「式は、雨だった」</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(107,74,143,.12);color:#6b4a8f;">水に強い（すすぎ抵抗+2）</span><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(201,114,46,.1);color:#c9722e;">泡立ちに弱い</span></div></div><div style="width:180px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7d9298;margin-bottom:3px;"><span>汚れ残り</span><span style="font-family:'IBM Plex Mono',monospace;">34 / 100</span></div><div style="height:9px;border-radius:6px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:34%;height:100%;background:linear-gradient(90deg,#6b4a8f,#9d7bc4);"></div></div><div style="font-size:9px;color:#9db1b5;margin-top:2px;">※0で洗い上がり。呪いは「思い出」に戻る</div></div></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;border:2px solid #6b4a8f;background:rgba(107,74,143,.05);margin-bottom:14px;"><span style="width:34px;height:34px;flex:none;border-radius:50%;background:radial-gradient(circle at 38% 32%,#b79ad4,#6b4a8f);box-shadow:0 0 10px rgba(107,74,143,.4);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:900;color:#6b4a8f;">花嫁衣装の呪い <span style="font-size:11px;color:#7d9298;">「式は、雨だった」</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(107,74,143,.12);color:#6b4a8f;">水に強い（すすぎ抵抗+2）</span><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(201,114,46,.1);color:#c9722e;">泡立ちに弱い</span></div></div><div style="width:180px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7d9298;margin-bottom:3px;"><span>汚れ残り</span><span style="font-family:'IBM Plex Mono',monospace;">{{ yogore }} / 100</span></div><div style="height:9px;border-radius:6px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:{{ yogore }}%;height:100%;background:linear-gradient(90deg,#6b4a8f,#9d7bc4);"></div></div><div style="font-size:9px;color:#9db1b5;margin-top:2px;">※0で洗い上がり。呪いは「思い出」に戻る</div>
+              <div style="display:flex;gap:4px;margin-top:5px;justify-content:flex-end;"><button onClick="{{ yogoreDown5 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(43,158,174,.3);border-radius:6px;background:#fff;color:#3ec98a;cursor:pointer;">−5</button><button onClick="{{ yogoreDown1 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(43,158,174,.3);border-radius:6px;background:#fff;color:#3ec98a;cursor:pointer;">−1</button><button onClick="{{ yogoreUp1 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(43,158,174,.3);border-radius:6px;background:#fff;color:#c9722e;cursor:pointer;">＋1</button></div>
+            </div></div>
 
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:2px solid #2b9eae;background:rgba(43,158,174,.04);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;background:#2b9eae;color:#fff;border-radius:50%;animation:bubble 2s ease-in-out infinite;">龍</span><div style="flex:1;"><div style="font-size:15px;font-weight:900;color:#2b9eae;">7号機の龍 <span style="font-size:11px;color:#7d9298;">回転数：ごきげん</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(43,158,174,.1);color:#2b9eae;">龍の湯（52℃・呪い最適温）</span></div></div><div style="width:180px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7d9298;margin-bottom:3px;"><span>機嫌</span><span style="font-family:'IBM Plex Mono',monospace;">72/100</span></div><div style="height:9px;border-radius:6px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:72%;height:100%;background:linear-gradient(90deg,#2b9eae,#3ec98a);"></div></div><div style="font-size:9px;color:#9db1b5;margin-top:2px;">※30未満で回転拒否（おやつで+15）</div></div></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:2px solid #2b9eae;background:rgba(43,158,174,.04);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;background:#2b9eae;color:#fff;border-radius:50%;animation:bubble 2s ease-in-out infinite;">龍</span><div style="flex:1;"><div style="font-size:15px;font-weight:900;color:#2b9eae;">7号機の龍 <span style="font-size:11px;color:#7d9298;">{{ ryuStatus }}</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:{{ ryuTagBg }};color:{{ ryuTagColor }};">{{ ryuTag }}</span></div></div><div style="width:180px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7d9298;margin-bottom:3px;"><span>機嫌</span><span style="font-family:'IBM Plex Mono',monospace;">{{ kigen }}/100</span></div><div style="height:9px;border-radius:6px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:{{ kigen }}%;height:100%;background:linear-gradient(90deg,#2b9eae,#3ec98a);"></div></div><div style="font-size:9px;color:#9db1b5;margin-top:2px;">※30未満で回転拒否（おやつで+15）</div>
+              <div style="display:flex;gap:4px;margin-top:5px;justify-content:flex-end;"><button onClick="{{ kigenDown }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(43,158,174,.3);border-radius:6px;background:#fff;color:#c9722e;cursor:pointer;">−5</button><button onClick="{{ kigenUp }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(43,158,174,.3);border-radius:6px;background:#fff;color:#3ec98a;cursor:pointer;">＋5</button></div>
+            </div></div>
 
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:1px solid rgba(43,158,174,.25);background:#fff;margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(43,158,174,.1);color:#2b9eae;border-radius:50%;">潤</span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#26343a;">真砂 潤 <span style="font-size:11px;color:#2b9eae;">手番</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(62,201,138,.12);color:#2f9a68;">泡ブースト準備完了</span></div></div><div style="width:180px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7d9298;margin-bottom:3px;"><span>体力</span><span style="font-family:'IBM Plex Mono',monospace;">11/16</span></div><div style="height:9px;border-radius:6px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:69%;height:100%;background:#2b9eae;"></div></div></div></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:1px solid rgba(43,158,174,.25);background:#fff;margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(43,158,174,.1);color:#2b9eae;border-radius:50%;">潤</span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#26343a;">真砂 潤 <span style="font-size:11px;color:#2b9eae;">手番</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(62,201,138,.12);color:#2f9a68;">泡ブースト準備完了</span></div></div><div style="width:180px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7d9298;margin-bottom:3px;"><span>体力</span><span style="font-family:'IBM Plex Mono',monospace;">{{ tai }}/16</span></div><div style="height:9px;border-radius:6px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:{{ taiPct }}%;height:100%;background:#2b9eae;"></div></div>
+              <div style="display:flex;gap:4px;margin-top:5px;justify-content:flex-end;"><button onClick="{{ taiDown }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(43,158,174,.3);border-radius:6px;background:#fff;color:#c9722e;cursor:pointer;">−1</button><button onClick="{{ taiUp }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(43,158,174,.3);border-radius:6px;background:#fff;color:#3ec98a;cursor:pointer;">＋1</button></div>
+            </div></div>
 
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:1px solid rgba(43,158,174,.25);background:#fff;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(232,138,160,.15);color:#c76a84;border-radius:50%;">柚</span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#26343a;">柚木さん（依頼人・見学中）</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(232,138,160,.12);color:#c76a84;">このドレスの持ち主…？</span></div></div><div style="width:180px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7d9298;margin-bottom:3px;"><span>心の距離</span><span style="font-family:'IBM Plex Mono',monospace;">近づいている</span></div><div style="height:9px;border-radius:6px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:58%;height:100%;background:#e88aa0;"></div></div></div></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;border:1px solid rgba(43,158,174,.25);background:#fff;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(232,138,160,.15);color:#c76a84;border-radius:50%;">柚</span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#26343a;">柚木さん（依頼人・見学中）</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:rgba(232,138,160,.12);color:#c76a84;">このドレスの持ち主…？</span></div></div><div style="width:180px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7d9298;margin-bottom:3px;"><span>心の距離</span><span style="font-family:'IBM Plex Mono',monospace;">{{ kokoro }}%</span></div><div style="height:9px;border-radius:6px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:{{ kokoro }}%;height:100%;background:#e88aa0;"></div></div></div></div>
           </div>
         </sc-if>
 
@@ -225,7 +241,7 @@
                 <p style="font-size:11px;letter-spacing:3px;color:#2b9eae;font-weight:700;margin:0 0 11px;">■ 特殊洗剤（店長調合）</p>
                 <div style="padding:12px 14px;border:1px solid rgba(43,158,174,.3);border-radius:10px;margin-bottom:8px;background:#fff;"><div style="display:flex;justify-content:space-between;"><div style="font-size:14px;font-weight:700;color:#26343a;">泡の御守（あわのおまもり）</div><span style="font-size:10px;color:#2b9eae;font-family:'IBM Plex Mono',monospace;">×3</span></div><div style="font-size:12px;color:#7d9298;margin-top:3px;line-height:1.7;">洗い判定+2。泡がきれいな半球のうちに投入すること。</div></div>
                 <div style="padding:12px 14px;border:1px solid rgba(43,158,174,.3);border-radius:10px;margin-bottom:8px;background:#fff;"><div style="display:flex;justify-content:space-between;"><div style="font-size:14px;font-weight:700;color:#26343a;">因果柔軟剤「なかったコトに」</div><span style="font-size:10px;color:#c9722e;font-family:'IBM Plex Mono',monospace;">残りわずか</span></div><div style="font-size:12px;color:#7d9298;margin-top:3px;line-height:1.7;">仕上がりの記憶を柔らかくする。使いすぎると依頼人が依頼を忘れる。</div></div>
-                <div style="padding:12px 14px;border:1px solid rgba(201,114,46,.5);border-radius:10px;background:rgba(201,114,46,.04);"><div style="display:flex;justify-content:space-between;"><div style="font-size:14px;font-weight:700;color:#c9722e;">龍のおやつ（乾燥イワシ）</div><span style="font-size:10px;color:#c9722e;font-family:'IBM Plex Mono',monospace;">×7</span></div><div style="font-size:12px;color:#7d9298;margin-top:3px;line-height:1.7;">機嫌+15。あげすぎると排水口から鱗が出る（掃除は夜番の仕事）。</div></div>
+                <div style="padding:12px 14px;border:1px solid rgba(201,114,46,.5);border-radius:10px;background:rgba(201,114,46,.04);"><div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-size:14px;font-weight:700;color:#c9722e;">龍のおやつ（乾燥イワシ）</div><span style="display:flex;align-items:center;gap:8px;"><sc-if value="{{ snackAvailable }}"><button onClick="{{ giveSnack }}" style="font-size:10px;padding:2px 10px;border:1px solid rgba(201,114,46,.5);border-radius:999px;background:#fff;color:#c9722e;cursor:pointer;">あげる</button></sc-if><span style="font-size:10px;color:#c9722e;font-family:'IBM Plex Mono',monospace;">×{{ snackQty }}</span></span></div><div style="font-size:12px;color:#7d9298;margin-top:3px;line-height:1.7;">機嫌+15。あげすぎると排水口から鱗が出る（掃除は夜番の仕事）。</div></div>
               </div>
               <div>
                 <p style="font-size:11px;letter-spacing:3px;color:#2b9eae;font-weight:700;margin:0 0 11px;">■ 預かり品・落とし物台帳</p>
@@ -241,20 +257,25 @@
 
         <sc-if value="{{ isStory }}" hint-placeholder-val="{{ false }}">
           <div data-screen-label="夜番日誌" style="animation:scfade .4s ease;max-width:640px;margin:0 auto;">
-            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#7d9298;text-align:center;margin:0 0 6px;">夜番日誌 ・ 六月十七日 ・ 午前1時20分</p>
-            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;text-align:center;margin:0 0 4px;color:#26343a;">すすぎの水は、少し塩辛い</h1>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#7d9298;text-align:center;margin:0 0 6px;">{{ storyKicker }}</p>
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;text-align:center;margin:0 0 4px;color:#26343a;">{{ storyTitle }}</h1>
             <div style="display:flex;align-items:center;gap:12px;margin:16px 0 22px;color:#2b9eae;"><span style="flex:1;height:1px;background:rgba(43,158,174,.35);"></span><span style="font-size:12px;">〇</span><span style="flex:1;height:1px;background:rgba(43,158,174,.35);"></span></div>
-            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.1;color:#33424a;margin:0 0 18px;">柚木さんがウェディングドレスを持ち込んだのは、日付が変わる少し前だった。「洗ってほしいの。着てないのに、汚れてるみたいだから」。畳まれたドレスは新品のままで、しかし持ち上げると、雨に濡れた犬みたいな重さがした。染みの声に耳を澄ます。——聞こえたのは、式場のキャンセル料の説明を延々と読み上げる、事務的な声だった。</p>
-            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.1;color:#33424a;margin:0 0 18px;">7号機に入れると、龍はいつもより丁寧に湯を回した。回転窓の向こうで、白い布と鱗の影が、ゆっくり円を描く。柚木さんはベンチに座って、その円をずっと見ている。乾燥機の上の時計が1時20分を指す。<b style="color:#2b9eae;">すすぎ工程で、水が急に塩辛くなった。</b>龍が首を出して、こちらを見た。これは、涙の味がする案件だ。</p>
-            <blockquote style="margin:22px 0;padding:14px 20px;border-left:3px solid #2b9eae;background:rgba(43,158,174,.04);font-family:'Shippori Mincho',serif;font-size:16px;line-height:1.9;color:#4a5d63;">汚れを落とすことと、なかったことにすることは、違う。<br>うちの龍は、その区別だけは絶対に間違えない。<br><span style="font-size:12px;color:#9db1b5;">——店長マニュアル 1頁目（他の頁は白紙）</span></blockquote>
-            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.1;color:#33424a;margin:0 0 26px;">左袖の染みだけが、どうしても落ちない。近づけた耳に、今度は別の声がした。「——迎えに行けなくて、ごめん」。男の人の声だ。柚木さんは、まだ円を見ている。</p>
-
+            <sc-if value="{{ storyHasNote }}">
+              <p style="text-align:center;font-size:13px;letter-spacing:1px;color:{{ storyNoteColor }};margin:0 0 16px;">{{ storyNote }}</p>
+            </sc-if>
+            <sc-for list="{{ storyBlocks }}" as="b">
+              <sc-if value="{{ b.isP }}"><p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.1;color:#33424a;margin:0 0 18px;">{{ b.t }}</p></sc-if>
+              <sc-if value="{{ b.isQ }}"><blockquote style="margin:22px 0;padding:14px 20px;border-left:3px solid #2b9eae;background:rgba(43,158,174,.04);font-family:'Shippori Mincho',serif;font-size:16px;line-height:1.9;color:#4a5d63;">{{ b.t }}</blockquote></sc-if>
+            </sc-for>
             <p style="font-size:11px;letter-spacing:3px;color:#2b9eae;font-weight:700;margin:0 0 12px;">■ どうする</p>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(43,158,174,.35);border-radius:10px;background:#fff;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-size:14px;color:#33424a;">①　染みの声を、柚木さんに伝える <span style="color:#c9722e;font-weight:700;">接客判定 ・ 難度14</span></button>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(43,158,174,.35);border-radius:10px;background:#fff;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-size:14px;color:#33424a;">②　伝えずに、染みだけそっと残して仕上げる（龍と要相談）</button>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;border:1px solid rgba(43,158,174,.35);border-radius:10px;background:#fff;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-size:14px;color:#33424a;">③　「なかったコトに」を一滴——染みごと記憶を柔らかくする（取り返しがつかない）</button>
-            <div style="margin-top:24px;height:5px;border-radius:3px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:58%;height:100%;background:#2b9eae;"></div></div>
-            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#9db1b5;margin:7px 0 0;">すすぎ 58% ・ 脱水まで 12分 ・ 龍の機嫌 72</p>
+            <sc-for list="{{ storyChoices }}" as="c">
+              <button onClick="{{ c.go }}" style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(43,158,174,.35);border-radius:10px;background:#fff;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;font-size:14px;color:#33424a;">{{ c.num }}　{{ c.pre }}<span style="color:#c9722e;font-weight:700;">{{ c.skillText }}</span>{{ c.post }} <span style="float:right;color:#c9722e;font-weight:700;">{{ c.dcLabel }}</span></button>
+            </sc-for>
+            <div style="margin-top:24px;height:5px;border-radius:3px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:{{ storyPct }}%;height:100%;background:#2b9eae;"></div></div>
+            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#9db1b5;margin:7px 0 0;">{{ storyPctLabel }}</p>
+            <sc-if value="{{ storyCanRestart }}">
+              <p style="text-align:center;margin:16px 0 0;"><button onClick="{{ storyRestart }}" style="border:0;background:transparent;color:#9db1b5;font-size:11px;letter-spacing:2px;cursor:pointer;text-decoration:underline;font-family:'Zen Maru Gothic',sans-serif;">夜番日誌を最初から書き直す</button></p>
+            </sc-if>
           </div>
         </sc-if>
 
@@ -290,12 +311,17 @@
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
               <div>
                 <p style="font-size:11px;letter-spacing:3px;color:#2b9eae;font-weight:700;margin:0 0 11px;">■ 進行中の案件</p>
-                <div style="padding:11px 13px;border:2px solid #2b9eae;border-radius:10px;margin-bottom:8px;background:rgba(43,158,174,.04);"><div style="font-size:14px;font-weight:700;color:#26343a;">花嫁衣装の呪い <span style="font-size:10px;color:#2b9eae;">すすぎ中</span></div></div>
-                <div style="padding:11px 13px;border:1px solid rgba(43,158,174,.3);border-radius:10px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;color:#7d9298;">6号機のノック（3夜連続）</div></div>
-                <div style="padding:11px 13px;border:1px solid rgba(43,158,174,.3);border-radius:10px;background:#fff;"><div style="font-size:14px;color:#7d9298;">商店街の「汚れ」の増加傾向</div></div>
+                <sc-for list="{{ gmScenes }}" as="gs">
+                  <button onClick="{{ gs.go }}" style="display:block;width:100%;text-align:left;padding:11px 13px;border:{{ gs.border }};border-radius:10px;margin-bottom:8px;background:{{ gs.bg }};cursor:pointer;"><span style="font-size:14px;font-weight:{{ gs.weight }};color:{{ gs.color }};">{{ gs.t }} <span style="font-size:10px;color:#2b9eae;">{{ gs.tag }}</span></span></button>
+                </sc-for>
                 <p style="font-size:11px;letter-spacing:3px;color:#2b9eae;font-weight:700;margin:20px 0 10px;">■ 排水口の圧（世界の汚れ度）</p>
-                <div style="height:9px;border-radius:6px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:44%;height:100%;background:linear-gradient(90deg,#2b9eae,#6b4a8f);"></div></div>
+                <div style="height:9px;border-radius:6px;background:rgba(38,52,58,.07);overflow:hidden;"><div style="width:{{ haisui }}%;height:100%;background:linear-gradient(90deg,#2b9eae,#6b4a8f);"></div></div>
                 <p style="font-size:11px;color:#9db1b5;margin:6px 0 0;">満ちると「大洗濯の夜」——龍が店ごと世界を洗いに出る。</p>
+                <div style="display:flex;align-items:center;gap:9px;margin-top:8px;">
+                  <button onClick="{{ haisuiMinus }}" style="width:24px;height:24px;border:1px solid rgba(43,158,174,.3);border-radius:6px;background:#fff;color:#7d9298;cursor:pointer;font-size:13px;line-height:1;">−</button>
+                  <span style="font-size:12px;letter-spacing:1px;color:#7d9298;">{{ haisui }}%</span>
+                  <button onClick="{{ haisuiPlus }}" style="width:24px;height:24px;border:1px solid rgba(43,158,174,.3);border-radius:6px;background:#fff;color:#7d9298;cursor:pointer;font-size:13px;line-height:1;">＋</button>
+                </div>
               </div>
               <div>
                 <p style="font-size:11px;letter-spacing:3px;color:#2b9eae;font-weight:700;margin:0 0 11px;">■ 秘匿事項</p>
@@ -303,6 +329,10 @@
                 <div style="border:1px solid rgba(43,158,174,.3);border-radius:10px;padding:11px 13px;background:#fff;"><div style="font-size:14px;font-weight:700;color:#26343a;">龍について</div><div style="font-size:12px;color:#7d9298;margin-top:2px;">昔は雨を降らせる仕事をしていた。「洗う」に転職した理由は、まだ誰にも話していない。</div></div>
                 <p style="font-size:11px;letter-spacing:3px;color:#2b9eae;font-weight:700;margin:20px 0 10px;">■ 深夜ハプニング表（d6）</p>
                 <div style="font-size:13px;color:#4a5d63;line-height:1.9;">1–2 停電（龍の湯だけ冷めない） ・ 3 酔客が呪いを誤って持ち帰る<br>4 両替機がストライキ ・ 5 排水口から泡（虹色） ・ 6 龍が歌う（雨が降る）</div>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:10px;">
+                  <button onClick="{{ rollTable }}" style="padding:7px 16px;border:0;border-radius:999px;background:#2b9eae;color:#fff;cursor:pointer;font-weight:900;font-size:12px;letter-spacing:1px;">ハプニング表を振る</button>
+                  <sc-if value="{{ gmHasTable }}"><span style="font-size:13px;color:#2b9eae;">出目 {{ gmTableD }} ・ {{ gmTableText }}</span></sc-if>
+                </div>
               </div>
             </div>
           </div>
@@ -509,6 +539,521 @@ class Component extends DCLogic {
     };
   }
 }
+
+/*
+ * 全作品共通のゲームエンジン。ダイス・d20判定・localStorage 永続化と、
+ * シェル（DCLogic コンポーネント）へのゲーム状態の合流（attach）を担う。
+ * 作品ごとの中身（シナリオ・画面の値）は games/<id>.game.js が window.__GAME__ に定義する。
+ */
+(function () {
+  function rollDie(sides) {
+    return 1 + Math.floor(Math.random() * sides);
+  }
+  function pickKeys(obj, keys) {
+    var o = {};
+    for (var i = 0; i < keys.length; i++) o[keys[i]] = obj[keys[i]];
+    return o;
+  }
+  window.GameEngine = {
+    rollDie: rollDie,
+    clamp: function (v, lo, hi) {
+      return Math.max(lo, Math.min(hi, v));
+    },
+    // d20 判定。20 は大成功、1 は大失敗（出目優先）
+    check: function (mod, dc) {
+      var die = rollDie(20);
+      var total = die + mod;
+      var outcome = die === 20 ? 'crit' : die === 1 ? 'fumble' : total >= dc ? 'success' : 'fail';
+      return { die: die, mod: mod, total: total, dc: dc, outcome: outcome, ok: outcome === 'crit' || outcome === 'success' };
+    },
+    outcomeText: function (outcome) {
+      return { crit: '大成功', success: '成功', fail: '失敗', fumble: '大失敗' }[outcome] || '';
+    },
+    attach: function (app, game) {
+      var key = 'trpg-game-' + game.id;
+      var saved = null;
+      try { saved = JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) {}
+      Object.assign(app.state, game.initialState(), saved || {});
+      if (game.migrate) game.migrate(app.state);
+      var baseRenderVals = app.renderVals.bind(app);
+      app.renderVals = function () {
+        var vals = baseRenderVals();
+        return Object.assign(vals, game.vals(app, vals));
+      };
+      var baseSetState = app.setState.bind(app);
+      app.setState = function (update) {
+        baseSetState(update);
+        try { localStorage.setItem(key, JSON.stringify(pickKeys(app.state, game.persist))); } catch (e) {}
+      };
+      // ゲーム状態のみ初期値へ戻す（device / play / screen は保持）
+      app._resetGame = function () {
+        try { localStorage.removeItem(key); } catch (e) {}
+        Object.assign(app.state, game.initialState());
+        app.render();
+      };
+    },
+  };
+})();
+
+/*
+ * 1i-洗濯龍 のゲーム内容。
+ * - 洗い判定: d4〜d100。専用の「2d10」判定は洗濯表示（〇成功／△部分成功／✕失敗）で結果を示す
+ * - 従業員名札: 体力 / 清潔感（心の） / 龍との信頼 の増減
+ * - 洗い工程: 予洗い〜乾燥の5段階プロセスバー。呪いの「汚れ残り」を0にすれば洗い上がり（勝利）。
+ *   龍の「機嫌」が30未満だと回転拒否（おやつで+15）
+ * - 洗剤棚: 「龍のおやつ」だけ「あげる」操作ができ、洗い工程の龍の機嫌に反映される
+ * - 夜番日誌: 分岐シナリオ「すすぎの水は、少し塩辛い」（清潔感ルール・複数エンディング）。
+ *   GM 秘匿（ドレスの染みの声＝6号機の中の声と同一人物）を発見する真ルートあり
+ * - 店長ノート: 案件切替・排水口の圧・深夜ハプニング表 d6
+ */
+(function () {
+  var E = null;
+  function eng() { return E || (E = window.GameEngine); }
+
+  var TAI_MAX = 16, SEIKETSU_MAX = 10;
+
+  var SKILLS = [
+    { name: '洗濯表示の解読（呪物対応版）', mod: 6 },
+    { name: 'しみ抜き（物理・因果両対応）', mod: 5 },
+    { name: '両替機の説得（叩かずに直す）', mod: 4 },
+    { name: '深夜の客への声かけ', mod: -2 },
+    { name: '観察', mod: 1 },
+  ];
+  var DICE_SIDES = [4, 6, 8, '2d10', 12, 20, 100];
+  var STAGE_LABELS = ['予洗い', '本洗い', 'すすぎ', '脱水', '乾燥'];
+
+  // 洗濯表示: 2d10 判定の結果を 〇（成功）／△（部分成功）／✕（失敗・イベント発生）で示す
+  function washInfo(total, dc, dice) {
+    var isDouble = dice[0] === dice[1];
+    if (total >= dc + 5) return { word: 'スッキリ', mark: 'O', color: '#3ec98a', verdict: '＝ ' + total + ' ・ 大成功。呪いが古い記憶まで落ちた' + (isDouble ? '（ぞろ目・特別ボーナス）' : '') };
+    if (total >= dc) return { word: '洗濯完了', mark: 'O', color: '#3ec98a', verdict: '＝ ' + total + ' ・ 成功' };
+    if (total >= dc - 4) return { word: '部分成功', mark: 'SAN', color: '#2b9eae', verdict: '＝ ' + total + ' ・ △ 部分成功。染みがうっすら残る' };
+    return { word: '洗濯不可', mark: 'BATSU', color: '#c9722e', verdict: '＝ ' + total + ' ・ ✕ 洗濯不可（イベント発生）' };
+  }
+
+  var GM_TABLE = ['停電（龍の湯だけ冷めない）', '停電（龍の湯だけ冷めない）', '酔客が呪いを誤って持ち帰る', '両替機がストライキ', '排水口から泡（虹色）', '龍が歌う（雨が降る）'];
+  var GM_SCENES = ['花嫁衣装の呪い', '6号機のノック（3夜連続）', '商店街の「汚れ」の増加傾向'];
+
+  // ─────────────────────────────────────────────
+  // シナリオ「すすぎの水は、少し塩辛い」（夜番日誌 六月十七日）
+  // fx: tai / seiketsu / shinrai / flags / taiSet / seiketsuSet
+  // ─────────────────────────────────────────────
+  var NODES = {
+    i1: {
+      kicker: '夜番日誌 ・ 六月十七日 ・ 午前1時20分', title: 'すすぎの水は、少し塩辛い', pct: 58,
+      text: [
+        '柚木さんがウェディングドレスを持ち込んだのは、日付が変わる少し前だった。「洗ってほしいの。着てないのに、汚れてるみたいだから」。畳まれたドレスは新品のままで、しかし持ち上げると、雨に濡れた犬みたいな重さがした。染みの声に耳を澄ます。——聞こえたのは、式場のキャンセル料の説明を延々と読み上げる、事務的な声だった。',
+        '7号機に入れると、龍はいつもより丁寧に湯を回した。回転窓の向こうで、白い布と鱗の影が、ゆっくり円を描く。柚木さんはベンチに座って、その円をずっと見ている。乾燥機の上の時計が1時20分を指す。すすぎ工程で、水が急に塩辛くなった。龍が首を出して、こちらを見た。これは、涙の味がする案件だ。',
+        { q: '汚れを落とすことと、なかったことにすることは、違う。うちの龍は、その区別だけは絶対に間違えない。' },
+        '左袖の染みだけが、どうしても落ちない。近づけた耳に、今度は別の声がした。「——迎えに行けなくて、ごめん」。男の人の声だ。柚木さんは、まだ円を見ている。',
+      ],
+      choices: [
+        { num: '①', pre: '染みの声を、柚木さんに伝える ', skillText: '接客判定', check: { name: '接客', mod: 1, dc: 14 }, success: 'i2a', fail: 'i2b' },
+        { num: '②', pre: '伝えずに、染みだけそっと残して仕上げる（龍と要相談）', to: 'i2c' },
+        { num: '③', pre: '「なかったコトに」を一滴——染みごと記憶を柔らかくする（取り返しがつかない）', to: 'i2d' },
+      ],
+    },
+    i2a: {
+      kicker: '夜番日誌 ・ 午前1時24分', title: '伝えた声', pct: 62, fx: { flags: { toldYuzuki: 1 } },
+      text: [
+        '「実は、染みから声が聞こえるんです」思い切って伝えると、柚木さんは驚くでもなく、静かに頷いた。「やっぱり。あの人、最後まで言い訳が下手だったから」',
+        '涙は見せなかったが、握った拳が白くなっていた。',
+      ],
+      choices: [{ pre: '脱水工程へ進む', to: 'i3' }],
+    },
+    i2b: {
+      kicker: '夜番日誌 ・ 午前1時24分', title: '言葉にできない', pct: 60, fx: { seiketsu: -1 },
+      text: [
+        'どう伝えればいいか分からず、結局言葉が喉で止まった。気まずい沈黙だけが残る。（清潔感 −1）',
+        '柚木さんは不思議そうにこちらを見たが、何も聞いてこなかった。',
+      ],
+      choices: [{ pre: '脱水工程へ進む', to: 'i3' }],
+    },
+    i2c: {
+      kicker: '夜番日誌 ・ 午前1時24分', title: '龍への相談', pct: 61, fx: { flags: { keepStain: 1 } },
+      text: [
+        '回転窓越しに、龍に目配せする。龍は小さく頷いたように見えた——染みは残すが、それ以上は広げない、という合図らしい。',
+        '柚木さんには何も告げず、洗濯を見守ることにした。',
+      ],
+      choices: [{ pre: '脱水工程へ進む', to: 'i3' }],
+    },
+    i2d: {
+      kicker: '夜番日誌 ・ 午前1時25分', title: '一滴の「なかったコトに」', pct: 61, fx: { seiketsu: -3, flags: { usedForget: 1 } },
+      text: [
+        '因果柔軟剤の瓶を、震える手で傾けた。一滴。染みに触れた瞬間、声がぷつりと途切れる。手のひらが、妙に冷たい。（清潔感 −3）',
+        '取り返しがつかないことをした自覚だけが、胸に残った。',
+      ],
+      choices: [{ pre: '脱水工程へ進む', to: 'i3' }],
+    },
+    i3: {
+      kicker: '夜番日誌 ・ 脱水工程', title: '6号機のノック', pct: 74,
+      text: [
+        '脱水が始まると同時に、店の奥、6号機からいつものノックの音がした。今夜はやけに、それが強く響く。',
+        '確かめに行くべきか、迷う。',
+      ],
+      choices: [
+        { pre: '6号機を、', skillText: '観察', post: 'しに行く', check: { name: '観察', mod: 1, dc: 13 }, success: 'i4a', fail: 'i4b' },
+        { pre: '確かめず、このまま脱水を見守る', to: 'i4c' },
+      ],
+    },
+    i4a: {
+      kicker: '夜番日誌 ・ 6号機の前', title: '同じ声', pct: 80, fx: { flags: { know6Gou: 1 } },
+      text: [
+        '扉に耳を当てると、聞き覚えのある声がした——「迎えに行けなくて、ごめん」。ドレスの染みから聞こえた声と、寸分違わず同じ声だった。',
+        '6号機の中の「濯ぎ忘れ」の正体が、今、はっきりと繋がった。',
+      ],
+      choices: [{ pre: 'すすぎ工程・脱水の続きに戻る', to: 'i5' }],
+    },
+    i4b: {
+      kicker: '夜番日誌 ・ 6号機の前', title: '聞き取れない', pct: 78, fx: { tai: -1 },
+      text: [
+        '扉に耳を当てても、くぐもった音にしかならなかった。塩を持ってこなかったのを、少し後悔する。（体力 −1）',
+      ],
+      choices: [{ pre: '脱水の続きに戻る', to: 'i5' }],
+    },
+    i4c: {
+      kicker: '夜番日誌 ・ カウンター', title: '見守るだけ', pct: 77,
+      text: [
+        '確かめには行かず、脱水の音だけを聞いていた。柚木さんも、こちらも、何も言わない時間が過ぎる。',
+      ],
+      choices: [{ pre: '脱水の続きを見守る', to: 'i5' }],
+    },
+    i5: {
+      kicker: '夜番日誌 ・ 乾燥工程', title: '洗い上がり', pct: 90,
+      text: [
+        '脱水が終わり、ドレスは真っ白に仕上がった。龍がドラムを止め、静かにこちらを見ている。判断は、夜番に委ねられているようだった。',
+      ],
+      choices: [
+        { pre: '6号機とドレスの声を繋げる提案を、龍にする', to: 'Et_reunite', if: function (st) { return st.flags.know6Gou; } },
+        { pre: '記憶を柔らかくしたまま、静かに仕上げる', to: 'Et_forgotten', if: function (st) { return st.flags.usedForget; } },
+        { pre: '柚木さんと一緒に、真実を受け止める', to: 'Et_together', if: function (st) { return st.flags.toldYuzuki; } },
+        { pre: '何も言わず、ドレスを綺麗に畳んで渡す', to: 'Et_plain' },
+        { pre: '判断を、龍に委ねる', to: 'Et_dragon_choice' },
+      ],
+    },
+    Et_reunite: {
+      kicker: '夜番日誌 ・ 結', title: '再会', pct: 100, end: true, fx: { shinrai: 15, seiketsu: 2 },
+      text: [
+        '龍に提案すると、大きく頷いて、6号機の方へ湯気をひとすじ送った。ノックの音が止み、代わりに——ドレスの奥から、小さな光がひとつ、6号機の方へ吸い込まれていった。',
+        '柚木さんには何も見えなかったはずだが、なぜか涙をこぼしていた。「今、何かが、ちゃんと帰った気がした」龍の機嫌は、今夜いちばん良さそうだった。（龍との信頼 ＋15 ・ 清潔感 ＋2）',
+      ],
+      choices: [],
+    },
+    Et_forgotten: {
+      kicker: '夜番日誌 ・ 結', title: '柔らかくなった記憶', pct: 100, end: true, fx: { seiketsu: -2 },
+      text: [
+        'ドレスは真っ白に仕上がったが、柚木さんは受け取るとき、少し不思議そうな顔をした。「あれ、私、何のために洗ってもらったんだっけ」',
+        '取り返しがつかないと分かっていたことが、今、静かに現実になった。（清潔感 −2）',
+      ],
+      choices: [],
+    },
+    Et_together: {
+      kicker: '夜番日誌 ・ 結', title: '受け止める', pct: 100, end: true, fx: { shinrai: 8, tai: -1 },
+      text: [
+        'ドレスを渡しながら、伝えた声のことをもう一度確認した。柚木さんは長いこと黙ってから、静かに笑った。「ありがとう。ちゃんと、教えてくれて」',
+        '重い夜だったが、悪い夜ではなかった。龍も、心なしか満足げだった。（龍との信頼 ＋8 ・ 体力 −1）',
+      ],
+      choices: [],
+    },
+    Et_plain: {
+      kicker: '夜番日誌 ・ 結', title: '何も言わずに', pct: 100, end: true,
+      text: [
+        '何も告げず、綺麗に畳んだドレスを渡した。柚木さんは礼を言って、店を出ていった。真夜中の商店街に、彼女の足音が遠ざかる。',
+        '本当にそれで良かったのか、朝が来ても答えは出ない。',
+      ],
+      choices: [],
+    },
+    Et_dragon_choice: {
+      kicker: '夜番日誌 ・ 結', title: '龍の判断', pct: 100, end: true, fx: { shinrai: 5 },
+      text: [
+        '判断を委ねると、龍はしばらく考え込み、それから小さく雨のような息を吐いた。ドレスの左袖に、うっすらとした跡だけが残る——完全には消えない、でも痛みだけを和らげたような跡。',
+        '「昔、雨を降らせていた頃を思い出した」龍がぽつりと呟いた。理由はまだ話してくれないが、少しだけ扉が開いた気がした。（龍との信頼 ＋5）',
+      ],
+      choices: [],
+    },
+    E_faint: {
+      kicker: '夜番日誌 ・ 結', title: '店内で力尽きる', pct: 100, end: true, fx: { taiSet: 1 },
+      text: [
+        '体力が尽き、カウンターに突っ伏してしまった。気づけば柚木さんが心配そうに顔を覗き込んでいる。「大丈夫？　龍さんが心配してたわよ」',
+        '洗い上がりは、次の夜番に持ち越された。（体力 1 で目覚める）',
+      ],
+      choices: [],
+    },
+    E_stained: {
+      kicker: '夜番日誌 ・ 結', title: '心が汚れきる', pct: 100, end: true, fx: { seiketsuSet: 3 },
+      text: [
+        '呪いに触れすぎた心が、限界を迎えた。視界がぐらつき、龍が慌ててドラムから顔を出す。「予約なしだが、湯洗いしてやる」',
+        '温かい湯気に包まれ、少しだけ心が軽くなる。次の夜番からは、もう少し距離感を学ばねば。（清潔感 3 まで湯洗いされ再開）',
+      ],
+      choices: [],
+    },
+  };
+
+  var END_CHOICES = [
+    { pre: '夜番日誌を最初から書き直す', restart: true },
+    { pre: '店内案内の間へ戻る', top: true },
+  ];
+
+  // ─────────────────────────────────────────────
+
+  function initialState() {
+    return {
+      diceSides: '2d10', skillIdx: 1, diceDc: 15,
+      lastRoll: { kind: 'check', dice: [9, 5], mod: 5, total: 19, dc: 15, skillName: 'しみ抜き（物理・因果両対応）' },
+      rollLog: [
+        { left: '潤 ・ しみ抜き（ウェディングドレス）', right: '19 ／ 〇 スッキリ', color: '#3ec98a' },
+        { left: '柚木さん ・ 観察（6号機の声の主）', right: '11 ／ △ 「知ってる声だった」', color: '#c9722e' },
+        { left: '潤 ・ 龍語（脱水の延長交渉）', right: '6 ／ ✕ 龍が拗ねた（要おやつ）', color: '#c9722e' },
+      ],
+      tai: 11, seiketsu: 8, shinrai: 57,
+      stageIdx: 2, yogore: 34, kigen: 72, kokoro: 58,
+      items: { snackQty: 7 },
+      flags: {},
+      storyNode: 'i1', storyNote: null, storyNoteColor: '#7d9298',
+      gmScene: 0, haisui: 44, gmTable: null,
+    };
+  }
+
+  function pushLog(st, left, right, color) {
+    st.rollLog = [{ left: left, right: right, color: color }].concat(st.rollLog).slice(0, 10);
+  }
+
+  function applyFx(st, fx, patch) {
+    if (!fx) return;
+    function get(k) { return k in patch ? patch[k] : st[k]; }
+    if (fx.tai) patch.tai = eng().clamp(get('tai') + fx.tai, 0, TAI_MAX);
+    if (fx.taiSet != null) patch.tai = fx.taiSet;
+    if (fx.seiketsu) patch.seiketsu = eng().clamp(get('seiketsu') + fx.seiketsu, 0, SEIKETSU_MAX);
+    if (fx.seiketsuSet != null) patch.seiketsu = fx.seiketsuSet;
+    if (fx.shinrai) patch.shinrai = eng().clamp(get('shinrai') + fx.shinrai, 0, 100);
+    if (fx.flags) patch.flags = Object.assign({}, get('flags'), fx.flags);
+  }
+
+  window.__GAME__ = {
+    id: '1i',
+    initialState: initialState,
+    persist: [
+      'diceSides', 'skillIdx', 'diceDc', 'lastRoll', 'rollLog',
+      'tai', 'seiketsu', 'shinrai', 'stageIdx', 'yogore', 'kigen', 'kokoro',
+      'items', 'flags', 'storyNode', 'storyNote', 'storyNoteColor',
+      'gmScene', 'haisui', 'gmTable',
+    ],
+    migrate: function (st) {
+      var init = initialState();
+      if (!NODES[st.storyNode]) { st.storyNode = 'i1'; st.storyNote = null; st.flags = {}; }
+      st.items = Object.assign({}, init.items, st.items || {});
+      st.flags = st.flags || {};
+      if (!Array.isArray(st.rollLog)) st.rollLog = init.rollLog;
+    },
+
+    vals: function (app) {
+      var st = app.state;
+      var E = eng();
+      var out = {};
+
+      // ── 店内案内 ──
+      out.goStory = function () { app.setState({ screen: 'story' }); };
+
+      // ── 従業員名札 ──
+      out.tai = st.tai;
+      out.taiPct = Math.round((st.tai / TAI_MAX) * 100);
+      out.seiketsu = st.seiketsu;
+      out.seiketsuPct = Math.round((st.seiketsu / SEIKETSU_MAX) * 100);
+      out.shinrai = st.shinrai;
+      out.taiUp = function () { app.setState({ tai: E.clamp(st.tai + 1, 0, TAI_MAX) }); };
+      out.taiDown = function () { app.setState({ tai: E.clamp(st.tai - 1, 0, TAI_MAX) }); };
+      out.seiketsuUp = function () { app.setState({ seiketsu: E.clamp(st.seiketsu + 1, 0, SEIKETSU_MAX) }); };
+      out.seiketsuDown = function () { app.setState({ seiketsu: E.clamp(st.seiketsu - 1, 0, SEIKETSU_MAX) }); };
+      out.shinraiUp = function () { app.setState({ shinrai: E.clamp(st.shinrai + 5, 0, 100) }); };
+      out.shinraiDown = function () { app.setState({ shinrai: E.clamp(st.shinrai - 5, 0, 100) }); };
+
+      // ── 洗い判定 ──
+      var isCheck = st.diceSides === '2d10';
+      var skill = SKILLS[st.skillIdx] || SKILLS[0];
+      out.diceIsCheck = isCheck;
+      out.diceHead = isCheck ? '■ 洗い上がり判定 ・ 基準 ' + st.diceDc + ' ・ 工程：' + skill.name : (st.diceSides === '2d10' ? '2d10' : 'd' + st.diceSides) + ' を振る';
+      out.dcMinus = function () { app.setState({ diceDc: E.clamp(st.diceDc - 1, 2, 30) }); };
+      out.dcPlus = function () { app.setState({ diceDc: E.clamp(st.diceDc + 1, 2, 30) }); };
+      var lr = st.lastRoll;
+      if (!lr) {
+        out.diceFace = '—'; out.stampWord = ''; out.diceFormula = 'まだボタンは押していない'; out.diceVerdict = '';
+        out.stampColor = '#7d9298'; out.markOColor = '#dfe4e4'; out.markSanColor = '#dfe4e4'; out.markBatsuColor = '#dfe4e4';
+      } else if (lr.kind === 'check') {
+        var wi = washInfo(lr.total, lr.dc, lr.dice);
+        out.diceFace = lr.total;
+        out.stampWord = wi.word;
+        out.diceFormula = '2d10 ＝ ' + lr.dice[0] + '+' + lr.dice[1] + ' ＋ ' + lr.skillName + ' ' + lr.mod;
+        out.diceVerdict = wi.verdict;
+        out.stampColor = wi.color;
+        out.markOColor = wi.mark === 'O' ? '#3ec98a' : '#dfe4e4';
+        out.markSanColor = wi.mark === 'SAN' ? '#2b9eae' : '#dfe4e4';
+        out.markBatsuColor = wi.mark === 'BATSU' ? '#c9722e' : '#dfe4e4';
+      } else {
+        out.diceFace = lr.value;
+        out.stampWord = '出目';
+        out.diceFormula = (lr.sides === '2d10' ? '2d10' : 'd' + lr.sides) + ' の出目';
+        out.diceVerdict = '＝ ' + lr.value;
+        out.stampColor = '#7d9298';
+        out.markOColor = '#dfe4e4'; out.markSanColor = '#dfe4e4'; out.markBatsuColor = '#dfe4e4';
+      }
+      out.diceTypes = DICE_SIDES.map(function (s) {
+        var sel = s === st.diceSides;
+        return {
+          label: s === '2d10' ? '2d10' : 'd' + s,
+          go: function () { app.setState({ diceSides: s }); },
+          border: sel ? '2px solid #2b9eae' : '1px solid rgba(43,158,174,.3)',
+          color: sel ? '#2b9eae' : '#7d9298',
+          bg: sel ? 'rgba(43,158,174,.05)' : '#fff',
+          weight: sel ? '600' : '400',
+        };
+      });
+      out.diceSkills = SKILLS.map(function (sk, i) {
+        var sel = i === st.skillIdx;
+        return {
+          label: sk.name + '（' + (sk.mod >= 0 ? '+' + sk.mod : sk.mod) + '）',
+          go: function () { app.setState({ skillIdx: i }); },
+          border: sel ? '1px solid #2b9eae' : '1px solid rgba(43,158,174,.3)',
+          color: sel ? '#2b9eae' : '#7d9298',
+          bg: sel ? 'rgba(43,158,174,.05)' : '#fff',
+        };
+      });
+      out.rollNow = function () {
+        if (st.diceSides === '2d10') {
+          var d1 = E.rollDie(10), d2 = E.rollDie(10);
+          var total = d1 + d2 + skill.mod;
+          var wi = washInfo(total, st.diceDc, [d1, d2]);
+          pushLog(st, '潤 ・ ' + skill.name, total + ' ／ ' + wi.word, wi.color);
+          app.setState({ lastRoll: { kind: 'check', dice: [d1, d2], mod: skill.mod, total: total, dc: st.diceDc, skillName: skill.name }, rollLog: st.rollLog });
+        } else {
+          var v = E.rollDie(st.diceSides);
+          pushLog(st, '潤 ・ d' + st.diceSides, v + ' ／ 出目', '#7d9298');
+          app.setState({ lastRoll: { kind: 'plain', sides: st.diceSides, value: v }, rollLog: st.rollLog });
+        }
+      };
+      out.logRows = st.rollLog;
+
+      // ── 洗い工程 ──
+      out.stages = STAGE_LABELS.map(function (label, i) {
+        var done = i < st.stageIdx, active = i === st.stageIdx;
+        return {
+          label: label + (active ? ' ◉ 今ここ' : done ? ' ✓' : ''),
+          weight: active || done ? '900' : '700',
+          color: active || done ? '#fff' : '#7d9298',
+          bg: done ? '#3ec98a' : active ? '#2b9eae' : '#eef6f6',
+        };
+      });
+      out.nextStage = function () { app.setState({ stageIdx: Math.min(STAGE_LABELS.length - 1, st.stageIdx + 1) }); };
+      out.pauseProcess = function () { app.setState({ kigen: E.clamp(st.kigen + 3, 0, 100) }); };
+      out.yogore = st.yogore;
+      out.yogoreDown5 = function () { app.setState({ yogore: E.clamp(st.yogore - 5, 0, 100) }); };
+      out.yogoreDown1 = function () { app.setState({ yogore: E.clamp(st.yogore - 1, 0, 100) }); };
+      out.yogoreUp1 = function () { app.setState({ yogore: E.clamp(st.yogore + 1, 0, 100) }); };
+      out.kigen = st.kigen;
+      out.ryuStatus = st.kigen < 30 ? '回転数：拒否中' : 'ごきげん';
+      out.ryuTag = st.kigen < 30 ? '回転拒否（要おやつ）' : '龍の湯（52℃・呪い最適温）';
+      out.ryuTagBg = st.kigen < 30 ? 'rgba(201,114,46,.12)' : 'rgba(43,158,174,.1)';
+      out.ryuTagColor = st.kigen < 30 ? '#c9722e' : '#2b9eae';
+      out.kigenDown = function () { app.setState({ kigen: E.clamp(st.kigen - 5, 0, 100) }); };
+      out.kigenUp = function () { app.setState({ kigen: E.clamp(st.kigen + 5, 0, 100) }); };
+      out.kokoro = st.kokoro;
+
+      // ── 洗剤棚 ──
+      out.snackQty = st.items.snackQty;
+      out.snackAvailable = st.items.snackQty > 0 && st.kigen < 100;
+      out.giveSnack = function () {
+        var items = Object.assign({}, st.items);
+        items.snackQty = Math.max(0, items.snackQty - 1);
+        app.setState({ items: items, kigen: E.clamp(st.kigen + 15, 0, 100) });
+      };
+
+      // ── 夜番日誌 ──
+      var node = NODES[st.storyNode] || NODES.i1;
+      out.storyKicker = node.kicker;
+      out.storyTitle = node.title;
+      out.storyBlocks = node.text.map(function (b) {
+        return typeof b === 'string' ? { isP: true, isQ: false, t: b } : { isP: false, isQ: true, t: b.q };
+      });
+      out.storyHasNote = !!st.storyNote;
+      out.storyNote = st.storyNote || '';
+      out.storyNoteColor = st.storyNoteColor || '#7d9298';
+      out.storyPct = node.pct;
+      out.storyPctLabel = node.end
+        ? '洗い上がり ・ 夜番日誌 結審'
+        : node.pct + '% ・ 脱水まで ' + Math.max(0, 20 - Math.round(node.pct / 5)) + '分 ・ 龍の機嫌 ' + st.kigen;
+      out.storyCanRestart = st.storyNode !== 'i1';
+      out.storyRestart = function () { app._resetGame(); };
+
+      function choose(c) {
+        return function () {
+          var patch = { storyNote: null, storyNoteColor: '#7d9298' };
+          var target = c.to;
+          if (c.check) {
+            var dc = typeof c.check.dc === 'function' ? c.check.dc(st) : c.check.dc;
+            var r = E.check(c.check.mod, dc);
+            patch.storyNote = c.check.name + '判定 — d20〈' + r.die + '〉＋' + r.mod + ' ＝ ' + r.total + ' ／ 難度' + dc + ' ・ ' + (r.ok ? '成功' : '失敗');
+            patch.storyNoteColor = r.ok ? '#3ec98a' : '#c9722e';
+            pushLog(st, '潤 ・ ' + c.check.name + '（夜番日誌）', r.total + ' ／ ' + (r.ok ? '成功' : '失敗'), r.ok ? '#3ec98a' : '#c9722e');
+            patch.rollLog = st.rollLog;
+            target = r.ok ? c.success : c.fail;
+          }
+          var nextNode = NODES[target];
+          applyFx(st, nextNode.fx, patch);
+          var taiNow = 'tai' in patch ? patch.tai : st.tai;
+          var seiketsuNow = 'seiketsu' in patch ? patch.seiketsu : st.seiketsu;
+          if (taiNow <= 0 && !nextNode.end) {
+            target = 'E_faint';
+            applyFx(st, NODES.E_faint.fx, patch);
+          } else if (seiketsuNow <= 0 && !nextNode.end) {
+            target = 'E_stained';
+            applyFx(st, NODES.E_stained.fx, patch);
+          }
+          patch.storyNode = target;
+          app.setState(patch);
+        };
+      }
+      var defs = node.end ? END_CHOICES : node.choices;
+      out.storyChoices = defs.filter(function (c) {
+        return !c.if || c.if(st);
+      }).map(function (c) {
+        var dc = c.check ? (typeof c.check.dc === 'function' ? c.check.dc(st) : c.check.dc) : null;
+        return {
+          num: c.num || '', pre: c.pre, skillText: c.skillText || '', post: c.post || '',
+          dcLabel: dc != null ? '難度' + dc : '',
+          go: c.restart ? function () { app._resetGame(); }
+            : c.top ? function () { app.setState({ screen: 'top' }); }
+            : choose(c),
+        };
+      });
+
+      // ── 店長ノート ──
+      out.gmScenes = GM_SCENES.map(function (t, i) {
+        var active = i === st.gmScene;
+        return {
+          t: t, tag: active ? '進行中' : '',
+          go: function () { app.setState({ gmScene: i }); },
+          border: active ? '2px solid #2b9eae' : '1px solid rgba(43,158,174,.3)',
+          bg: active ? 'rgba(43,158,174,.04)' : '#fff',
+          color: active ? '#26343a' : '#7d9298',
+          weight: active ? '700' : '400',
+        };
+      });
+      out.haisui = st.haisui;
+      out.haisuiMinus = function () { app.setState({ haisui: E.clamp(st.haisui - 5, 0, 100) }); };
+      out.haisuiPlus = function () { app.setState({ haisui: E.clamp(st.haisui + 5, 0, 100) }); };
+      out.gmHasTable = !!st.gmTable;
+      out.gmTableD = st.gmTable ? st.gmTable.d : '';
+      out.gmTableText = st.gmTable ? st.gmTable.text : '';
+      out.rollTable = function () {
+        var d = E.rollDie(6);
+        var text = GM_TABLE[d - 1];
+        pushLog(st, '店長 ・ 深夜ハプニング表', d + ' ／ ' + text, '#2b9eae');
+        app.setState({ gmTable: { d: d, text: text }, rollLog: st.rollLog });
+      };
+
+      return out;
+    },
+  };
+})();
 
 window.__dcApp = new Component();
 if (typeof GameEngine !== 'undefined' && window.__GAME__) GameEngine.attach(window.__dcApp, window.__GAME__);
