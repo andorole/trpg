@@ -83,7 +83,7 @@
               </sc-for>
             </div>
 
-            <button style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:0;border-radius:8px;cursor:pointer;background:#3a9e8c;color:#fff;font-weight:900;font-size:15px;letter-spacing:3px;box-shadow:0 5px 0 #2a7568;white-space:nowrap;">受付を済ませる　➜</button>
+            <button onClick="{{ goStory }}" style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:0;border-radius:8px;cursor:pointer;background:#3a9e8c;color:#fff;font-weight:900;font-size:15px;letter-spacing:3px;box-shadow:0 5px 0 #2a7568;white-space:nowrap;">受付を済ませる　➜</button>
           </div>
         </sc-if>
 
@@ -106,12 +106,12 @@
             <p style="font-size:11px;letter-spacing:3px;color:#3a9e8c;font-weight:700;margin:0 0 10px;">■ 検査結果（魂体基礎14項目より抜粋）</p>
             <div style="border:1px solid rgba(58,158,140,.3);border-radius:8px;overflow:hidden;margin-bottom:20px;background:#fff;">
               <div style="display:grid;grid-template-columns:1.4fr .8fr 1fr .6fr;font-size:11px;color:#7e948f;background:rgba(58,158,140,.06);border-bottom:1px solid rgba(58,158,140,.2);"><span style="padding:8px 14px;font-weight:700;">検査項目</span><span style="padding:8px 14px;border-left:1px solid rgba(58,158,140,.12);font-weight:700;">結果</span><span style="padding:8px 14px;border-left:1px solid rgba(58,158,140,.12);font-weight:700;">基準値</span><span style="padding:8px 14px;border-left:1px solid rgba(58,158,140,.12);font-weight:700;">判定</span></div>
-              <div style="display:grid;grid-template-columns:1.4fr .8fr 1fr .6fr;font-size:13px;color:#28343a;border-bottom:1px dashed rgba(58,158,140,.18);align-items:center;"><span style="padding:9px 14px;">徳値（善行コレステロール）</span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;font-weight:600;">142</span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;color:#7e948f;">80–160</span><span style="padding:6px 14px;border-left:1px solid rgba(58,158,140,.06);"><b style="display:inline-block;width:26px;height:26px;border-radius:50%;background:rgba(62,164,110,.12);color:#2f8a5c;text-align:center;line-height:26px;">A</b></span></div>
-              <div style="display:grid;grid-template-columns:1.4fr .8fr 1fr .6fr;font-size:13px;color:#28343a;border-bottom:1px dashed rgba(58,158,140,.18);align-items:center;"><span style="padding:9px 14px;">業値（カルマ γ-GTP）</span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;font-weight:600;">61</span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;color:#7e948f;">0–50</span><span style="padding:6px 14px;border-left:1px solid rgba(58,158,140,.06);"><b style="display:inline-block;width:26px;height:26px;border-radius:50%;background:rgba(201,168,46,.14);color:#a5851f;text-align:center;line-height:26px;">B</b></span></div>
-              <div style="display:grid;grid-template-columns:1.4fr .8fr 1fr .6fr;font-size:13px;color:#28343a;border-bottom:1px dashed rgba(58,158,140,.18);align-items:center;background:rgba(198,84,72,.03);"><span style="padding:9px 14px;font-weight:700;">未練残量</span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;font-weight:600;color:#c65448;">388</span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;color:#7e948f;">0–120</span><span style="padding:6px 14px;border-left:1px solid rgba(58,158,140,.06);"><b style="display:inline-block;width:26px;height:26px;border-radius:50%;background:rgba(198,84,72,.14);color:#c65448;text-align:center;line-height:26px;">D</b></span></div>
+              <div style="display:grid;grid-template-columns:1.4fr .8fr 1fr .6fr;font-size:13px;color:#28343a;border-bottom:1px dashed rgba(58,158,140,.18);align-items:center;"><span style="padding:9px 14px;">徳値（善行コレステロール）</span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;font-weight:600;">{{ toku }}<button onClick="{{ tokuDown }}" style="margin-left:6px;width:24px;height:24px;border:1px solid rgba(58,158,140,.3);border-radius:6px;background:#fff;color:#7e948f;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ tokuUp }}" style="width:24px;height:24px;border:1px solid rgba(58,158,140,.3);border-radius:6px;background:#fff;color:#7e948f;cursor:pointer;font-size:13px;line-height:1;">＋</button></span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;color:#7e948f;">80–160</span><span style="padding:6px 14px;border-left:1px solid rgba(58,158,140,.06);"><b style="display:inline-block;width:26px;height:26px;border-radius:50%;background:{{ tokuGradeBg }};color:{{ tokuGradeColor }};text-align:center;line-height:26px;">{{ tokuGrade }}</b></span></div>
+              <div style="display:grid;grid-template-columns:1.4fr .8fr 1fr .6fr;font-size:13px;color:#28343a;border-bottom:1px dashed rgba(58,158,140,.18);align-items:center;"><span style="padding:9px 14px;">業値（カルマ γ-GTP）</span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;font-weight:600;">{{ gou }}<button onClick="{{ gouDown }}" style="margin-left:6px;width:24px;height:24px;border:1px solid rgba(58,158,140,.3);border-radius:6px;background:#fff;color:#7e948f;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ gouUp }}" style="width:24px;height:24px;border:1px solid rgba(58,158,140,.3);border-radius:6px;background:#fff;color:#7e948f;cursor:pointer;font-size:13px;line-height:1;">＋</button></span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;color:#7e948f;">0–50</span><span style="padding:6px 14px;border-left:1px solid rgba(58,158,140,.06);"><b style="display:inline-block;width:26px;height:26px;border-radius:50%;background:{{ gouGradeBg }};color:{{ gouGradeColor }};text-align:center;line-height:26px;">{{ gouGrade }}</b></span></div>
+              <div style="display:grid;grid-template-columns:1.4fr .8fr 1fr .6fr;font-size:13px;color:#28343a;border-bottom:1px dashed rgba(58,158,140,.18);align-items:center;background:rgba(198,84,72,.03);"><span style="padding:9px 14px;font-weight:700;">未練残量</span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;font-weight:600;color:#c65448;">{{ miren }}<button onClick="{{ mirenDown }}" style="margin-left:6px;width:24px;height:24px;border:1px solid rgba(58,158,140,.3);border-radius:6px;background:#fff;color:#7e948f;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ mirenUp }}" style="width:24px;height:24px;border:1px solid rgba(58,158,140,.3);border-radius:6px;background:#fff;color:#7e948f;cursor:pointer;font-size:13px;line-height:1;">＋</button></span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;color:#7e948f;">0–120</span><span style="padding:6px 14px;border-left:1px solid rgba(58,158,140,.06);"><b style="display:inline-block;width:26px;height:26px;border-radius:50%;background:{{ mirenGradeBg }};color:{{ mirenGradeColor }};text-align:center;line-height:26px;">{{ mirenGrade }}</b></span></div>
               <div style="display:grid;grid-template-columns:1.4fr .8fr 1fr .6fr;font-size:13px;color:#28343a;border-bottom:1px dashed rgba(58,158,140,.18);align-items:center;"><span style="padding:9px 14px;">好奇心飽和度</span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;font-weight:600;">88%</span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;color:#7e948f;">60–100%</span><span style="padding:6px 14px;border-left:1px solid rgba(58,158,140,.06);"><b style="display:inline-block;width:26px;height:26px;border-radius:50%;background:rgba(62,164,110,.12);color:#2f8a5c;text-align:center;line-height:26px;">A</b></span></div>
               <div style="display:grid;grid-template-columns:1.4fr .8fr 1fr .6fr;font-size:13px;color:#28343a;border-bottom:1px dashed rgba(58,158,140,.18);align-items:center;"><span style="padding:9px 14px;">縁の血中濃度</span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;font-weight:600;">高</span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;color:#7e948f;">中〜高</span><span style="padding:6px 14px;border-left:1px solid rgba(58,158,140,.06);"><b style="display:inline-block;width:26px;height:26px;border-radius:50%;background:rgba(62,164,110,.12);color:#2f8a5c;text-align:center;line-height:26px;">A</b></span></div>
-              <div style="display:grid;grid-template-columns:1.4fr .8fr 1fr .6fr;font-size:13px;color:#28343a;align-items:center;"><span style="padding:9px 14px;">記憶清算率</span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;font-weight:600;color:#c9722e;">12%</span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;color:#7e948f;">≧95%</span><span style="padding:6px 14px;border-left:1px solid rgba(58,158,140,.06);"><b style="display:inline-block;width:26px;height:26px;border-radius:50%;background:rgba(201,114,46,.14);color:#c9722e;text-align:center;line-height:26px;">C</b></span></div>
+              <div style="display:grid;grid-template-columns:1.4fr .8fr 1fr .6fr;font-size:13px;color:#28343a;align-items:center;"><span style="padding:9px 14px;">記憶清算率</span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;font-weight:600;color:#c9722e;">{{ seisan }}%<button onClick="{{ seisanDown }}" style="margin-left:6px;width:24px;height:24px;border:1px solid rgba(58,158,140,.3);border-radius:6px;background:#fff;color:#7e948f;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ seisanUp }}" style="width:24px;height:24px;border:1px solid rgba(58,158,140,.3);border-radius:6px;background:#fff;color:#7e948f;cursor:pointer;font-size:13px;line-height:1;">＋</button></span><span style="padding:9px 14px;border-left:1px solid rgba(58,158,140,.06);font-family:'IBM Plex Mono',monospace;color:#7e948f;">≧95%</span><span style="padding:6px 14px;border-left:1px solid rgba(58,158,140,.06);"><b style="display:inline-block;width:26px;height:26px;border-radius:50%;background:{{ seisanGradeBg }};color:{{ seisanGradeColor }};text-align:center;line-height:26px;">{{ seisanGrade }}</b></span></div>
             </div>
 
             <div style="display:grid;grid-template-columns:{{ twoCols }};gap:24px;">
@@ -134,32 +134,42 @@
 
         <sc-if value="{{ isDice }}" hint-placeholder-val="{{ false }}">
           <div data-screen-label="精密検査" style="animation:scfade .4s ease;max-width:560px;margin:0 auto;text-align:center;">
-            <p style="font-size:11px;letter-spacing:3px;color:#3a9e8c;font-weight:700;margin:0 0 4px;">■ 精密検査判定 ・ 基準 15 ・ 検体：未練（採取済）</p>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 24px;">
-              <div style="width:122px;height:122px;border:3px solid #3a9e8c;border-radius:10px;animation:stampin .5s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#3a9e8c;background:#fff;box-shadow:0 8px 20px -8px rgba(58,158,140,.3);">
-                <span style="font-size:10px;letter-spacing:2px;color:#7e948f;">検査値</span>
-                <span style="font-family:'IBM Plex Mono',monospace;font-size:44px;font-weight:600;line-height:1.05;color:#28343a;">17</span>
-                <b style="display:inline-block;padding:1px 12px;border-radius:999px;background:rgba(62,164,110,.12);color:#2f8a5c;font-size:13px;letter-spacing:2px;">判定 A</b>
+            <p style="font-size:11px;letter-spacing:3px;color:#3a9e8c;font-weight:700;margin:0 0 4px;">{{ diceHead }}</p>
+            <sc-if value="{{ diceIsCheck }}">
+              <div style="display:flex;justify-content:center;align-items:center;gap:9px;margin:6px 0 0;">
+                <button onClick="{{ dcMinus }}" style="width:24px;height:24px;border:1px solid rgba(58,158,140,.3);border-radius:6px;background:#fff;color:#7e948f;cursor:pointer;font-size:13px;line-height:1;">−</button>
+                <span style="font-size:12px;letter-spacing:2px;color:#7e948f;">基準を調整</span>
+                <button onClick="{{ dcPlus }}" style="width:24px;height:24px;border:1px solid rgba(58,158,140,.3);border-radius:6px;background:#fff;color:#7e948f;cursor:pointer;font-size:13px;line-height:1;">＋</button>
               </div>
-              <div style="font-size:14px;color:#7e948f;margin-top:6px;">d20 ＝ 14 ＋ 縁の濃度補正 3</div>
-              <div style="font-size:14px;letter-spacing:1px;color:#2f8a5c;font-weight:700;">＝ 17 ・ 陽性所見なし。「この未練は、悪性ではありません」</div>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 24px;">
+              <div style="width:122px;height:122px;border:3px solid {{ gradeColor }};border-radius:10px;animation:stampin .5s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;color:{{ gradeColor }};background:#fff;box-shadow:0 8px 20px -8px rgba(58,158,140,.3);">
+                <span style="font-size:10px;letter-spacing:2px;color:#7e948f;">検査値</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:44px;font-weight:600;line-height:1.05;color:#28343a;">{{ diceFace }}</span>
+                <b style="display:inline-block;padding:1px 12px;border-radius:999px;background:{{ gradeBg }};color:{{ gradeColor }};font-size:13px;letter-spacing:2px;">判定 {{ stampWord }}</b>
+              </div>
+              <div style="font-size:14px;color:#7e948f;margin-top:6px;">{{ diceFormula }}</div>
+              <div style="font-size:14px;letter-spacing:1px;color:{{ gradeColor }};font-weight:700;">{{ diceVerdict }}</div>
               <p style="font-size:10px;color:#9fb2ad;margin:2px 0 0;">※判定E（出目1）の場合、魂が検査室から逃走します。院内放送が入ります。</p>
             </div>
             <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;">
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:6px;border:1px solid rgba(58,158,140,.3);color:#7e948f;background:#fff;">d4</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:6px;border:1px solid rgba(58,158,140,.3);color:#7e948f;background:#fff;">d6</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:6px;border:1px solid rgba(58,158,140,.3);color:#7e948f;background:#fff;">d8</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:6px;border:1px solid rgba(58,158,140,.3);color:#7e948f;background:#fff;">d10</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:6px;border:1px solid rgba(58,158,140,.3);color:#7e948f;background:#fff;">d12</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:6px;border:2px solid #3a9e8c;color:#3a9e8c;background:rgba(58,158,140,.05);font-weight:600;">d20</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:6px;border:1px solid rgba(58,158,140,.3);color:#7e948f;background:#fff;">d100</span>
+              <sc-for list="{{ diceTypes }}" as="dt">
+                <button onClick="{{ dt.go }}" style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:6px;cursor:pointer;border:{{ dt.border }};color:{{ dt.color }};background:{{ dt.bg }};font-weight:{{ dt.weight }};">{{ dt.label }}</button>
+              </sc-for>
             </div>
-            <button style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:0;border-radius:8px;cursor:pointer;background:#3a9e8c;color:#fff;font-weight:900;font-size:15px;letter-spacing:3px;font-family:'Zen Kaku Gothic New',sans-serif;box-shadow:0 5px 0 #2a7568;white-space:nowrap;">検体を分析にかける</button>
+            <sc-if value="{{ diceIsCheck }}">
+              <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:16px;">
+                <sc-for list="{{ diceSkills }}" as="sk">
+                  <button onClick="{{ sk.go }}" style="font-family:'Zen Kaku Gothic New',sans-serif;font-size:12px;padding:5px 11px;border-radius:6px;cursor:pointer;border:{{ sk.border }};color:{{ sk.color }};background:{{ sk.bg }};">{{ sk.label }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+            <button onClick="{{ rollNow }}" style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:0;border-radius:8px;cursor:pointer;background:#3a9e8c;color:#fff;font-weight:900;font-size:15px;letter-spacing:3px;font-family:'Zen Kaku Gothic New',sans-serif;box-shadow:0 5px 0 #2a7568;white-space:nowrap;">検体を分析にかける</button>
             <div style="margin-top:26px;text-align:left;">
               <p style="font-size:11px;letter-spacing:3px;color:#3a9e8c;font-weight:700;margin:0 0 9px;">■ 本日の判定記録</p>
-              <div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;color:#48575c;padding:7px 0;border-bottom:1px dashed rgba(58,158,140,.22);"><span>春日野様 ・ 未練の良性/悪性 鑑別</span><span style="font-family:'IBM Plex Mono',monospace;color:#2f8a5c;flex:none;">17 ／ A 良性</span></div>
-              <div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;color:#48575c;padding:7px 0;border-bottom:1px dashed rgba(58,158,140,.22);"><span>凪様 ・ 死因の開示同意 取得</span><span style="font-family:'IBM Plex Mono',monospace;color:#a5851f;flex:none;">11 ／ B 保留</span></div>
-              <div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;color:#48575c;padding:7px 0;"><span>玉のれん様 ・ 付喪神格の測定</span><span style="font-family:'IBM Plex Mono',monospace;color:#c65448;flex:none;">3 ／ D 測定器が敬礼して停止</span></div>
+              <sc-for list="{{ logRows }}" as="r">
+                <div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;color:#48575c;padding:7px 0;border-bottom:1px dashed rgba(58,158,140,.22);"><span>{{ r.left }}</span><span style="font-family:'IBM Plex Mono',monospace;color:{{ r.color }};flex:none;">{{ r.right }}</span></div>
+              </sc-for>
             </div>
           </div>
         </sc-if>
@@ -168,26 +178,27 @@
           <div data-screen-label="処置室" style="animation:scfade .4s ease;max-width:780px;margin:0 auto;">
             <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px;">
               <h1 style="font-weight:900;font-size:24px;margin:0;color:#28343a;">処置室 ・ 未練清算オペ</h1>
-              <div style="display:flex;gap:8px;"><button style="padding:8px 15px;border:1px solid rgba(58,158,140,.35);border-radius:6px;background:#fff;color:#7e948f;cursor:pointer;font-size:13px;font-family:'Zen Kaku Gothic New',sans-serif;white-space:nowrap;flex:none;">バイタル確認</button><button style="padding:8px 15px;border:0;border-radius:6px;background:#3a9e8c;color:#fff;cursor:pointer;font-weight:700;font-size:13px;font-family:'Zen Kaku Gothic New',sans-serif;box-shadow:0 4px 0 #2a7568;white-space:nowrap;flex:none;">次の処置へ</button></div>
+              <div style="display:flex;gap:8px;"><button onClick="{{ checkVital }}" style="padding:8px 15px;border:1px solid rgba(58,158,140,.35);border-radius:6px;background:#fff;color:#7e948f;cursor:pointer;font-size:13px;font-family:'Zen Kaku Gothic New',sans-serif;white-space:nowrap;flex:none;">バイタル確認</button><button onClick="{{ nextOp }}" style="padding:8px 15px;border:0;border-radius:6px;background:#3a9e8c;color:#fff;cursor:pointer;font-weight:700;font-size:13px;font-family:'Zen Kaku Gothic New',sans-serif;box-shadow:0 4px 0 #2a7568;white-space:nowrap;flex:none;">次の処置へ</button></div>
             </div>
             <p style="font-size:12px;color:#9fb2ad;margin:0 0 14px;">※未練は「消す」のではなく「畳む」処置です。畳み方を誤ると、来世で開きます（デジャヴの正体）。</p>
 
             <div style="border:2px solid #3a9e8c;border-radius:10px;padding:12px 14px;margin-bottom:14px;background:#fff;">
-              <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:4px;"><span style="font-size:15px;font-weight:900;color:#28343a;">患者：春日野 誠 様（魂体）</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#3a9e8c;white-space:nowrap;">魂圧 118/76 ・ 徳拍 62</span></div>
+              <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:4px;"><span style="font-size:15px;font-weight:900;color:#28343a;">患者：春日野 誠 様（魂体）</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#3a9e8c;white-space:nowrap;">魂圧 118/76 ・ 徳拍 {{ tokuhaku }}</span></div>
               <div style="position:relative;height:34px;border-radius:6px;background:rgba(58,158,140,.05);overflow:hidden;border:1px solid rgba(58,158,140,.2);">
                 <svg viewBox="0 0 400 34" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;animation:pulseline 2s ease-in-out infinite;"><polyline points="0,17 40,17 52,17 58,6 64,28 70,17 130,17 142,17 148,5 154,29 160,17 230,17 242,17 248,6 254,28 260,17 330,17 342,17 348,5 354,29 360,17 400,17" fill="none" stroke="#3a9e8c" stroke-width="2"></polyline></svg>
               </div>
               <div style="font-size:10px;color:#9fb2ad;margin-top:4px;">魂電図：安定。ただし「橋のたもと」という語で徳拍が跳ねる。</div>
+              <div style="display:flex;gap:4px;margin-top:6px;justify-content:flex-end;"><button onClick="{{ tokuhakuDown }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(58,158,140,.3);border-radius:6px;background:#fff;color:#c65448;cursor:pointer;">−5</button><button onClick="{{ tokuhakuUp }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(58,158,140,.3);border-radius:6px;background:#fff;color:#2f8a5c;cursor:pointer;">＋5</button></div>
             </div>
 
             <p style="font-size:11px;letter-spacing:3px;color:#3a9e8c;font-weight:700;margin:0 0 10px;">■ 清算対象の未練（大きい順）</p>
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;border:2px solid #c65448;background:rgba(198,84,72,.03);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#c65448;color:#fff;border-radius:6px;">1</span><div style="flex:1;min-width:0;"><div style="font-size:15px;font-weight:700;color:#28343a;">「息子の蕎麦を、一度も褒めなかった」 <span style="font-size:11px;color:#c65448;">悪性化リスクあり</span></div><div style="display:flex;gap:5px;margin-top:3px;flex-wrap:wrap;"><span style="font-size:10px;padding:2px 8px;border-radius:3px;background:rgba(198,84,72,.1);color:#c65448;">切除不可（本人が掴んで離さない）</span></div></div><div style="width:150px;flex:none;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7e948f;margin-bottom:3px;"><span>未練量</span><span style="font-family:'IBM Plex Mono',monospace;">302</span></div><div style="height:8px;border-radius:5px;background:rgba(40,52,58,.06);overflow:hidden;"><div style="width:78%;height:100%;background:#c65448;"></div></div></div></div>
+            <sc-for list="{{ regrets }}" as="rg">
+              <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;border:{{ rg.border }};background:{{ rg.bg }};margin-bottom:8px;opacity:{{ rg.op }};"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:{{ rg.numBg }};color:{{ rg.numColor }};border-radius:6px;">{{ rg.num }}</span><div style="flex:1;min-width:0;"><div style="font-size:15px;font-weight:700;color:#28343a;">{{ rg.title }} <span style="font-size:11px;color:{{ rg.tagColor }};">{{ rg.tag }}</span></div><div style="display:flex;gap:5px;margin-top:3px;flex-wrap:wrap;"><span style="font-size:10px;padding:2px 8px;border-radius:3px;background:{{ rg.noteBg }};color:{{ rg.noteColor }};">{{ rg.note }}</span></div></div><div style="width:150px;flex:none;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7e948f;margin-bottom:3px;"><span>未練量</span><span style="font-family:'IBM Plex Mono',monospace;">{{ rg.value }}</span></div><div style="height:8px;border-radius:5px;background:rgba(40,52,58,.06);overflow:hidden;"><div style="width:{{ rg.pct }}%;height:100%;background:{{ rg.barColor }};"></div></div>
+                <div style="display:flex;gap:4px;margin-top:5px;justify-content:flex-end;"><button onClick="{{ rg.dmg }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(58,158,140,.3);border-radius:6px;background:#fff;color:#2f8a5c;cursor:pointer;">畳む</button><button onClick="{{ rg.heal }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(58,158,140,.3);border-radius:6px;background:#fff;color:#c65448;cursor:pointer;">戻す</button></div>
+              </div></div>
+            </sc-for>
 
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;border:1px solid rgba(201,168,46,.5);background:rgba(201,168,46,.04);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#a5851f;color:#fff;border-radius:6px;">2</span><div style="flex:1;min-width:0;"><div style="font-size:15px;font-weight:700;color:#28343a;">「女房の墓に、月命日の花」 <span style="font-size:11px;color:#a5851f;">定期系未練</span></div><div style="display:flex;gap:5px;margin-top:3px;flex-wrap:wrap;"><span style="font-size:10px;padding:2px 8px;border-radius:3px;background:rgba(201,168,46,.12);color:#a5851f;">引継ぎ可（息子が既に毎月供えている——本人未確認）</span></div></div><div style="width:150px;flex:none;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7e948f;margin-bottom:3px;"><span>未練量</span><span style="font-family:'IBM Plex Mono',monospace;">60</span></div><div style="height:8px;border-radius:5px;background:rgba(40,52,58,.06);overflow:hidden;"><div style="width:16%;height:100%;background:#a5851f;"></div></div></div></div>
-
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;border:1px solid rgba(58,158,140,.3);background:#fff;margin-bottom:14px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(58,158,140,.12);color:#3a9e8c;border-radius:6px;">3</span><div style="flex:1;min-width:0;"><div style="font-size:15px;font-weight:700;color:#28343a;">「常連の傘、返しそびれた」 <span style="font-size:11px;color:#3a9e8c;">軽度</span></div><div style="display:flex;gap:5px;margin-top:3px;flex-wrap:wrap;"><span style="font-size:10px;padding:2px 8px;border-radius:3px;background:rgba(58,158,140,.08);color:#3a9e8c;">本日中に畳めます（標準処置）</span></div></div><div style="width:150px;flex:none;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7e948f;margin-bottom:3px;"><span>未練量</span><span style="font-family:'IBM Plex Mono',monospace;">26</span></div><div style="height:8px;border-radius:5px;background:rgba(40,52,58,.06);overflow:hidden;"><div style="width:7%;height:100%;background:#3a9e8c;"></div></div></div></div>
-
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;border:1px dashed rgba(58,158,140,.4);background:rgba(58,158,140,.03);"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;background:#3a9e8c;color:#fff;border-radius:50%;">看</span><div style="flex:1;min-width:0;"><div style="font-size:15px;font-weight:700;color:#28343a;">担当整理士：三途 看（みと・かん）</div><div style="font-size:12px;color:#7e948f;margin-top:2px;">未練の畳み方は千差万別。「大きいのは、無理に畳まない主義です」</div></div><div style="width:150px;flex:none;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7e948f;margin-bottom:3px;"><span>集中力</span><span style="font-family:'IBM Plex Mono',monospace;">84/100</span></div><div style="height:8px;border-radius:5px;background:rgba(40,52,58,.06);overflow:hidden;"><div style="width:84%;height:100%;background:#3a9e8c;"></div></div></div></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;border:1px dashed rgba(58,158,140,.4);background:rgba(58,158,140,.03);"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;background:#3a9e8c;color:#fff;border-radius:50%;">看</span><div style="flex:1;min-width:0;"><div style="font-size:15px;font-weight:700;color:#28343a;">担当整理士：三途 看（みと・かん）</div><div style="font-size:12px;color:#7e948f;margin-top:2px;">未練の畳み方は千差万別。「大きいのは、無理に畳まない主義です」</div></div><div style="width:150px;flex:none;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7e948f;margin-bottom:3px;"><span>集中力</span><span style="font-family:'IBM Plex Mono',monospace;">{{ shuchu }}/100</span></div><div style="height:8px;border-radius:5px;background:rgba(40,52,58,.06);overflow:hidden;"><div style="width:{{ shuchu }}%;height:100%;background:#3a9e8c;"></div></div></div></div>
           </div>
         </sc-if>
 
@@ -201,7 +212,7 @@
               <div>
                 <p style="font-size:11px;letter-spacing:3px;color:#3a9e8c;font-weight:700;margin:0 0 11px;">■ 持越申請中（来世へ持っていく）</p>
                 <div style="padding:12px 14px;border:1px solid rgba(58,158,140,.3);border-radius:8px;margin-bottom:8px;background:#fff;"><div style="display:flex;justify-content:space-between;gap:8px;"><div style="font-size:14px;font-weight:700;color:#28343a;">蕎麦打ちの手（筋肉記憶）</div><span style="font-size:10px;color:#2f8a5c;font-family:'IBM Plex Mono',monospace;flex:none;">審査通過</span></div><div style="font-size:12px;color:#7e948f;margin-top:3px;line-height:1.7;">技能扱いのため枠外。来世では「なぜか手先が器用な子」になる。</div></div>
-                <div style="padding:12px 14px;border:1px solid rgba(58,158,140,.3);border-radius:8px;margin-bottom:8px;background:#fff;"><div style="display:flex;justify-content:space-between;gap:8px;"><div style="font-size:14px;font-weight:700;color:#28343a;">橋のたもとの景色（記憶一枚）</div><span style="font-size:10px;color:#a5851f;font-family:'IBM Plex Mono',monospace;flex:none;">審査中</span></div><div style="font-size:12px;color:#7e948f;margin-top:3px;line-height:1.7;">記憶の持越は原則不可。ただし「風景一枚まで」の特例あり。夕方の川面で申請中。</div></div>
+                <div style="padding:12px 14px;border:1px solid rgba(58,158,140,.3);border-radius:8px;margin-bottom:8px;background:#fff;"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center;"><div style="font-size:14px;font-weight:700;color:#28343a;">橋のたもとの景色（記憶一枚）</div><span style="display:flex;align-items:center;gap:8px;"><sc-if value="{{ sceneryPending }}"><button onClick="{{ approveScenery }}" style="font-size:10px;padding:2px 10px;border:1px solid rgba(165,133,31,.5);border-radius:999px;background:#fff;color:#a5851f;cursor:pointer;">審査を進める</button></sc-if><span style="font-size:10px;color:{{ sceneryColor }};font-family:'IBM Plex Mono',monospace;flex:none;">{{ sceneryStatus }}</span></span></div><div style="font-size:12px;color:#7e948f;margin-top:3px;line-height:1.7;">記憶の持越は原則不可。ただし「風景一枚まで」の特例あり。夕方の川面で申請中。</div></div>
                 <div style="padding:12px 14px;border:1px solid rgba(198,84,72,.4);border-radius:8px;background:rgba(198,84,72,.03);"><div style="display:flex;justify-content:space-between;gap:8px;"><div style="font-size:14px;font-weight:700;color:#c65448;">「褒めそびれ」一式</div><span style="font-size:10px;color:#c65448;font-family:'IBM Plex Mono',monospace;flex:none;">持越不可</span></div><div style="font-size:12px;color:#7e948f;margin-top:3px;line-height:1.7;">未練は持越禁止品目の筆頭。当窓口では預かれません。処置室へ。</div></div>
               </div>
               <div>
@@ -218,20 +229,25 @@
 
         <sc-if value="{{ isStory }}" hint-placeholder-val="{{ false }}">
           <div data-screen-label="問診記録" style="animation:scfade .4s ease;max-width:640px;margin:0 auto;">
-            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#7e948f;text-align:center;margin:0 0 6px;">問診記録 ・ SOUL-1957-0042 ・ 記録者：三途 看</p>
-            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;text-align:center;margin:0 0 4px;color:#28343a;">問診票の、最後の質問</h1>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#7e948f;text-align:center;margin:0 0 6px;">{{ storyKicker }}</p>
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;text-align:center;margin:0 0 4px;color:#28343a;">{{ storyTitle }}</h1>
             <div style="display:flex;align-items:center;gap:12px;margin:16px 0 22px;color:#3a9e8c;"><span style="flex:1;height:1px;background:rgba(58,158,140,.35);"></span><span style="font-size:12px;">✚</span><span style="flex:1;height:1px;background:rgba(58,158,140,.35);"></span></div>
-            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.1;color:#33424a;margin:0 0 18px;">「最後に。思い残したことを、ひとつだけ挙げるとしたら」——マニュアル通りの質問に、春日野さんは長いこと黙っていた。魂になっても、この人は職人の顔をしている。やがて、ぽつりと言った。「せがれの蕎麦を、食ったことがない」</p>
-            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.1;color:#33424a;margin:0 0 18px;">記録係として補足する。正確には、食べたことは「ある」。息子が中学生の頃、初めて打った不格好な蕎麦を、この人は一口だけ食べて「二度と打つな」と言った。以来五十年、息子の蕎麦を口にしていない。息子が店を継いでからも、厨房には一度も立ち入らなかった。<b style="color:#c65448;">「継がせたくなかった。あんな儲からねえ店」</b>——そう言うときの徳拍の乱れを、機械は「嘘」と記録した。</p>
-            <blockquote style="margin:22px 0;padding:14px 20px;border-left:3px solid #3a9e8c;background:rgba(58,158,140,.04);font-family:'Shippori Mincho',serif;font-size:16px;line-height:1.9;color:#48575c;">未練は、病ではない。<br>ただし放置すると、来世の性格になる。<br><span style="font-size:12px;color:#9fb2ad;">——院内掲示 ・ 処置室前</span></blockquote>
-            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.1;color:#33424a;margin:0 0 26px;">当院には「現世残留申請」という制度がある。未練の清算が困難な場合に限り、一晩だけ、現世に立ち会いを認めるものだ。ただし枠は一晩にひとつ。使えば、転生の順番は最後尾に回る。春日野さんは今、申請用紙を睨んでいる。裏の注意書きまで、三度読んだ。</p>
-
+            <sc-if value="{{ storyHasNote }}">
+              <p style="text-align:center;font-size:13px;letter-spacing:1px;color:{{ storyNoteColor }};margin:0 0 16px;">{{ storyNote }}</p>
+            </sc-if>
+            <sc-for list="{{ storyBlocks }}" as="b">
+              <sc-if value="{{ b.isP }}"><p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.1;color:#33424a;margin:0 0 18px;">{{ b.t }}</p></sc-if>
+              <sc-if value="{{ b.isQ }}"><blockquote style="margin:22px 0;padding:14px 20px;border-left:3px solid #3a9e8c;background:rgba(58,158,140,.04);font-family:'Shippori Mincho',serif;font-size:16px;line-height:1.9;color:#48575c;">{{ b.t }}</blockquote></sc-if>
+            </sc-for>
             <p style="font-size:11px;letter-spacing:3px;color:#3a9e8c;font-weight:700;margin:0 0 12px;">■ 医療チームとして、どう動く</p>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(58,158,140,.35);border-radius:8px;background:#fff;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#33424a;">①　現世残留申請を通す——今夜、息子の店の暖簾をくぐらせる <span style="color:#c9722e;font-weight:700;">審査判定 ・ 難度15</span></button>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(58,158,140,.35);border-radius:8px;background:#fff;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#33424a;">②　息子の側の「未練」を照会する（生者データベース・権限外アクセス）</button>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;border:1px solid rgba(58,158,140,.35);border-radius:8px;background:#fff;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#33424a;">③　未練を畳まず、そのまま転生させる——「来世で蕎麦屋を探す性格」ごと</button>
-            <div style="margin-top:24px;height:5px;border-radius:3px;background:rgba(40,52,58,.06);overflow:hidden;"><div style="width:81%;height:100%;background:#3a9e8c;"></div></div>
-            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#9fb2ad;margin:7px 0 0;">問診進捗 81% ・ 午前の部 終了まで 40分</p>
+            <sc-for list="{{ storyChoices }}" as="c">
+              <button onClick="{{ c.go }}" style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(58,158,140,.35);border-radius:8px;background:#fff;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#33424a;">{{ c.num }}　{{ c.pre }}<span style="color:#c9722e;font-weight:700;">{{ c.skillText }}</span>{{ c.post }} <span style="float:right;color:#c9722e;font-weight:700;">{{ c.dcLabel }}</span></button>
+            </sc-for>
+            <div style="margin-top:24px;height:5px;border-radius:3px;background:rgba(40,52,58,.06);overflow:hidden;"><div style="width:{{ storyPct }}%;height:100%;background:#3a9e8c;"></div></div>
+            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#9fb2ad;margin:7px 0 0;">{{ storyPctLabel }}</p>
+            <sc-if value="{{ storyCanRestart }}">
+              <p style="text-align:center;margin:16px 0 0;"><button onClick="{{ storyRestart }}" style="border:0;background:transparent;color:#9fb2ad;font-size:11px;letter-spacing:2px;cursor:pointer;text-decoration:underline;font-family:'Zen Kaku Gothic New',sans-serif;">問診記録を最初からやり直す</button></p>
+            </sc-if>
           </div>
         </sc-if>
 
@@ -263,15 +279,20 @@
           <div data-screen-label="医局" style="animation:scfade .4s ease;max-width:820px;margin:0 auto;">
             <h1 style="font-weight:900;font-size:23px;margin:0 0 4px;color:#28343a;">{{ gmTitle }}</h1>
             <p style="font-size:13px;color:#7e948f;margin:0 0 20px;">カルテ庫は施錠。患者に見せた瞬間、それは「告知」になります。慎重に。</p>
-            <div style="display:grid;grid-template-columns:{{ twoCols }};gap:20px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
               <div>
                 <p style="font-size:11px;letter-spacing:3px;color:#3a9e8c;font-weight:700;margin:0 0 11px;">■ 進行中の症例</p>
-                <div style="padding:11px 13px;border:2px solid #3a9e8c;border-radius:8px;margin-bottom:8px;background:rgba(58,158,140,.04);"><div style="font-size:14px;font-weight:700;color:#28343a;">め-042 春日野様 <span style="font-size:10px;color:#3a9e8c;">残留申請 検討中</span></div></div>
-                <div style="padding:11px 13px;border:1px solid rgba(58,158,140,.3);border-radius:8px;margin-bottom:8px;background:#fff;"><div style="font-size:14px;color:#7e948f;">め-043 凪様（採血拒否・3回目）</div></div>
-                <div style="padding:11px 13px;border:1px solid rgba(58,158,140,.3);border-radius:8px;background:#fff;"><div style="font-size:14px;color:#7e948f;">め-044 玉のれん様（測定器 修理待ち）</div></div>
+                <sc-for list="{{ gmScenes }}" as="gs">
+                  <button onClick="{{ gs.go }}" style="display:block;width:100%;text-align:left;padding:11px 13px;border:{{ gs.border }};border-radius:8px;margin-bottom:8px;background:{{ gs.bg }};cursor:pointer;"><span style="font-size:14px;font-weight:{{ gs.weight }};color:{{ gs.color }};">{{ gs.t }} <span style="font-size:10px;color:#3a9e8c;">{{ gs.tag }}</span></span></button>
+                </sc-for>
                 <p style="font-size:11px;letter-spacing:3px;color:#3a9e8c;font-weight:700;margin:20px 0 10px;">■ 院内の混雑度（彼岸の繁忙期）</p>
-                <div style="height:9px;border-radius:5px;background:rgba(40,52,58,.06);overflow:hidden;"><div style="width:66%;height:100%;background:linear-gradient(90deg,#3a9e8c,#c9722e);"></div></div>
+                <div style="height:9px;border-radius:5px;background:rgba(40,52,58,.06);overflow:hidden;"><div style="width:{{ konzatsu }}%;height:100%;background:linear-gradient(90deg,#3a9e8c,#c9722e);"></div></div>
                 <p style="font-size:11px;color:#9fb2ad;margin:6px 0 0;">満床になると「相部屋転生」（二つの魂がひとつの来世を共有）が発生。</p>
+                <div style="display:flex;align-items:center;gap:9px;margin-top:8px;">
+                  <button onClick="{{ konzatsuMinus }}" style="width:24px;height:24px;border:1px solid rgba(58,158,140,.3);border-radius:6px;background:#fff;color:#7e948f;cursor:pointer;font-size:13px;line-height:1;">−</button>
+                  <span style="font-size:12px;letter-spacing:1px;color:#7e948f;">{{ konzatsu }}%</span>
+                  <button onClick="{{ konzatsuPlus }}" style="width:24px;height:24px;border:1px solid rgba(58,158,140,.3);border-radius:6px;background:#fff;color:#7e948f;cursor:pointer;font-size:13px;line-height:1;">＋</button>
+                </div>
               </div>
               <div>
                 <p style="font-size:11px;letter-spacing:3px;color:#3a9e8c;font-weight:700;margin:0 0 11px;">■ 秘匿カルテ</p>
@@ -279,6 +300,10 @@
                 <div style="border:1px solid rgba(58,158,140,.3);border-radius:8px;padding:11px 13px;background:#fff;"><div style="font-size:14px;font-weight:700;color:#28343a;">春日野様の過去カルテ（7周分）</div><div style="font-size:12px;color:#7e948f;margin-top:2px;">7周とも蕎麦屋に転生し、7周とも同じ未練で戻ってきている。院長は今回を「最終診察」と呼んでいる。</div></div>
                 <p style="font-size:11px;letter-spacing:3px;color:#3a9e8c;font-weight:700;margin:20px 0 10px;">■ 院内ハプニング表（d6）</p>
                 <div style="font-size:13px;color:#48575c;line-height:1.9;">1–2 院内放送「逃走魂のお知らせ」 ・ 3 レントゲンに前世が写り込む<br>4 生者の迷い込み ・ 5 転生ゲート誤作動（動物枠に行列） ・ 6 院長回診（全員直立）</div>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:10px;">
+                  <button onClick="{{ rollTable }}" style="padding:7px 16px;border:0;border-radius:8px;background:#3a9e8c;color:#fff;cursor:pointer;font-weight:900;font-size:12px;letter-spacing:1px;">ハプニング表を振る</button>
+                  <sc-if value="{{ gmHasTable }}"><span style="font-size:13px;color:#3a9e8c;">出目 {{ gmTableD }} ・ {{ gmTableText }}</span></sc-if>
+                </div>
               </div>
             </div>
           </div>
@@ -489,6 +514,531 @@ class Component extends DCLogic {
     };
   }
 }
+
+/*
+ * 全作品共通のゲームエンジン。ダイス・d20判定・localStorage 永続化と、
+ * シェル（DCLogic コンポーネント）へのゲーム状態の合流（attach）を担う。
+ * 作品ごとの中身（シナリオ・画面の値）は games/<id>.game.js が window.__GAME__ に定義する。
+ */
+(function () {
+  function rollDie(sides) {
+    return 1 + Math.floor(Math.random() * sides);
+  }
+  function pickKeys(obj, keys) {
+    var o = {};
+    for (var i = 0; i < keys.length; i++) o[keys[i]] = obj[keys[i]];
+    return o;
+  }
+  window.GameEngine = {
+    rollDie: rollDie,
+    clamp: function (v, lo, hi) {
+      return Math.max(lo, Math.min(hi, v));
+    },
+    // d20 判定。20 は大成功、1 は大失敗（出目優先）
+    check: function (mod, dc) {
+      var die = rollDie(20);
+      var total = die + mod;
+      var outcome = die === 20 ? 'crit' : die === 1 ? 'fumble' : total >= dc ? 'success' : 'fail';
+      return { die: die, mod: mod, total: total, dc: dc, outcome: outcome, ok: outcome === 'crit' || outcome === 'success' };
+    },
+    outcomeText: function (outcome) {
+      return { crit: '大成功', success: '成功', fail: '失敗', fumble: '大失敗' }[outcome] || '';
+    },
+    attach: function (app, game) {
+      var key = 'trpg-game-' + game.id;
+      var saved = null;
+      try { saved = JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) {}
+      Object.assign(app.state, game.initialState(), saved || {});
+      if (game.migrate) game.migrate(app.state);
+      var baseRenderVals = app.renderVals.bind(app);
+      app.renderVals = function () {
+        var vals = baseRenderVals();
+        return Object.assign(vals, game.vals(app, vals));
+      };
+      var baseSetState = app.setState.bind(app);
+      app.setState = function (update) {
+        baseSetState(update);
+        try { localStorage.setItem(key, JSON.stringify(pickKeys(app.state, game.persist))); } catch (e) {}
+      };
+      // ゲーム状態のみ初期値へ戻す（device / play / screen は保持）
+      app._resetGame = function () {
+        try { localStorage.removeItem(key); } catch (e) {}
+        Object.assign(app.state, game.initialState());
+        app.render();
+      };
+    },
+  };
+})();
+
+/*
+ * 1j-転生前人間ドック のゲーム内容。
+ * - 精密検査: d4〜d100。d20 判定は5段階の医療判定（A〜E）で結果を示す。出目1は判定E「魂が逃走」
+ * - 検査結果報告書: 徳値 / 業値 / 未練残量 / 記憶清算率 の増減。値に応じて判定バッジ(A〜D)が自動更新
+ * - 処置室: 未練3件（大きい順）を「畳む／戻す」で清算するトラッカー。最大の未練を0にするのが目標
+ * - お預かり窓口: 「橋のたもとの景色」だけ審査を進められ、承認すると問診記録の終盤で贈り物にできる
+ * - 問診記録: 分岐シナリオ「問診票の、最後の質問」（徳拍・記憶清算率ルール・複数エンディング）。
+ *   GM 秘匿は今回参照のみ（凪マチの生死）。本筋は春日野の50年分の後悔とその清算
+ * - 医局: 症例切替・院内の混雑度・院内ハプニング表 d6
+ */
+(function () {
+  var E = null;
+  function eng() { return E || (E = window.GameEngine); }
+
+  var TOKUHAKU_MAX = 150;
+
+  var SKILLS = [
+    { name: '縁の濃度補正', mod: 3 },
+    { name: '徳値判定', mod: 2 },
+    { name: '記憶感度', mod: 1 },
+    { name: '業値解析', mod: -1 },
+    { name: '経過観察眼', mod: 0 },
+  ];
+  var DICE_SIDES = [4, 6, 8, 10, 12, 20, 100];
+
+  function gradeFromDev(dev, width) {
+    var ratio = width > 0 ? dev / width : 0;
+    if (ratio <= 0) return { grade: 'A', bg: 'rgba(62,164,110,.12)', color: '#2f8a5c' };
+    if (ratio <= 0.3) return { grade: 'B', bg: 'rgba(201,168,46,.14)', color: '#a5851f' };
+    if (ratio <= 1.0) return { grade: 'C', bg: 'rgba(201,114,46,.14)', color: '#c9722e' };
+    return { grade: 'D', bg: 'rgba(198,84,72,.14)', color: '#c65448' };
+  }
+  function gradeToku(v) { var lo = 80, hi = 160; return gradeFromDev(v < lo ? lo - v : v > hi ? v - hi : 0, hi - lo); }
+  function gradeGou(v) { var hi = 50; return gradeFromDev(v > hi ? v - hi : 0, hi); }
+  function gradeMiren(v) { var hi = 120; return gradeFromDev(v > hi ? v - hi : 0, hi); }
+  function gradeSeisan(v) { var lo = 95; return gradeFromDev(v < lo ? lo - v : 0, lo); }
+
+  // 検査判定: 出目1は判定E「魂が逃走」。それ以外は総合値に応じてA〜D（達成=A、原本の基準15・出目17→A に整合）
+  function checkupGrade(r) {
+    if (r.die === 1) return { grade: 'E', color: '#7a5a9e', bg: 'rgba(122,90,158,.14)', verdict: '＝ ' + r.total + ' ・ 判定E。魂が検査室から逃走。院内放送が入る' };
+    if (r.total >= r.dc) return { grade: 'A', color: '#2f8a5c', bg: 'rgba(62,164,110,.12)', verdict: '＝ ' + r.total + ' ・ 陽性所見なし。「この所見は、悪性ではありません」' };
+    if (r.total >= r.dc - 4) return { grade: 'B', color: '#a5851f', bg: 'rgba(201,168,46,.14)', verdict: '＝ ' + r.total + ' ・ 経過観察。次回の健診でも追いましょう' };
+    if (r.total >= r.dc - 8) return { grade: 'C', color: '#c9722e', bg: 'rgba(201,114,46,.14)', verdict: '＝ ' + r.total + ' ・ 要精密検査。もう一度、詳しく視る必要があります' };
+    return { grade: 'D', color: '#c65448', bg: 'rgba(198,84,72,.14)', verdict: '＝ ' + r.total + ' ・ 要処置。処置室へご案内します' };
+  }
+
+  var REGRET_DEFS = [
+    { key: 'r1', num: 1, title: '「息子の蕎麦を、一度も褒めなかった」', max: 400, tag: '悪性化リスクあり', tagColor: '#c65448', note: '切除不可（本人が掴んで離さない）', noteBg: 'rgba(198,84,72,.1)', noteColor: '#c65448', border: '2px solid #c65448', bg: 'rgba(198,84,72,.03)', numBg: '#c65448', numColor: '#fff', barColor: '#c65448' },
+    { key: 'r2', num: 2, title: '「女房の墓に、月命日の花」', max: 120, tag: '定期系未練', tagColor: '#a5851f', note: '引継ぎ可（息子が既に毎月供えている——本人未確認）', noteBg: 'rgba(201,168,46,.12)', noteColor: '#a5851f', border: '1px solid rgba(201,168,46,.5)', bg: 'rgba(201,168,46,.04)', numBg: '#a5851f', numColor: '#fff', barColor: '#a5851f' },
+    { key: 'r3', num: 3, title: '「常連の傘、返しそびれた」', max: 60, tag: '軽度', tagColor: '#3a9e8c', note: '本日中に畳めます（標準処置）', noteBg: 'rgba(58,158,140,.08)', noteColor: '#3a9e8c', border: '1px solid rgba(58,158,140,.3)', bg: '#fff', numBg: 'rgba(58,158,140,.12)', numColor: '#3a9e8c', barColor: '#3a9e8c' },
+  ];
+
+  var GM_TABLE = ['院内放送「逃走魂のお知らせ」', '院内放送「逃走魂のお知らせ」', 'レントゲンに前世が写り込む', '生者の迷い込み', '転生ゲート誤作動（動物枠に行列）', '院長回診（全員直立）'];
+  var GM_SCENES = ['め-042 春日野様', 'め-043 凪様（採血拒否・3回目）', 'め-044 玉のれん様（測定器 修理待ち）'];
+
+  // ─────────────────────────────────────────────
+  // シナリオ「問診票の、最後の質問」（問診記録 SOUL-1957-0042）
+  // fx: tokuhaku / gou / seisan / miren / flags / tokuhakuSet / seisanSet
+  // ─────────────────────────────────────────────
+  var NODES = {
+    j1: {
+      kicker: '問診記録 ・ SOUL-1957-0042 ・ 記録者：三途 看', title: '問診票の、最後の質問', pct: 81,
+      text: [
+        '「最後に。思い残したことを、ひとつだけ挙げるとしたら」——マニュアル通りの質問に、春日野さんは長いこと黙っていた。魂になっても、この人は職人の顔をしている。やがて、ぽつりと言った。「せがれの蕎麦を、食ったことがない」',
+        '記録係として補足する。正確には、食べたことは「ある」。息子が中学生の頃、初めて打った不格好な蕎麦を、この人は一口だけ食べて「二度と打つな」と言った。以来五十年、息子の蕎麦を口にしていない。息子が店を継いでからも、厨房には一度も立ち入らなかった。「継がせたくなかった。あんな儲からねえ店」——そう言うときの徳拍の乱れを、機械は「嘘」と記録した。',
+        { q: '未練は、病ではない。ただし放置すると、来世の性格になる。' },
+        '当院には「現世残留申請」という制度がある。未練の清算が困難な場合に限り、一晩だけ、現世に立ち会いを認めるものだ。ただし枠は一晩にひとつ。使えば、転生の順番は最後尾に回る。春日野さんは今、申請用紙を睨んでいる。裏の注意書きまで、三度読んだ。',
+      ],
+      choices: [
+        { num: '①', pre: '現世残留申請を通す——今夜、息子の店の暖簾をくぐらせる ', skillText: '審査判定', check: { name: '審査', mod: 2, dc: 15 }, success: 'j2a', fail: 'j2b' },
+        { num: '②', pre: '息子の側の「未練」を照会する（生者データベース・権限外アクセス） ', skillText: '', check: { name: '権限外アクセス', mod: -1, dc: 13 }, success: 'j2c_ok', fail: 'j2c_risk' },
+        { num: '③', pre: '未練を畳まず、そのまま転生させる——「来世で蕎麦屋を探す性格」ごと', to: 'Et_carry' },
+      ],
+    },
+    j2a: {
+      kicker: '問診記録 ・ 残留許可', title: '一晩だけの現世', pct: 84, fx: { flags: { approved: 1 } },
+      text: [
+        '申請は通った。三途看が判子を押しながら言う。「転生の順番は最後尾です。それでも、行かれますか」春日野さんは迷わず頷いた。',
+        '魂のまま、店の裏口に立つ。暖簾の向こうから、蕎麦を打つ音がする。五十年前と同じ、少し不格好なリズムだった。',
+      ],
+      choices: [{ pre: '暖簾をくぐる', to: 'j2a2' }],
+    },
+    j2a2: {
+      kicker: '問診記録 ・ 現世残留中', title: '厨房の音', pct: 87, fx: { flags: { visitedSon: 1 } },
+      text: [
+        '厨房に立ち入ると、五十年ぶりの蕎麦の匂いがした。息子は、父が来ていることに気づかない。ただ、いつもより丁寧に生地を延している。壁には、あの日の不格好な蕎麦を打つ写真が、色褪せて貼られていた。',
+        '「二度と打つな」と言った日から、息子は毎日、あの一言を握りしめて腕を磨いていたのだと、今、はっきりと分かった。',
+      ],
+      choices: [{ pre: '転生ゲートへ戻る', to: 'j3' }],
+    },
+    j2b: {
+      kicker: '問診記録 ・ 残留却下', title: '通らなかった申請', pct: 83, fx: { tokuhaku: -8 },
+      text: [
+        '申請は却下された。書類上の理由は「順番待ちの過密」。三途看は申し訳なさそうに言う。「別の方法を、一緒に探しましょう」（徳拍 −8）',
+        '魂電図が、少し乱れた。',
+      ],
+      choices: [{ pre: '転生ゲートへ向かう', to: 'j3' }],
+    },
+    j2c_ok: {
+      kicker: '問診記録 ・ 生者データベース', title: '息子の未練', pct: 84, fx: { flags: { knowSonRegret: 1 } },
+      text: [
+        '権限外アクセスは、幸い見咎められなかった。息子のカルテ（生存中）の「未練予測」欄には、こうあった——「父に、一度でいいから店の蕎麦を食べてほしい。今さら言えないが」',
+        '五十年間、二人はまったく同じ後悔を、それぞれ抱えていたのだ。',
+      ],
+      choices: [{ pre: '転生ゲートへ向かう', to: 'j3' }],
+    },
+    j2c_risk: {
+      kicker: '問診記録 ・ 生者データベース', title: '見咎められる', pct: 83, fx: { gou: 8 },
+      text: [
+        '権限外アクセスの途中で、監査ログに引っかかった。業値に軽い加算がつく。（業値 +8）',
+        '断片的にしか読めなかったが、何か大事なことが息子のカルテにも書いてある気配だけは感じた。確信は持てないまま、画面を閉じる。',
+      ],
+      choices: [{ pre: '転生ゲートへ向かう', to: 'j3' }],
+    },
+    j3: {
+      kicker: '問診記録 ・ 転生ゲート前', title: '最後の判断', pct: 94,
+      text: [
+        '転生ゲートの列が、少しずつ短くなっていく。春日野さんの番が近づいていた。医療チームとして、最後にどう関わるか。',
+      ],
+      choices: [
+        { pre: '「一緒に、暖簾をくぐろう」と誘う', to: 'Et_together', if: function (st) { return st.flags.visitedSon; } },
+        { pre: '息子も同じ未練を抱えていたと、伝える', to: 'Et_mirror', if: function (st) { return st.flags.knowSonRegret; } },
+        { pre: '「褒めそびれ」をそのまま抱えて送り出す', to: 'Et_asis' },
+        { pre: '規定通り、記憶清算を進める ', skillText: '業務規定', check: { name: '業務規定', mod: 0, dc: 14 }, success: 'Et_forced_ok', fail: 'Et_forced_bad' },
+      ],
+    },
+    Et_together: {
+      kicker: '問診記録 ・ 結', title: '一緒に暖簾を', pct: 100, end: true, fx: { tokuhaku: 20, seisan: 30 },
+      text: [
+        '「一緒に、くぐろう」その一言に、春日野さんは初めて涙を見せた。もう一度、店に戻る。今度は隠れず、息子の前に立った。息子には見えないはずなのに、なぜか一瞬、顔を上げてこちらを見た。',
+        '「うまい蕎麦だ」——五十年越しの一言を、ようやく口にできた。魂電図が、静かに凪いでいく。（徳拍 ＋20 ・ 記憶清算率 ＋30）',
+      ],
+      choices: [],
+    },
+    Et_mirror: {
+      kicker: '問診記録 ・ 結', title: '同じ後悔', pct: 100, end: true, fx: { tokuhaku: 14, seisan: 22 },
+      text: [
+        '「息子さんも、同じことを思っていたそうです」伝えると、春日野さんは長いこと黙り、それから小さく笑った。「……そうか。似たもの親子だな」',
+        '転生ゲートをくぐる直前、彼が残した一言は「ありがとう」だった。歴代最多の言葉に、また一つ数字が加わる。（徳拍 ＋14 ・ 記憶清算率 ＋22）',
+      ],
+      choices: [],
+    },
+    Et_asis: {
+      kicker: '問診記録 ・ 結', title: '抱えたまま', pct: 100, end: true,
+      text: [
+        '未練は畳まず、そのまま転生させた。来世の性格に、小さな「頑固さ」として残るだろう。それが良いことなのか、まだ誰にも分からない。',
+        '八周目の春日野さんが、また蕎麦屋を探し始める。',
+      ],
+      choices: [],
+    },
+    Et_forced_ok: {
+      kicker: '問診記録 ・ 結', title: '規定通りの清算', pct: 100, end: true, fx: { seisan: 40, tokuhaku: -5 },
+      text: [
+        '本人の意志に反する形だったが、三途看の丁寧な手技により、大きな痛みもなく未練は畳まれた。「規定は、時に優しさの代わりになります」（記憶清算率 ＋40 ・ 徳拍 −5）',
+        '春日野さんは少しだけ寂しそうに、それでも静かにゲートへ向かった。',
+      ],
+      choices: [],
+    },
+    Et_forced_bad: {
+      kicker: '問診記録 ・ 結', title: '手技の失敗', pct: 100, end: true, fx: { tokuhaku: -15, gou: 10 },
+      text: [
+        '強引な清算は、魂電図を大きく乱れさせた。「畳み方を誤ると、来世で開きます」——院内掲示の警告が、現実になった。（徳拍 −15 ・ 業値 +10）',
+        '八周目の春日野さんの来世には、原因不明の胸の痛みが刻まれることになるだろう。',
+      ],
+      choices: [],
+    },
+    Et_carry: {
+      kicker: '問診記録 ・ 結', title: '性格ごと、次の生へ', pct: 100, end: true,
+      text: [
+        '未練を清算せず、そのまま送り出す選択をした。三途看は淡々と手続きを進める。「これも、当院ではよくある選択です」',
+        '八周目の春日野さんは、また蕎麦屋になるだろう。今度こそ、誰かの蕎麦を褒められる人生になるかは——分からない。',
+      ],
+      choices: [],
+    },
+    E_faint: {
+      kicker: '問診記録 ・ 結', title: '魂電図フラット', pct: 100, end: true, fx: { tokuhakuSet: 1 },
+      text: [
+        '徳拍が限界まで下がり、魂電図がフラットに近づいた。三途看が慌てて処置にあたる。「稀にあります。魂も、疲れるんです」',
+        '診察は、一旦中断された。（徳拍 1 で持ち直す）',
+      ],
+      choices: [],
+    },
+    E_erased: {
+      kicker: '問診記録 ・ 結', title: '記憶、完全清算', pct: 100, end: true, fx: { seisanSet: 96 },
+      text: [
+        '記憶清算率が100%に達し、規定により自動的に手続きが完了した。春日野さんの表情から、迷いも後悔も、静かに消えていく。',
+        '「せがれの蕎麦」という記憶さえ、もう残っていない。それが救いなのか喪失なのか、記録係の三途看にも判断がつかなかった。（記憶清算率 96% で確定）',
+      ],
+      choices: [],
+    },
+  };
+
+  var END_CHOICES = [
+    { pre: '問診記録を最初からやり直す', restart: true },
+    { pre: '受付の間へ戻る', top: true },
+  ];
+
+  // ─────────────────────────────────────────────
+
+  function initialState() {
+    return {
+      diceSides: 20, skillIdx: 0, diceDc: 15,
+      lastRoll: { kind: 'check', die: 14, mod: 3, total: 17, dc: 15, outcome: 'success', skillName: '縁の濃度補正' },
+      rollLog: [
+        { left: '春日野様 ・ 未練の良性/悪性 鑑別', right: '17 ／ A 良性', color: '#2f8a5c' },
+        { left: '凪様 ・ 死因の開示同意 取得', right: '11 ／ B 保留', color: '#a5851f' },
+        { left: '玉のれん様 ・ 付喪神格の測定', right: '3 ／ D 測定器が敬礼して停止', color: '#c65448' },
+      ],
+      toku: 142, gou: 61, miren: 388, seisan: 12,
+      tokuhaku: 62, shuchu: 84,
+      regretVals: { r1: 302, r2: 60, r3: 26 },
+      items: { sceneryStatus: 'pending' },
+      flags: {},
+      storyNode: 'j1', storyNote: null, storyNoteColor: '#7e948f',
+      gmScene: 0, konzatsu: 66, gmTable: null,
+    };
+  }
+
+  function pushLog(st, left, right, color) {
+    st.rollLog = [{ left: left, right: right, color: color }].concat(st.rollLog).slice(0, 10);
+  }
+
+  function applyFx(st, fx, patch) {
+    if (!fx) return;
+    function get(k) { return k in patch ? patch[k] : st[k]; }
+    if (fx.tokuhaku) patch.tokuhaku = eng().clamp(get('tokuhaku') + fx.tokuhaku, 0, TOKUHAKU_MAX);
+    if (fx.tokuhakuSet != null) patch.tokuhaku = fx.tokuhakuSet;
+    if (fx.gou) patch.gou = Math.max(0, get('gou') + fx.gou);
+    if (fx.seisan) patch.seisan = eng().clamp(get('seisan') + fx.seisan, 0, 100);
+    if (fx.seisanSet != null) patch.seisan = fx.seisanSet;
+    if (fx.miren) patch.miren = Math.max(0, get('miren') + fx.miren);
+    if (fx.flags) patch.flags = Object.assign({}, get('flags'), fx.flags);
+  }
+
+  window.__GAME__ = {
+    id: '1j',
+    initialState: initialState,
+    persist: [
+      'diceSides', 'skillIdx', 'diceDc', 'lastRoll', 'rollLog',
+      'toku', 'gou', 'miren', 'seisan', 'tokuhaku', 'shuchu', 'regretVals',
+      'items', 'flags', 'storyNode', 'storyNote', 'storyNoteColor',
+      'gmScene', 'konzatsu', 'gmTable',
+    ],
+    migrate: function (st) {
+      var init = initialState();
+      if (!NODES[st.storyNode]) { st.storyNode = 'j1'; st.storyNote = null; st.flags = {}; }
+      st.items = Object.assign({}, init.items, st.items || {});
+      st.regretVals = Object.assign({}, init.regretVals, st.regretVals || {});
+      st.flags = st.flags || {};
+      if (!Array.isArray(st.rollLog)) st.rollLog = init.rollLog;
+    },
+
+    vals: function (app) {
+      var st = app.state;
+      var E = eng();
+      var out = {};
+
+      // ── 受付 ──
+      out.goStory = function () { app.setState({ screen: 'story' }); };
+
+      // ── 検査結果報告書 ──
+      var gToku = gradeToku(st.toku), gGou = gradeGou(st.gou), gMiren = gradeMiren(st.miren), gSeisan = gradeSeisan(st.seisan);
+      out.toku = st.toku; out.tokuGrade = gToku.grade; out.tokuGradeBg = gToku.bg; out.tokuGradeColor = gToku.color;
+      out.gou = st.gou; out.gouGrade = gGou.grade; out.gouGradeBg = gGou.bg; out.gouGradeColor = gGou.color;
+      out.miren = st.miren; out.mirenGrade = gMiren.grade; out.mirenGradeBg = gMiren.bg; out.mirenGradeColor = gMiren.color;
+      out.seisan = st.seisan; out.seisanGrade = gSeisan.grade; out.seisanGradeBg = gSeisan.bg; out.seisanGradeColor = gSeisan.color;
+      out.tokuUp = function () { app.setState({ toku: E.clamp(st.toku + 5, 0, 300) }); };
+      out.tokuDown = function () { app.setState({ toku: E.clamp(st.toku - 5, 0, 300) }); };
+      out.gouUp = function () { app.setState({ gou: E.clamp(st.gou + 5, 0, 200) }); };
+      out.gouDown = function () { app.setState({ gou: E.clamp(st.gou - 5, 0, 200) }); };
+      out.mirenUp = function () { app.setState({ miren: E.clamp(st.miren + 10, 0, 500) }); };
+      out.mirenDown = function () { app.setState({ miren: E.clamp(st.miren - 10, 0, 500) }); };
+      out.seisanUp = function () { app.setState({ seisan: E.clamp(st.seisan + 5, 0, 100) }); };
+      out.seisanDown = function () { app.setState({ seisan: E.clamp(st.seisan - 5, 0, 100) }); };
+
+      // ── 精密検査 ──
+      var isCheck = st.diceSides === 20;
+      var skill = SKILLS[st.skillIdx] || SKILLS[0];
+      out.diceIsCheck = isCheck;
+      out.diceHead = isCheck ? '■ 精密検査判定 ・ 基準 ' + st.diceDc + ' ・ 検体：未練（採取済）' : 'd' + st.diceSides + ' を振る';
+      out.dcMinus = function () { app.setState({ diceDc: E.clamp(st.diceDc - 1, 2, 30) }); };
+      out.dcPlus = function () { app.setState({ diceDc: E.clamp(st.diceDc + 1, 2, 30) }); };
+      var lr = st.lastRoll;
+      if (!lr) {
+        out.diceFace = '—'; out.stampWord = ''; out.diceFormula = 'まだ検体を分析していない'; out.diceVerdict = ''; out.gradeColor = '#7e948f'; out.gradeBg = '#fff';
+      } else if (lr.kind === 'check') {
+        var ci = checkupGrade(lr);
+        out.diceFace = lr.die;
+        out.stampWord = ci.grade;
+        out.diceFormula = 'd20 ＝ ' + lr.die + ' ＋ ' + lr.skillName + ' ' + lr.mod;
+        out.diceVerdict = ci.verdict;
+        out.gradeColor = ci.color;
+        out.gradeBg = ci.bg;
+      } else {
+        out.diceFace = lr.value;
+        out.stampWord = '出目';
+        out.diceFormula = 'd' + lr.sides + ' の出目';
+        out.diceVerdict = '＝ ' + lr.value;
+        out.gradeColor = '#7e948f';
+        out.gradeBg = '#fff';
+      }
+      out.diceTypes = DICE_SIDES.map(function (s) {
+        var sel = s === st.diceSides;
+        return {
+          label: 'd' + s,
+          go: function () { app.setState({ diceSides: s }); },
+          border: sel ? '2px solid #3a9e8c' : '1px solid rgba(58,158,140,.3)',
+          color: sel ? '#3a9e8c' : '#7e948f',
+          bg: sel ? 'rgba(58,158,140,.05)' : '#fff',
+          weight: sel ? '600' : '400',
+        };
+      });
+      out.diceSkills = SKILLS.map(function (sk, i) {
+        var sel = i === st.skillIdx;
+        return {
+          label: sk.name + '（' + (sk.mod >= 0 ? '+' + sk.mod : sk.mod) + '）',
+          go: function () { app.setState({ skillIdx: i }); },
+          border: sel ? '1px solid #3a9e8c' : '1px solid rgba(58,158,140,.3)',
+          color: sel ? '#3a9e8c' : '#7e948f',
+          bg: sel ? 'rgba(58,158,140,.05)' : '#fff',
+        };
+      });
+      out.rollNow = function () {
+        if (st.diceSides === 20) {
+          var r = E.check(skill.mod, st.diceDc);
+          var ci = checkupGrade(r);
+          pushLog(st, '春日野様 ・ ' + skill.name, r.total + ' ／ ' + ci.grade + ' 判定', ci.color);
+          app.setState({ lastRoll: { kind: 'check', die: r.die, mod: r.mod, total: r.total, dc: r.dc, outcome: r.outcome, ok: r.ok, skillName: skill.name }, rollLog: st.rollLog });
+        } else {
+          var v = E.rollDie(st.diceSides);
+          pushLog(st, '春日野様 ・ d' + st.diceSides, v + ' ／ 出目', '#7e948f');
+          app.setState({ lastRoll: { kind: 'plain', sides: st.diceSides, value: v }, rollLog: st.rollLog });
+        }
+      };
+      out.logRows = st.rollLog;
+
+      // ── 処置室 ──
+      out.tokuhaku = st.tokuhaku;
+      out.tokuhakuUp = function () { app.setState({ tokuhaku: E.clamp(st.tokuhaku + 5, 0, TOKUHAKU_MAX) }); };
+      out.tokuhakuDown = function () { app.setState({ tokuhaku: E.clamp(st.tokuhaku - 5, 0, TOKUHAKU_MAX) }); };
+      out.checkVital = function () { app.setState({ shuchu: E.clamp(st.shuchu + 3, 0, 100) }); };
+      out.shuchu = st.shuchu;
+      out.nextOp = function () {
+        var vals = Object.assign({}, st.regretVals);
+        REGRET_DEFS.forEach(function (d) {
+          var step = Math.max(1, Math.round(d.max * 0.15));
+          vals[d.key] = E.clamp(vals[d.key] - Math.round(step / 2), 0, d.max);
+        });
+        app.setState({ regretVals: vals, shuchu: E.clamp(st.shuchu - 2, 0, 100) });
+      };
+      out.regrets = REGRET_DEFS.map(function (d) {
+        var v = st.regretVals[d.key];
+        var done = v <= 0;
+        var step = Math.max(1, Math.round(d.max * 0.15));
+        function adj(delta) {
+          return function () {
+            var vals = Object.assign({}, st.regretVals);
+            vals[d.key] = E.clamp(v + delta, 0, d.max);
+            app.setState({ regretVals: vals });
+          };
+        }
+        return {
+          num: d.num, title: d.title, tag: done ? '清算済み' : d.tag, tagColor: done ? '#2f8a5c' : d.tagColor,
+          note: d.note, noteBg: d.noteBg, noteColor: d.noteColor,
+          border: d.border, bg: d.bg, op: done ? '.6' : '1',
+          numBg: d.numBg, numColor: d.numColor, barColor: d.barColor,
+          value: v, pct: Math.round((v / d.max) * 100),
+          dmg: adj(-step), heal: adj(step),
+        };
+      });
+
+      // ── お預かり窓口 ──
+      out.sceneryPending = st.items.sceneryStatus === 'pending';
+      out.sceneryStatus = st.items.sceneryStatus === 'pending' ? '審査中' : '許可';
+      out.sceneryColor = st.items.sceneryStatus === 'pending' ? '#a5851f' : '#2f8a5c';
+      out.approveScenery = function () {
+        var items = Object.assign({}, st.items);
+        items.sceneryStatus = 'approved';
+        app.setState({ items: items, flags: Object.assign({}, st.flags, { sceneryApproved: 1 }) });
+      };
+
+      // ── 問診記録 ──
+      var node = NODES[st.storyNode] || NODES.j1;
+      out.storyKicker = node.kicker;
+      out.storyTitle = node.title;
+      out.storyBlocks = node.text.map(function (b) {
+        return typeof b === 'string' ? { isP: true, isQ: false, t: b } : { isP: false, isQ: true, t: b.q };
+      });
+      out.storyHasNote = !!st.storyNote;
+      out.storyNote = st.storyNote || '';
+      out.storyNoteColor = st.storyNoteColor || '#7e948f';
+      out.storyPct = node.pct;
+      out.storyPctLabel = node.end
+        ? '問診記録 ・ 結審'
+        : '問診進捗 ' + node.pct + '% ・ 午前の部 終了まで ' + Math.max(0, 60 - Math.round(node.pct / 2)) + '分';
+      out.storyCanRestart = st.storyNode !== 'j1';
+      out.storyRestart = function () { app._resetGame(); };
+
+      function choose(c) {
+        return function () {
+          var patch = { storyNote: null, storyNoteColor: '#7e948f' };
+          var target = c.to;
+          if (c.check) {
+            var dc = typeof c.check.dc === 'function' ? c.check.dc(st) : c.check.dc;
+            var r = E.check(c.check.mod, dc);
+            patch.storyNote = c.check.name + '判定 — d20〈' + r.die + '〉＋' + r.mod + ' ＝ ' + r.total + ' ／ 難度' + dc + ' ・ ' + (r.ok ? '成功' : '失敗');
+            patch.storyNoteColor = r.ok ? '#2f8a5c' : '#c65448';
+            pushLog(st, '春日野様 ・ ' + c.check.name + '（問診記録）', r.total + ' ／ ' + (r.ok ? '成功' : '失敗'), r.ok ? '#2f8a5c' : '#c65448');
+            patch.rollLog = st.rollLog;
+            target = r.ok ? c.success : c.fail;
+          }
+          var nextNode = NODES[target];
+          applyFx(st, nextNode.fx, patch);
+          var tokuhakuNow = 'tokuhaku' in patch ? patch.tokuhaku : st.tokuhaku;
+          var seisanNow = 'seisan' in patch ? patch.seisan : st.seisan;
+          if (tokuhakuNow <= 0 && !nextNode.end) {
+            target = 'E_faint';
+            applyFx(st, NODES.E_faint.fx, patch);
+          } else if (seisanNow >= 100 && !nextNode.end) {
+            target = 'E_erased';
+            applyFx(st, NODES.E_erased.fx, patch);
+          }
+          patch.storyNode = target;
+          app.setState(patch);
+        };
+      }
+      var defs = node.end ? END_CHOICES : node.choices;
+      out.storyChoices = defs.filter(function (c) {
+        return !c.if || c.if(st);
+      }).map(function (c) {
+        var dc = c.check ? (typeof c.check.dc === 'function' ? c.check.dc(st) : c.check.dc) : null;
+        return {
+          num: c.num || '', pre: c.pre, skillText: c.skillText || '', post: c.post || '',
+          dcLabel: dc != null ? '難度' + dc : '',
+          go: c.restart ? function () { app._resetGame(); }
+            : c.top ? function () { app.setState({ screen: 'top' }); }
+            : choose(c),
+        };
+      });
+
+      // ── 医局 ──
+      out.gmScenes = GM_SCENES.map(function (t, i) {
+        var active = i === st.gmScene;
+        return {
+          t: t, tag: active ? '進行中' : '',
+          go: function () { app.setState({ gmScene: i }); },
+          border: active ? '2px solid #3a9e8c' : '1px solid rgba(58,158,140,.3)',
+          bg: active ? 'rgba(58,158,140,.04)' : '#fff',
+          color: active ? '#28343a' : '#7e948f',
+          weight: active ? '700' : '400',
+        };
+      });
+      out.konzatsu = st.konzatsu;
+      out.konzatsuMinus = function () { app.setState({ konzatsu: E.clamp(st.konzatsu - 5, 0, 100) }); };
+      out.konzatsuPlus = function () { app.setState({ konzatsu: E.clamp(st.konzatsu + 5, 0, 100) }); };
+      out.gmHasTable = !!st.gmTable;
+      out.gmTableD = st.gmTable ? st.gmTable.d : '';
+      out.gmTableText = st.gmTable ? st.gmTable.text : '';
+      out.rollTable = function () {
+        var d = E.rollDie(6);
+        var text = GM_TABLE[d - 1];
+        pushLog(st, '医局 ・ 院内ハプニング表', d + ' ／ ' + text, '#3a9e8c');
+        app.setState({ gmTable: { d: d, text: text }, rollLog: st.rollLog });
+      };
+
+      return out;
+    },
+  };
+})();
 
 window.__dcApp = new Component();
 if (typeof GameEngine !== 'undefined' && window.__GAME__) GameEngine.attach(window.__dcApp, window.__GAME__);
