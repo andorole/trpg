@@ -91,7 +91,7 @@
               <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:96px;"><div style="width:62px;height:62px;border-radius:50%;border:2px solid #3d8a5f;background:radial-gradient(circle at 40% 35%,rgba(61,138,95,.3),rgba(61,138,95,.1)),#fff;"></div><div style="font-size:13px;font-weight:700;color:#2b2b33;">ぷに男</div><div style="font-size:11px;color:#7a7668;">スライム課（監査役）</div></div>
             </div>
 
-            <button style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:2px solid #2b2b33;border-radius:4px;cursor:pointer;background:#2b2b33;color:#f2f0ea;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:15px;letter-spacing:3px;box-shadow:3px 3px 0 rgba(43,43,51,.2);">始末書を書き始める　➜</button>
+            <button onClick="{{ goStory }}" style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:2px solid #2b2b33;border-radius:4px;cursor:pointer;background:#2b2b33;color:#f2f0ea;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:15px;letter-spacing:3px;box-shadow:3px 3px 0 rgba(43,43,51,.2);">始末書を書き始める　➜</button>
           </div>
         </sc-if>
 
@@ -112,9 +112,9 @@
             </div>
 
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:22px;">
-              <div style="background:#faf8f3;border:1px solid rgba(43,43,51,.14);border-radius:4px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7668;margin-bottom:5px;"><span>体力（竜格）</span><span style="font-family:'IBM Plex Mono',monospace;">88 / 92</span></div><div style="height:9px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:96%;height:100%;background:linear-gradient(90deg,#c45a2a,#c43c3c);"></div></div></div>
-              <div style="background:#faf8f3;border:1px solid rgba(43,43,51,.14);border-radius:4px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7668;margin-bottom:5px;"><span>社会性（人間界適応）</span><span style="font-family:'IBM Plex Mono',monospace;color:#c43c3c;">6 / 20</span></div><div style="height:9px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:30%;height:100%;background:#5b7fa8;"></div></div></div>
-              <div style="background:#faf8f3;border:1px solid rgba(43,43,51,.14);border-radius:4px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7668;margin-bottom:5px;"><span>上司からの信頼</span><span style="font-family:'IBM Plex Mono',monospace;color:#b58a1f;">回復中</span></div><div style="height:9px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:41%;height:100%;background:linear-gradient(90deg,#b58a1f,#3d8a5f);"></div></div><div style="font-size:9px;color:#a09a88;margin-top:3px;">※前回の「誠意ある放火」で急落</div></div>
+              <div style="background:#faf8f3;border:1px solid rgba(43,43,51,.14);border-radius:4px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7668;margin-bottom:5px;"><span>体力（竜格）</span><span style="font-family:'IBM Plex Mono',monospace;">{{ tai }} / 92</span></div><div style="height:9px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:{{ taiPct }}%;height:100%;background:linear-gradient(90deg,#c45a2a,#c43c3c);"></div></div><div style="display:flex;gap:5px;margin-top:6px;"><button onClick="{{ taiDown }}" style="width:24px;height:24px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#7a7668;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ taiUp }}" style="width:24px;height:24px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#7a7668;cursor:pointer;font-size:13px;line-height:1;">＋</button></div></div>
+              <div style="background:#faf8f3;border:1px solid rgba(43,43,51,.14);border-radius:4px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7668;margin-bottom:5px;"><span>社会性（人間界適応）</span><span style="font-family:'IBM Plex Mono',monospace;color:#c43c3c;">{{ shakai }} / 20</span></div><div style="height:9px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:{{ shakaiPct }}%;height:100%;background:#5b7fa8;"></div></div><div style="display:flex;gap:5px;margin-top:6px;"><button onClick="{{ shakaiDown }}" style="width:24px;height:24px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#7a7668;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ shakaiUp }}" style="width:24px;height:24px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#7a7668;cursor:pointer;font-size:13px;line-height:1;">＋</button></div></div>
+              <div style="background:#faf8f3;border:1px solid rgba(43,43,51,.14);border-radius:4px;padding:11px 13px;"><div style="display:flex;justify-content:space-between;font-size:12px;color:#7a7668;margin-bottom:5px;"><span>上司からの信頼</span><span style="font-family:'IBM Plex Mono',monospace;color:{{ trustColor }};">{{ trustLabel }}</span></div><div style="height:9px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:{{ trust }}%;height:100%;background:linear-gradient(90deg,#b58a1f,#3d8a5f);"></div></div><div style="font-size:9px;color:#a09a88;margin-top:3px;">※前回の「誠意ある放火」で急落</div><div style="display:flex;gap:5px;margin-top:6px;"><button onClick="{{ trustDown }}" style="width:24px;height:24px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#7a7668;cursor:pointer;font-size:13px;line-height:1;">−</button><button onClick="{{ trustUp }}" style="width:24px;height:24px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#7a7668;cursor:pointer;font-size:13px;line-height:1;">＋</button></div></div>
             </div>
 
             <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 12px;">■ 能力（考課基礎点）</p>
@@ -147,31 +147,41 @@
 
         <sc-if value="{{ isDice }}" hint-placeholder-val="{{ false }}">
           <div data-screen-label="決裁判定" style="animation:scfade .4s ease;max-width:560px;margin:0 auto;text-align:center;">
-            <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 4px;">■ 始末書の説得力判定 ・ 決裁基準 14</p>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 24px;">
-              <div style="width:118px;height:118px;border:4px solid #b58a1f;border-radius:6px;transform:rotate(-6deg);animation:stampin .5s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#b58a1f;background:rgba(181,138,31,.04);">
-                <span style="font-family:'IBM Plex Mono',monospace;font-size:44px;font-weight:600;line-height:1;">13</span>
-                <span style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:14px;letter-spacing:2px;border-top:2px solid #b58a1f;padding-top:3px;margin-top:4px;">条件付差戻</span>
+            <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 4px;">{{ diceHead }}</p>
+            <sc-if value="{{ diceIsCheck }}">
+              <div style="display:flex;justify-content:center;align-items:center;gap:9px;margin:6px 0 0;">
+                <button onClick="{{ dcMinus }}" style="width:24px;height:24px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#7a7668;cursor:pointer;font-size:13px;line-height:1;">−</button>
+                <span style="font-size:12px;letter-spacing:2px;color:#7a7668;">決裁基準を調整</span>
+                <button onClick="{{ dcPlus }}" style="width:24px;height:24px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#7a7668;cursor:pointer;font-size:13px;line-height:1;">＋</button>
               </div>
-              <div style="font-size:14px;color:#7a7668;margin-top:6px;">d20 ＝ 9 ＋ 誠意 3 ＋ 菓子折り 1</div>
-              <div style="font-size:14px;letter-spacing:1px;color:#b58a1f;font-weight:700;">＝ 13 ・ 惜しい。「反省の具体性が不足」との付箋つき</div>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin:18px 0 24px;">
+              <div style="width:118px;height:118px;border:4px solid {{ stampColor }};border-radius:6px;transform:rotate(-6deg);animation:stampin .5s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;color:{{ stampColor }};background:{{ stampBg }};">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:44px;font-weight:600;line-height:1;">{{ diceFace }}</span>
+                <span style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:14px;letter-spacing:2px;border-top:2px solid {{ stampColor }};padding-top:3px;margin-top:4px;">{{ stampWord }}</span>
+              </div>
+              <div style="font-size:14px;color:#7a7668;margin-top:6px;">{{ diceFormula }}</div>
+              <div style="font-size:14px;letter-spacing:1px;color:{{ stampColor }};font-weight:700;">{{ diceVerdict }}</div>
               <p style="font-size:10px;color:#a09a88;margin:2px 0 0;">※差戻しは失敗ではありません。反省の解像度を上げるチャンスです（総務部標語）。</p>
             </div>
             <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:14px;">
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(43,43,51,.25);color:#7a7668;background:#fff;">d4</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(43,43,51,.25);color:#7a7668;background:#fff;">d6</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(43,43,51,.25);color:#7a7668;background:#fff;">d8</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(43,43,51,.25);color:#7a7668;background:#fff;">d10</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(43,43,51,.25);color:#7a7668;background:#fff;">d12</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:2px solid #5b3a8f;color:#5b3a8f;background:rgba(91,58,143,.05);font-weight:600;">d20</span>
-              <span style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;border:1px solid rgba(43,43,51,.25);color:#7a7668;background:#fff;">d100</span>
+              <sc-for list="{{ diceTypes }}" as="dt">
+                <button onClick="{{ dt.go }}" style="font-size:12px;font-family:'IBM Plex Mono',monospace;padding:7px 12px;border-radius:3px;cursor:pointer;border:{{ dt.border }};color:{{ dt.color }};background:{{ dt.bg }};font-weight:{{ dt.weight }};">{{ dt.label }}</button>
+              </sc-for>
             </div>
-            <button style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:2px solid #5b3a8f;border-radius:4px;cursor:pointer;background:#5b3a8f;color:#f2f0ea;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:15px;letter-spacing:3px;box-shadow:3px 3px 0 rgba(91,58,143,.25);">決裁に回す</button>
+            <sc-if value="{{ diceIsCheck }}">
+              <div style="display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:16px;">
+                <sc-for list="{{ diceSkills }}" as="sk">
+                  <button onClick="{{ sk.go }}" style="font-family:'Zen Kaku Gothic New',sans-serif;font-size:12px;padding:5px 11px;border-radius:3px;cursor:pointer;border:{{ sk.border }};color:{{ sk.color }};background:{{ sk.bg }};">{{ sk.label }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+            <button onClick="{{ rollNow }}" style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border:2px solid #5b3a8f;border-radius:4px;cursor:pointer;background:#5b3a8f;color:#f2f0ea;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:15px;letter-spacing:3px;box-shadow:3px 3px 0 rgba(91,58,143,.25);">決裁に回す</button>
             <div style="margin-top:26px;text-align:left;">
               <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 9px;">■ 決裁履歴</p>
-              <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a4a52;padding:7px 0;border-bottom:1px dotted rgba(43,43,51,.25);"><span>ヴォルガ ・ 会議室焼失の件（3度目）</span><span style="font-family:'IBM Plex Mono',monospace;color:#b58a1f;">13 ／ 条件付差戻</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a4a52;padding:7px 0;border-bottom:1px dotted rgba(43,43,51,.25);"><span>グラキエ ・ 給湯室を凍結させた件</span><span style="font-family:'IBM Plex Mono',monospace;color:#3d8a5f;">18 ／ 承認（再発防止策が具体的）</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a4a52;padding:7px 0;"><span>ノワール ・ 影で先輩を驚かせた件</span><span style="font-family:'IBM Plex Mono',monospace;color:#c43c3c;">2 ／ 差戻（反省文が呪文で書かれていた）</span></div>
+              <sc-for list="{{ logRows }}" as="r">
+                <div style="display:flex;justify-content:space-between;font-size:13px;color:#4a4a52;padding:7px 0;border-bottom:1px dotted rgba(43,43,51,.25);"><span>{{ r.left }}</span><span style="font-family:'IBM Plex Mono',monospace;color:{{ r.color }};">{{ r.right }}</span></div>
+              </sc-for>
             </div>
           </div>
         </sc-if>
@@ -179,18 +189,42 @@
         <sc-if value="{{ isCombat }}" hint-placeholder-val="{{ false }}">
           <div data-screen-label="査問会議" style="animation:scfade .4s ease;max-width:780px;margin:0 auto;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-              <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0;color:#2b2b33;">査問会議 ・ 議題「会議室C 全焼の件」</h1>
-              <div style="display:flex;gap:8px;"><button style="padding:8px 15px;border:1px solid rgba(43,43,51,.3);border-radius:3px;background:#fff;color:#7a7668;cursor:pointer;font-size:13px;">お茶を淹れ直す</button><button style="padding:8px 15px;border:2px solid #2b2b33;border-radius:3px;background:#2b2b33;color:#f2f0ea;cursor:pointer;font-weight:700;font-size:13px;">次の弁明へ</button></div>
+              <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:24px;margin:0;color:#2b2b33;">{{ kaiTitle }}</h1>
+              <div style="display:flex;gap:8px;"><button onClick="{{ retea }}" style="padding:8px 15px;border:1px solid rgba(43,43,51,.3);border-radius:3px;background:#fff;color:#7a7668;cursor:pointer;font-size:13px;">お茶を淹れ直す</button><button onClick="{{ nextTurn }}" style="padding:8px 15px;border:2px solid #2b2b33;border-radius:3px;background:#2b2b33;color:#f2f0ea;cursor:pointer;font-weight:700;font-size:13px;">次の弁明へ</button></div>
             </div>
-            <p style="font-size:12px;color:#a09a88;margin:0 0 14px;">※勝利条件：上司の「呆れ」を0にする。敗北条件：会議室Dも燃える。</p>
+            <p style="font-size:12px;color:#a09a88;margin:0 0 14px;">※勝利条件：上司の「呆れ」を0にする。敗北条件：会議室Dも燃える（100到達）。</p>
 
-            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:4px;border:2px solid #2f7a4f;background:rgba(47,122,79,.05);margin-bottom:14px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#2f7a4f;color:#fff;border-radius:3px;">上</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #2f7a4f;background:radial-gradient(circle at 38% 32%,#e8f3ec,#bcd8c6);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#2f7a4f;">上司 ユーリ課長代理（元・勇者） <span style="font-size:11px;color:#7a7668;">議長</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(47,122,79,.1);color:#2f7a4f;">聖剣は倉庫に封印中</span><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(43,43,51,.07);color:#4a4a52;">こめかみに指</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7668;margin-bottom:3px;"><span>呆れゲージ</span><span style="font-family:'IBM Plex Mono',monospace;">64 / 100</span></div><div style="height:8px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:64%;height:100%;background:linear-gradient(90deg,#b58a1f,#c43c3c);"></div></div><div style="font-size:9px;color:#a09a88;margin-top:2px;">※0で和解 ・ 100で「もういい」</div></div></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:4px;border:2px solid #2f7a4f;background:rgba(47,122,79,.05);margin-bottom:14px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#2f7a4f;color:#fff;border-radius:3px;">上</span><span style="width:30px;height:30px;flex:none;border-radius:50%;border:2px solid #2f7a4f;background:radial-gradient(circle at 38% 32%,#e8f3ec,#bcd8c6);"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#2f7a4f;">上司 ユーリ課長代理（元・勇者） <span style="font-size:11px;color:#7a7668;">議長</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(47,122,79,.1);color:#2f7a4f;">聖剣は倉庫に封印中</span><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(43,43,51,.07);color:#4a4a52;">こめかみに指</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7668;margin-bottom:3px;"><span>呆れゲージ</span><span style="font-family:'IBM Plex Mono',monospace;">{{ akire }} / 100</span></div><div style="height:8px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:{{ akire }}%;height:100%;background:linear-gradient(90deg,#b58a1f,#c43c3c);"></div></div><div style="font-size:9px;color:#a09a88;margin-top:2px;">※0で和解 ・ 100で「もういい」</div>
+              <div style="display:flex;gap:4px;margin-top:5px;justify-content:flex-end;">
+                <button onClick="{{ akireDown5 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#2f7a4f;cursor:pointer;">−5</button>
+                <button onClick="{{ akireDown1 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#2f7a4f;cursor:pointer;">−1</button>
+                <button onClick="{{ akireUp1 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#c43c3c;cursor:pointer;">＋1</button>
+                <button onClick="{{ akireUp5 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#c43c3c;cursor:pointer;">＋5</button>
+              </div>
+            </div></div>
 
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:4px;border:1px solid #c45a2a;background:rgba(196,90,42,.04);margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:#c45a2a;color:#fff;border-radius:3px;">18</span><span style="width:30px;height:30px;flex:none;border-radius:8px;border:2px solid #c45a2a;background:repeating-linear-gradient(45deg,rgba(196,90,42,.14) 0 4px,transparent 4px 8px),#fff;"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#2b2b33;">ヴォルガ <span style="font-size:11px;color:#c45a2a;">弁明中</span></div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(61,138,95,.12);color:#3d8a5f;">菓子折り所持（虎屋）</span><span style="font-size:10px;padding:2px 7px;border-radius:2px;animation:smolder 2s ease-in-out infinite;background:rgba(196,60,60,.1);color:#c43c3c;">鼻から微煙</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7668;margin-bottom:3px;"><span>平常心</span><span style="font-family:'IBM Plex Mono',monospace;">22/30</span></div><div style="height:8px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:73%;height:100%;background:#5b7fa8;"></div></div></div></div>
-
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:4px;border:1px solid rgba(43,43,51,.2);background:#faf8f3;margin-bottom:8px;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(43,43,51,.1);color:#4a4a52;border-radius:3px;">14</span><span style="width:30px;height:30px;flex:none;border-radius:8px;border:2px solid #5b7fa8;background:repeating-linear-gradient(45deg,rgba(91,127,168,.14) 0 4px,transparent 4px 8px),#fff;"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#2b2b33;">グラキエ</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(91,127,168,.12);color:#5b7fa8;">議事録係（正確無比）</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7668;margin-bottom:3px;"><span>平常心</span><span style="font-family:'IBM Plex Mono',monospace;">26/28</span></div><div style="height:8px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:93%;height:100%;background:#5b7fa8;"></div></div></div></div>
-
-            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:4px;border:1px solid rgba(43,43,51,.2);background:#faf8f3;"><span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:rgba(43,43,51,.1);color:#4a4a52;border-radius:3px;">9</span><span style="width:30px;height:30px;flex:none;border-radius:8px;border:2px solid #5b3a8f;background:repeating-linear-gradient(45deg,rgba(91,58,143,.14) 0 4px,transparent 4px 8px),#fff;"></span><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#2b2b33;">ノワール</div><div style="display:flex;gap:5px;margin-top:3px;"><span style="font-size:10px;padding:2px 7px;border-radius:2px;background:rgba(196,60,60,.1);color:#c43c3c;">緊張で実体化が不安定</span></div></div><div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7668;margin-bottom:3px;"><span>平常心</span><span style="font-family:'IBM Plex Mono',monospace;">11/24</span></div><div style="height:8px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:46%;height:100%;background:#5b7fa8;"></div></div></div></div>
+            <sc-for list="{{ combatants }}" as="cb">
+              <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:4px;border:{{ cb.border }};background:{{ cb.bg }};margin-bottom:8px;opacity:{{ cb.op }};">
+                <span style="width:30px;height:30px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;background:{{ cb.initBg }};color:{{ cb.initColor }};border-radius:3px;">{{ cb.init }}</span>
+                <span style="width:30px;height:30px;flex:none;border-radius:8px;border:2px solid {{ cb.tokenBorder }};background:repeating-linear-gradient(45deg,{{ cb.tokenPat }} 0 4px,transparent 4px 8px),#fff;"></span>
+                <div style="flex:1;">
+                  <div style="font-size:15px;font-weight:700;color:#2b2b33;">{{ cb.name }} <span style="font-size:11px;color:#c45a2a;">{{ cb.side }}</span></div>
+                  <sc-if value="{{ cb.hasTags }}">
+                    <div style="display:flex;gap:5px;margin-top:3px;flex-wrap:wrap;">
+                      <sc-for list="{{ cb.tags }}" as="tg"><span style="font-size:10px;padding:2px 7px;border-radius:2px;{{ tg.anim }}background:{{ tg.bg }};color:{{ tg.color }};">{{ tg.t }}</span></sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+                <div style="width:170px;"><div style="display:flex;justify-content:space-between;font-size:11px;color:#7a7668;margin-bottom:3px;"><span>平常心</span><span style="font-family:'IBM Plex Mono',monospace;">{{ cb.hp }}/{{ cb.max }}</span></div><div style="height:8px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:{{ cb.pct }}%;height:100%;background:#5b7fa8;"></div></div>
+                  <div style="display:flex;gap:4px;margin-top:5px;justify-content:flex-end;">
+                    <button onClick="{{ cb.dmg5 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#c43c3c;cursor:pointer;">−5</button>
+                    <button onClick="{{ cb.dmg1 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#c43c3c;cursor:pointer;">−1</button>
+                    <button onClick="{{ cb.heal1 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#2f7a4f;cursor:pointer;">＋1</button>
+                    <button onClick="{{ cb.heal5 }}" style="font-size:10px;padding:2px 6px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#2f7a4f;cursor:pointer;">＋5</button>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
           </div>
         </sc-if>
 
@@ -214,7 +248,7 @@
                 <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#4a4a52;padding:9px 4px;border-bottom:1px dotted rgba(43,43,51,.25);"><span style="width:8px;height:8px;border-radius:2px;background:#b58a1f;"></span><span style="flex:1;">当日の会議アジェンダ「コスト削減について」</span><span style="font-family:'IBM Plex Mono',monospace;color:#7a7668;">証3</span></div>
                 <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#4a4a52;padding:9px 4px;border-bottom:1px dotted rgba(43,43,51,.25);"><span style="width:8px;height:8px;border-radius:2px;background:#5b3a8f;"></span><span style="flex:1;">始末書の下書き ×47枚（推敲の跡）</span><span style="font-family:'IBM Plex Mono',monospace;color:#7a7668;">証4</span></div>
                 <div style="display:flex;align-items:center;gap:11px;font-size:14px;color:#4a4a52;padding:9px 4px;"><span style="width:8px;height:8px;border-radius:2px;background:#3d8a5f;"></span><span style="flex:1;">ぷに男の目撃証言（録音・全編相槌）</span><span style="font-family:'IBM Plex Mono',monospace;color:#7a7668;">証5</span></div>
-                <div style="margin-top:14px;border:1px solid rgba(181,138,31,.5);border-radius:4px;padding:13px 15px;background:rgba(181,138,31,.05);"><div style="font-size:13px;font-weight:700;color:#b58a1f;margin-bottom:5px;">鑑定メモ：下書き47枚目</div><div style="font-size:12px;line-height:1.8;color:#7a7668;">最後の一枚にだけ、本音が書かれている。「本当は、皆で使うあの会議室が、嫌いではなかった」——提出用には使えない。しかし、これがいちばん誠意かもしれない。</div></div>
+                <div style="margin-top:14px;border:1px solid rgba(181,138,31,.5);border-radius:4px;padding:13px 15px;background:rgba(181,138,31,.05);"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;"><div style="font-size:13px;font-weight:700;color:#b58a1f;">鑑定メモ：下書き47枚目</div><sc-if value="{{ honneUnmarked }}"><button onClick="{{ markHonne }}" style="font-size:10px;padding:2px 10px;border:1px solid rgba(181,138,31,.5);border-radius:3px;background:#fff;color:#b58a1f;cursor:pointer;">提出候補に印をつける</button></sc-if></div><div style="font-size:12px;line-height:1.8;color:#7a7668;">{{ honneText }}</div></div>
               </div>
             </div>
           </div>
@@ -222,20 +256,25 @@
 
         <sc-if value="{{ isStory }}" hint-placeholder-val="{{ false }}">
           <div data-screen-label="経緯書" style="animation:scfade .4s ease;max-width:640px;margin:0 auto;">
-            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#7a7668;text-align:center;margin:0 0 6px;">経緯書 ・ 様式第9号 別紙</p>
-            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;text-align:center;margin:0 0 4px;color:#2b2b33;">会議室Cが全焼するまでの経緯</h1>
+            <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:#7a7668;text-align:center;margin:0 0 6px;">{{ storyKicker }}</p>
+            <h1 style="font-family:'Shippori Mincho',serif;font-weight:800;font-size:28px;text-align:center;margin:0 0 4px;color:#2b2b33;">{{ storyTitle }}</h1>
             <div style="display:flex;align-items:center;gap:12px;margin:16px 0 22px;color:#2b2b33;"><span style="flex:1;height:1px;background:rgba(43,43,51,.3);"></span><span style="font-size:12px;">§</span><span style="flex:1;height:1px;background:rgba(43,43,51,.3);"></span></div>
-            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.05;color:#33333b;margin:0 0 18px;">一、当日午後二時、私は会議室Cにて「コスト削減施策」の説明を受けておりました。二、資料は42ページに及び、私は誠実に聞いておりました。三、38ページ目「暖房費の削減について——冬期は各自の吐息で暖を取ること」の項に至り、私は<b style="color:#c43c3c;">深く感銘を受け、実演を試みました。</b></p>
-            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.05;color:#33333b;margin:0 0 18px;">四、私の吐息は摂氏千二百度でした。五、以後の記憶は煙とともにあります。六、なお、スプリンクラーは正常に作動しましたが、私の火は水で消えるものではございません。七、消火はグラキエ主任の吹雪により完了しました（同主任の給湯室凍結は、この際の余波です。彼女に非はありません）。</p>
-            <blockquote style="margin:22px 0;padding:14px 20px;border-left:3px solid #5b3a8f;background:rgba(91,58,143,.04);font-family:'Shippori Mincho',serif;font-size:16px;line-height:1.9;color:#4a4a52;">反省とは、燃やした事実を認めることではない。<br>燃やさずに済んだ未来を、具体的に書くことである。<br><span style="font-size:12px;color:#a09a88;">——総務部『始末書の書き方』第一章</span></blockquote>
-            <p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.05;color:#33333b;margin:0 0 26px;">八、再発防止策として、以下のいずれかを誓約いたします。</p>
-
-            <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 12px;">■ 誓約を選択（これが今回の分岐です）</p>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(43,43,51,.3);border-radius:4px;background:#fff;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#33333b;">①　感銘を受けても実演しない <span style="color:#5b3a8f;font-weight:700;">堪忍袋判定 ・ 難度16</span></button>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(43,43,51,.3);border-radius:4px;background:#fff;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#33333b;">②　会議はすべて屋外（採石場）で行うことを提案する</button>
-            <button style="display:block;width:100%;text-align:left;padding:13px 16px;border:1px solid rgba(43,43,51,.3);border-radius:4px;background:#fff;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#33333b;">③　下書き47枚目（本音）を、そのまま提出する</button>
-            <div style="margin-top:24px;height:5px;border-radius:2px;background:rgba(43,43,51,.1);overflow:hidden;"><div style="width:78%;height:100%;background:#5b3a8f;"></div></div>
-            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#a09a88;margin:7px 0 0;">経緯書 進捗78% ・ 提出期限まで 2時間14分</p>
+            <sc-if value="{{ storyHasNote }}">
+              <p style="text-align:center;font-size:13px;letter-spacing:1px;color:{{ storyNoteColor }};margin:0 0 16px;">{{ storyNote }}</p>
+            </sc-if>
+            <sc-for list="{{ storyBlocks }}" as="b">
+              <sc-if value="{{ b.isP }}"><p style="font-family:'Shippori Mincho',serif;font-size:16px;line-height:2.05;color:#33333b;margin:0 0 18px;">{{ b.t }}</p></sc-if>
+              <sc-if value="{{ b.isQ }}"><blockquote style="margin:22px 0;padding:14px 20px;border-left:3px solid #5b3a8f;background:rgba(91,58,143,.04);font-family:'Shippori Mincho',serif;font-size:16px;line-height:1.9;color:#4a4a52;">{{ b.t }}</blockquote></sc-if>
+            </sc-for>
+            <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 12px;">■ 誓約・行動を選択</p>
+            <sc-for list="{{ storyChoices }}" as="c">
+              <button onClick="{{ c.go }}" style="display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:9px;border:1px solid rgba(43,43,51,.3);border-radius:4px;background:#fff;cursor:pointer;font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;color:#33333b;">{{ c.num }}　{{ c.pre }}<span style="color:#5b3a8f;font-weight:700;">{{ c.skillText }}</span>{{ c.post }} <span style="float:right;color:#5b3a8f;font-weight:700;">{{ c.dcLabel }}</span></button>
+            </sc-for>
+            <div style="margin-top:24px;height:5px;border-radius:2px;background:rgba(43,43,51,.1);overflow:hidden;"><div style="width:{{ storyPct }}%;height:100%;background:#5b3a8f;"></div></div>
+            <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:#a09a88;margin:7px 0 0;">{{ storyPctLabel }}</p>
+            <sc-if value="{{ storyCanRestart }}">
+              <p style="text-align:center;margin:16px 0 0;"><button onClick="{{ storyRestart }}" style="border:0;background:transparent;color:#a09a88;font-size:11px;letter-spacing:2px;cursor:pointer;text-decoration:underline;font-family:'Zen Kaku Gothic New',sans-serif;">経緯書を最初から書き直す</button></p>
+            </sc-if>
           </div>
         </sc-if>
 
@@ -268,12 +307,17 @@
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
               <div>
                 <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 11px;">■ 進行中の案件</p>
-                <div style="padding:11px 13px;border:2px solid #5b3a8f;border-radius:4px;margin-bottom:8px;background:rgba(91,58,143,.04);"><div style="font-size:14px;font-weight:700;color:#2b2b33;">会議室C全焼の査問 <span style="font-size:10px;color:#5b3a8f;">進行中</span></div></div>
-                <div style="padding:11px 13px;border:1px solid rgba(43,43,51,.25);border-radius:4px;margin-bottom:8px;background:#faf8f3;"><div style="font-size:14px;color:#7a7668;">ノワールの試用期間 面談</div></div>
-                <div style="padding:11px 13px;border:1px solid rgba(43,43,51,.25);border-radius:4px;background:#faf8f3;"><div style="font-size:14px;color:#7a7668;">期末考課 ・ ボーナス査定</div></div>
+                <sc-for list="{{ gmScenes }}" as="gs">
+                  <button onClick="{{ gs.go }}" style="display:block;width:100%;text-align:left;padding:11px 13px;border:{{ gs.border }};border-radius:4px;margin-bottom:8px;background:{{ gs.bg }};cursor:pointer;"><span style="font-size:14px;font-weight:{{ gs.weight }};color:{{ gs.color }};">{{ gs.t }} <span style="font-size:10px;color:#5b3a8f;">{{ gs.tag }}</span></span></button>
+                </sc-for>
                 <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:20px 0 10px;">■ 全社「うっかり」警戒度</p>
-                <div style="height:9px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:52%;height:100%;background:linear-gradient(90deg,#3d8a5f,#c43c3c);"></div></div>
+                <div style="height:9px;border-radius:2px;background:rgba(43,43,51,.08);overflow:hidden;"><div style="width:{{ keikai }}%;height:100%;background:linear-gradient(90deg,#3d8a5f,#c43c3c);"></div></div>
                 <p style="font-size:11px;color:#a09a88;margin:6px 0 0;">満ちると「全社防災訓練（本番）」イベントが発生。</p>
+                <div style="display:flex;align-items:center;gap:9px;margin-top:8px;">
+                  <button onClick="{{ keikaiMinus }}" style="width:24px;height:24px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#7a7668;cursor:pointer;font-size:13px;line-height:1;">−</button>
+                  <span style="font-size:12px;letter-spacing:1px;color:#7a7668;">{{ keikai }}%</span>
+                  <button onClick="{{ keikaiPlus }}" style="width:24px;height:24px;border:1px solid rgba(43,43,51,.25);border-radius:3px;background:#fff;color:#7a7668;cursor:pointer;font-size:13px;line-height:1;">＋</button>
+                </div>
               </div>
               <div>
                 <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:0 0 11px;">■ 人物 ・ 秘匿情報</p>
@@ -281,6 +325,10 @@
                 <div style="border:1px solid rgba(43,43,51,.25);border-radius:4px;padding:11px 13px;background:#faf8f3;"><div style="font-size:14px;font-weight:700;color:#2b2b33;">ぷに男（スライム課・監査役）</div><div style="font-size:12px;color:#7a7668;margin-top:2px;">実は先代魔王の転生体。今の会社が、わりと気に入っている。</div></div>
                 <p style="font-size:11px;letter-spacing:3px;color:#5b3a8f;font-weight:700;margin:20px 0 10px;">■ 社内ハプニング表（d6）</p>
                 <div style="font-size:13px;color:#4a4a52;line-height:1.9;">1–2 火災報知器の誤作動（誤りとは限らない） ・ 3 複合機が呪いを吐く<br>4 取締役の抜き打ち視察 ・ 5 差入れの到着（士気+1） ・ 6 くしゃみの予感</div>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:10px;">
+                  <button onClick="{{ rollTable }}" style="padding:7px 16px;border:2px solid #5b3a8f;border-radius:3px;background:#5b3a8f;color:#f2f0ea;cursor:pointer;font-weight:700;font-size:12px;letter-spacing:1px;">ハプニング表を振る</button>
+                  <sc-if value="{{ gmHasTable }}"><span style="font-size:13px;color:#5b3a8f;">出目 {{ gmTableD }} ・ {{ gmTableText }}</span></sc-if>
+                </div>
               </div>
             </div>
           </div>
@@ -484,6 +532,569 @@ class Component extends DCLogic {
     };
   }
 }
+
+/*
+ * 全作品共通のゲームエンジン。ダイス・d20判定・localStorage 永続化と、
+ * シェル（DCLogic コンポーネント）へのゲーム状態の合流（attach）を担う。
+ * 作品ごとの中身（シナリオ・画面の値）は games/<id>.game.js が window.__GAME__ に定義する。
+ */
+(function () {
+  function rollDie(sides) {
+    return 1 + Math.floor(Math.random() * sides);
+  }
+  function pickKeys(obj, keys) {
+    var o = {};
+    for (var i = 0; i < keys.length; i++) o[keys[i]] = obj[keys[i]];
+    return o;
+  }
+  window.GameEngine = {
+    rollDie: rollDie,
+    clamp: function (v, lo, hi) {
+      return Math.max(lo, Math.min(hi, v));
+    },
+    // d20 判定。20 は大成功、1 は大失敗（出目優先）
+    check: function (mod, dc) {
+      var die = rollDie(20);
+      var total = die + mod;
+      var outcome = die === 20 ? 'crit' : die === 1 ? 'fumble' : total >= dc ? 'success' : 'fail';
+      return { die: die, mod: mod, total: total, dc: dc, outcome: outcome, ok: outcome === 'crit' || outcome === 'success' };
+    },
+    outcomeText: function (outcome) {
+      return { crit: '大成功', success: '成功', fail: '失敗', fumble: '大失敗' }[outcome] || '';
+    },
+    attach: function (app, game) {
+      var key = 'trpg-game-' + game.id;
+      var saved = null;
+      try { saved = JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) {}
+      Object.assign(app.state, game.initialState(), saved || {});
+      if (game.migrate) game.migrate(app.state);
+      var baseRenderVals = app.renderVals.bind(app);
+      app.renderVals = function () {
+        var vals = baseRenderVals();
+        return Object.assign(vals, game.vals(app, vals));
+      };
+      var baseSetState = app.setState.bind(app);
+      app.setState = function (update) {
+        baseSetState(update);
+        try { localStorage.setItem(key, JSON.stringify(pickKeys(app.state, game.persist))); } catch (e) {}
+      };
+      // ゲーム状態のみ初期値へ戻す（device / play / screen は保持）
+      app._resetGame = function () {
+        try { localStorage.removeItem(key); } catch (e) {}
+        Object.assign(app.state, game.initialState());
+        app.render();
+      };
+    },
+  };
+})();
+
+/*
+ * 1g-反省文ドラゴン のゲーム内容。
+ * - 決裁判定: d4〜d100。d20 判定は決裁印を3段階（承認／条件付差戻／差戻）で判定する
+ * - 人事ファイル: 体力（竜格）/ 社会性（人間界適応）/ 上司からの信頼(0-100、閾値でラベルが変わる) の増減
+ * - 査問会議: ボス「呆れゲージ」（0で和解・100で「もういい」）を0まで下げるトラッカー。竜たちは平常心ゲージ
+ * - 添付資料: 「下書き47枚目（本音）」に印をつけられる。印をつけると経緯書終盤の選択肢が変化する
+ * - 経緯書: 分岐シナリオ「会議室Cが全焼するまでの経緯」（社会性ルール・複数エンディング）。
+ *   GM 秘匿（ユーリ課長代理＝竜たちのリストラを止めようとしている）を発見する真ルートあり
+ * - 人事部長室: 案件切替・全社「うっかり」警戒度・社内ハプニング表 d6
+ */
+(function () {
+  var E = null;
+  function eng() { return E || (E = window.GameEngine); }
+
+  var TAI_MAX = 92, SHAKAI_MAX = 20;
+
+  var SKILLS = [
+    { name: '謝罪文の口述', mod: 4 },
+    { name: '菓子折り選定', mod: 6 },
+    { name: 'ハンコをまっすぐ押す', mod: -3 },
+    { name: '誠意', mod: 3 },
+    { name: '堪忍袋', mod: -2 },
+  ];
+  var DICE_SIDES = [4, 6, 8, 10, 12, 20, 100];
+
+  // 決裁印: 3段階（承認／条件付差戻／差戻）。出目20は特別評価、出目1は大目玉
+  function stampInfo(r) {
+    if (r.die === 20) return { word: '承認', color: '#2f7a4f', bg: 'rgba(47,122,79,.05)', verdict: '＝ ' + r.total + ' ・ 承認（再発防止策が具体的、と評判に）' };
+    if (r.outcome === 'fumble') return { word: '差戻', color: '#c43c3c', bg: 'rgba(196,60,60,.04)', verdict: '＝ ' + r.total + ' ・ 差戻（大目玉つき）' };
+    if (r.total >= r.dc) return { word: '承認', color: '#2f7a4f', bg: 'rgba(47,122,79,.05)', verdict: '＝ ' + r.total + ' ・ 承認' };
+    if (r.total >= r.dc - 3) return { word: '条件付差戻', color: '#b58a1f', bg: 'rgba(181,138,31,.04)', verdict: '＝ ' + r.total + ' ・ 惜しい。「反省の具体性が不足」との付箋つき' };
+    return { word: '差戻', color: '#c43c3c', bg: 'rgba(196,60,60,.04)', verdict: '＝ ' + r.total + ' ・ 差戻' };
+  }
+
+  function trustInfo(v) {
+    if (v >= 67) return { label: '良好', color: '#2f7a4f' };
+    if (v >= 34) return { label: '回復中', color: '#b58a1f' };
+    return { label: '低下中', color: '#c43c3c' };
+  }
+
+  var COMBATANTS = [
+    { key: 'hpVoruga', name: 'ヴォルガ', init: 18, max: 30, tokenBorder: '#c45a2a', tokenPat: 'rgba(196,90,42,.14)', tags: [{ t: '菓子折り所持（虎屋）', bg: 'rgba(61,138,95,.12)', color: '#3d8a5f', anim: '' }, { t: '鼻から微煙', bg: 'rgba(196,60,60,.1)', color: '#c43c3c', anim: 'animation:smolder 2s ease-in-out infinite;' }] },
+    { key: 'hpGlacie', name: 'グラキエ', init: 14, max: 28, tokenBorder: '#5b7fa8', tokenPat: 'rgba(91,127,168,.14)', tags: [{ t: '議事録係（正確無比）', bg: 'rgba(91,127,168,.12)', color: '#5b7fa8', anim: '' }] },
+    { key: 'hpNoir', name: 'ノワール', init: 9, max: 24, tokenBorder: '#5b3a8f', tokenPat: 'rgba(91,58,143,.14)', tags: [{ t: '緊張で実体化が不安定', bg: 'rgba(196,60,60,.1)', color: '#c43c3c', anim: '' }] },
+  ];
+
+  var GM_TABLE = ['火災報知器の誤作動（誤りとは限らない）', '火災報知器の誤作動（誤りとは限らない）', '複合機が呪いを吐く', '取締役の抜き打ち視察', '差入れの到着（士気+1）', 'くしゃみの予感'];
+  var GM_SCENES = ['会議室C全焼の査問', 'ノワールの試用期間 面談', '期末考課 ・ ボーナス査定'];
+
+  var HONNE_TEXT = '最後の一枚にだけ、本音が書かれている。「本当は、皆で使うあの会議室が、嫌いではなかった」——提出用には使えない。しかし、これがいちばん誠意かもしれない。';
+  var HONNE_TEXT_MARKED = '角に小さく付箋が貼られた。「提出候補」。本音を正式な書類として出すかどうかは、まだ決めていない。それでも、その選択肢は確かにここにある。';
+
+  // ─────────────────────────────────────────────
+  // シナリオ「会議室Cが全焼するまでの経緯」（経緯書 様式第9号 別紙）
+  // fx: tai / shakai / trust / flags / taiSet / shakaiSet
+  // ─────────────────────────────────────────────
+  var NODES = {
+    g1: {
+      kicker: '経緯書 ・ 様式第9号 別紙', title: '会議室Cが全焼するまでの経緯', pct: 78,
+      text: [
+        '一、当日午後二時、私は会議室Cにて「コスト削減施策」の説明を受けておりました。二、資料は42ページに及び、私は誠実に聞いておりました。三、38ページ目「暖房費の削減について——冬期は各自の吐息で暖を取ること」の項に至り、私は深く感銘を受け、実演を試みました。',
+        '四、私の吐息は摂氏千二百度でした。五、以後の記憶は煙とともにあります。六、なお、スプリンクラーは正常に作動しましたが、私の火は水で消えるものではございません。七、消火はグラキエ主任の吹雪により完了しました（同主任の給湯室凍結は、この際の余波です。彼女に非はありません）。',
+        { q: '反省とは、燃やした事実を認めることではない。燃やさずに済んだ未来を、具体的に書くことである。' },
+        '八、再発防止策として、以下のいずれかを誓約いたします。',
+      ],
+      choices: [
+        { num: '①', pre: '感銘を受けても実演しない ', skillText: '堪忍袋判定', check: { name: '堪忍袋', mod: -2, dc: 16 }, success: 'g2a', fail: 'g2b' },
+        { num: '②', pre: '会議はすべて屋外（採石場）で行うことを提案する', to: 'g2c' },
+        { num: '③', pre: '下書き47枚目（本音）を、そのまま提出する', to: 'g2d' },
+      ],
+    },
+    g2a: {
+      kicker: '経緯書 ・ 別紙二', title: '自制の誓い', pct: 82, fx: { flags: { selfControl: 1 } },
+      text: [
+        '感銘を受けても実演しない——書きながら、自分でも笑ってしまいそうになった。だが誓約は誓約だ。ペンを握る手（正確には爪）に、いつもより力がこもる。',
+        'グラキエが議事録の隅に、小さく花丸をつけてくれた。',
+      ],
+      choices: [{ pre: '決裁を待つ', to: 'g3' }],
+    },
+    g2b: {
+      kicker: '経緯書 ・ 別紙二', title: '抑えきれない衝動', pct: 80, fx: { shakai: -1 },
+      text: [
+        '誓約を書こうとした瞬間、また38ページ目の暖房費削減案を思い出し、鼻先が熱くなった。すんでのところで隣のノワールが影で覆って事なきを得た。（社会性 −1）',
+        '「先輩、息を止めてください、息を」後輩に窘められる元・四天王。',
+      ],
+      choices: [{ pre: '決裁を待つ', to: 'g3' }],
+    },
+    g2c: {
+      kicker: '経緯書 ・ 別紙二', title: '採石場提案', pct: 81, fx: { flags: { proposedOutdoor: 1 } },
+      text: [
+        '「会議はすべて採石場で」——我ながら名案だと思ったが、書きながら人事部の反応が想像できてしまい、少し恥ずかしくなった。それでも消さずに提出することにする。',
+        '実現すれば、火を吹いても誰も困らない。理屈は通っている、はずだ。',
+      ],
+      choices: [{ pre: '決裁を待つ', to: 'g3' }],
+    },
+    g2d: {
+      kicker: '経緯書 ・ 別紙二', title: '本音のまま', pct: 83, fx: { flags: { honneSubmitted: 1 } },
+      text: [
+        '型通りの反省文をやめ、47枚目の本音——「本当は、皆で使うあの会議室が、嫌いではなかった」——を、そのまま清書することにした。手が震える。これは、提出用の文体ではない。',
+        'それでも、いちばん本当のことだった。',
+      ],
+      choices: [{ pre: '決裁を待つ', to: 'g3' }],
+    },
+    g3: {
+      kicker: '経緯書 ・ 別紙三', title: '決裁を待つ間', pct: 85,
+      text: [
+        '始末書は総務部の窓口を通り、査問会議の議題として上がった。控室で待つ間、ぷに男がそっとお茶を置いていってくれる。',
+        'ユーリ課長代理の机の上、書類の山がやけに高いことに、ふと気づいた。',
+      ],
+      choices: [
+        { pre: '本音の下書きにも印をつけていたなら、参考資料として添える', to: 'g4a', if: function (st) { return st.flags.honneMarked; } },
+        { pre: 'ユーリ課長代理の様子を、それとなく ', skillText: '探る', check: { name: '誠意', mod: 3, dc: 13 }, success: 'g4hint', fail: 'g4blocked' },
+        { pre: '何も詮索せず、このまま決裁を待つ', to: 'g4wait' },
+      ],
+    },
+    g4a: {
+      kicker: '経緯書 ・ 別紙三', title: '添えられた本音', pct: 88, fx: { flags: { addedHonne: 1 } },
+      text: [
+        '本音の下書きを、参考資料として添えた。ユーリ課長代理はそれをゆっくりと読み、机の書類の山を——普段は見せない角度で——少しだけ隠すように動かした。',
+        '「……いいものを、添えてくれた」その声に、いつもの厳しさとは違う響きがあった。',
+      ],
+      choices: [{ pre: '査問会議へ向かう', to: 'g5' }],
+    },
+    g4hint: {
+      kicker: '経緯書 ・ 別紙三', title: '書類の山', pct: 87, fx: { flags: { sensedBurden: 1 } },
+      text: [
+        '何気なく机を見ると、見覚えのある書式——始末書ではなく、上申書の束——が高く積まれている。表題には「配置転換の是非について」。付箋には「却下」の判が、繰り返し押されていた。',
+        'それ以上は聞けなかったが、何かを抱えているのだと、はっきり分かった。',
+      ],
+      choices: [{ pre: '査問会議へ向かう', to: 'g5' }],
+    },
+    g4blocked: {
+      kicker: '経緯書 ・ 別紙三', title: '踏み込めない', pct: 86, fx: { shakai: -1 },
+      text: [
+        '探ろうとしたが、ユーリ課長代理はさっと書類を伏せ、いつもの表情に戻ってしまった。「査問は3時からです」壁は厚い。（社会性 −1）',
+      ],
+      choices: [{ pre: '査問会議へ向かう', to: 'g5' }],
+    },
+    g4wait: {
+      kicker: '経緯書 ・ 別紙三', title: '静かに待つ', pct: 86,
+      text: [
+        '詮索せず、大人しくお茶を飲んで待った。ぷに男が横で、うんうんと相槌を打ってくれる。それだけで少し、心が落ち着いた。',
+      ],
+      choices: [{ pre: '査問会議へ向かう', to: 'g5' }],
+    },
+    g5: {
+      kicker: '経緯書 ・ 別紙四', title: '査問会議、最終弁明', pct: 95,
+      text: [
+        'ユーリ課長代理が始末書を閉じ、こちらをまっすぐ見た。「では、最後に一言どうぞ」呆れゲージの針が、判断を待つように揺れている。',
+      ],
+      choices: [
+        { pre: '「課長代理も、大変なんですね」と、初めて労いの言葉をかける', to: 'Et_true', if: function (st) { return st.flags.sensedBurden || st.flags.addedHonne; } },
+        { pre: '本音を貫き通し、飾らない言葉で気持ちを伝える', to: 'Et_honest', if: function (st) { return st.flags.honneSubmitted; } },
+        { pre: '型通り、深く頭を下げて反省の意を示す', to: 'Et_standard' },
+        { pre: '開き直り、「四天王だったのだから多少はね」と啖呵を切る ', skillText: '堪忍袋', check: { name: '堪忍袋', mod: -2, dc: 15 }, success: 'Et_defiant_win', fail: 'Et_fired_risk' },
+      ],
+    },
+    Et_true: {
+      kicker: '経緯書 ・ 結', title: '労いの一言', pct: 100, end: true, fx: { trust: 20, shakai: 2 },
+      text: [
+        'ユーリ課長代理の手が止まった。「……分かってしまいましたか」彼は苦笑して、判子を「承認」の位置で止めた。「君たちの雇用を守るための書類仕事も、また別の始末書のようなものです」',
+        '呆れゲージがすっと下がっていく。査問会議は、いつもより少しだけ、あたたかい空気で終わった。（上司からの信頼 ＋20 ・ 社会性 ＋2）',
+      ],
+      choices: [],
+    },
+    Et_honest: {
+      kicker: '経緯書 ・ 結', title: '飾らない言葉', pct: 100, end: true, fx: { trust: 12, shakai: 1 },
+      text: [
+        '「会議室が、嫌いじゃなかった」その一言に、査問会議の空気が緩んだ。ユーリ課長代理は珍しく声を出して笑った。「始末書にそれを書く勇気があるなら、次はもう少し器物損壊を控えてくれると助かります」',
+        '型は破ったが、心証はむしろ良かったらしい。（上司からの信頼 ＋12 ・ 社会性 ＋1）',
+      ],
+      choices: [],
+    },
+    Et_standard: {
+      kicker: '経緯書 ・ 結', title: '型通りの反省', pct: 100, end: true, fx: { trust: 6 },
+      text: [
+        '深く頭を下げ、型通りの反省の意を示した。無難で、手堅い。ユーリ課長代理は静かに頷き、判子を押した。「今回は、これで良しとします」',
+        '劇的な進展はないが、着実な一歩ではあった。（上司からの信頼 ＋6）',
+      ],
+      choices: [],
+    },
+    Et_defiant_win: {
+      kicker: '経緯書 ・ 結', title: '啖呵が通った', pct: 100, end: true, fx: { trust: 4, shakai: -2 },
+      text: [
+        '「四天王だったのだから多少はね」——場が凍りつく中、なぜかぷに男が「たしかに」と頷いたことで、空気が笑いに変わった。ユーリ課長代理も呆れ半分で判子を押す。',
+        '社会性は明らかに損なわれたが、妙な貫禄だけは示せた夜だった。（上司からの信頼 ＋4 ・ 社会性 −2）',
+      ],
+      choices: [],
+    },
+    Et_fired_risk: {
+      kicker: '経緯書 ・ 結', title: '啖呵が滑った', pct: 100, end: true, fx: { trust: -15, shakai: -3 },
+      text: [
+        '啖呵は静まり返った会議室に、虚しく響いた。ユーリ課長代理はこめかみを押さえ、無言で「差戻」の判を押した。呆れゲージが跳ね上がる。',
+        '「会議室Dの予約、念のため確認しておきます」総務の誰かが呟いた。（上司からの信頼 −15 ・ 社会性 −3）',
+      ],
+      choices: [],
+    },
+    E_faint: {
+      kicker: '経緯書 ・ 結', title: '査問会議で気絶', pct: 100, end: true, fx: { taiSet: 1 },
+      text: [
+        '緊張と疲労で、ついに意識を失った。目覚めるとグラキエの氷嚢が額に乗っている。「体力（竜格）にも限度があるのよ」',
+        '始末書は、後日改めて提出することになった。（体力 1 で目覚める）',
+      ],
+      choices: [],
+    },
+    E_feral: {
+      kicker: '経緯書 ・ 結', title: '人間界不適合、判定', pct: 100, end: true, fx: { shakaiSet: 5 },
+      text: [
+        '社会性が底を尽き、思わず本性のまま吼えてしまった。会議室の窓ガラスが震える。ユーリ課長代理は慌てず、静かに窓を開けた。「深呼吸を。人間界研修、また受け直しましょうか」',
+        '始末書どころではなくなったが、見捨てられはしなかった。（社会性 5 まで底上げされ再開）',
+      ],
+      choices: [],
+    },
+  };
+
+  var END_CHOICES = [
+    { pre: '経緯書を最初から書き直す', restart: true },
+    { pre: '総務受付の間へ戻る', top: true },
+  ];
+
+  // ─────────────────────────────────────────────
+
+  function initialState() {
+    return {
+      diceSides: 20, skillIdx: 3, diceDc: 14,
+      lastRoll: { kind: 'check', die: 9, mod: 4, total: 13, dc: 14, outcome: 'fail', skillName: '誠意' },
+      rollLog: [
+        { left: 'ヴォルガ ・ 会議室焼失の件（3度目）', right: '13 ／ 条件付差戻', color: '#b58a1f' },
+        { left: 'グラキエ ・ 給湯室を凍結させた件', right: '18 ／ 承認（再発防止策が具体的）', color: '#2f7a4f' },
+        { left: 'ノワール ・ 影で先輩を驚かせた件', right: '2 ／ 差戻（反省文が呪文で書かれていた）', color: '#c43c3c' },
+      ],
+      tai: 88, shakai: 6, trust: 41,
+      hpVoruga: 22, hpGlacie: 26, hpNoir: 11, akire: 64,
+      kai: 1, turnIdx: 0,
+      items: { honneMarked: 0 },
+      flags: {},
+      storyNode: 'g1', storyNote: null, storyNoteColor: '#7a7668',
+      gmScene: 0, keikai: 52, gmTable: null,
+    };
+  }
+
+  function pushLog(st, left, right, color) {
+    st.rollLog = [{ left: left, right: right, color: color }].concat(st.rollLog).slice(0, 10);
+  }
+
+  function applyFx(st, fx, patch) {
+    if (!fx) return;
+    function get(k) { return k in patch ? patch[k] : st[k]; }
+    if (fx.tai) patch.tai = eng().clamp(get('tai') + fx.tai, 0, TAI_MAX);
+    if (fx.taiSet != null) patch.tai = fx.taiSet;
+    if (fx.shakai) patch.shakai = eng().clamp(get('shakai') + fx.shakai, 0, SHAKAI_MAX);
+    if (fx.shakaiSet != null) patch.shakai = fx.shakaiSet;
+    if (fx.trust) patch.trust = eng().clamp(get('trust') + fx.trust, 0, 100);
+    if (fx.flags) patch.flags = Object.assign({}, get('flags'), fx.flags);
+  }
+
+  window.__GAME__ = {
+    id: '1g',
+    initialState: initialState,
+    persist: [
+      'diceSides', 'skillIdx', 'diceDc', 'lastRoll', 'rollLog',
+      'tai', 'shakai', 'trust', 'hpVoruga', 'hpGlacie', 'hpNoir', 'akire', 'kai', 'turnIdx',
+      'items', 'flags', 'storyNode', 'storyNote', 'storyNoteColor',
+      'gmScene', 'keikai', 'gmTable',
+    ],
+    migrate: function (st) {
+      var init = initialState();
+      if (!NODES[st.storyNode]) { st.storyNode = 'g1'; st.storyNote = null; st.flags = {}; }
+      st.items = Object.assign({}, init.items, st.items || {});
+      st.flags = st.flags || {};
+      if (!Array.isArray(st.rollLog)) st.rollLog = init.rollLog;
+    },
+
+    vals: function (app) {
+      var st = app.state;
+      var E = eng();
+      var out = {};
+
+      // ── 総務受付 ──
+      out.goStory = function () { app.setState({ screen: 'story' }); };
+
+      // ── 人事ファイル ──
+      out.tai = st.tai;
+      out.taiPct = Math.round((st.tai / TAI_MAX) * 100);
+      out.shakai = st.shakai;
+      out.shakaiPct = Math.round((st.shakai / SHAKAI_MAX) * 100);
+      var ti = trustInfo(st.trust);
+      out.trust = st.trust;
+      out.trustLabel = ti.label;
+      out.trustColor = ti.color;
+      out.taiUp = function () { app.setState({ tai: E.clamp(st.tai + 1, 0, TAI_MAX) }); };
+      out.taiDown = function () { app.setState({ tai: E.clamp(st.tai - 1, 0, TAI_MAX) }); };
+      out.shakaiUp = function () { app.setState({ shakai: E.clamp(st.shakai + 1, 0, SHAKAI_MAX) }); };
+      out.shakaiDown = function () { app.setState({ shakai: E.clamp(st.shakai - 1, 0, SHAKAI_MAX) }); };
+      out.trustUp = function () { app.setState({ trust: E.clamp(st.trust + 5, 0, 100) }); };
+      out.trustDown = function () { app.setState({ trust: E.clamp(st.trust - 5, 0, 100) }); };
+
+      // ── 決裁判定 ──
+      var isCheck = st.diceSides === 20;
+      var skill = SKILLS[st.skillIdx] || SKILLS[0];
+      out.diceIsCheck = isCheck;
+      out.diceHead = isCheck ? '■ ' + skill.name + '判定 ・ 決裁基準 ' + st.diceDc : 'd' + st.diceSides + ' を振る';
+      out.dcMinus = function () { app.setState({ diceDc: E.clamp(st.diceDc - 1, 2, 30) }); };
+      out.dcPlus = function () { app.setState({ diceDc: E.clamp(st.diceDc + 1, 2, 30) }); };
+      var lr = st.lastRoll;
+      if (!lr) {
+        out.diceFace = '—'; out.stampWord = ''; out.diceFormula = 'まだ決裁に回していない'; out.diceVerdict = ''; out.stampColor = '#7a7668'; out.stampBg = '#fff';
+      } else if (lr.kind === 'check') {
+        var si = stampInfo(lr);
+        out.diceFace = lr.die;
+        out.stampWord = si.word;
+        out.diceFormula = 'd20 ＝ ' + lr.die + ' ＋ ' + lr.skillName + ' ' + lr.mod;
+        out.diceVerdict = si.verdict;
+        out.stampColor = si.color;
+        out.stampBg = si.bg;
+      } else {
+        out.diceFace = lr.value;
+        out.stampWord = '出目';
+        out.diceFormula = 'd' + lr.sides + ' の出目';
+        out.diceVerdict = '＝ ' + lr.value;
+        out.stampColor = '#7a7668';
+        out.stampBg = '#fff';
+      }
+      out.diceTypes = DICE_SIDES.map(function (s) {
+        var sel = s === st.diceSides;
+        return {
+          label: 'd' + s,
+          go: function () { app.setState({ diceSides: s }); },
+          border: sel ? '2px solid #5b3a8f' : '1px solid rgba(43,43,51,.25)',
+          color: sel ? '#5b3a8f' : '#7a7668',
+          bg: sel ? 'rgba(91,58,143,.05)' : '#fff',
+          weight: sel ? '600' : '400',
+        };
+      });
+      out.diceSkills = SKILLS.map(function (sk, i) {
+        var sel = i === st.skillIdx;
+        return {
+          label: sk.name + '（' + (sk.mod >= 0 ? '+' + sk.mod : sk.mod) + '）',
+          go: function () { app.setState({ skillIdx: i }); },
+          border: sel ? '1px solid #5b3a8f' : '1px solid rgba(43,43,51,.25)',
+          color: sel ? '#5b3a8f' : '#7a7668',
+          bg: sel ? 'rgba(91,58,143,.05)' : '#fff',
+        };
+      });
+      out.rollNow = function () {
+        if (st.diceSides === 20) {
+          var r = E.check(skill.mod, st.diceDc);
+          var si = stampInfo(r);
+          pushLog(st, 'ヴォルガ ・ ' + skill.name, r.total + ' ／ ' + si.word, si.color);
+          app.setState({ lastRoll: { kind: 'check', die: r.die, mod: r.mod, total: r.total, dc: r.dc, outcome: r.outcome, ok: r.ok, skillName: skill.name }, rollLog: st.rollLog });
+        } else {
+          var v = E.rollDie(st.diceSides);
+          pushLog(st, 'ヴォルガ ・ d' + st.diceSides, v + ' ／ 出目', '#7a7668');
+          app.setState({ lastRoll: { kind: 'plain', sides: st.diceSides, value: v }, rollLog: st.rollLog });
+        }
+      };
+      out.logRows = st.rollLog;
+
+      // ── 査問会議 ──
+      out.kaiTitle = '査問会議 ・ 第' + st.kai + '回 弁明';
+      out.akire = st.akire;
+      out.akireUp1 = function () { app.setState({ akire: E.clamp(st.akire + 1, 0, 100) }); };
+      out.akireUp5 = function () { app.setState({ akire: E.clamp(st.akire + 5, 0, 100) }); };
+      out.akireDown1 = function () { app.setState({ akire: E.clamp(st.akire - 1, 0, 100) }); };
+      out.akireDown5 = function () { app.setState({ akire: E.clamp(st.akire - 5, 0, 100) }); };
+      out.retea = function () {
+        var patch = {};
+        COMBATANTS.forEach(function (c) { patch[c.key] = E.clamp(st[c.key] + 2, 0, c.max); });
+        app.setState(patch);
+      };
+      function aliveIdx(from) {
+        for (var i = 1; i <= COMBATANTS.length; i++) {
+          var idx = (from + i) % COMBATANTS.length;
+          if (st[COMBATANTS[idx].key] > 0) return idx;
+        }
+        return from;
+      }
+      out.nextTurn = function () {
+        var next = aliveIdx(st.turnIdx);
+        var patch = { turnIdx: next };
+        if (next <= st.turnIdx) patch.kai = st.kai + 1;
+        app.setState(patch);
+      };
+      out.combatants = COMBATANTS.map(function (c, i) {
+        var hp = st[c.key];
+        var dead = hp <= 0;
+        var active = i === st.turnIdx && !dead;
+        var tags = dead ? [{ t: '退室（休憩室へ）', bg: 'rgba(196,60,60,.1)', color: '#c43c3c', anim: '' }] : c.tags;
+        function adj(d) {
+          return function () {
+            var patch = {};
+            patch[c.key] = E.clamp(hp + d, 0, c.max);
+            app.setState(patch);
+          };
+        }
+        return {
+          name: c.name, init: c.init, hp: hp, max: c.max,
+          pct: Math.round((hp / c.max) * 100),
+          side: active ? '弁明中' : '',
+          border: active ? '2px solid #c45a2a' : '1px solid rgba(43,43,51,.2)',
+          bg: active ? 'rgba(196,90,42,.04)' : '#faf8f3',
+          op: dead ? '.6' : '1',
+          initBg: active ? '#c45a2a' : 'rgba(43,43,51,.1)',
+          initColor: active ? '#fff' : '#4a4a52',
+          tokenBorder: c.tokenBorder, tokenPat: c.tokenPat,
+          hasTags: tags.length > 0, tags: tags,
+          dmg5: adj(-5), dmg1: adj(-1), heal1: adj(1), heal5: adj(5),
+        };
+      });
+
+      // ── 添付資料 ──
+      out.honneUnmarked = !st.items.honneMarked;
+      out.honneText = st.items.honneMarked ? HONNE_TEXT_MARKED : HONNE_TEXT;
+      out.markHonne = function () {
+        var items = Object.assign({}, st.items);
+        items.honneMarked = 1;
+        app.setState({ items: items, flags: Object.assign({}, st.flags, { honneMarked: 1 }) });
+      };
+
+      // ── 経緯書 ──
+      var node = NODES[st.storyNode] || NODES.g1;
+      out.storyKicker = node.kicker;
+      out.storyTitle = node.title;
+      out.storyBlocks = node.text.map(function (b) {
+        return typeof b === 'string' ? { isP: true, isQ: false, t: b } : { isP: false, isQ: true, t: b.q };
+      });
+      out.storyHasNote = !!st.storyNote;
+      out.storyNote = st.storyNote || '';
+      out.storyNoteColor = st.storyNoteColor || '#7a7668';
+      out.storyPct = node.pct;
+      out.storyPctLabel = node.end
+        ? '経緯書 提出完了 ・ 査問結審'
+        : '経緯書 進捗' + node.pct + '% ・ 提出期限まで あと' + Math.max(0, Math.round((100 - node.pct) / 10)) + '0分';
+      out.storyCanRestart = st.storyNode !== 'g1';
+      out.storyRestart = function () { app._resetGame(); };
+
+      function choose(c) {
+        return function () {
+          var patch = { storyNote: null, storyNoteColor: '#7a7668' };
+          var target = c.to;
+          if (c.check) {
+            var dc = typeof c.check.dc === 'function' ? c.check.dc(st) : c.check.dc;
+            var r = E.check(c.check.mod, dc);
+            patch.storyNote = c.check.name + '判定 — d20〈' + r.die + '〉＋' + r.mod + ' ＝ ' + r.total + ' ／ 難度' + dc + ' ・ ' + (r.ok ? '成功' : '失敗');
+            patch.storyNoteColor = r.ok ? '#2f7a4f' : '#c43c3c';
+            pushLog(st, 'ヴォルガ ・ ' + c.check.name + '（経緯書）', r.total + ' ／ ' + (r.ok ? '成功' : '失敗'), r.ok ? '#2f7a4f' : '#c43c3c');
+            patch.rollLog = st.rollLog;
+            target = r.ok ? c.success : c.fail;
+          }
+          var nextNode = NODES[target];
+          applyFx(st, nextNode.fx, patch);
+          var taiNow = 'tai' in patch ? patch.tai : st.tai;
+          var shakaiNow = 'shakai' in patch ? patch.shakai : st.shakai;
+          if (taiNow <= 0 && !nextNode.end) {
+            target = 'E_faint';
+            applyFx(st, NODES.E_faint.fx, patch);
+          } else if (shakaiNow <= 0 && !nextNode.end) {
+            target = 'E_feral';
+            applyFx(st, NODES.E_feral.fx, patch);
+          }
+          patch.storyNode = target;
+          app.setState(patch);
+        };
+      }
+      var defs = node.end ? END_CHOICES : node.choices;
+      out.storyChoices = defs.filter(function (c) {
+        return !c.if || c.if(st);
+      }).map(function (c) {
+        var dc = c.check ? (typeof c.check.dc === 'function' ? c.check.dc(st) : c.check.dc) : null;
+        return {
+          num: c.num || '', pre: c.pre, skillText: c.skillText || '', post: c.post || '',
+          dcLabel: dc != null ? '難度' + dc : '',
+          go: c.restart ? function () { app._resetGame(); }
+            : c.top ? function () { app.setState({ screen: 'top' }); }
+            : choose(c),
+        };
+      });
+
+      // ── 人事部長室 ──
+      out.gmScenes = GM_SCENES.map(function (t, i) {
+        var active = i === st.gmScene;
+        return {
+          t: t, tag: active ? '進行中' : '',
+          go: function () { app.setState({ gmScene: i }); },
+          border: active ? '2px solid #5b3a8f' : '1px solid rgba(43,43,51,.25)',
+          bg: active ? 'rgba(91,58,143,.04)' : '#faf8f3',
+          color: active ? '#2b2b33' : '#7a7668',
+          weight: active ? '700' : '400',
+        };
+      });
+      out.keikai = st.keikai;
+      out.keikaiMinus = function () { app.setState({ keikai: E.clamp(st.keikai - 5, 0, 100) }); };
+      out.keikaiPlus = function () { app.setState({ keikai: E.clamp(st.keikai + 5, 0, 100) }); };
+      out.gmHasTable = !!st.gmTable;
+      out.gmTableD = st.gmTable ? st.gmTable.d : '';
+      out.gmTableText = st.gmTable ? st.gmTable.text : '';
+      out.rollTable = function () {
+        var d = E.rollDie(6);
+        var text = GM_TABLE[d - 1];
+        pushLog(st, '人事部長 ・ 社内ハプニング表', d + ' ／ ' + text, '#5b3a8f');
+        app.setState({ gmTable: { d: d, text: text }, rollLog: st.rollLog });
+      };
+
+      return out;
+    },
+  };
+})();
 
 window.__dcApp = new Component();
 if (typeof GameEngine !== 'undefined' && window.__GAME__) GameEngine.attach(window.__dcApp, window.__GAME__);
